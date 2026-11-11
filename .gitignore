@@ -1,0 +1,31 @@
+# Dependencias y compilación
+node_modules/
+dist/
+.astro/
+
+# Adaptadores y plataformas de despliegue
+.vercel/
+.netlify/
+.wrangler/
+
+# Pruebas y reportes
+playwright-report/
+test-results/
+coverage/
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Registros
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
