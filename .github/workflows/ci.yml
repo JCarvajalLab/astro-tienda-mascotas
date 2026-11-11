@@ -9,29 +9,34 @@ jobs:
   verificar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
+        if: hashFiles('package-lock.json') != ''
         with:
           node-version: 22 # ajustar a la versión LTS vigente al crear el proyecto
           cache: npm
 
+      # Los pasos de npm se ejecutan en cuanto exista package.json en el proyecto.
       - run: npm ci
-
-      # Los scripts "lint", "format:check" y "test" deben existir en package.json.
-      # Con --if-present, si un script aún no existe, el paso se omite sin fallar.
+        if: hashFiles('package-lock.json') != ''
       - run: npm run lint --if-present
+        if: hashFiles('package.json') != ''
       - run: npm run format:check --if-present
+        if: hashFiles('package.json') != ''
       - run: npm run build
+        if: hashFiles('package.json') != ''
       - run: npm test --if-present
+        if: hashFiles('package.json') != ''
 
       # Informativo: no bloquea el PR. Quitar continue-on-error cuando el proyecto esté limpio.
       - run: npm audit --audit-level=high
+        if: hashFiles('package-lock.json') != ''
         continue-on-error: true
 
       - name: Escaneo de secretos
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
