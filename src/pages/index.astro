@@ -13,7 +13,7 @@ const productosDestacados = [
     reviewsCount: 38,
     badge: 'Más Vendido',
     badgeColor:
-      'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+      'bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-300',
     stock: 14,
     description:
       'Fórmula hipoalergénica con Omega 3 y 6 para pelaje brillante y digestión óptima.',
@@ -28,8 +28,7 @@ const productosDestacados = [
     rating: 4.8,
     reviewsCount: 24,
     badge: 'Oferta Especial',
-    badgeColor:
-      'bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-300',
+    badgeColor: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300',
     stock: 6,
     description:
       'Postes forrados en sisal natural resistente, base acolchada y estructura ultra estable.',
@@ -92,7 +91,7 @@ const productosDestacados = [
     reviewsCount: 31,
     badge: 'Seguridad',
     badgeColor:
-      'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+      'bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-300',
     stock: 4,
     description:
       'Distribuye la presión de forma uniforme en el pecho para paseos seguros y sin ahogos.',
@@ -103,39 +102,36 @@ const productosDestacados = [
 const categorias = [
   {
     title: 'Perros',
-    subtitle: 'Nutrición, paseos y diversión',
+    subtitle: 'Nutrición, paseos y confort',
     icon: '🐶',
     count: '120+ productos',
     href: '#perros',
-    gradient:
-      'from-amber-500/10 to-orange-500/10 border-amber-200 dark:border-amber-900/50',
+    gradient: 'border-orange-200 dark:border-stone-800 hover:border-orange-400',
   },
   {
     title: 'Gatos',
-    subtitle: 'Rascadores, arenas y juguetes',
+    subtitle: 'Rascadores, arenas y delicias',
     icon: '🐱',
     count: '95+ productos',
     href: '#gatos',
-    gradient:
-      'from-orange-500/10 to-rose-500/10 border-orange-200 dark:border-orange-900/50',
+    gradient: 'border-rose-200 dark:border-stone-800 hover:border-rose-400',
   },
   {
-    title: 'Aves & Pequeños',
-    subtitle: 'Jaulas, alimento y heno fresco',
-    icon: '🐰',
-    count: '40+ productos',
-    href: '#pequenos',
-    gradient:
-      'from-emerald-500/10 to-teal-500/10 border-emerald-200 dark:border-emerald-900/50',
+    title: 'Accesorios & Confort',
+    subtitle: 'Camas, juguetes y comederos',
+    icon: '🎾',
+    count: '70+ productos',
+    href: '#accesorios',
+    gradient: 'border-amber-200 dark:border-stone-800 hover:border-amber-400',
   },
   {
-    title: 'Salud & Cuidado',
-    subtitle: 'Higiene, antipulgas y vitaminas',
+    title: 'Salud & Higiene',
+    subtitle: 'Antipulgas, aseo y vitaminas',
     icon: '🩺',
     count: '60+ productos',
     href: '#salud',
     gradient:
-      'from-sky-500/10 to-blue-500/10 border-sky-200 dark:border-sky-900/50',
+      'border-emerald-200 dark:border-stone-800 hover:border-emerald-400',
   },
 ];
 
@@ -145,37 +141,40 @@ function formatPrice(amount) {
 ---
 
 <BaseLayout>
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION CON ESTÉTICA LUMINOSA Y CÁLIDA -->
   <section
-    class="relative overflow-hidden bg-gradient-to-b from-amber-50/60 via-white to-stone-50 dark:from-stone-900 dark:via-stone-900/80 dark:to-stone-950 py-16 sm:py-24 border-b border-stone-200/60 dark:border-stone-800"
+    class="relative overflow-hidden bg-gradient-to-b from-orange-50/70 via-amber-50/30 to-white dark:from-stone-900 dark:via-stone-900/80 dark:to-stone-950 py-12 sm:py-20 border-b border-stone-200/60 dark:border-stone-800"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+      >
         <!-- Texto del Hero -->
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
           <div
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-semibold shadow-xs"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100/90 dark:bg-orange-950/70 border border-orange-200 dark:border-orange-800/60 text-orange-900 dark:text-orange-200 text-xs sm:text-sm font-semibold shadow-xs"
           >
-            <span class="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse"
+            <span class="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"
             ></span>
-            <span>Envíos gratis en compras sobre $29.990</span>
+            <span>🇨🇱 Despacho express en todo Chile • Gratis sobre $29.990</span
+            >
           </div>
 
           <h1
-            class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-[1.12]"
+            class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-stone-900 dark:text-white leading-[1.12]"
           >
-            Todo lo que tu mascota necesita para vivir <span
-              class="bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent"
-              >feliz y sana</span
+            Consentir a tu mascota nunca fue tan <span
+              class="text-orange-500 dark:text-orange-400 underline decoration-amber-300 decoration-wavy decoration-2"
+              >fácil y seguro</span
             >.
           </h1>
 
           <p
-            class="text-base sm:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal"
+            class="text-sm sm:text-base lg:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal"
           >
-            Alimentos seleccionados, accesorios ergonómicos y juguetes
-            interactivos diseñados para el bienestar integral de perros, gatos y
-            pequeñas mascotas.
+            Encuentra las mejores marcas de alimentos, accesorios ergonómicos,
+            rascadores y farmacia veterinaria con envíos a tu puerta en 24 a 48
+            horas.
           </p>
 
           <!-- Acciones principales -->
@@ -184,50 +183,50 @@ function formatPrice(amount) {
           >
             <a
               href="#destacados"
-              class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white font-semibold text-base shadow-lg shadow-amber-600/25 hover:shadow-amber-600/35 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-bold text-sm sm:text-base shadow-lg shadow-orange-500/25 hover:shadow-orange-500/35 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 cursor-pointer"
             >
-              Ver Catálogo Completo
+              Explorar Catálogo
             </a>
             <a
               href="#ofertas"
-              class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 border border-stone-300 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-700 font-semibold text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 border border-stone-200 dark:border-stone-700 hover:bg-orange-50 dark:hover:bg-stone-700 hover:text-orange-600 font-semibold text-sm sm:text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 cursor-pointer"
             >
-              Ofertas de la Semana
+              🔥 Ver Ofertas Flash
             </a>
           </div>
 
           <!-- Badges de confianza -->
           <div
-            class="grid grid-cols-3 gap-4 pt-6 border-t border-stone-200/80 dark:border-stone-800/80 max-w-lg mx-auto lg:mx-0 text-left"
+            class="grid grid-cols-3 gap-3 pt-6 border-t border-stone-200/80 dark:border-stone-800/80 max-w-lg mx-auto lg:mx-0 text-left"
           >
             <div>
               <p
-                class="font-extrabold text-lg sm:text-xl text-stone-900 dark:text-white"
+                class="font-extrabold text-base sm:text-lg text-stone-900 dark:text-white"
               >
-                100%
+                100% Original
               </p>
               <p class="text-xs text-stone-500 dark:text-stone-400">
-                Nutrición garantizada
+                Marcas garantizadas
               </p>
             </div>
             <div>
               <p
-                class="font-extrabold text-lg sm:text-xl text-stone-900 dark:text-white"
+                class="font-extrabold text-base sm:text-lg text-stone-900 dark:text-white"
               >
-                24/48h
+                24/48 Horas
               </p>
               <p class="text-xs text-stone-500 dark:text-stone-400">
-                Entrega rápida
+                Despacho en Chile
               </p>
             </div>
             <div>
               <p
-                class="font-extrabold text-lg sm:text-xl text-stone-900 dark:text-white"
+                class="font-extrabold text-base sm:text-lg text-stone-900 dark:text-white"
               >
                 +5.000
               </p>
               <p class="text-xs text-stone-500 dark:text-stone-400">
-                Huellitas felices
+                Clientes felices
               </p>
             </div>
           </div>
@@ -236,50 +235,59 @@ function formatPrice(amount) {
         <!-- Tarjeta Visual / Hero Card -->
         <div class="lg:col-span-5 flex justify-center">
           <div
-            class="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-gradient-to-tr from-amber-500/10 via-orange-500/10 to-stone-100 dark:to-stone-800/60 border border-amber-200/70 dark:border-amber-900/40 shadow-xl relative overflow-hidden backdrop-blur-sm"
+            class="w-full max-w-md p-6 sm:p-7 rounded-3xl bg-white dark:bg-stone-900 border border-orange-200/80 dark:border-stone-800 shadow-xl shadow-orange-500/5 relative overflow-hidden"
           >
             <div class="flex items-center justify-between mb-4">
               <span
-                class="text-xs uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400"
-                >Producto del Mes</span
+                class="text-xs uppercase tracking-wider font-extrabold text-orange-600 dark:text-orange-400"
               >
+                ⭐ Oferta de la Semana
+              </span>
               <span
-                class="px-2.5 py-1 rounded-full bg-emerald-500 text-white text-xs font-semibold"
-                >15% OFF</span
+                class="px-2.5 py-1 rounded-full bg-rose-500 text-white text-xs font-bold"
               >
+                -20% OFF
+              </span>
             </div>
-            <div class="py-8 flex justify-center items-center">
+            <div class="py-6 flex justify-center items-center">
               <div
-                class="w-32 h-32 rounded-3xl bg-amber-500/20 dark:bg-amber-500/10 flex items-center justify-center text-6xl shadow-inner animate-bounce"
+                class="w-28 h-28 rounded-3xl bg-orange-100 dark:bg-stone-800 flex items-center justify-center text-6xl shadow-inner"
               >
                 🐾
               </div>
             </div>
             <div class="space-y-2">
-              <h2 class="text-xl font-bold text-stone-900 dark:text-white">
-                Pack Bienestar & Confort Total
+              <h2
+                class="text-lg sm:text-xl font-bold text-stone-900 dark:text-white leading-snug"
+              >
+                Combo Ahorro: Rascador + Cama Viscoelástica
               </h2>
-              <p class="text-xs text-stone-600 dark:text-stone-300">
-                Incluye cama ortopédica viscoelástica + dispensador interactivo
-                y snack dental.
+              <p
+                class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed"
+              >
+                Descanso superior y entretenimiento para gatos y perros
+                pequeños. Incluye juguete de regalo.
               </p>
               <div
-                class="flex items-baseline justify-between pt-3 border-t border-stone-200 dark:border-stone-700"
+                class="flex items-baseline justify-between pt-3 border-t border-stone-100 dark:border-stone-800"
               >
                 <div>
                   <span
-                    class="text-2xl font-extrabold text-stone-900 dark:text-white"
+                    class="text-2xl font-black text-stone-900 dark:text-white"
                     >$39.990</span
                   >
                   <span class="text-xs line-through text-stone-400 ml-2"
-                    >$46.990</span
+                    >$49.990</span
                   >
                 </div>
                 <button
                   type="button"
-                  class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors cursor-pointer"
+                  class="add-to-cart-btn px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
+                  data-product-id="hero-pack"
+                  data-product-name="Combo Ahorro Rascador + Cama"
+                  data-product-price="39990"
                 >
-                  Lo quiero
+                  Agregar al Carrito
                 </button>
               </div>
             </div>
@@ -289,51 +297,51 @@ function formatPrice(amount) {
     </div>
   </section>
 
-  <!-- CATEGORÍAS -->
+  <!-- CATEGORÍAS PRINCIPALES -->
   <section
     id="categorias"
-    class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    class="py-14 sm:py-18 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
   >
     <div
-      class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4"
+      class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4"
     >
       <div>
         <h2
-          class="text-xs uppercase tracking-widest font-bold text-amber-600 dark:text-amber-400 mb-2"
+          class="text-xs uppercase tracking-widest font-extrabold text-orange-600 dark:text-orange-400 mb-1"
         >
-          Explora por mascota
+          Navegación por Mascota
         </h2>
         <p
-          class="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white"
+          class="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white"
         >
-          Categorías Populares
+          Categorías Destacadas
         </p>
       </div>
-      <p class="text-sm text-stone-500 dark:text-stone-400 max-w-md">
-        Encuentra rápidamente productos especialmente formulados y dimensionados
-        según el tipo y tamaño de tu compañero.
+      <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 max-w-md">
+        Selecciona la sección adecuada para ver alimentos formulados, accesorios
+        a medida y productos veterinarios.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {
         categorias.map((cat) => (
           <a
             href={cat.href}
-            class={`group p-6 rounded-2xl bg-white dark:bg-stone-900 border ${cat.gradient} hover:shadow-lg transition-all duration-300 hover:-translate-y-1 block`}
+            class={`group p-5 rounded-2xl bg-white dark:bg-stone-900 border ${cat.gradient} shadow-xs hover:shadow-lg transition-all duration-200 hover:-translate-y-1 block`}
           >
-            <div class="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+            <div class="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform">
               {cat.icon}
             </div>
-            <h3 class="text-lg font-bold text-stone-900 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+            <h3 class="text-base font-bold text-stone-900 dark:text-white mb-0.5 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
               {cat.title}
             </h3>
             <p class="text-xs text-stone-500 dark:text-stone-400 mb-3">
               {cat.subtitle}
             </p>
-            <div class="flex items-center justify-between text-xs font-medium text-stone-600 dark:text-stone-300">
+            <div class="flex items-center justify-between text-xs font-semibold text-stone-600 dark:text-stone-300">
               <span>{cat.count}</span>
-              <span class="text-amber-600 dark:text-amber-400 group-hover:translate-x-1 transition-transform">
+              <span class="text-orange-500 group-hover:translate-x-1 transition-transform">
                 →
               </span>
             </div>
@@ -346,37 +354,36 @@ function formatPrice(amount) {
   <!-- CATÁLOGO DESTACADO -->
   <section
     id="destacados"
-    class="py-16 bg-white dark:bg-stone-900/50 border-y border-stone-200/80 dark:border-stone-800"
+    class="py-14 bg-stone-50/70 dark:bg-stone-900/40 border-y border-stone-200/80 dark:border-stone-800"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4"
+        class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4"
       >
         <div>
           <span
-            class="text-xs uppercase tracking-widest font-bold text-amber-600 dark:text-amber-400"
-            >Favoritos de la comunidad</span
+            class="text-xs uppercase tracking-widest font-extrabold text-orange-600 dark:text-orange-400"
           >
+            Los preferidos en Chile
+          </span>
           <h2
-            class="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white mt-1"
+            class="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white mt-1"
           >
             Productos Destacados
           </h2>
         </div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-medium text-stone-500 dark:text-stone-400"
-            >Mostrando 6 productos base</span
-          >
+          <span class="text-xs font-medium text-stone-500 dark:text-stone-400">
+            Precios en Pesos Chilenos ($ CLP) con IVA incluido
+          </span>
         </div>
       </div>
 
       <!-- Grid de productos -->
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-      >
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {
           productosDestacados.map((item) => (
-            <article class="flex flex-col rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:shadow-xl hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-300 group">
+            <article class="flex flex-col rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 shadow-xs hover:shadow-xl hover:border-orange-300 dark:hover:border-orange-600 transition-all duration-300 group">
               <div class="p-4 pb-0 flex items-center justify-between">
                 <span
                   class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${item.badgeColor}`}
@@ -386,14 +393,14 @@ function formatPrice(amount) {
                 <span class="text-xs text-stone-500 dark:text-stone-400 font-medium">
                   {item.stock > 0
                     ? item.stock < 8
-                      ? `¡Solo ${item.stock} disponibles!`
+                      ? `¡Solo ${item.stock} en stock!`
                       : 'En Stock'
                     : 'Agotado'}
                 </span>
               </div>
 
               <div class="h-44 flex items-center justify-center p-6 group-hover:scale-105 transition-transform duration-300">
-                <div class="w-24 h-24 rounded-2xl bg-white dark:bg-stone-800 shadow-sm flex items-center justify-center text-5xl">
+                <div class="w-24 h-24 rounded-2xl bg-orange-50/70 dark:bg-stone-800 shadow-xs flex items-center justify-center text-5xl">
                   {item.icon}
                 </div>
               </div>
@@ -410,11 +417,11 @@ function formatPrice(amount) {
                     </span>
                   </div>
 
-                  <p class="text-[11px] uppercase tracking-wider font-semibold text-stone-500 dark:text-stone-400">
+                  <p class="text-[11px] uppercase tracking-wider font-bold text-stone-400 dark:text-stone-500">
                     {item.category}
                   </p>
 
-                  <h3 class="font-bold text-stone-900 dark:text-white text-base leading-snug group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                  <h3 class="font-bold text-stone-900 dark:text-white text-base leading-snug group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                     {item.name}
                   </h3>
 
@@ -423,7 +430,7 @@ function formatPrice(amount) {
                   </p>
                 </div>
 
-                <div class="pt-4 mt-4 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3">
+                <div class="pt-4 mt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between gap-3">
                   <div class="flex flex-col">
                     <span class="text-xl font-extrabold text-stone-900 dark:text-white">
                       {formatPrice(item.price)}
@@ -440,7 +447,7 @@ function formatPrice(amount) {
                     data-product-id={item.id}
                     data-product-name={item.name}
                     data-product-price={item.price}
-                    class="add-to-cart-btn px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+                    class="add-to-cart-btn px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 cursor-pointer"
                   >
                     <svg
                       class="w-4 h-4"
@@ -467,56 +474,56 @@ function formatPrice(amount) {
   </section>
 
   <!-- GARANTÍAS / BENEFICIOS -->
-  <section id="beneficios" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <section id="beneficios" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div
-        class="p-6 rounded-2xl bg-amber-50/50 dark:bg-stone-900 border border-amber-200/60 dark:border-stone-800 space-y-3"
+        class="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-3 shadow-xs"
       >
         <div
-          class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold"
+          class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-stone-800 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold text-xl"
         >
           🚚
         </div>
-        <h3 class="text-lg font-bold text-stone-900 dark:text-white">
-          Despachos Express
+        <h3 class="text-base font-bold text-stone-900 dark:text-white">
+          Despachos Express en Chile
         </h3>
         <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-          Recibe tus pedidos en 24 a 48 horas hábiles en las principales
-          ciudades, con seguimiento en línea en tiempo real.
+          Envíos a domicilio en 24 a 48 horas en Santiago y regiones principales
+          con número de seguimiento en línea.
         </p>
       </div>
 
       <div
-        class="p-6 rounded-2xl bg-amber-50/50 dark:bg-stone-900 border border-amber-200/60 dark:border-stone-800 space-y-3"
+        class="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-3 shadow-xs"
       >
         <div
-          class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold"
+          class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-stone-800 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xl"
         >
           🛡️
         </div>
-        <h3 class="text-lg font-bold text-stone-900 dark:text-white">
+        <h3 class="text-base font-bold text-stone-900 dark:text-white">
           Garantía de Satisfacción
         </h3>
         <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-          ¿A tu mascota no le gustó el tamaño o textura? Tienes 30 días para
-          cambios y devoluciones sin complicaciones.
+          ¿No era la talla o sabor adecuado? Tienes 30 días para cambios y
+          devoluciones sencillas sin preguntas incómodas.
         </p>
       </div>
 
       <div
-        class="p-6 rounded-2xl bg-amber-50/50 dark:bg-stone-900 border border-amber-200/60 dark:border-stone-800 space-y-3"
+        class="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-3 shadow-xs"
       >
         <div
-          class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold"
+          class="w-10 h-10 rounded-xl bg-sky-100 dark:bg-stone-800 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-xl"
         >
-          💬
+          🩺
         </div>
-        <h3 class="text-lg font-bold text-stone-900 dark:text-white">
-          Asesoría con Expertos
+        <h3 class="text-base font-bold text-stone-900 dark:text-white">
+          Asesoría Nutricional & Vet
         </h3>
         <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-          Resolvemos tus consultas sobre porciones, dietas especiales y
-          recomendaciones de juguetes para cada edad.
+          Nuestro equipo te orienta para elegir el alimento y dosis adecuada
+          según la edad, peso y necesidades de tu mascota.
         </p>
       </div>
     </div>
@@ -524,25 +531,27 @@ function formatPrice(amount) {
 
   <!-- NEWSLETTER / CLUB -->
   <section
-    class="py-16 bg-stone-900 text-white dark:bg-stone-950 border-t border-stone-800"
+    class="py-14 bg-stone-900 text-white dark:bg-stone-950 border-t border-stone-800"
   >
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
       <span
-        class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold"
+        class="inline-block px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 text-xs font-semibold"
       >
-        Únete al Club Patitas
+        Club Patitas & Co.
       </span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-        Recibe un 15% de descuento en tu primera compra
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        15% de descuento en tu primera compra
       </h2>
-      <p class="text-stone-400 text-sm max-w-xl mx-auto leading-relaxed">
-        Suscríbete para recibir ofertas exclusivas, consejos veterinarios y
-        novedades sobre el cuidado de tu mascota.
+      <p
+        class="text-stone-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed"
+      >
+        Únete gratis y recibe promociones exclusivas, consejos de nutrición y
+        recordatorios de desparasitación para tus mascotas.
       </p>
 
       <form
         id="newsletter-form"
-        class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2"
+        class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2"
         onsubmit="event.preventDefault();"
       >
         <label for="newsletter-email" class="sr-only">Correo electrónico</label>
@@ -550,12 +559,12 @@ function formatPrice(amount) {
           type="email"
           id="newsletter-email"
           required
-          placeholder="tu@correo.com"
-          class="flex-1 px-4 py-3 rounded-xl bg-stone-800 border border-stone-700 text-white placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+          placeholder="tu@correo.cl"
+          class="flex-1 px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white placeholder-stone-400 text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
         />
         <button
           type="submit"
-          class="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition-colors cursor-pointer"
+          class="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs transition-colors cursor-pointer"
         >
           Suscribirme
         </button>
@@ -563,7 +572,7 @@ function formatPrice(amount) {
     </div>
   </section>
 
-  <!-- Script cliente para añadir al carrito de forma inmediata en Fase 1 -->
+  <!-- Script cliente para añadir al carrito -->
   <script>
     const buttons = document.querySelectorAll('.add-to-cart-btn');
     const badge = document.getElementById('cart-count-badge');
