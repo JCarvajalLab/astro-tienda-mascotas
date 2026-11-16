@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(region): implementa modal de comuna segun referencia y selector de 3 paletas en vivo
-- **Despliegue:** 3 servidores locales activos en simultáneo: http://localhost:4321/ (Opción 1: Naranja), http://localhost:4322/ (Opción 2: Teal), http://localhost:4323/ (Opción 3: Rojo Retail)
-- **Qué funciona:** Modo claro puro y luminoso obligatorio (desacoplado del SO con `@custom-variant dark`), modal fiel a la referencia de diseño "Escoge dónde recibir tus compras" (Región/Comuna de Chile en cascada y guardado en `localStorage`), barra superior interactiva para alternar las 3 opciones de paletas en caliente, header de 2 niveles con mega-menú de subcategorías y catálogo de 6 productos.
+- **Último commit relevante:** feat(theme): implementa sistema 60-30-10 con variantes de rojo y paletas curadas
+- **Despliegue:** 3 servidores locales activos en simultáneo: http://localhost:4321/ (Opción 1: Retail Carmín), http://localhost:4322/ (Opción 2: Nordic Paws), http://localhost:4323/ (Opción 3: Salvia & Terracota)
+- **Qué funciona:** Sistema cromático estricto 60-30-10 con acento Rojo (conversión): 60% lienzo de fondo claro, 30% estructura y tipografía de alto contraste, 10% acento rojo para CTAs y badges; modal de despacho de Chile según referencia visual y barra de previsualización interactiva.
 - **Qué está en progreso:** Cierre de Fase 1 y transición a Fase 2 (Content Collections y catálogo con fotos en `src/assets/`)
-- **Bloqueos o problemas conocidos:** ninguno; build en 1.3s, ESLint y Prettier 100% pasando
-- **Siguiente paso concreto:** Confirmar la paleta de color preferida por el usuario para consolidar y avanzar a Fase 2 (Catálogo & Contenido)
+- **Bloqueos o problemas conocidos:** ninguno; build en 1.49s, ESLint y Prettier 100% pasando
+- **Siguiente paso concreto:** Confirmar la variante de paleta 60-30-10 preferida para iniciar Fase 2 (Catálogo & Contenido)
 
 ## 2. Decisiones importantes
 
@@ -40,10 +40,24 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Modo claro por defecto y Navbar en 2 niveles con mega-menú | Experiencia ecommerce estándar de alta conversión: buscador siempre visible, selector de despacho por comuna (Chile) y navegación por subcategorías en hover | Navbar plano simple o forzar modo oscuro por preferencias del sistema operativo |
 | 2026-11-16 | `@custom-variant dark` para desacoplar Tailwind v4 del tema de Windows | En Tailwind v4 `dark:` activa por media query del SO; con variant custom solo activa si se inyecta clase explícita | Permitir que Windows fuerce modo nocturno no deseado |
 | 2026-11-16 | Modal dinámico de Región/Comuna según referencia de retail | Flujo estándar de supermercado/retail chileno (Lider/Jumbo/Falabella) con selects en cascada y persistencia | Dropdown plano sin selects en cascada |
+| 2026-11-16 | Sistema 60-30-10 con Rojo como acento de conversión principal | Equilibrio visual perfecto: 60% lienzo luminoso, 30% estructura neutra legible, 10% rojo de alta conversión para botones de compra y badges | Usar rojo en el 60% saturando la interfaz o usar fondos negros |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · aplicacion estricta de la regla 60-30-10 con rojo como acento de conversion
+- **Qué:** Implementación del sistema cromático profesional 60-30-10 en Tailwind CSS v4 para ecommerce de mascotas, tomando el rojo preferido por el usuario como el 10% de acento de conversión:
+  1. **60% Lienzo Dominante:** Fondos aireados y luminosos (Blanco Slate, Crema Avena o Lino) que dan amplitud y permiten resaltar la fotografía de productos.
+  2. **30% Estructural & Textos:** Pizarra Grafito, Azul Petróleo o Salvia Botánico para tipografías de alto contraste, bordes y barras de categorías.
+  3. **10% Acento de Conversión:** Rojo Carmín Retail (`#E11D48`), Rojo Rubí (`#D90429`) y Rojo Terracota (`#E0533C`) reservados estrictamente para botones de compra ("Agregar al Carrito", "Guardar" en modal), badges de descuento y alertas.
+  4. Actualización de `PaletteSwitcher.astro` y sincronización en los 3 servidores locales (4321, 4322, 4323).
+- **Archivos clave:** `src/styles/global.css`, `src/components/PaletteSwitcher.astro`, `src/components/RegionModal.astro`, `src/layouts/BaseLayout.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Investigación y conceptualización de 3 paletas equilibradas basadas en la regla 60-30-10 con base roja, eliminando saturaciones innecesarias y garantizando ratios de contraste WCAG AA/AAA.
+  - `desarrollo`: Refactorización de variables CSS semánticas en `global.css`, adaptación de `RegionModal.astro` y enlace dinámico de puertos locales con persistencia.
+  - `qa`: Validación de compilación limpia (`npm run build` en 1.49s), linters y comprobación de hot-reloading en los 3 puertos concurrentes.
+  - `docs-seo`: Actualización de la documentación en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · modal de despacho segun referencia y 3 opciones de paletas en localhost
 - **Qué:** Solución definitiva al modo oscuro no deseado, maquetación del modal de despacho según referencia exacta del usuario e implementación de 3 opciones de color en simultáneo:
