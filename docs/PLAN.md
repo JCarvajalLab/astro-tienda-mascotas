@@ -257,13 +257,13 @@ Temática: **veterinaria** (servicios, equipo, horarios, contacto y agendamiento
 
 Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, higiene), con categorías por tipo de animal.
 
-- [ ] **Fase 1: Diseño & Setup Base** (`phase/01-design`): 
-  - Inicialización con Astro 5+, Tailwind CSS v4 y ESLint/Prettier.
-  - Creación desde el inicio de `public/_headers` (anti-clickjacking, nosniff, referrer-policy, permissions-policy y CSP).
-  - Layout base con script síncrono inline anti-FOUC en `<head>` para modo claro/oscuro.
-  - Configuración de SEO base (`site` en `astro.config.mjs`, robots.txt, metadatos Open Graph en PNG de 1200x630 px).
-  - Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
-  - Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
+- [x] **Fase 1: Diseño & Setup Base** (`phase/01-design`): 
+  - [x] Inicialización con Astro 5+, Tailwind CSS v4 y ESLint/Prettier.
+  - [x] Creación desde el inicio de `public/_headers` (anti-clickjacking, nosniff, referrer-policy, permissions-policy y CSP).
+  - [x] Layout base con script síncrono inline anti-FOUC en `<head>` para modo claro/oscuro.
+  - [x] Configuración de SEO base (`site` en `astro.config.mjs`, robots.txt, metadatos Open Graph en PNG de 1200x630 px).
+  - [x] Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
+  - [x] Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
 - [ ] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
   - Catálogo modelado mediante Content Collections (`src/content.config.js`) con validación de esquemas Zod.
   - Fotos de productos descargadas localmente en `src/assets/` y procesadas con `<Image />` de `astro:assets` (WebP/AVIF, con `width`, `height`, `loading="lazy"` o `eager` para prevenir CLS).

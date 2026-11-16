@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** Incorpora lecciones de arquitectura y seguridad de veterinaria y portafolio
-- **Despliegue:** aún sin desplegar
-- **Qué funciona:** Estructura documental (`PLAN.md`, `HISTORIAL.md`), `AGENTS.md` optimizado con lecciones aprendidas, CI con Node 22/Gitleaks v3 y 6 Skills en `.agents/skills/`
-- **Qué está en progreso:** Inicialización de entorno Astro 5 + Tailwind CSS v4 y diseño base
-- **Bloqueos o problemas conocidos:** ninguno
-- **Siguiente paso concreto:** Crear proyecto Astro 5 + Tailwind v4, configurar `public/_headers`, layout base anti-FOUC y definir modelo de datos de productos en phase/01-design
+- **Último commit relevante:** feat(layout): implementa baselayout anti-fouc, catalogo y portada responsive
+- **Despliegue:** servidor local de desarrollo activo en http://localhost:4321/
+- **Qué funciona:** Entorno Astro 5.18.2 + Tailwind CSS v4, BaseLayout con script inline anti-FOUC, toggle tema claro/oscuro funcional, cabeceras `public/_headers` (anti-clickjacking, nosniff, CSP), `robots.txt`, `og-default.png`, catálogo inicial con 6 productos destacados e interactividad de contador de carrito.
+- **Qué está en progreso:** Cierre de Fase 1 y transición a Fase 2 (Content Collections y catálogo con fotos en `src/assets/`)
+- **Bloqueos o problemas conocidos:** ninguno; build en 0.9s, ESLint y Prettier 100% pasando
+- **Siguiente paso concreto:** Preparar Content Collections en `src/content.config.js` y assets de productos para iniciar Fase 2 (Catálogo & Contenido)
 
 ## 2. Decisiones importantes
 
@@ -41,6 +41,17 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · inicialización de astro 5, tailwind v4 y diseño base con servidor local activo
+- **Qué:** Inicialización completa del proyecto ecommerce en Astro 5.18.2 con Tailwind CSS v4 (`@tailwindcss/vite`), ESLint 9 con `eslint-plugin-astro` y Prettier con `prettier-plugin-astro`. Configuración de seguridad HTTP `public/_headers` (anti-clickjacking `DENY`, `nosniff`, CSP restrictiva, Permissions-Policy). Creación de `BaseLayout.astro` con script inline síncrono anti-FOUC para tema oscuro/claro, selector interactivo de tema, metadatos Open Graph en PNG (`/images/og-default.png`) y robots.txt. Portada `index.astro` con Hero cálido, grid de categorías principales, 6 productos destacados con modelo de datos defensivo, garantías comerciales y servidor de desarrollo activo en `http://localhost:4321/`.
+- **Archivos clave:** `package.json`, `astro.config.mjs`, `eslint.config.js`, `.prettierrc.mjs`, `public/_headers`, `public/robots.txt`, `src/styles/global.css`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro`
+- **Agente(s) / Skills:**
+  - `desarrollo`: Configuración de Astro 5, Vite con plugin Tailwind v4, estructura de layouts, componentes y scripts nativos sin frameworks pesados ni TypeScript.
+  - `ux-ui`: Dirección de arte cálida y comercial para tienda de mascotas ("Patitas & Co."), paleta 60-30-10 con acentos ámbar/naranja, tipografía con contraste, soporte de modo oscuro y micro-interacción en botón de carrito.
+  - `seguridad`: Implementación estricta de `public/_headers` (CSP, frame-ancestors 'none', nosniff), generación de Open Graph en PNG y validación de atributos seguros.
+  - `qa`: Verificación de sintaxis, linters (`npm run lint`), formateo (`npm run format:check`), compilación limpia (`npm run build` en 0.9s) y lanzamiento del servidor local.
+  - `docs-seo`: Metadatos SEO, Open Graph PNG, robots.txt, actualización de `PLAN.md` y registro en `HISTORIAL.md`.
+- **Notas:** Servidor de desarrollo activo de fondo en `http://localhost:4321/` para previsualización inmediata.
 
 ### 2026-11-16 · `phase/01-design` · regla de transparencia y visibilidad obligatoria de skills
 - **Qué:** Se actualizan `AGENTS.md` y `docs/HISTORIAL.md` estableciendo la regla obligatoria de visibilidad de especialistas: el agente debe desglosar en cada respuesta y en cada registro de cambios qué skills se activaron y el aporte exacto de cada una.
