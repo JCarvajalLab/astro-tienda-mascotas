@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(layout): implementa baselayout anti-fouc, catalogo y portada responsive
+- **Último commit relevante:** feat(navbar): implementa navbar ecommerce en 2 niveles con megamenu y selector de comuna chile
 - **Despliegue:** servidor local de desarrollo activo en http://localhost:4321/
-- **Qué funciona:** Entorno Astro 5.18.2 + Tailwind CSS v4, BaseLayout con script inline anti-FOUC, toggle tema claro/oscuro funcional, cabeceras `public/_headers` (anti-clickjacking, nosniff, CSP), `robots.txt`, `og-default.png`, catálogo inicial con 6 productos destacados e interactividad de contador de carrito.
+- **Qué funciona:** Header de ecommerce en 2 niveles horizontales (Nivel 1: Logo, buscador visible, selector de región/comuna de Chile con persistencia, iniciar sesión, carrito reactivo, toggle modo claro/oscuro; Nivel 2: Categorías principales con mega-menú desplegable en hover), modo claro cálido y luminoso por defecto, 6 productos destacados con precios en CLP y badges de stock.
 - **Qué está en progreso:** Cierre de Fase 1 y transición a Fase 2 (Content Collections y catálogo con fotos en `src/assets/`)
-- **Bloqueos o problemas conocidos:** ninguno; build en 0.9s, ESLint y Prettier 100% pasando
+- **Bloqueos o problemas conocidos:** ninguno; build en 1.3s, ESLint y Prettier 100% pasando
 - **Siguiente paso concreto:** Preparar Content Collections en `src/content.config.js` y assets de productos para iniciar Fase 2 (Catálogo & Contenido)
 
 ## 2. Decisiones importantes
@@ -37,10 +37,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Validación estricta en servidor y secretos sin `PUBLIC_` | Integridad transaccional de órdenes/precios y protección de credenciales en GitHub | Confiar en cálculos del cliente o exponer claves en repo |
 | 2026-11-16 | Enriquecer skill `ux-ui` con principios de `frontend-design` | Evitar diseños genéricos ("AI slop"), aportar dirección de arte intencional, tipografía con carácter y diseño de estados completos en el ecommerce | Mantener skill genérica o reemplazar perdiendo reglas de accesibilidad y subagente browser |
 | 2026-11-16 | Transparencia obligatoria de skills en respuestas e historial | El usuario debe saber siempre qué skill intervino y qué aporte realizó en cada tarea, asegurando que se activen activamente | Respuestas genéricas sin identificar qué skill ejecutó el trabajo |
+| 2026-11-16 | Modo claro por defecto y Navbar en 2 niveles con mega-menú | Experiencia ecommerce estándar de alta conversión: buscador siempre visible, selector de despacho por comuna (Chile) y navegación por subcategorías en hover | Navbar plano simple o forzar modo oscuro por preferencias del sistema operativo |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · navbar de 2 niveles con megamenu, selector de comuna chile y paleta luminosa
+- **Qué:** Rediseño completo de la navegación y la paleta visual para adaptarse a estándares de ecommerce de alta conversión:
+  1. Header horizontal dividido en 2 niveles: Fila superior con Logo Patitas & Co., barra de búsqueda prominente, selector interactivo de región/comuna de Chile con persistencia en `localStorage`, enlace Mi Cuenta / Iniciar sesión, botón de carrito con badge dinámico y toggle de tema. Fila inferior con categorías principales (Perros, Gatos, Accesorios, Farmacia, Pequeñas Mascotas, Ofertas) y mega-menú desplegable en hover con subcategorías organizadas en columnas.
+  2. Ajuste del script anti-FOUC para inicializar siempre en modo claro por defecto (evitando activar modo oscuro automáticamente por preferencias del sistema del usuario), adoptando una paleta luminosa, fresca y cálida (fondos blanco/crema marfil `#FDFCFB`, acentos naranja/mandarina y detalles esmeralda).
+- **Archivos clave:** `src/components/Header.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Diseño de la arquitectura de información del header en 2 niveles, mega-menú desplegable con subcategorías, selector de comunas para Chile, eliminación del modo oscuro forzado por defecto y propuesta de paletas cromáticas comerciales.
+  - `desarrollo`: Componente modular `Header.astro`, interactividad con JavaScript nativo para el selector de comunas, navegación accesible con `focus-within` y refactorización de `BaseLayout.astro`.
+  - `qa`: Verificación de sintaxis, linters (`npm run lint`), formateo con Prettier (`npm run format:check`), compilación (`npm run build`) y hot-reloading en servidor dev local.
+  - `docs-seo`: Registro de decisiones y avance en `HISTORIAL.md`.
+- **Notas:** Servidor de desarrollo respondiendo en tiempo real en `http://localhost:4321/`.
 
 ### 2026-11-16 · `phase/01-design` · inicialización de astro 5, tailwind v4 y diseño base con servidor local activo
 - **Qué:** Inicialización completa del proyecto ecommerce en Astro 5.18.2 con Tailwind CSS v4 (`@tailwindcss/vite`), ESLint 9 con `eslint-plugin-astro` y Prettier con `prettier-plugin-astro`. Configuración de seguridad HTTP `public/_headers` (anti-clickjacking `DENY`, `nosniff`, CSP restrictiva, Permissions-Policy). Creación de `BaseLayout.astro` con script inline síncrono anti-FOUC para tema oscuro/claro, selector interactivo de tema, metadatos Open Graph en PNG (`/images/og-default.png`) y robots.txt. Portada `index.astro` con Hero cálido, grid de categorías principales, 6 productos destacados con modelo de datos defensivo, garantías comerciales y servidor de desarrollo activo en `http://localhost:4321/`.
