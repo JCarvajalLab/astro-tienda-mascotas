@@ -1,0 +1,113 @@
+---
+// Barra de previsualización para comparar las 3 opciones de paletas en vivo (en-sitio o en puertos separados)
+---
+
+<div
+  id="palette-switcher-bar"
+  class="w-full bg-stone-900 text-stone-200 border-b border-stone-800 text-xs py-2 px-4 flex flex-wrap items-center justify-between gap-3 z-50 transition-colors"
+>
+  <div class="flex items-center gap-2">
+    <span class="text-base">🎨</span>
+    <span class="font-bold text-white uppercase tracking-wider text-[11px]">
+      Prueba de Paletas (Modo Claro):
+    </span>
+    <span class="text-stone-400 hidden lg:inline">
+      Cambia de color aquí o abre los puertos independientes
+    </span>
+  </div>
+
+  <div class="flex items-center flex-wrap gap-2">
+    <!-- Opción 1: Naranja Cálido (Puerto 4321) -->
+    <div class="inline-flex rounded-full shadow-xs">
+      <button
+        type="button"
+        data-palette="orange"
+        class="palette-btn px-3 py-1 rounded-l-full text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 border border-stone-700 bg-stone-800 text-stone-200 hover:border-orange-500"
+      >
+        <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+        <span>Opción 1: Naranja</span>
+      </button>
+      <a
+        href="http://localhost:4321/"
+        class="px-2 py-1 rounded-r-full text-[10px] font-semibold bg-stone-800 text-stone-400 hover:text-white border-y border-r border-stone-700 flex items-center"
+        title="Abrir en puerto 4321"
+      >
+        :4321 ↗
+      </a>
+    </div>
+
+    <!-- Opción 2: Teal Médico (Puerto 4322) -->
+    <div class="inline-flex rounded-full shadow-xs">
+      <button
+        type="button"
+        data-palette="teal"
+        class="palette-btn px-3 py-1 rounded-l-full text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 border border-stone-700 bg-stone-800 text-stone-200 hover:border-teal-500"
+      >
+        <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
+        <span>Opción 2: Teal</span>
+      </button>
+      <a
+        href="http://localhost:4322/"
+        class="px-2 py-1 rounded-r-full text-[10px] font-semibold bg-stone-800 text-stone-400 hover:text-white border-y border-r border-stone-700 flex items-center"
+        title="Abrir en puerto 4322"
+      >
+        :4322 ↗
+      </a>
+    </div>
+
+    <!-- Opción 3: Rojo Retail (Puerto 4323 - como Imagen 2) -->
+    <div class="inline-flex rounded-full shadow-xs">
+      <button
+        type="button"
+        data-palette="red"
+        class="palette-btn px-3 py-1 rounded-l-full text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 border border-stone-700 bg-stone-800 text-stone-200 hover:border-red-500"
+      >
+        <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span>
+        <span>Opción 3: Rojo</span>
+      </button>
+      <a
+        href="http://localhost:4323/"
+        class="px-2 py-1 rounded-r-full text-[10px] font-semibold bg-stone-800 text-stone-400 hover:text-white border-y border-r border-stone-700 flex items-center"
+        title="Abrir en puerto 4323"
+      >
+        :4323 ↗
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const paletteButtons = document.querySelectorAll('.palette-btn');
+
+  function applyPalette(palette) {
+    document.documentElement.setAttribute('data-palette', palette);
+    localStorage.setItem('tienda_palette', palette);
+
+    paletteButtons.forEach((btn) => {
+      const p = btn.getAttribute('data-palette');
+      if (p === palette) {
+        btn.classList.add('bg-white', 'text-stone-900', 'border-white');
+        btn.classList.remove('bg-stone-800', 'text-stone-200');
+      } else {
+        btn.classList.remove('bg-white', 'text-stone-900', 'border-white');
+        btn.classList.add('bg-stone-800', 'text-stone-200');
+      }
+    });
+  }
+
+  // Detectar por puerto inicial
+  const port = window.location.port;
+  let initial = 'orange';
+  if (port === '4322') initial = 'teal';
+  else if (port === '4323') initial = 'red';
+  else initial = localStorage.getItem('tienda_palette') || 'orange';
+
+  applyPalette(initial);
+
+  paletteButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const palette = btn.getAttribute('data-palette');
+      if (palette) applyPalette(palette);
+    });
+  });
+</script>

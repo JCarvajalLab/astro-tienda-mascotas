@@ -1,8 +1,54 @@
 @import 'tailwindcss';
 
+/* Forzar que dark: SOLO aplique con la clase explícita .dark, nunca automáticamente por el SO */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Paletas dinámicas para probar en modo claro */
+:root {
+  --brand-primary: #f97316; /* Naranja Cálido (Por defecto) */
+  --brand-primary-hover: #ea580c;
+  --brand-light: #fff7ed;
+  --brand-border: #fed7aa;
+}
+
+:root[data-palette='teal'] {
+  --brand-primary: #0d9488; /* Teal / Turquesa Médico */
+  --brand-primary-hover: #0f766e;
+  --brand-light: #f0fdfa;
+  --brand-border: #99f6e4;
+}
+
+:root[data-palette='red'] {
+  --brand-primary: #dc2626; /* Rojo Retail Chileno (Imagen 2) */
+  --brand-primary-hover: #b91c1c;
+  --brand-light: #fef2f2;
+  --brand-border: #fecaca;
+}
+
+.bg-brand-primary {
+  background-color: var(--brand-primary);
+}
+.bg-brand-primary:hover {
+  background-color: var(--brand-primary-hover);
+}
+.text-brand-primary {
+  color: var(--brand-primary);
+}
+.border-brand-primary {
+  border-color: var(--brand-primary);
+}
+.bg-brand-light {
+  background-color: var(--brand-light);
+}
+.border-brand-light {
+  border-color: var(--brand-border);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #ffffff;
+    color: #1c1917;
     font-family:
       system-ui,
       -apple-system,

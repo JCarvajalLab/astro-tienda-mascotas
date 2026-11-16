@@ -1,20 +1,5 @@
 ---
-// Componente Header de Ecommerce con 2 niveles horizontales
-const comunasChile = [
-  'Santiago - Providencia',
-  'Santiago - Las Condes',
-  'Santiago - Santiago Centro',
-  'Santiago - Ñuñoa',
-  'Santiago - Maipú',
-  'Santiago - La Florida',
-  'Santiago - Vitacura',
-  'Valparaíso - Viña del Mar',
-  'Biobío - Concepción',
-  'Coquimbo - La Serena',
-  'Araucanía - Temuco',
-  'Los Lagos - Puerto Montt',
-];
-
+// Header de Ecommerce con 2 niveles horizontales y soporte para paletas dinámicas
 const categoriasMenu = [
   {
     name: 'Perros',
@@ -138,7 +123,7 @@ const categoriasMenu = [
           'Comederos Lentos Antivoracidad',
           'Fuentes de Agua',
           'Mochilas & Transportines',
-          'Cinturones de Seguridad Auto',
+          'Cinturones Auto',
         ],
       },
     ],
@@ -219,18 +204,18 @@ const categoriasMenu = [
 ---
 
 <header
-  class="w-full bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 sticky top-0 z-50 shadow-xs transition-colors"
+  class="w-full bg-white border-b border-stone-200 sticky top-0 z-40 shadow-xs transition-colors"
 >
-  <!-- NIVEL 1: Fila superior (Logo / Buscador / Comuna / Usuario / Carrito / Tema) -->
+  <!-- NIVEL 1: Fila superior (Logo / Buscador / Selector Modal Comuna Chile / Iniciar Sesión / Carrito) -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between gap-3 sm:gap-6 py-3 sm:py-4">
       <!-- 1. Logo & Nombre -->
       <a
         href="/"
-        class="flex items-center gap-2.5 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-lg"
+        class="flex items-center gap-2.5 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-lg"
       >
         <span
-          class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform"
+          class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-brand-primary flex items-center justify-center text-white shadow-md shadow-black/10 group-hover:scale-105 transition-all"
         >
           <svg
             class="w-6 h-6 fill-current"
@@ -244,14 +229,12 @@ const categoriasMenu = [
         </span>
         <div class="flex flex-col">
           <span
-            class="font-extrabold text-xl sm:text-2xl tracking-tight text-stone-900 dark:text-white leading-none"
+            class="font-extrabold text-xl sm:text-2xl tracking-tight text-stone-900 leading-none"
           >
-            Patitas<span class="text-orange-500 dark:text-orange-400"
-              >&amp;Co.</span
-            >
+            Patitas<span class="text-brand-primary">&amp;Co.</span>
           </span>
           <span
-            class="text-[10px] uppercase font-bold tracking-widest text-stone-400 dark:text-stone-500 mt-0.5"
+            class="text-[10px] uppercase font-bold tracking-widest text-stone-400 mt-0.5"
           >
             Tienda de Mascotas
           </span>
@@ -268,7 +251,7 @@ const categoriasMenu = [
             type="search"
             id="site-search"
             placeholder="Buscar alimento, snacks, rascadores, camas..."
-            class="w-full pl-11 pr-24 py-2.5 rounded-full bg-stone-100 dark:bg-stone-800/80 border border-transparent focus:border-orange-400 dark:focus:border-orange-500 focus:bg-white dark:focus:bg-stone-800 text-stone-800 dark:text-stone-100 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all"
+            class="w-full pl-11 pr-24 py-2.5 rounded-full bg-stone-100 border border-stone-200/80 focus:border-stone-400 focus:bg-white text-stone-800 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-stone-200 transition-all"
           />
           <div
             class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400"
@@ -289,7 +272,7 @@ const categoriasMenu = [
           </div>
           <button
             type="submit"
-            class="absolute inset-y-1 right-1 px-4 rounded-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
+            class="absolute inset-y-1 right-1 px-4 rounded-full bg-brand-primary text-white text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 shadow-xs"
           >
             Buscar
           </button>
@@ -297,79 +280,49 @@ const categoriasMenu = [
       </div>
 
       <!-- Acciones de cabecera -->
-      <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-        <!-- 3. Selección de Región / Comuna de Chile -->
-        <div class="relative group hidden lg:block">
-          <button
-            type="button"
-            id="region-selector-btn"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700/80 hover:border-orange-300 dark:hover:border-orange-600/60 bg-stone-50/60 dark:bg-stone-800/50 hover:bg-white dark:hover:bg-stone-800 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-          >
-            <span class="text-orange-500 text-base">📍</span>
-            <div class="flex flex-col">
-              <span
-                class="text-[10px] uppercase font-semibold text-stone-400 dark:text-stone-400 leading-none"
-                >Enviar a</span
-              >
-              <span
-                id="selected-region-text"
-                class="text-xs font-bold text-stone-800 dark:text-stone-200 truncate max-w-[130px]"
-              >
-                Santiago - Providencia
-              </span>
-            </div>
-            <svg
-              class="w-3.5 h-3.5 text-stone-400 group-hover:text-orange-500 transition-colors"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- 3. Selección de Región / Comuna de Chile (Abre Modal estilo Imagen 2) -->
+        <button
+          type="button"
+          id="header-open-region-btn"
+          onclick="if(window.openRegionModal) window.openRegionModal();"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stone-200 hover:border-stone-300 bg-stone-50 hover:bg-stone-100 text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+          title="Escoger región y comuna de despacho"
+        >
+          <span class="text-base text-brand-primary">📍</span>
+          <div class="flex flex-col">
+            <span
+              class="text-[10px] uppercase font-bold text-stone-400 leading-none"
+              >Enviar a</span
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m19 9-7 7-7-7"></path>
-            </svg>
-          </button>
-
-          <!-- Dropdown rápido de selección de comunas de Chile -->
-          <div
-            id="region-dropdown"
-            class="hidden absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-stone-800 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-700 z-50 text-xs"
-          >
-            <p class="font-bold text-stone-900 dark:text-white mb-2">
-              Selecciona tu comuna (Chile):
-            </p>
-            <div
-              class="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar"
+            <span
+              id="selected-region-text"
+              class="text-xs font-bold text-stone-800 truncate max-w-[120px] sm:max-w-[150px]"
             >
-              {
-                comunasChile.map((comuna) => (
-                  <button
-                    type="button"
-                    data-comuna={comuna}
-                    class="comuna-option-btn w-full text-left px-2.5 py-1.5 rounded-lg text-stone-700 dark:text-stone-200 hover:bg-orange-50 dark:hover:bg-orange-950/40 hover:text-orange-600 dark:hover:text-orange-400 transition-colors cursor-pointer flex items-center justify-between"
-                  >
-                    <span>{comuna}</span>
-                    <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                      Envío 24h
-                    </span>
-                  </button>
-                ))
-              }
-            </div>
+              Providencia
+            </span>
           </div>
-        </div>
+          <svg
+            class="w-3.5 h-3.5 text-stone-400 transition-colors"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19 9-7 7-7-7"></path>
+          </svg>
+        </button>
 
         <!-- 4. Iniciar sesión / Mi cuenta -->
         <a
           href="/#login"
-          class="flex items-center gap-2 px-3 py-2 rounded-xl text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+          class="flex items-center gap-2 px-3 py-2 rounded-xl text-stone-700 hover:bg-stone-100 text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
         >
           <svg
-            class="w-5 h-5 text-stone-500 dark:text-stone-400"
+            class="w-5 h-5 text-stone-500"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -389,7 +342,7 @@ const categoriasMenu = [
           id="cart-button"
           type="button"
           aria-label="Ver carrito de compras"
-          class="relative flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-orange-500/20 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+          class="relative flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-brand-primary text-white font-bold text-xs sm:text-sm shadow-md shadow-black/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
         >
           <svg
             class="w-5 h-5"
@@ -407,55 +360,15 @@ const categoriasMenu = [
           <span class="hidden sm:inline">Carrito</span>
           <span
             id="cart-count-badge"
-            class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-extrabold leading-none text-orange-600 bg-white dark:bg-stone-900 rounded-full shadow-xs"
+            class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-extrabold leading-none text-stone-900 bg-white rounded-full shadow-xs"
           >
             0
           </span>
         </button>
-
-        <!-- 6. Modo claro / nocturno -->
-        <button
-          id="theme-toggle"
-          type="button"
-          aria-label="Cambiar tema de color"
-          title="Modo claro / nocturno"
-          class="p-2 sm:p-2.5 rounded-xl border border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 cursor-pointer"
-        >
-          <!-- Sol (visible en dark) -->
-          <svg
-            id="sun-icon"
-            class="w-5 h-5 hidden dark:block"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
-          <!-- Luna (visible en light) -->
-          <svg
-            id="moon-icon"
-            class="w-5 h-5 block dark:hidden"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
       </div>
     </div>
 
-    <!-- Buscador en móvil (visible solo en pantallas pequeñas) -->
+    <!-- Buscador en móvil -->
     <div class="pb-3 md:hidden">
       <form class="relative w-full" onsubmit="event.preventDefault();">
         <label for="site-search-mobile" class="sr-only">Buscar productos</label>
@@ -463,7 +376,7 @@ const categoriasMenu = [
           type="search"
           id="site-search-mobile"
           placeholder="Buscar alimento, juguetes, accesorios..."
-          class="w-full pl-10 pr-20 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-100 text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+          class="w-full pl-10 pr-20 py-2 rounded-xl bg-stone-100 text-stone-800 text-xs focus:outline-none focus:ring-2 focus:ring-stone-300"
         />
         <div
           class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400"
@@ -484,7 +397,7 @@ const categoriasMenu = [
         </div>
         <button
           type="submit"
-          class="absolute inset-y-1 right-1 px-3 rounded-lg bg-orange-500 text-white text-[11px] font-semibold"
+          class="absolute inset-y-1 right-1 px-3 rounded-lg bg-brand-primary text-white text-[11px] font-semibold"
         >
           Buscar
         </button>
@@ -494,7 +407,7 @@ const categoriasMenu = [
 
   <!-- NIVEL 2: Fila inferior (Categorías principales con Mega-Menú desplegable al hover) -->
   <nav
-    class="bg-stone-50/90 dark:bg-stone-900/90 border-t border-stone-200/80 dark:border-stone-800/80 transition-colors"
+    class="bg-stone-50 border-t border-stone-200 transition-colors"
     aria-label="Categorías de productos"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -506,16 +419,16 @@ const categoriasMenu = [
             <li class="relative group/menu shrink-0">
               <a
                 href={cat.href}
-                class={`flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
+                class={`flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${
                   cat.isOffer
-                    ? 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40'
-                    : 'text-stone-700 dark:text-stone-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-white dark:hover:bg-stone-800'
+                    ? 'text-rose-600 hover:bg-rose-50'
+                    : 'text-stone-700 hover:text-brand-primary hover:bg-white'
                 }`}
               >
                 <span>{cat.icon}</span>
                 <span>{cat.name}</span>
                 <svg
-                  class="w-3 h-3 text-stone-400 group-hover/menu:text-orange-500 group-hover/menu:rotate-180 transition-transform duration-200"
+                  class="w-3 h-3 text-stone-400 group-hover/menu:text-brand-primary group-hover/menu:rotate-180 transition-transform duration-200"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -529,17 +442,17 @@ const categoriasMenu = [
                 </svg>
               </a>
 
-              <div class="invisible group-hover/menu:visible opacity-0 group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/menu:translate-y-0 absolute top-full left-0 w-80 sm:w-96 md:w-[480px] bg-white dark:bg-stone-900 rounded-2xl shadow-2xl border border-stone-200 dark:border-stone-700 p-5 z-50">
-                <div class="flex items-center justify-between pb-3 mb-4 border-b border-stone-100 dark:border-stone-800">
+              <div class="invisible group-hover/menu:visible opacity-0 group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/menu:translate-y-0 absolute top-full left-0 w-80 sm:w-96 md:w-[480px] bg-white rounded-2xl shadow-2xl border border-stone-200 p-5 z-50">
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-stone-100">
                   <div class="flex items-center gap-2">
                     <span class="text-xl">{cat.icon}</span>
-                    <span class="font-bold text-sm text-stone-900 dark:text-white">
+                    <span class="font-bold text-sm text-stone-900">
                       Todo en {cat.name}
                     </span>
                   </div>
                   <a
                     href={cat.href}
-                    class="text-xs font-semibold text-orange-600 dark:text-orange-400 hover:underline"
+                    class="text-xs font-semibold text-brand-primary hover:underline"
                   >
                     Ver todo →
                   </a>
@@ -548,7 +461,7 @@ const categoriasMenu = [
                 <div class="grid grid-cols-2 gap-4">
                   {cat.subcategorias.map((sub) => (
                     <div class="space-y-1.5">
-                      <h4 class="text-xs font-extrabold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                      <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand-primary">
                         {sub.grupo}
                       </h4>
                       <ul class="space-y-1">
@@ -556,7 +469,7 @@ const categoriasMenu = [
                           <li>
                             <a
                               href={cat.href}
-                              class="text-xs text-stone-600 dark:text-stone-300 hover:text-orange-600 dark:hover:text-orange-400 hover:translate-x-0.5 transition-all block py-0.5"
+                              class="text-xs text-stone-600 hover:text-stone-900 hover:translate-x-0.5 transition-all block py-0.5"
                             >
                               {item}
                             </a>
@@ -574,53 +487,3 @@ const categoriasMenu = [
     </div>
   </nav>
 </header>
-
-<!-- Script interactivo del Header (Selector de región / Comuna y cierre accesible) -->
-<script>
-  // Toggle del dropdown de comuna de Chile
-  const regionBtn = document.getElementById('region-selector-btn');
-  const regionDropdown = document.getElementById('region-dropdown');
-  const selectedRegionText = document.getElementById('selected-region-text');
-  const comunaButtons = document.querySelectorAll('.comuna-option-btn');
-
-  // Recuperar comuna guardada o usar la inicial
-  const savedComuna = localStorage.getItem('user_comuna');
-  if (savedComuna && selectedRegionText) {
-    selectedRegionText.textContent = savedComuna;
-  }
-
-  if (regionBtn && regionDropdown) {
-    regionBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isExpanded = regionBtn.getAttribute('aria-expanded') === 'true';
-      regionBtn.setAttribute('aria-expanded', String(!isExpanded));
-      regionDropdown.classList.toggle('hidden');
-    });
-
-    // Cerrar al hacer clic fuera
-    document.addEventListener('click', (e) => {
-      const target = e.target;
-      if (
-        target instanceof Node &&
-        !regionBtn.contains(target) &&
-        !regionDropdown.contains(target)
-      ) {
-        regionDropdown.classList.add('hidden');
-        regionBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Seleccionar comuna
-    comunaButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const comuna = btn.getAttribute('data-comuna');
-        if (comuna && selectedRegionText) {
-          selectedRegionText.textContent = comuna;
-          localStorage.setItem('user_comuna', comuna);
-          regionDropdown.classList.add('hidden');
-          regionBtn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  }
-</script>
