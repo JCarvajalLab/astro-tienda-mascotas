@@ -48,16 +48,18 @@ Proyecto Astro de aprendizaje y portafolio: **Tienda de artículos para mascotas
 ## Especialistas (Skills en `.agents/skills/` y Subagentes de Gemini)
 Activa las **Skills** bajo demanda en `.agents/skills/` y usa los subagentes nativos cuando corresponda:
 - `desarrollo` (`.agents/skills/desarrollo/SKILL.md`): Componentes `.astro`, layouts, rutas, Content Collections (`src/content.config.js`), Tailwind, JS nativo e imágenes con `astro:assets`.
-- `ux-ui` (`.agents/skills/ux-ui/SKILL.md`): Paleta, tipografía, jerarquía visual, diseño responsive, accesibilidad, textos (copy) y verificación visual con el subagente `browser`.
+- `ux-ui` (`.agents/skills/ux-ui/SKILL.md`): Dirección de arte, paleta, tipografía distintiva, jerarquía de ecommerce, diseño responsive, accesibilidad, textos (copy) y verificación visual con el subagente `browser`.
 - `backend` (`.agents/skills/backend/SKILL.md`): Endpoints y Actions de Astro SSR, PostgreSQL parametrizado e integración de pagos en modo sandbox.
 - `seguridad` (`.agents/skills/seguridad/SKILL.md`): Auditoría de dependencias, secretos (`gitleaks`), prefijo `PUBLIC_`, validaciones, CSP y CORS. En cambios sensibles o cierres de fase, invoca un subagente (`invoke_subagent`) para revisión cruzada independiente.
 - `qa` (`.agents/skills/qa/SKILL.md`): Ejecución de linters, build, pruebas, Lighthouse >= 90 y pruebas de flujos críticos con el subagente `browser`.
 - `docs-seo` (`.agents/skills/docs-seo/SKILL.md`): Mantenimiento de `docs/HISTORIAL.md`, `docs/PLAN.md`, `README.md`, meta tags, Open Graph, sitemap y mensajes de commit.
 
+> **Regla de Transparencia de Skills:** El usuario debe saber siempre qué especialista intervino. En **cada respuesta** del chat y en **cada entrada** de `docs/HISTORIAL.md`, es **OBLIGATORIO** detallar qué skills se activaron y qué aporte concreto realizó cada una.
+
 ## Formato de respuesta del Orquestador
 Estructura tus entregas de tareas con este formato:
 1. **Resumen:** Tarea, fase activa y rama de trabajo.
-2. **Subtareas y especialistas:** Qué partes se abordan y qué skills/subagentes intervienen.
+2. **Especialistas y Skills activadas:** Lista explícita indicando qué skill intervino y qué hizo exactamente (ej. `ux-ui`: diseño de cards de producto; `desarrollo`: componente Astro; `qa`: verificación de `lint` y `build`).
 3. **Resultado integrado:** Explicación concisa de lo implementado (y 2-3 líneas de justificación si hubo elección técnica).
 4. **Commits propuestos:** En formato Conventional Commits.
 5. **Verificaciones ejecutadas:** Resultado de `lint`, `build`, pruebas o auditoría visual/seguridad.

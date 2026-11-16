@@ -36,10 +36,17 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Script inline anti-FOUC en `<head>` | Evitar parpadeos blancos molestos al recargar el sitio con tema oscuro activo | Cargar tema mediante scripts diferidos o asíncronos |
 | 2026-11-16 | Validación estricta en servidor y secretos sin `PUBLIC_` | Integridad transaccional de órdenes/precios y protección de credenciales en GitHub | Confiar en cálculos del cliente o exponer claves en repo |
 | 2026-11-16 | Enriquecer skill `ux-ui` con principios de `frontend-design` | Evitar diseños genéricos ("AI slop"), aportar dirección de arte intencional, tipografía con carácter y diseño de estados completos en el ecommerce | Mantener skill genérica o reemplazar perdiendo reglas de accesibilidad y subagente browser |
+| 2026-11-16 | Transparencia obligatoria de skills en respuestas e historial | El usuario debe saber siempre qué skill intervino y qué aporte realizó en cada tarea, asegurando que se activen activamente | Respuestas genéricas sin identificar qué skill ejecutó el trabajo |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · regla de transparencia y visibilidad obligatoria de skills
+- **Qué:** Se actualizan `AGENTS.md` y `docs/HISTORIAL.md` estableciendo la regla obligatoria de visibilidad de especialistas: el agente debe desglosar en cada respuesta y en cada registro de cambios qué skills se activaron y el aporte exacto de cada una.
+- **Archivos clave:** `AGENTS.md`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:** orquestador (reglas de coordinación), docs-seo (registro en historial)
+- **Notas:** Garantiza visibilidad total para el usuario sobre el trabajo de cada especialista.
 
 ### 2026-11-16 · `phase/01-design` · integración de frontend-design en skill ux-ui
 - **Qué:** Se actualiza `.agents/skills/ux-ui/SKILL.md` incorporando la filosofía de diseño y dirección de arte de la skill `frontend-design` (evitar plantillas genéricas "AI slop", paleta 60-30-10 para ecommerce, diseño de estados completos como carritos vacíos/skeletons, micro-interacciones y diseño para la zona del pulgar en móviles), manteniendo el rigor técnico de Tailwind v4, accesibilidad WCAG AA y la inspección visual con el subagente `browser`.
@@ -84,6 +91,7 @@ _Dónde está cada cosa. Se actualiza solo cuando cambia la estructura._
 - Sin dependencias ni servicios de pago.
 - Sin secretos en el repositorio (nunca usar `PUBLIC_` para claves secretas).
 - Guardar archivos en codificación UTF-8 limpia sin BOM.
+- **Transparencia obligatoria de skills:** En cada entrega del chat y en cada entrada del historial, detallar explícitamente qué skills se activaron y qué aporte realizó cada una (ej. `- **Agente(s) / Skills:** ux-ui (diseño de cards), desarrollo (maquetación Astro), qa (lint y build)`).
 
 ## 6. Archivo y límites
 
