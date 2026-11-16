@@ -35,10 +35,17 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Open Graph (`og:image`) estrictamente en PNG/JPG | Redes sociales (WhatsApp, LinkedIn, X, Discord) no renderizan previsualizaciones en `.svg` | Usar `.svg` en metaetiquetas de compartir |
 | 2026-11-16 | Script inline anti-FOUC en `<head>` | Evitar parpadeos blancos molestos al recargar el sitio con tema oscuro activo | Cargar tema mediante scripts diferidos o asíncronos |
 | 2026-11-16 | Validación estricta en servidor y secretos sin `PUBLIC_` | Integridad transaccional de órdenes/precios y protección de credenciales en GitHub | Confiar en cálculos del cliente o exponer claves en repo |
+| 2026-11-16 | Enriquecer skill `ux-ui` con principios de `frontend-design` | Evitar diseños genéricos ("AI slop"), aportar dirección de arte intencional, tipografía con carácter y diseño de estados completos en el ecommerce | Mantener skill genérica o reemplazar perdiendo reglas de accesibilidad y subagente browser |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · integración de frontend-design en skill ux-ui
+- **Qué:** Se actualiza `.agents/skills/ux-ui/SKILL.md` incorporando la filosofía de diseño y dirección de arte de la skill `frontend-design` (evitar plantillas genéricas "AI slop", paleta 60-30-10 para ecommerce, diseño de estados completos como carritos vacíos/skeletons, micro-interacciones y diseño para la zona del pulgar en móviles), manteniendo el rigor técnico de Tailwind v4, accesibilidad WCAG AA y la inspección visual con el subagente `browser`.
+- **Archivos clave:** `.agents/skills/ux-ui/SKILL.md`, `docs/HISTORIAL.md`
+- **Agente(s):** orquestador, ux-ui, docs-seo
+- **Notas:** Preparado para dar una identidad visual única y atractiva a la tienda de mascotas.
 
 ### 2026-11-16 · `phase/01-design` · inyección de mejoras y lecciones aprendidas
 - **Qué:** Se actualizan `AGENTS.md`, `docs/PLAN.md` y `docs/HISTORIAL.md` incorporando las lecciones técnicas de los Proyectos 1 y 2: creación de `public/_headers` desde el inicio, obligatoriedad de `astro:assets` con dimensiones para evitar CLS, metadatos Open Graph en PNG/JPG, anti-FOUC, accesibilidad `prefers-reduced-motion` y reglas de validación en servidor para el ecommerce.
