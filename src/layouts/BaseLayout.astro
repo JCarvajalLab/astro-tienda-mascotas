@@ -1,0 +1,376 @@
+---
+import '../styles/global.css';
+
+/**
+ * @typedef {Object} Props
+ * @property {string} [title]
+ * @property {string} [description]
+ * @property {string} [image]
+ */
+
+const {
+  title = 'Patitas & Co. | Tienda de Artículos para Mascotas',
+  description = 'Alimentos premium, accesorios divertidos, juguetes y cuidados especiales para consentir a perros, gatos y otras mascotas queridas.',
+  image = '/images/og-default.png',
+} = Astro.props;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || 'https://tienda-mascotas.pages.dev'
+);
+const ogImageURL = new URL(
+  image,
+  Astro.site || 'https://tienda-mascotas.pages.dev'
+);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Redes Sociales (PNG/JPG obligatorio) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Script síncrono anti-FOUC para tema oscuro/claro -->
+    <script is:inline>
+      (() => {
+        const storedTheme =
+          typeof localStorage !== 'undefined'
+            ? localStorage.getItem('theme')
+            : null;
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 antialiased selection:bg-amber-500 selection:text-white transition-colors duration-200"
+  >
+    <!-- Enlace de salto accesible para lectores de pantalla -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-amber-600 text-white rounded-lg shadow-lg font-medium outline-none ring-2 ring-offset-2 ring-amber-500"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <!-- Encabezado / Navbar -->
+    <header
+      class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-stone-900/90 border-b border-stone-200/80 dark:border-stone-800 transition-colors"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
+          <!-- Logo & Marca -->
+          <a
+            href="/"
+            class="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg p-1"
+          >
+            <span
+              class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform"
+            >
+              <svg
+                class="w-6 h-6 fill-current"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-4.5 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 1c-2.8 0-5 1.8-5 4.5 0 1.9 1.8 3.5 5 3.5s5-1.6 5-3.5c0-2.7-2.2-4.5-5-4.5Z"
+                ></path>
+              </svg>
+            </span>
+            <div class="flex flex-col">
+              <span
+                class="font-extrabold text-lg sm:text-xl tracking-tight text-stone-900 dark:text-white"
+              >
+                Patitas<span class="text-amber-600 dark:text-amber-400"
+                  >&amp;Co.</span
+                >
+              </span>
+              <span
+                class="text-[10px] uppercase font-semibold tracking-wider text-stone-500 dark:text-stone-400 -mt-1 hidden sm:block"
+              >
+                Tienda de Mascotas
+              </span>
+            </div>
+          </a>
+
+          <!-- Enlaces de navegación principales -->
+          <nav
+            class="hidden md:flex items-center gap-1 lg:gap-2"
+            aria-label="Navegación principal"
+          >
+            <a
+              href="/#categorias"
+              class="px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-stone-100 dark:hover:bg-stone-800/60 transition-colors"
+            >
+              Categorías
+            </a>
+            <a
+              href="/#destacados"
+              class="px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-stone-100 dark:hover:bg-stone-800/60 transition-colors"
+            >
+              Populares
+            </a>
+            <a
+              href="/#ofertas"
+              class="px-3 py-2 text-sm font-medium rounded-lg text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950/40 transition-colors flex items-center gap-1.5"
+            >
+              <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"
+              ></span>
+              Ofertas
+            </a>
+            <a
+              href="/#beneficios"
+              class="px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-stone-100 dark:hover:bg-stone-800/60 transition-colors"
+            >
+              Garantía & Envíos
+            </a>
+          </nav>
+
+          <!-- Acciones derechas: Modo oscuro + Carrito -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Botón selector tema (Dark / Light) -->
+            <button
+              id="theme-toggle"
+              type="button"
+              aria-label="Cambiar tema de color"
+              class="p-2 sm:p-2.5 rounded-xl border border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+            >
+              <!-- Sol (visible en dark) -->
+              <svg
+                id="sun-icon"
+                class="w-5 h-5 hidden dark:block"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <!-- Luna (visible en light) -->
+              <svg
+                id="moon-icon"
+                class="w-5 h-5 block dark:hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Botón de carrito de compras -->
+            <button
+              id="cart-button"
+              type="button"
+              aria-label="Ver carrito de compras"
+              class="relative flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-medium text-sm shadow-sm transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+              <span class="hidden sm:inline">Carrito</span>
+              <span
+                id="cart-count-badge"
+                class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold leading-none text-white bg-amber-500 dark:bg-stone-950 rounded-full"
+              >
+                0
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Pie de página -->
+    <footer
+      class="bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 mt-20 transition-colors"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+          <!-- Columna Marca -->
+          <div class="md:col-span-1 space-y-3">
+            <div class="flex items-center gap-2">
+              <span
+                class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-white"
+              >
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-4.5 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 1c-2.8 0-5 1.8-5 4.5 0 1.9 1.8 3.5 5 3.5s5-1.6 5-3.5c0-2.7-2.2-4.5-5-4.5Z"
+                  ></path>
+                </svg>
+              </span>
+              <span class="font-bold text-lg text-stone-900 dark:text-white"
+                >Patitas & Co.</span
+              >
+            </div>
+            <p class="text-sm leading-relaxed">
+              Ecommerce especializado en nutrición, confort y entretenimiento
+              para tus mejores compañeros peludos.
+            </p>
+          </div>
+
+          <!-- Columna Catálogo -->
+          <div>
+            <h3
+              class="font-semibold text-stone-900 dark:text-white text-sm uppercase tracking-wider mb-3"
+            >
+              Categorías
+            </h3>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a
+                  href="/#categorias"
+                  class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  >Alimentos & Snacks</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/#categorias"
+                  class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  >Juguetes Interactivos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/#categorias"
+                  class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  >Camas & Descanso</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/#categorias"
+                  class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  >Higiene & Cuidados</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Columna Confianza -->
+          <div>
+            <h3
+              class="font-semibold text-stone-900 dark:text-white text-sm uppercase tracking-wider mb-3"
+            >
+              Compras Seguras
+            </h3>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-500">✓</span> Envíos a todo el país
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-500">✓</span> Pagos seguros verificados
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-500">✓</span> Garantía de satisfacción
+              </li>
+            </ul>
+          </div>
+
+          <!-- Columna Contacto -->
+          <div>
+            <h3
+              class="font-semibold text-stone-900 dark:text-white text-sm uppercase tracking-wider mb-3"
+            >
+              Atención al Cliente
+            </h3>
+            <p class="text-sm leading-relaxed mb-2">
+              Lunes a Sábado de 09:00 a 19:00 hrs.
+            </p>
+            <p class="text-xs text-stone-500 dark:text-stone-400">
+              Soporte vía chat y correo electrónico.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="pt-8 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs"
+        >
+          <p>
+            © {new Date().getFullYear()} Patitas & Co. Todos los derechos reservados.
+            Proyecto portafolio Astro 5.
+          </p>
+          <div
+            class="flex items-center gap-4 text-stone-500 dark:text-stone-400"
+          >
+            <span>Astro 5 SSR</span>
+            <span>•</span>
+            <span>Tailwind CSS v4</span>
+            <span>•</span>
+            <span>JavaScript Nativo</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script de interactividad básica (Tema oscuro / claro) -->
+    <script>
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+      }
+    </script>
+  </body>
+</html>
