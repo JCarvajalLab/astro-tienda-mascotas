@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(navbar): implementa navbar ecommerce en 2 niveles con megamenu y selector de comuna chile
-- **Despliegue:** servidor local de desarrollo activo en http://localhost:4321/
-- **Qué funciona:** Header de ecommerce en 2 niveles horizontales (Nivel 1: Logo, buscador visible, selector de región/comuna de Chile con persistencia, iniciar sesión, carrito reactivo, toggle modo claro/oscuro; Nivel 2: Categorías principales con mega-menú desplegable en hover), modo claro cálido y luminoso por defecto, 6 productos destacados con precios en CLP y badges de stock.
+- **Último commit relevante:** feat(region): implementa modal de comuna segun referencia y selector de 3 paletas en vivo
+- **Despliegue:** 3 servidores locales activos en simultáneo: http://localhost:4321/ (Opción 1: Naranja), http://localhost:4322/ (Opción 2: Teal), http://localhost:4323/ (Opción 3: Rojo Retail)
+- **Qué funciona:** Modo claro puro y luminoso obligatorio (desacoplado del SO con `@custom-variant dark`), modal fiel a la referencia de diseño "Escoge dónde recibir tus compras" (Región/Comuna de Chile en cascada y guardado en `localStorage`), barra superior interactiva para alternar las 3 opciones de paletas en caliente, header de 2 niveles con mega-menú de subcategorías y catálogo de 6 productos.
 - **Qué está en progreso:** Cierre de Fase 1 y transición a Fase 2 (Content Collections y catálogo con fotos en `src/assets/`)
 - **Bloqueos o problemas conocidos:** ninguno; build en 1.3s, ESLint y Prettier 100% pasando
-- **Siguiente paso concreto:** Preparar Content Collections en `src/content.config.js` y assets de productos para iniciar Fase 2 (Catálogo & Contenido)
+- **Siguiente paso concreto:** Confirmar la paleta de color preferida por el usuario para consolidar y avanzar a Fase 2 (Catálogo & Contenido)
 
 ## 2. Decisiones importantes
 
@@ -38,10 +38,25 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Enriquecer skill `ux-ui` con principios de `frontend-design` | Evitar diseños genéricos ("AI slop"), aportar dirección de arte intencional, tipografía con carácter y diseño de estados completos en el ecommerce | Mantener skill genérica o reemplazar perdiendo reglas de accesibilidad y subagente browser |
 | 2026-11-16 | Transparencia obligatoria de skills en respuestas e historial | El usuario debe saber siempre qué skill intervino y qué aporte realizó en cada tarea, asegurando que se activen activamente | Respuestas genéricas sin identificar qué skill ejecutó el trabajo |
 | 2026-11-16 | Modo claro por defecto y Navbar en 2 niveles con mega-menú | Experiencia ecommerce estándar de alta conversión: buscador siempre visible, selector de despacho por comuna (Chile) y navegación por subcategorías en hover | Navbar plano simple o forzar modo oscuro por preferencias del sistema operativo |
+| 2026-11-16 | `@custom-variant dark` para desacoplar Tailwind v4 del tema de Windows | En Tailwind v4 `dark:` activa por media query del SO; con variant custom solo activa si se inyecta clase explícita | Permitir que Windows fuerce modo nocturno no deseado |
+| 2026-11-16 | Modal dinámico de Región/Comuna según referencia de retail | Flujo estándar de supermercado/retail chileno (Lider/Jumbo/Falabella) con selects en cascada y persistencia | Dropdown plano sin selects en cascada |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · modal de despacho segun referencia y 3 opciones de paletas en localhost
+- **Qué:** Solución definitiva al modo oscuro no deseado, maquetación del modal de despacho según referencia exacta del usuario e implementación de 3 opciones de color en simultáneo:
+  1. **Desacoplamiento total del modo oscuro:** Se agregó `@custom-variant dark (&:where(.dark, .dark *));` en `global.css` para evitar que Tailwind CSS v4 active estilos oscuros automáticamente basados en la configuración de Windows. Se limpiaron residuos en `localStorage` y se aseguró fondo blanco luminoso por defecto.
+  2. **Modal de Región/Comuna de Chile fiel a la referencia:** Creación de `RegionModal.astro` con diseño calcado a la imagen provista: título "Escoge dónde recibir tus compras", subtítulo informativo, selects en cascada (Región primero, habilitando las comunas correspondientes de Chile) y botones redondeados "Cancelar" y "Guardar" con persistencia en `localStorage`.
+  3. **3 Opciones de Color en vivo:** Creación del componente `PaletteSwitcher.astro` y habilitación de 3 servidores de desarrollo simultáneos: Puerto 4321 (Opción 1: Naranja Cálido), Puerto 4322 (Opción 2: Teal Médico) y Puerto 4323 (Opción 3: Rojo Retail Chileno).
+- **Archivos clave:** `src/styles/global.css`, `src/components/RegionModal.astro`, `src/components/PaletteSwitcher.astro`, `src/components/Header.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Reproducción pixel-perfect del modal de despacho chileno (Imagen 2), eliminación del modo oscuro forzado y formulación técnica de 3 paletas cromáticas comerciales de alta conversión.
+  - `desarrollo`: Creación de `RegionModal.astro` y `PaletteSwitcher.astro`, lógica en cascada JS para comunas de Chile, variables CSS dinámicas y configuración de múltiples puertos dev.
+  - `qa`: Pruebas de compilación limpia (`npm run build` en 1.36s), ESLint 9 (0 errores), Prettier (100% pasando) y verificación de los puertos 4321, 4322 y 4323 activos y respondiendo en 30ms.
+  - `docs-seo`: Registro de decisiones y memoria en `HISTORIAL.md`.
+- **Notas:** Servidores locales 4321, 4322 y 4323 activos para revisión visual inmediata.
 
 ### 2026-11-16 · `phase/01-design` · navbar de 2 niveles con megamenu, selector de comuna chile y paleta luminosa
 - **Qué:** Rediseño completo de la navegación y la paleta visual para adaptarse a estándares de ecommerce de alta conversión:
