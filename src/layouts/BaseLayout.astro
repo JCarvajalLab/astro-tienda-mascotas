@@ -64,23 +64,23 @@ const ogImageURL = new URL(
         }
         document.documentElement.classList.remove('dark');
 
-        // Asignación inteligente de paleta según el puerto local o preferencia:
-        // Puerto 4321 -> Opción 1: Naranja Cálido
-        // Puerto 4322 -> Opción 2: Teal Médico
-        // Puerto 4323 -> Opción 3: Rojo Retail Chileno (como Imagen 2)
+        // Asignación de paleta 60-30-10 según el puerto local o preferencia:
+        // Puerto 4321 -> Opción 1: Retail Carmín (60% Blanco Slate, 30% Pizarra Grafito, 10% Rojo Carmín)
+        // Puerto 4322 -> Opción 2: Nordic Paws (60% Crema Avena, 30% Azul Petróleo, 10% Rojo Rubí)
+        // Puerto 4323 -> Opción 3: Salvia & Terracota (60% Lino Suave, 30% Salvia Botánico, 10% Terracota)
         const port = window.location.port;
         const urlParams = new URLSearchParams(window.location.search);
         const queryPalette = urlParams.get('paleta');
 
-        let palette = 'orange';
+        let palette = 'retail';
         if (port === '4322') {
-          palette = 'teal';
+          palette = 'nordic';
         } else if (port === '4323') {
-          palette = 'red';
+          palette = 'salvia';
         } else if (queryPalette) {
           palette = queryPalette;
         } else {
-          palette = localStorage.getItem('tienda_palette') || 'orange';
+          palette = localStorage.getItem('tienda_palette') || 'retail';
         }
 
         document.documentElement.setAttribute('data-palette', palette);

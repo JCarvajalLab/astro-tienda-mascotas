@@ -1,54 +1,98 @@
 @import 'tailwindcss';
 
-/* Forzar que dark: SOLO aplique con la clase explícita .dark, nunca automáticamente por el SO */
+/* Desacoplar dark: de las preferencias del sistema operativo */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Paletas dinámicas para probar en modo claro */
-:root {
-  --brand-primary: #f97316; /* Naranja Cálido (Por defecto) */
-  --brand-primary-hover: #ea580c;
-  --brand-light: #fff7ed;
-  --brand-border: #fed7aa;
+/* ========================================================
+   REGLA 60 - 30 - 10: SISTEMA CROMÁTICO PROFESIONAL ECOMMERCE
+   ======================================================== */
+
+/* PALETA 1 (Por defecto / Puerto 4321): "Cherry & Slate Retail" */
+:root,
+:root[data-palette='retail'] {
+  --color-60-bg: #f8fafc; /* 60% Lienzo general fresco y aireado */
+  --color-60-surface: #ffffff; /* 60% Superficie de tarjetas y modales */
+  --color-30-text: #0f172a; /* 30% Tipografía y títulos de alto contraste */
+  --color-30-muted: #64748b; /* 30% Textos secundarios y descripciones */
+  --color-30-border: #e2e8f0; /* 30% Bordes estructurales suaves */
+  --color-30-subtle: #f1f5f9; /* 30% Contenedores de categorías e inputs */
+  --color-10-accent: #e11d48; /* 10% Rojo Carmín Retail (Conversión) */
+  --color-10-accent-hover: #be123c;
+  --color-10-accent-light: #ffe4e6;
 }
 
-:root[data-palette='teal'] {
-  --brand-primary: #0d9488; /* Teal / Turquesa Médico */
-  --brand-primary-hover: #0f766e;
-  --brand-light: #f0fdfa;
-  --brand-border: #99f6e4;
+/* PALETA 2 (Puerto 4322): "Nordic Paws: Crema Avena, Azul Petróleo & Rojo Rubí" */
+:root[data-palette='nordic'] {
+  --color-60-bg: #fbf9f5; /* 60% Lienzo crema marfil suave y acogedor */
+  --color-60-surface: #ffffff; /* 60% Tarjetas en blanco limpio */
+  --color-30-text: #1e2b37; /* 30% Azul petróleo sobrio y elegante */
+  --color-30-muted: #52606d; /* 30% Textos auxiliares */
+  --color-30-border: #eae5dc; /* 30% Bordes arena cálida */
+  --color-30-subtle: #f3efe6; /* 30% Barra de categorías e inputs */
+  --color-10-accent: #d90429; /* 10% Rojo Rubí Intenso */
+  --color-10-accent-hover: #a50320;
+  --color-10-accent-light: #fee2e2;
 }
 
-:root[data-palette='red'] {
-  --brand-primary: #dc2626; /* Rojo Retail Chileno (Imagen 2) */
-  --brand-primary-hover: #b91c1c;
-  --brand-light: #fef2f2;
-  --brand-border: #fecaca;
+/* PALETA 3 (Puerto 4323): "Earthy Terracotta: Lino, Salvia & Rojo Terracota" */
+:root[data-palette='salvia'] {
+  --color-60-bg: #f7f9f8; /* 60% Lienzo suave lino */
+  --color-60-surface: #ffffff; /* 60% Tarjetas */
+  --color-30-text: #203a31; /* 30% Verde salvia botánico profundo */
+  --color-30-muted: #566b62; /* 30% Textos secundarios */
+  --color-30-border: #dbe3de; /* 30% Bordes botánicos suaves */
+  --color-30-subtle: #edf3f0; /* 30% Fila de categorías */
+  --color-10-accent: #e0533c; /* 10% Rojo Terracota Cálido */
+  --color-10-accent-hover: #c43c27;
+  --color-10-accent-light: #ffedd5;
 }
 
+/* Clases utilitarias directas de la regla 60-30-10 */
+.bg-canvas {
+  background-color: var(--color-60-bg);
+}
+.bg-surface {
+  background-color: var(--color-60-surface);
+}
+.text-main {
+  color: var(--color-30-text);
+}
+.text-muted {
+  color: var(--color-30-muted);
+}
+.border-subtle {
+  border-color: var(--color-30-border);
+}
+.bg-subtle {
+  background-color: var(--color-30-subtle);
+}
+
+.bg-accent,
 .bg-brand-primary {
-  background-color: var(--brand-primary);
+  background-color: var(--color-10-accent);
 }
+.bg-accent:hover,
 .bg-brand-primary:hover {
-  background-color: var(--brand-primary-hover);
+  background-color: var(--color-10-accent-hover);
 }
+.text-accent,
 .text-brand-primary {
-  color: var(--brand-primary);
+  color: var(--color-10-accent);
 }
+.border-accent,
 .border-brand-primary {
-  border-color: var(--brand-primary);
+  border-color: var(--color-10-accent);
 }
+.bg-accent-light,
 .bg-brand-light {
-  background-color: var(--brand-light);
-}
-.border-brand-light {
-  border-color: var(--brand-border);
+  background-color: var(--color-10-accent-light);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #ffffff;
-    color: #1c1917;
+    background-color: var(--color-60-bg);
+    color: var(--color-30-text);
     font-family:
       system-ui,
       -apple-system,
