@@ -4,47 +4,37 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ========================================================
-   REGLA 60 - 30 - 10: SISTEMA CROMÁTICO PROFESIONAL ECOMMERCE
+   PALETA OFICIAL (REGLA 60 - 30 - 10): "RETAIL CARMÍN"
    ======================================================== */
 
-/* PALETA 1 (Por defecto / Puerto 4321): "Cherry & Slate Retail" */
-:root,
-:root[data-palette='retail'] {
-  --color-60-bg: #f8fafc; /* 60% Lienzo general fresco y aireado */
-  --color-60-surface: #ffffff; /* 60% Superficie de tarjetas y modales */
-  --color-30-text: #0f172a; /* 30% Tipografía y títulos de alto contraste */
-  --color-30-muted: #64748b; /* 30% Textos secundarios y descripciones */
-  --color-30-border: #e2e8f0; /* 30% Bordes estructurales suaves */
-  --color-30-subtle: #f1f5f9; /* 30% Contenedores de categorías e inputs */
-  --color-10-accent: #e11d48; /* 10% Rojo Carmín Retail (Conversión) */
+:root {
+  /* 60% Dominante (Lienzo & Superficie) */
+  --color-60-bg: #f8fafc; /* Blanco Slate suave y limpio */
+  --color-60-surface: #ffffff; /* Blanco puro en tarjetas y modales */
+
+  /* 30% Estructural (Contraste, Textos & Bordes) */
+  --color-30-text: #0f172a; /* Pizarra Grafito para lectura nítida */
+  --color-30-muted: #64748b; /* Gris slate para textos secundarios */
+  --color-30-border: #e2e8f0; /* Bordes suaves */
+  --color-30-subtle: #f1f5f9; /* Contenedores de categorías e inputs */
+
+  /* 10% Acento de Conversión */
+  --color-10-accent: #e11d48; /* Rojo Carmín Retail de alta conversión */
   --color-10-accent-hover: #be123c;
   --color-10-accent-light: #ffe4e6;
 }
 
-/* PALETA 2 (Puerto 4322): "Nordic Paws: Crema Avena, Azul Petróleo & Rojo Rubí" */
-:root[data-palette='nordic'] {
-  --color-60-bg: #fbf9f5; /* 60% Lienzo crema marfil suave y acogedor */
-  --color-60-surface: #ffffff; /* 60% Tarjetas en blanco limpio */
-  --color-30-text: #1e2b37; /* 30% Azul petróleo sobrio y elegante */
-  --color-30-muted: #52606d; /* 30% Textos auxiliares */
-  --color-30-border: #eae5dc; /* 30% Bordes arena cálida */
-  --color-30-subtle: #f3efe6; /* 30% Barra de categorías e inputs */
-  --color-10-accent: #d90429; /* 10% Rojo Rubí Intenso */
-  --color-10-accent-hover: #a50320;
-  --color-10-accent-light: #fee2e2;
-}
-
-/* PALETA 3 (Puerto 4323): "Earthy Terracotta: Lino, Salvia & Rojo Terracota" */
-:root[data-palette='salvia'] {
-  --color-60-bg: #f7f9f8; /* 60% Lienzo suave lino */
-  --color-60-surface: #ffffff; /* 60% Tarjetas */
-  --color-30-text: #203a31; /* 30% Verde salvia botánico profundo */
-  --color-30-muted: #566b62; /* 30% Textos secundarios */
-  --color-30-border: #dbe3de; /* 30% Bordes botánicos suaves */
-  --color-30-subtle: #edf3f0; /* 30% Fila de categorías */
-  --color-10-accent: #e0533c; /* 10% Rojo Terracota Cálido */
-  --color-10-accent-hover: #c43c27;
-  --color-10-accent-light: #ffedd5;
+/* Modo Nocturno (Solo se activa si el usuario pulsa el botón del sol/luna) */
+html.dark {
+  --color-60-bg: #090d16; /* Fondo nocturno profundo */
+  --color-60-surface: #0f172a; /* Tarjetas y contenedores oscuros */
+  --color-30-text: #f8fafc; /* Texto blanco cálido */
+  --color-30-muted: #94a3b8; /* Texto secundario gris claro */
+  --color-30-border: #1e293b; /* Bordes oscuros suaves */
+  --color-30-subtle: #1e293b; /* Fila de categorías oscura */
+  --color-10-accent: #f43f5e; /* Rojo frambuesa brillante para alto contraste en oscuro */
+  --color-10-accent-hover: #e11d48;
+  --color-10-accent-light: #4c0519;
 }
 
 /* Clases utilitarias directas de la regla 60-30-10 */

@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import RegionModal from '../components/RegionModal.astro';
-import PaletteSwitcher from '../components/PaletteSwitcher.astro';
 
 /**
  * @typedef {Object} Props
@@ -55,44 +54,24 @@ const ogImageURL = new URL(
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Script síncrono: Asegura MODO CLARO LUMINOSO y asigna paleta según puerto o preferencia -->
+    <!-- Script síncrono anti-FOUC: MODO CLARO por defecto, respeta si el usuario activa modo oscuro -->
     <script is:inline>
       (() => {
-        // Garantizar modo claro: limpiar cualquier residuo oscuro anterior
-        if (localStorage.getItem('theme') === 'dark') {
-          localStorage.removeItem('theme');
-        }
-        document.documentElement.classList.remove('dark');
-
-        // Asignación de paleta 60-30-10 según el puerto local o preferencia:
-        // Puerto 4321 -> Opción 1: Retail Carmín (60% Blanco Slate, 30% Pizarra Grafito, 10% Rojo Carmín)
-        // Puerto 4322 -> Opción 2: Nordic Paws (60% Crema Avena, 30% Azul Petróleo, 10% Rojo Rubí)
-        // Puerto 4323 -> Opción 3: Salvia & Terracota (60% Lino Suave, 30% Salvia Botánico, 10% Terracota)
-        const port = window.location.port;
-        const urlParams = new URLSearchParams(window.location.search);
-        const queryPalette = urlParams.get('paleta');
-
-        let palette = 'retail';
-        if (port === '4322') {
-          palette = 'nordic';
-        } else if (port === '4323') {
-          palette = 'salvia';
-        } else if (queryPalette) {
-          palette = queryPalette;
+        const storedTheme =
+          typeof localStorage !== 'undefined'
+            ? localStorage.getItem('theme')
+            : null;
+        if (storedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
         } else {
-          palette = localStorage.getItem('tienda_palette') || 'retail';
+          document.documentElement.classList.remove('dark');
         }
-
-        document.documentElement.setAttribute('data-palette', palette);
       })();
     </script>
   </head>
   <body
-    class="min-h-screen flex flex-col bg-white text-stone-900 antialiased selection:bg-orange-500 selection:text-white transition-colors duration-200"
+    class="min-h-screen flex flex-col bg-canvas text-main antialiased selection:bg-rose-500 selection:text-white transition-colors duration-200"
   >
-    <!-- Barra superior para probar las 3 paletas de colores interactivamente -->
-    <PaletteSwitcher />
-
     <!-- Enlace de salto accesible para lectores de pantalla -->
     <a
       href="#main-content"
