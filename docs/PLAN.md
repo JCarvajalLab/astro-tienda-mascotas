@@ -257,13 +257,34 @@ Temática: **veterinaria** (servicios, equipo, horarios, contacto y agendamiento
 
 Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, higiene), con categorías por tipo de animal.
 
-- [ ] **Fase 1: Diseño** (`phase/01-design`): modelo de datos (productos, categorías, órdenes), rutas y wireframes.
-- [ ] **Fase 2: Catálogo** (`phase/02-catalog`): productos en Content Collections, páginas de categoría y de producto. Aún sin base de datos.
-- [ ] **Fase 3: Carrito** (`phase/03-cart`): carrito con JavaScript nativo y `localStorage`.
-- [ ] **Fase 4: Servidor y base de datos** (`phase/04-server-db`): Astro SSR con adaptador, PostgreSQL para órdenes y stock, endpoints o Actions. Esta fase se hace solo si el stock y las órdenes lo requieren.
-- [ ] **Fase 5: Checkout y pagos** (`phase/05-checkout`): integración en modo sandbox.
-- [ ] **Fase 6: Seguridad y pruebas** (`phase/06-hardening`): validaciones, consultas parametrizadas, rate limiting, cabeceras, pruebas de flujos críticos.
-- [ ] **Fase 7: Lanzamiento** (`phase/07-launch`)
+- [ ] **Fase 1: Diseño & Setup Base** (`phase/01-design`): 
+  - Inicialización con Astro 5+, Tailwind CSS v4 y ESLint/Prettier.
+  - Creación desde el inicio de `public/_headers` (anti-clickjacking, nosniff, referrer-policy, permissions-policy y CSP).
+  - Layout base con script síncrono inline anti-FOUC en `<head>` para modo claro/oscuro.
+  - Configuración de SEO base (`site` en `astro.config.mjs`, robots.txt, metadatos Open Graph en PNG de 1200x630 px).
+  - Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
+  - Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
+- [ ] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
+  - Catálogo modelado mediante Content Collections (`src/content.config.js`) con validación de esquemas Zod.
+  - Fotos de productos descargadas localmente en `src/assets/` y procesadas con `<Image />` de `astro:assets` (WebP/AVIF, con `width`, `height`, `loading="lazy"` o `eager` para prevenir CLS).
+  - Vistas dinámicas de catálogo por categoría y páginas de detalle de producto con renderizado condicional defensivo.
+- [ ] **Fase 3: Carrito Interactivo** (`phase/03-cart`): 
+  - Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).
+  - Renderizado seguro en el DOM con `.textContent` para prevenir DOM XSS.
+- [ ] **Fase 4: Servidor y Base de Datos (SSR)** (`phase/04-server-db`): 
+  - Configuración de Astro en modo SSR (adaptador Cloudflare / Node / Vercel).
+  - Conexión a PostgreSQL (Neon / Supabase) con consultas 100% parametrizadas (sin inyección SQL).
+  - Variables secretas (`DATABASE_URL`, claves de servidor) estrictamente en `.env` sin prefijo `PUBLIC_`.
+  - Astro Actions / Endpoints para verificar stock y recalcular precios en servidor.
+- [ ] **Fase 5: Checkout y Pagos** (`phase/05-checkout`): 
+  - Integración de pasarela de pago en modo sandbox (Flow, Webpay o Mercado Pago).
+  - Flujo de creación de orden, comprobante y confirmación.
+- [ ] **Fase 6: Seguridad y Pruebas** (`phase/06-hardening`): 
+  - Auditoría de seguridad completa con subagente (`invoke_subagent`).
+  - Pruebas E2E de flujos críticos (carrito, checkout, validaciones de stock) con subagente `browser`.
+  - Lighthouse >= 90 en todas las categorías.
+- [ ] **Fase 7: Lanzamiento** (`phase/07-launch`): 
+  - Despliegue en producción, verificación de variables en hosting y documentación final.
 
 ## 8. Agentes y Skills en Gemini (Antigravity)
 
@@ -395,3 +416,4 @@ Las IA pierden el contexto entre sesiones y, si no tienen un resumen, deben rele
 | 2026-11-11 | Se quita el blog del portafolio (ahora con casos de estudio) y se agregan los criterios de reevaluación de un framework extra en la tienda (3.1) |
 | 2026-11-11 | Se define el stack: solo Astro, JavaScript y Tailwind, sin Vue/React ni Django; PostgreSQL solo si se necesita. Se fijan las temáticas (veterinaria, portafolio, tienda de mascotas), se agrega el stack detallado (3.1) y las imágenes y APIs (3.2), y se reescriben las fases del ecommerce |
 | 2026-11-11 | Se adapta la arquitectura de agentes a Gemini (Antigravity): fusión de `orquestador` en `AGENTS.md`, migración de especialistas a `.agents/skills/*/SKILL.md`, uso de subagentes nativos (`browser` e `invoke_subagent`) y actualización técnica a Astro 5+ (`src/content.config.js`) y Tailwind CSS v4 (`@tailwindcss/vite`) |
+| 2026-11-16 | Se incorporan lecciones y mejoras técnicas de proyectos anteriores (veterinaria y portafolio): cabeceras HTTP en `public/_headers` desde fase 1, optimización obligatoria de imágenes en `src/assets/`, metadatos Open Graph en PNG/JPG, anti-FOUC, `prefers-reduced-motion`, validación defensiva en servidor y sin prefijos `PUBLIC_` para secretos |
