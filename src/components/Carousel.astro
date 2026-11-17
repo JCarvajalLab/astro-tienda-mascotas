@@ -1,0 +1,257 @@
+---
+/**
+ * Carousel Hero Moderno - Inspirado en Bootstrap 5 Carousel y Retail de Mascotas
+ * Adaptado a la regla 60-30-10 y a las referencias de Belcando/Leonardo y Catit Go Natural.
+ */
+const slides = [
+  {
+    id: 1,
+    badge: 'MADE IN GERMANY 🇩🇪',
+    title: 'Nutrición Holística & Sabor Insuperable',
+    subtitle:
+      'Fórmulas con carne fresca y cocción al vapor para perros y gatos exigentes. Sin granos ni aditivos artificiales.',
+    ctaText: 'Ver Alimentos Premium',
+    ctaLink: '#destacados',
+    badges: [
+      'Carne fresca seleccionada',
+      'Cocción al vapor',
+      'Nutrición holística',
+      'Sabor insuperable',
+    ],
+    bgClass: 'bg-gradient-to-r from-stone-900 via-neutral-900 to-amber-950',
+    ctaClass:
+      'bg-amber-400 text-stone-950 hover:bg-amber-300 font-black shadow-lg shadow-amber-500/20',
+    petEmoji: '🐕🐈',
+    petTag: 'Belcando & Leonardo',
+  },
+  {
+    id: 2,
+    badge: 'NUEVA CATIT GO NATURAL 🐱',
+    title: 'Arena Ecológica de Cáscara de Arvejas',
+    subtitle:
+      'Rápida aglomeración y control total de olores para hogares con varios gatos. Aglomeración biodegradable y libre de polvo.',
+    ctaText: 'COMPRAR AQUÍ',
+    ctaLink: '#destacados',
+    badges: [
+      'Cáscara de arveja + bentonita',
+      'Aglomeración instantánea',
+      'Desodorización natural',
+      'Rinde hasta 60 días',
+    ],
+    bgClass: 'bg-gradient-to-r from-sky-800 via-cyan-700 to-sky-900',
+    ctaClass:
+      'bg-red-600 text-white hover:bg-red-500 font-black shadow-lg shadow-red-600/30 uppercase tracking-wider',
+    petEmoji: '📦✨',
+    petTag: 'Multi-Cat Formula',
+  },
+  {
+    id: 3,
+    badge: 'OFERTAS FLASH DE LA SEMANA 🔥',
+    title: 'Packs de Ahorro: Hasta 35% de Descuento',
+    subtitle:
+      'Combos de rascadores, camas viscoelásticas, snacks dentales y arneses con despacho express en 24 a 48h en Chile.',
+    ctaText: 'Ver Packs en Oferta',
+    ctaLink: '#ofertas',
+    badges: [
+      'Despacho gratis sobre $29.990',
+      'Garantía de 30 días',
+      'Stock limitado',
+      'Envíos a todo Chile',
+    ],
+    bgClass: 'bg-gradient-to-r from-rose-950 via-rose-900 to-stone-900',
+    ctaClass:
+      'bg-white text-rose-700 hover:bg-stone-100 font-black shadow-lg shadow-black/20',
+    petEmoji: '🏷️🦴',
+    petTag: 'Descuentos Exclusivos',
+  },
+];
+---
+
+<section
+  class="relative w-full overflow-hidden bg-stone-950 text-white select-none"
+  aria-label="Promociones y novedades destacadas"
+>
+  <!-- Pista de diapositivas (Slides Track) -->
+  <div
+    id="carousel-track"
+    class="flex transition-transform duration-500 ease-out"
+  >
+    {
+      slides.map((slide, index) => (
+        <div
+          class={`w-full shrink-0 relative py-14 sm:py-20 lg:py-24 px-6 sm:px-12 lg:px-20 overflow-hidden ${slide.bgClass}`}
+        >
+          <div class="absolute inset-0 bg-radial from-transparent to-black/40 pointer-events-none" />
+
+          <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[360px] sm:min-h-[420px]">
+            <div class="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs">
+                <span>{slide.badge}</span>
+              </div>
+
+              <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] drop-shadow-sm">
+                {slide.title}
+              </h2>
+
+              <p class="text-sm sm:text-lg text-white/90 max-w-2xl leading-relaxed font-normal">
+                {slide.subtitle}
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs sm:text-sm font-semibold text-white/95 max-w-xl">
+                {slide.badges.map((b) => (
+                  <div class="flex items-center gap-2 bg-black/25 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10">
+                    <span class="text-emerald-400 font-black">✓</span>
+                    <span>{b}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="pt-2 sm:pt-4">
+                <a
+                  href={slide.ctaLink}
+                  class={`inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm sm:text-base transition-all duration-200 transform hover:scale-105 active:scale-95 cursor-pointer ${slide.ctaClass}`}
+                >
+                  {slide.ctaText} →
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 flex flex-col items-center justify-center">
+              <div class="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center shadow-2xl">
+                <span class="text-7xl sm:text-8xl filter drop-shadow-lg select-none">
+                  {slide.petEmoji}
+                </span>
+                <span class="mt-2 text-xs font-extrabold uppercase tracking-widest text-white/80 px-3 py-0.5 rounded-full bg-black/30 border border-white/10">
+                  {slide.petTag}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Flechas de navegación (Izquierda y Derecha estilo Bootstrap Carousel) -->
+  <button
+    id="carousel-prev"
+    type="button"
+    aria-label="Diapositiva anterior"
+    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+  >
+    <svg
+      class="w-6 h-6 stroke-current stroke-2"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"
+      ></path>
+    </svg>
+  </button>
+
+  <button
+    id="carousel-next"
+    type="button"
+    aria-label="Diapositiva siguiente"
+    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+  >
+    <svg
+      class="w-6 h-6 stroke-current stroke-2"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+      ></path>
+    </svg>
+  </button>
+
+  <!-- Indicadores de diapositivas inferiores (Barras horizontales estilo Bootstrap) -->
+  <div
+    class="absolute bottom-4 left-0 right-0 z-20 flex justify-center items-center gap-2.5"
+  >
+    {
+      slides.map((_, i) => (
+        <button
+          type="button"
+          data-slide-index={i}
+          aria-label={`Ir a la diapositiva ${i + 1}`}
+          class="carousel-indicator h-1.5 w-8 rounded-full transition-all duration-300 bg-white/40 hover:bg-white cursor-pointer"
+        />
+      ))
+    }
+  </div>
+</section>
+
+<!-- Script interactivo del Carousel en JavaScript nativo puro -->
+<script>
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  const totalSlides = indicators.length;
+  let currentIndex = 0;
+  let autoplayTimer = null;
+
+  function updateCarousel(index) {
+    currentIndex = (index + totalSlides) % totalSlides;
+    if (track) {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    indicators.forEach((ind, i) => {
+      if (i === currentIndex) {
+        ind.classList.remove('bg-white/40', 'w-8');
+        ind.classList.add('bg-white', 'w-12');
+      } else {
+        ind.classList.remove('bg-white', 'w-12');
+        ind.classList.add('bg-white/40', 'w-8');
+      }
+    });
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(() => {
+      updateCarousel(currentIndex + 1);
+    }, 6000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      updateCarousel(currentIndex - 1);
+      startAutoplay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      updateCarousel(currentIndex + 1);
+      startAutoplay();
+    });
+  }
+
+  indicators.forEach((ind) => {
+    ind.addEventListener('click', () => {
+      const idx = Number(ind.getAttribute('data-slide-index'));
+      updateCarousel(idx);
+      startAutoplay();
+    });
+  });
+
+  // Pausar en hover para accesibilidad y usabilidad
+  const section = track ? track.parentElement : null;
+  if (section) {
+    section.addEventListener('mouseenter', stopAutoplay);
+    section.addEventListener('mouseleave', startAutoplay);
+  }
+
+  // Inicializar primer slide
+  updateCarousel(0);
+  startAutoplay();
+</script>
