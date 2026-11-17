@@ -4,6 +4,7 @@ import Carousel from '../components/Carousel.astro';
 import TrustBar from '../components/TrustBar.astro';
 import CircularCategories from '../components/CircularCategories.astro';
 import ProductSlider from '../components/ProductSlider.astro';
+import LifeStageBanners from '../components/LifeStageBanners.astro';
 
 // Importación de fotografías de productos reales en alta resolución
 import imgAlimentoPerro from '../assets/products/alimento-perro.jpg';
@@ -306,7 +307,10 @@ const productosNovedades = [
     products={productosOfertas}
   />
 
-  <!-- 5. Fila 2: Novedades (5 por pantalla, compactos, con flecha a la derecha para ver 5 más) -->
+  <!-- 5. Banners Especiales por Etapa de Vida (Cachorros y Gatitos, Adultos, Seniors) -->
+  <LifeStageBanners />
+
+  <!-- 6. Fila 2: Novedades (5 por pantalla, compactos, con flecha a la derecha para ver 5 más) -->
   <ProductSlider
     id="novedades"
     title="Novedades de la Semana"
