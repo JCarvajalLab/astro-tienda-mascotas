@@ -1,7 +1,12 @@
 ---
+import { Image } from 'astro:assets';
+import bannerMascotas from '../assets/banners/banner-mascotas-amigos.jpg';
+import bannerGato from '../assets/banners/banner-gato-arena.jpg';
+import bannerPack from '../assets/banners/banner-pack-ahorro.jpg';
+
 /**
- * Carousel Hero Moderno - Inspirado en Bootstrap 5 Carousel y Retail de Mascotas
- * Adaptado a la regla 60-30-10 y a las referencias de Belcando/Leonardo y Catit Go Natural.
+ * Carousel Hero Moderno - Con imágenes fotográficas de alta resolución generadas
+ * y textos comerciales configurables a la izquierda con HTML/Tailwind CSS.
  */
 const slides = [
   {
@@ -21,7 +26,8 @@ const slides = [
     bgClass: 'bg-gradient-to-r from-stone-900 via-neutral-900 to-amber-950',
     ctaClass:
       'bg-amber-400 text-stone-950 hover:bg-amber-300 font-black shadow-lg shadow-amber-500/20',
-    petEmoji: '🐕🐈',
+    image: bannerMascotas,
+    imageAlt: 'Cachorro Jack Russell y gato doméstico amigos felices juntos',
     petTag: 'Belcando & Leonardo',
   },
   {
@@ -41,7 +47,8 @@ const slides = [
     bgClass: 'bg-gradient-to-r from-sky-800 via-cyan-700 to-sky-900',
     ctaClass:
       'bg-red-600 text-white hover:bg-red-500 font-black shadow-lg shadow-red-600/30 uppercase tracking-wider',
-    petEmoji: '📦✨',
+    image: bannerGato,
+    imageAlt: 'Gato bengalí curioso junto a cajas de arena sanitaria ecológica',
     petTag: 'Multi-Cat Formula',
   },
   {
@@ -61,7 +68,8 @@ const slides = [
     bgClass: 'bg-gradient-to-r from-rose-950 via-rose-900 to-stone-900',
     ctaClass:
       'bg-white text-rose-700 hover:bg-stone-100 font-black shadow-lg shadow-black/20',
-    petEmoji: '🏷️🦴',
+    image: bannerPack,
+    imageAlt: 'Pack de rascador moderno para gatos, cama ortopédica y juguetes',
     petTag: 'Descuentos Exclusivos',
   },
 ];
@@ -79,12 +87,12 @@ const slides = [
     {
       slides.map((slide, index) => (
         <div
-          class={`w-full shrink-0 relative py-14 sm:py-20 lg:py-24 px-6 sm:px-12 lg:px-20 overflow-hidden ${slide.bgClass}`}
+          class={`w-full shrink-0 relative py-12 sm:py-16 lg:py-20 px-6 sm:px-12 lg:px-16 overflow-hidden ${slide.bgClass}`}
         >
           <div class="absolute inset-0 bg-radial from-transparent to-black/40 pointer-events-none" />
 
-          <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[360px] sm:min-h-[420px]">
-            <div class="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
+          <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[380px] sm:min-h-[440px]">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs">
                 <span>{slide.badge}</span>
               </div>
@@ -93,11 +101,11 @@ const slides = [
                 {slide.title}
               </h2>
 
-              <p class="text-sm sm:text-lg text-white/90 max-w-2xl leading-relaxed font-normal">
+              <p class="text-sm sm:text-lg text-white/90 max-w-xl leading-relaxed font-normal">
                 {slide.subtitle}
               </p>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs sm:text-sm font-semibold text-white/95 max-w-xl">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs sm:text-sm font-semibold text-white/95 max-w-lg">
                 {slide.badges.map((b) => (
                   <div class="flex items-center gap-2 bg-black/25 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10">
                     <span class="text-emerald-400 font-black">✓</span>
@@ -116,12 +124,20 @@ const slides = [
               </div>
             </div>
 
-            <div class="lg:col-span-4 flex flex-col items-center justify-center">
-              <div class="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center shadow-2xl">
-                <span class="text-7xl sm:text-8xl filter drop-shadow-lg select-none">
-                  {slide.petEmoji}
-                </span>
-                <span class="mt-2 text-xs font-extrabold uppercase tracking-widest text-white/80 px-3 py-0.5 rounded-full bg-black/30 border border-white/10">
+            <div class="lg:col-span-5 flex justify-center lg:justify-end">
+              <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 bg-stone-900 group">
+                <Image
+                  src={slide.image}
+                  alt={slide.imageAlt}
+                  width={640}
+                  height={480}
+                  format="webp"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={index === 0 ? 'high' : 'auto'}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                <span class="absolute bottom-3.5 right-3.5 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-black/65 backdrop-blur-md text-white border border-white/20 shadow-md">
                   {slide.petTag}
                 </span>
               </div>
