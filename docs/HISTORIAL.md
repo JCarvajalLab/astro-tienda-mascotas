@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(footer): nuevo footer moderno con redes sociales, medios de pago y navegacion
+- **Último commit relevante:** fix(footer): remueve tiktok y youtube y actualiza icono oficial de whatsapp
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 5 botones de redes sociales con micro-interacciones hover dinámicas [Instagram, TikTok, Facebook, YouTube, WhatsApp], 3 columnas de navegación comercial [Categorías, Servicio al Cliente, Contacto & Despacho], cintillo de medios de pago chilenos [Webpay Plus, Transbank, Visa, Mastercard, Redcompra, Transferencia, SSL 256-bit] y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial [Categorías, Servicio al Cliente, Contacto & Despacho con WhatsApp oficial y correo], cintillo de medios de pago chilenos [Webpay Plus, Transbank, Visa, Mastercard, Redcompra, Transferencia, SSL 256-bit] y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.59s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.58s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -58,10 +58,22 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Expansión a ancho completo de Club Newsletter y retiro de badge en foto | Ocupar todo el ancho visual disponible (w-full) con padding fluido y dejar la foto de las mascotas 100% limpia sin recuadros de texto superpuestos | Mantener tarjeta acotada en 1280px con badge artificial sobre las patas de las mascotas |
 | 2026-11-17 | Redefinición de copy en bloque de comunidad y cupón transparente | Titular empático centrado en la comunidad ("Únete a nuestra comunidad de amantes de las mascotas"), beneficio claro de $5.000 y disclaimer transparente de compras sobre $40.000 | Titular confuso o sin condiciones claras de retail |
 | 2026-11-17 | Footer moderno con redes sociales y medios de pago integrados | Experiencia retail profesional (Chewy/Falabella): 5 canales sociales con hovers de marca distintivos, navegación comercial clara y sellos de confianza de pago en Chile | Footer plano monocromático sin canales sociales ni sellos de pago |
+| 2026-11-17 | Enfoque de redes en Instagram, Facebook y WhatsApp oficial | Concentrar presencia en los 3 canales de mayor conversión en retail chileno y sustitución del icono genérico por el logotipo vectorial oficial de WhatsApp | Mantener TikTok y YouTube o usar iconos de chat genéricos |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · depuracion de redes sociales y logotipo oficial de whatsapp en footer
+- **Qué:** Depuración de canales sociales en `Footer.astro` conforme a la retroalimentación del usuario:
+  1. **Retiro de TikTok y YouTube:** Se eliminaron ambos canales dejando únicamente los 3 pilares de comunicación y venta del ecommerce: Instagram, Facebook y WhatsApp.
+  2. **Logotipo Oficial Vectorial de WhatsApp:** Sustitución del icono genérico de bocadillo de texto por el glifo oficial de WhatsApp (bocadillo curvado con teléfono inclinado en su interior), tanto en el botón de red social como en la fila de datos de contacto.
+- **Archivos clave:** `src/components/Footer.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Limpieza visual de canales no prioritarios y adopción del logotipo de marca oficial de WhatsApp para reconocimiento inmediato.
+  - `desarrollo`: Actualización del array de datos y renderizado del nuevo SVG vectorial sin dependencias.
+  - `qa`: Linters y compilación estática verificadas en 1.58s.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · footer moderno con redes sociales integradas, medios de pago y navegacion comercial
 - **Qué:** Implementación y desacoplamiento del nuevo pie de página moderno (`Footer.astro`) en reemplazo del pie de página plano anterior en `BaseLayout.astro`:
