@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** style(home): elimina lineas divisorias artificiales en favor de espaciado limpio y ritmo visual
+- **Último commit relevante:** feat(home): expande banner emocional de catalogo a ancho completo con arcos heroicos
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo (`CatalogCtaBanner.astro`: 4 arcos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), interfaz limpia sin líneas divisorias artificiales con ritmo visual orgánico, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), interfaz limpia sin líneas divisorias artificiales con ritmo visual orgánico, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.66s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.52s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -53,10 +53,24 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Rediseño de fondos en banners por etapa de vida | Sustitución de fondos planos por patrones vectoriales de patitas y corazones, botón "COMPRAR" coral con sombra de elevación y difuminado suave de bordes en fotografías | Fondos planos con cortes duros o recuadros visibles |
 | 2026-11-17 | Sustitución de bloque de garantías por Banner Emocional de Catálogo | Mayor tracción y conversión: reemplaza 3 cajas de texto estáticas por un banner con 4 arcos de mascotas expresivas (Beagle, gatos, Corgi) y botón CTA "Ver todo el catálogo" con icono circular | Mantener 3 tarjetas de texto plano redundantes con la TrustBar |
 | 2026-11-17 | Eliminación de líneas de división horizontales en home | Adopción de principios de diseño UX/UI modernos: separación limpia por espacio en blanco y ritmo visual en vez de bordes artificiales que cortaban el flujo | Mantener líneas grises divisorias rígidas entre secciones |
+| 2026-11-17 | Expansión a ancho completo (Full-width) en Banner Emocional de Catálogo | Aprovechar el ancho de pantalla eliminando max-w-7xl, agrandando los arcos a escala heroica (hasta 240x336px) y llevando las mascotas a los extremos laterales | Confinar el banner en 1280px dejando amplios vacíos blancos a los costados |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · expansion a ancho completo de banner emocional de catalogo
+- **Qué:** Expansión del componente `CatalogCtaBanner.astro` para abarcar el 100% del ancho del viewport (`w-full`), eliminando el contenedor restrictivo `max-w-7xl` y redimensionando sus componentes:
+  1. **Ocupación de Márgenes Laterales:** El contenedor aprovecha todo el espacio disponible (`px-4 sm:px-8 md:px-12 lg:px-10 xl:px-16 2xl:px-24`), desplazando las duplas de arcos hacia los extremos izquierdo y derecho.
+  2. **Arcos de Mascotas a Escala Heroica:** Las 4 cápsulas crecieron en tamaño (de 144px a hasta 240px de ancho y de 224px a 336px de alto en pantallas grandes) con bordes más amplios (`rounded-b-3xl`) y sombras envolventes (`hover:shadow-lg hover:-translate-y-2`).
+  3. **Imágenes en Ultra Alta Definición (420x600 px):** Re-procesamiento de las 4 fotos en `src/assets/banner-animals/` para asegurar nitidez visual total en monitores 1080p, 1440p y 4K con compresión WebP de 11 a 16 kB.
+  4. **Titular y Botón CTA con Mayor Presencia:** Titular ampliado a `text-4xl xl:text-5xl font-black`, botón píldora más amplio (`pl-8 pr-3 py-3`) con icono circular agrandado (`w-10 h-10`).
+- **Archivos clave:** `src/components/CatalogCtaBanner.astro`, `src/assets/banner-animals/*`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte full-width responsive para ecommerce, balanceando los pesos visuales de las mascotas en los flancos con el llamado a la acción central.
+  - `desarrollo`: Refactorización de clases Tailwind CSS y re-exportación de imágenes a 420x600 px optimizadas con `astro:assets`.
+  - `qa`: Linters limpios y compilación estática verificada en 1.52s.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · eliminacion de lineas de separacion artificiales y limpieza visual ux/ui
 - **Qué:** Supresión de las 4 líneas grises horizontales de división que cortaban el flujo estético de la página de inicio, evaluadas y resueltas con el especialista de UX/UI:
