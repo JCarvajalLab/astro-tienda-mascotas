@@ -15,9 +15,9 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(carousel): remueve pills flotantes redundantes dejando fondo limpio
+- **Último commit relevante:** feat(home): agrega barra de beneficios y fotografias realistas de categorias eliminando textos de relleno
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style: la fotografía abarca el 100% del banner de borde a borde, con el lado derecho completamente despejado y limpio para destacar a las mascotas sin marcos ni etiquetas flotantes redundantes; títulos, sellos y botones CTA en HTML/Tailwind CSS sobre degradado a la izquierda), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`: Delivery Gratis, Delivery Express, Retiro en Tienda y Asesoría Especializada con iconos SVG vectoriales), 5 categorías circulares con fotografías de producto realistas de alta resolución generadas con IA y procesadas a WebP (reducción del 99% de peso), sin textos de relleno innecesarios, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
 - **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
@@ -47,10 +47,28 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Segmentación visual: Textos HTML a la izquierda y fotos IA a la derecha | Permite modificar ofertas y textos libremente sin alterar la gráfica, optimizando fotos a WebP con astro:assets | Generar banners estáticos con texto horneado en la imagen |
 | 2026-11-16 | Fondo expandido a sangre (Generative Expand) en Hero Carousel | La fotografía abarca el 100% del fondo del banner sin marcos ni cajas aisladas, fusionándose con degradados | Mantener tarjetas rectangulares flotantes con marcos |
 | 2026-11-16 | Retiro de pills flotantes redundantes en carrusel | Al expandirse la fotografía a sangre, los pills aislados sobraban; se despejó el lado derecho para lucir la escena | Mantener etiquetas secundarias flotando sobre la imagen |
+| 2026-11-16 | Barra de beneficios comerciales y fotos realistas en categorías | Inspirado en retail chileno (Delivery Gratis/Express/Retiro/Asesoría) y sustitución de emojis por fotos reales WebP | Categorías con párrafos de relleno y emojis simples |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · barra de beneficios comerciales y fotografias realistas de categorias
+- **Qué:** Implementación de la barra de confianza/beneficios comercial y modernización fotográfica de las 5 categorías circulares:
+  1. **Barra de Beneficios (`TrustBar.astro`):** Maquetada directamente bajo el Hero Carousel siguiendo la referencia visual del usuario con 4 pilares de conversión: Delivery Gratis (compras sobre $29.990), Delivery Express (24/48h), Retiro en Tienda (100% gratis) y Asesoría Especializada con iconos SVG vectoriales.
+  2. **Fotografías Realistas de Categorías (`CircularCategories.astro`):** Generadas con IA (`image-generator`) y optimizadas a WebP con `<Image />` de `astro:assets`:
+     - Packs Promocionales: Combo de productos con etiqueta roja 3D `SALE`.
+     - Alimento Para Perro: Saco premium con packaging comercial y tazón de croquetas.
+     - Alimento Para Gato: Bolsa gourmet en tonos dorados con plato cerámico.
+     - Juguetes para Perro: Pelota de goma interactiva y cuerda mordedora trenzada.
+     - Rascadores & Confort: Torre rascador multinivel moderna en madera y tela gris.
+  3. **Eliminación de textos de relleno:** Se removieron los párrafos largos y botones redundantes bajo cada círculo, dejando únicamente la foto destacada con halo hover y el título en negrita limpio y legible.
+- **Archivos clave:** `src/components/TrustBar.astro`, `src/components/CircularCategories.astro`, `src/pages/index.astro`, `src/assets/categories/*`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Adaptación de la barra de beneficios, eliminación de textos innecesarios y dirección de arte en los círculos de categorías.
+  - `desarrollo`: Creación de `TrustBar.astro`, integración de `<Image />` en `CircularCategories.astro` y montaje en `index.astro`.
+  - `qa`: Optimización WebP de 5 imágenes (de ~400kB a ~3kB cada una), verificación de ESLint (0 errores) y compilación limpia (`npm run build` en 1.59s).
+  - `docs-seo`: Actualización de la memoria técnica en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · retiro de pills flotantes en hero carousel
 - **Qué:** Limpieza visual del Hero Carousel retirando los badges secundarios flotantes (`BELCANDO & LEONARDO`, `MULTI-CAT FORMULA`, `DESCUENTOS EXCLUSIVOS`) que habían quedado aislados en la esquina derecha tras la eliminación de los marcos:
