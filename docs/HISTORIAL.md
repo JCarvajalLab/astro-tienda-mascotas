@@ -15,9 +15,9 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(carousel): integra fotos profesionales generadas por ia procesadas con astro:assets
+- **Último commit relevante:** feat(carousel): expande fotografias a sangre en todo el banner eliminando marcos y recortes
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel con segmentación comercial (textos y ofertas 100% editables en HTML a la izquierda, y fotografías de estudio de alta resolución generadas con IA a la derecha en `src/assets/banners/`, procesadas automáticamente con `<Image />` de `astro:assets` a WebP reduciendo el peso de ~550kB a ~15kB sin CLS), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style: la fotografía abarca el 100% del banner de borde a borde, eliminando cajas o marcos flotantes; las mascotas y productos lucen en su entorno natural al lado derecho y el fondo se extiende suavemente a la izquierda con un degradado cinematográfico para máxima legibilidad de títulos, sellos y botones CTA en HTML/Tailwind CSS), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
 - **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
@@ -45,10 +45,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Renombrar marca a Market-Pet y posponer modo nocturno | Ajuste a branding preferido por el usuario y simplificación de la interfaz en Fase 1 | Mantener nombre anterior o forzar botón de tema en header |
 | 2026-11-16 | Hero Carousel moderno + Headings circulares de categorías | Inspirado en Bootstrap 5 Carousel y tiendas chilenas de mascotas (Belcando/Catit/Packs) con JS nativo puro | Hero estático o sliders dependientes de librerías externas pesadas |
 | 2026-11-16 | Segmentación visual: Textos HTML a la izquierda y fotos IA a la derecha | Permite modificar ofertas y textos libremente sin alterar la gráfica, optimizando fotos a WebP con astro:assets | Generar banners estáticos con texto horneado en la imagen |
+| 2026-11-16 | Fondo expandido a sangre (Generative Expand) en Hero Carousel | La fotografía abarca el 100% del fondo del banner sin marcos ni cajas aisladas, fusionándose con degradados | Mantener tarjetas rectangulares flotantes con marcos |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · fondo expandido a sangre en hero carousel eliminando marcos
+- **Qué:** Rediseño del fondo del Hero Carousel implementando el efecto "Generative Expand" a sangre completa:
+  1. **Expansión a sangre (Full-Bleed):** Se eliminó la tarjeta flotante con marco blanco del lado derecho. Ahora la fotografía de alta resolución generada abarca todo el fondo del banner (`w-full h-full object-cover object-right`), extendiendo el ambiente y color de la escena de borde a borde.
+  2. **Degradado de fusión cinematográfico:** Se aplicó una capa de degradado adaptada a la paleta de cada slide (`from-stone-950`, `from-sky-950` y `from-rose-950`) que se disuelve progresivamente hacia la derecha, dejando a las mascotas y productos 100% visibles, al tiempo que garantiza un contraste WCAG AAA para los textos y botones de la izquierda.
+  3. **Composición unificada y orgánica:** La transición entre el texto comercial y los animalitos es completamente continua y natural, emulando los banners oficiales de retail de mascotas sin recortes artificiales.
+- **Archivos clave:** `src/components/Carousel.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte para la eliminación de marcos duros, tratamiento de fondo continuo tipo Generative Expand y calibración de degradados de contraste.
+  - `desarrollo`: Refactorización de capas en `Carousel.astro` con posicionamiento absoluto y optimización responsive de Astro `<Image />`.
+  - `qa`: Verificación de linters (`npm run lint`), Prettier y compilación estática (`npm run build` en 1.99s con 0 errores).
+  - `docs-seo`: Registro de la decisión en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · fotografias generadas por ia y segmentacion editable en carousel hero
 - **Qué:** Generación e integración de activos fotográficos de alta resolución para el Hero Carousel y segmentación visual en dos columnas (textos a la izquierda y fotos a la derecha):
