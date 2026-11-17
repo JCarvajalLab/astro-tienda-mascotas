@@ -3,104 +3,287 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Carousel from '../components/Carousel.astro';
 import TrustBar from '../components/TrustBar.astro';
 import CircularCategories from '../components/CircularCategories.astro';
+import ProductSlider from '../components/ProductSlider.astro';
 
-// Modelo de datos inicial para productos destacados (establece la estructura que usará Content Collections en Fase 2)
-const productosDestacados = [
+// Importación de fotografías de productos reales en alta resolución
+import imgAlimentoPerro from '../assets/products/alimento-perro.jpg';
+import imgCamaOrtopedica from '../assets/products/cama-ortopedica.jpg';
+import imgFuenteAgua from '../assets/products/fuente-agua.jpg';
+import imgRascadorPoste from '../assets/products/rascador-poste.jpg';
+import imgSnacksDentales from '../assets/products/snacks-dentales.jpg';
+import imgAlimentoGato from '../assets/products/alimento-gato.jpg';
+import imgArnesPerro from '../assets/products/arnes-perro.jpg';
+import imgComederoSmart from '../assets/products/comedero-smart.jpg';
+import imgChuruGatos from '../assets/products/churu-gatos.jpg';
+import imgMochilaViaje from '../assets/products/mochila-viaje.jpg';
+
+// Catálogo 1: Productos en Oferta (10 productos, 5 por vista en desktop + flechas)
+const productosOfertas = [
   {
-    id: 'prod-01',
-    name: 'Alimento Premium Salmón & Arroz Integral 3kg',
+    id: 'of-01',
+    name: 'Alimento Premium Adulto Salmón 3kg',
     category: 'Perros',
-    price: 24990,
-    originalPrice: 28990,
+    price: 22990,
+    originalPrice: 29990,
     rating: 4.9,
-    reviewsCount: 38,
-    badge: 'Más Vendido',
-    badgeColor: 'bg-amber-100 text-amber-900',
-    stock: 14,
-    description:
-      'Fórmula hipoalergénica con Omega 3 y 6 para pelaje brillante y digestión óptima.',
-    icon: '🐶',
+    reviewsCount: 48,
+    badge: '-23% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgAlimentoPerro,
+    imageAlt: 'Saco de alimento seco para perros adultos con salmón',
   },
   {
-    id: 'prod-02',
-    name: 'Torre Rascador Multinivel con Hamaca y Juguete',
-    category: 'Gatos',
-    price: 34990,
-    originalPrice: 39990,
-    rating: 4.8,
-    reviewsCount: 24,
-    badge: 'Oferta Especial',
-    badgeColor: 'bg-rose-100 text-rose-900',
-    stock: 6,
-    description:
-      'Postes forrados en sisal natural resistente, base acolchada y estructura ultra estable.',
-    icon: '🐱',
-  },
-  {
-    id: 'prod-03',
-    name: 'Cama Ortopédica Viscoelástica Memory Foam',
+    id: 'of-02',
+    name: 'Cama Ortopédica Memory Foam Viscoelástica',
     category: 'Descanso',
-    price: 29990,
-    originalPrice: null,
+    price: 28990,
+    originalPrice: 39990,
     rating: 5.0,
-    reviewsCount: 19,
-    badge: 'Recomendado Vet',
-    badgeColor: 'bg-emerald-100 text-emerald-900',
-    stock: 9,
-    description:
-      'Alivia la presión articular de tu mascota. Funda lavable y base impermeable antideslizante.',
-    icon: '🛏️',
+    reviewsCount: 31,
+    badge: '-28% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgCamaOrtopedica,
+    imageAlt: 'Cama ortopédica gris marengo para perros',
   },
   {
-    id: 'prod-04',
-    name: 'Fuente de Agua Silenciosa con Filtro Activo 2L',
-    category: 'Accesorios',
-    price: 19990,
-    originalPrice: 22990,
+    id: 'of-03',
+    name: 'Fuente Automática Acero Inoxidable 2L',
+    category: 'Hidratación',
+    price: 18990,
+    originalPrice: 24990,
+    rating: 4.8,
+    reviewsCount: 56,
+    badge: '-24% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgFuenteAgua,
+    imageAlt: 'Fuente de agua automática para mascotas',
+  },
+  {
+    id: 'of-04',
+    name: 'Poste Rascador Sisal Natural con Pompón',
+    category: 'Gatos',
+    price: 14990,
+    originalPrice: 19990,
     rating: 4.7,
-    reviewsCount: 52,
-    badge: 'Top Hidratación',
-    badgeColor: 'bg-sky-100 text-sky-900',
-    stock: 12,
-    description:
-      'Agua corriente siempre limpia y oxigenada para estimular la ingesta hídrica diaria.',
-    icon: '💧',
+    reviewsCount: 24,
+    badge: '-25% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgRascadorPoste,
+    imageAlt: 'Poste rascador vertical de sisal y madera',
   },
   {
-    id: 'prod-05',
-    name: 'Pack Snacks Dentales Naturales Sin Granos',
+    id: 'of-05',
+    name: 'Snacks Dentales Higiene Clorofila 250g',
     category: 'Snacks',
-    price: 8990,
-    originalPrice: null,
+    price: 7490,
+    originalPrice: 9990,
+    rating: 4.9,
+    reviewsCount: 62,
+    badge: '-25% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgSnacksDentales,
+    imageAlt: 'Snacks dentales de espirulina y clorofila',
+  },
+  {
+    id: 'of-06',
+    name: 'Arnés Ergonómico Reflectante Antitirones',
+    category: 'Paseo',
+    price: 15990,
+    originalPrice: 21990,
+    rating: 4.8,
+    reviewsCount: 39,
+    badge: '-27% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgArnesPerro,
+    imageAlt: 'Arnés ergonómico para perros color naranja',
+  },
+  {
+    id: 'of-07',
+    name: 'Alimento Esterilizados Salmón 1.5kg',
+    category: 'Gatos',
+    price: 16490,
+    originalPrice: 21990,
     rating: 4.9,
     reviewsCount: 45,
-    badge: '100% Natural',
-    badgeColor: 'bg-emerald-100 text-emerald-900',
-    stock: 25,
-    description:
-      'Reduce sarro y placa bacteriana con menta orgánica y espirulina. Apto perros y cachorros.',
-    icon: '🦴',
+    badge: '-25% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgAlimentoGato,
+    imageAlt: 'Alimento para gatos esterilizados con salmón',
   },
   {
-    id: 'prod-06',
-    name: 'Arnés Ergonómico Antitirones Reflectante',
-    category: 'Paseo',
-    price: 16990,
-    originalPrice: 19990,
+    id: 'of-08',
+    name: 'Pack Churu Variedades Atún & Pollo 8u',
+    category: 'Snacks',
+    price: 6990,
+    originalPrice: 9490,
+    rating: 5.0,
+    reviewsCount: 88,
+    badge: '-26% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgChuruGatos,
+    imageAlt: 'Pack de golosinas cremosas Churu para gatos',
+  },
+  {
+    id: 'of-09',
+    name: 'Comedero Automático WiFi con Visor',
+    category: 'Smart Pet',
+    price: 39990,
+    originalPrice: 54990,
+    rating: 4.9,
+    reviewsCount: 18,
+    badge: '-27% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgComederoSmart,
+    imageAlt: 'Dispensador inteligente de alimento para mascotas',
+  },
+  {
+    id: 'of-10',
+    name: 'Mochila Transportadora Ventilada Burbuja',
+    category: 'Viajes',
+    price: 24990,
+    originalPrice: 32990,
     rating: 4.8,
-    reviewsCount: 31,
-    badge: 'Seguridad',
-    badgeColor: 'bg-amber-100 text-amber-900',
-    stock: 4,
-    description:
-      'Distribuye la presión de forma uniforme en el pecho para paseos seguros y sin ahogos.',
-    icon: '🐕',
+    reviewsCount: 29,
+    badge: '-24% OFF',
+    badgeColor: 'bg-rose-600 text-white',
+    image: imgMochilaViaje,
+    imageAlt: 'Mochila transportadora ergonómica para mascotas',
   },
 ];
 
-function formatPrice(amount) {
-  return `$${amount.toLocaleString('es-CL')}`;
-}
+// Catálogo 2: Novedades de la Semana (10 productos, 5 por vista en desktop + flechas)
+const productosNovedades = [
+  {
+    id: 'nov-01',
+    name: 'Comedero Inteligente Programable WiFi 4L',
+    category: 'Tecnología',
+    price: 44990,
+    originalPrice: null,
+    rating: 5.0,
+    reviewsCount: 14,
+    badge: 'NUEVO',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgComederoSmart,
+    imageAlt: 'Comedero inteligente automático con app móvil',
+  },
+  {
+    id: 'nov-02',
+    name: 'Mochila Espacial de Viaje Transpirable',
+    category: 'Accesorios',
+    price: 29990,
+    originalPrice: null,
+    rating: 4.9,
+    reviewsCount: 16,
+    badge: 'NUEVO',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgMochilaViaje,
+    imageAlt: 'Mochila transportadora con paneles de ventilación',
+  },
+  {
+    id: 'nov-03',
+    name: 'Snacks Crema Churu Atún Premium 4x14g',
+    category: 'Golosinas',
+    price: 4990,
+    originalPrice: null,
+    rating: 4.9,
+    reviewsCount: 34,
+    badge: 'TOP VENTAS',
+    badgeColor: 'bg-amber-500 text-white',
+    image: imgChuruGatos,
+    imageAlt: 'Premios cremosos japoneses de atún para gatos',
+  },
+  {
+    id: 'nov-04',
+    name: 'Arnés Pro Neopreno Antitirones Naranja',
+    category: 'Paseo',
+    price: 18990,
+    originalPrice: null,
+    rating: 4.8,
+    reviewsCount: 21,
+    badge: 'LANZAMIENTO',
+    badgeColor: 'bg-sky-600 text-white',
+    image: imgArnesPerro,
+    imageAlt: 'Arnés antitirones con costuras reflectantes',
+  },
+  {
+    id: 'nov-05',
+    name: 'Alimento Holístico Grain-Free Salmón 3kg',
+    category: 'Nutrición',
+    price: 26990,
+    originalPrice: null,
+    rating: 5.0,
+    reviewsCount: 27,
+    badge: 'RECOMENDADO',
+    badgeColor: 'bg-purple-600 text-white',
+    image: imgAlimentoPerro,
+    imageAlt: 'Alimento seco holístico sin granos para perros',
+  },
+  {
+    id: 'nov-06',
+    name: 'Fuente Cascada Ultra Silenciosa 2.5L',
+    category: 'Hidratación',
+    price: 22990,
+    originalPrice: null,
+    rating: 4.8,
+    reviewsCount: 19,
+    badge: 'NUEVO',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgFuenteAgua,
+    imageAlt: 'Bebedero automático de agua corriente para mascotas',
+  },
+  {
+    id: 'nov-07',
+    name: 'Cama Viscoelástica Desenfundable Lavable',
+    category: 'Confort',
+    price: 34990,
+    originalPrice: null,
+    rating: 4.9,
+    reviewsCount: 15,
+    badge: 'EXCLUSIVO',
+    badgeColor: 'bg-stone-900 text-white',
+    image: imgCamaOrtopedica,
+    imageAlt: 'Cama ortopédica viscoelástica para perros y gatos',
+  },
+  {
+    id: 'nov-08',
+    name: 'Poste Rascador Madera Nórdica & Sisal',
+    category: 'Descanso',
+    price: 17990,
+    originalPrice: null,
+    rating: 4.7,
+    reviewsCount: 11,
+    badge: 'NUEVO',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgRascadorPoste,
+    imageAlt: 'Rascador vertical con pompón de felpa',
+  },
+  {
+    id: 'nov-09',
+    name: 'Bocaditos Dentales con Menta Orgánica',
+    category: 'Salud Oral',
+    price: 8490,
+    originalPrice: null,
+    rating: 4.9,
+    reviewsCount: 23,
+    badge: '100% NATURAL',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgSnacksDentales,
+    imageAlt: 'Snacks masticables para limpieza dental canina',
+  },
+  {
+    id: 'nov-10',
+    name: 'Alimento Control Bolas de Pelo 1.5kg',
+    category: 'Especializado',
+    price: 18990,
+    originalPrice: null,
+    rating: 4.9,
+    reviewsCount: 14,
+    badge: 'NUEVO',
+    badgeColor: 'bg-emerald-600 text-white',
+    image: imgAlimentoGato,
+    imageAlt: 'Alimento seco anti bolas de pelo para felinos',
+  },
+];
 ---
 
 <BaseLayout>
@@ -113,125 +296,27 @@ function formatPrice(amount) {
   <!-- 3. Categorías Circulares con fotografías realistas de productos sin textos de relleno -->
   <CircularCategories />
 
-  <!-- CATÁLOGO DESTACADO -->
-  <section
-    id="destacados"
-    class="py-14 bg-stone-50/70 border-y border-stone-200"
-  >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4"
-      >
-        <div>
-          <span
-            class="text-xs uppercase tracking-widest font-extrabold text-brand-primary"
-          >
-            Los preferidos en Chile
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-black text-stone-900 mt-1">
-            Productos Destacados
-          </h2>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-medium text-stone-500">
-            Precios en Pesos Chilenos ($ CLP) con IVA incluido
-          </span>
-        </div>
-      </div>
+  <!-- 4. Fila 1: Productos en Oferta (5 por pantalla, compactos, con flecha a la derecha para ver 5 más) -->
+  <ProductSlider
+    id="ofertas"
+    title="Productos en Oferta"
+    badge="🔥 OFERTAS FLASH"
+    badgeColor="bg-rose-50 text-rose-600 border-rose-200"
+    subtitle="Precios rebajados por tiempo limitado con despacho en 24 a 48h en Chile"
+    products={productosOfertas}
+  />
 
-      <!-- Grid de productos -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          productosDestacados.map((item) => (
-            <article class="flex flex-col rounded-2xl bg-white border border-stone-200 shadow-xs hover:shadow-xl hover:border-brand-primary transition-all duration-300 group">
-              <div class="p-4 pb-0 flex items-center justify-between">
-                <span
-                  class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${item.badgeColor}`}
-                >
-                  {item.badge}
-                </span>
-                <span class="text-xs text-stone-500 font-medium">
-                  {item.stock > 0
-                    ? item.stock < 8
-                      ? `¡Solo ${item.stock} en stock!`
-                      : 'En Stock'
-                    : 'Agotado'}
-                </span>
-              </div>
+  <!-- 5. Fila 2: Novedades (5 por pantalla, compactos, con flecha a la derecha para ver 5 más) -->
+  <ProductSlider
+    id="novedades"
+    title="Novedades de la Semana"
+    badge="✨ RECIÉN LLEGADOS"
+    badgeColor="bg-amber-50 text-amber-700 border-amber-200"
+    subtitle="Lo último en nutrición, accesorios y tecnología para consentir a tu mascota"
+    products={productosNovedades}
+  />
 
-              <div class="h-44 flex items-center justify-center p-6 group-hover:scale-105 transition-transform duration-300">
-                <div class="w-24 h-24 rounded-2xl bg-brand-light shadow-xs flex items-center justify-center text-5xl">
-                  {item.icon}
-                </div>
-              </div>
-
-              <div class="p-5 pt-0 flex-1 flex flex-col justify-between">
-                <div class="space-y-2">
-                  <div class="flex items-center gap-1.5 text-xs text-amber-500">
-                    <span>★</span>
-                    <span class="font-bold text-stone-800">{item.rating}</span>
-                    <span class="text-stone-400">
-                      ({item.reviewsCount} opiniones)
-                    </span>
-                  </div>
-
-                  <p class="text-[11px] uppercase tracking-wider font-bold text-stone-400">
-                    {item.category}
-                  </p>
-
-                  <h3 class="font-bold text-stone-900 text-base leading-snug group-hover:text-brand-primary transition-colors">
-                    {item.name}
-                  </h3>
-
-                  <p class="text-xs text-stone-600 line-clamp-2 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                <div class="pt-4 mt-4 border-t border-stone-100 flex items-center justify-between gap-3">
-                  <div class="flex flex-col">
-                    <span class="text-xl font-extrabold text-stone-900">
-                      {formatPrice(item.price)}
-                    </span>
-                    {item.originalPrice && (
-                      <span class="text-xs text-stone-400 line-through">
-                        {formatPrice(item.originalPrice)}
-                      </span>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    data-product-id={item.id}
-                    data-product-name={item.name}
-                    data-product-price={item.price}
-                    class="add-to-cart-btn px-4 py-2.5 rounded-xl bg-brand-primary text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 cursor-pointer hover:opacity-95"
-                  >
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                    <span>Agregar</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- GARANTÍAS / BENEFICIOS -->
+  <!-- GARANTÍAS / BENEFICIOS ADICIONALES -->
   <section
     id="beneficios"
     class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white"
@@ -258,16 +343,16 @@ function formatPrice(amount) {
         class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 shadow-xs"
       >
         <div
-          class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xl"
+          class="w-10 h-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center font-bold text-xl"
         >
-          🛡️
+          🔒
         </div>
         <h3 class="text-base font-bold text-stone-900">
-          Garantía de Satisfacción
+          Pagos 100% Seguros en CLP
         </h3>
         <p class="text-xs text-stone-600 leading-relaxed">
-          ¿No era la talla o sabor adecuado? Tienes 30 días para cambios y
-          devoluciones sencillas sin preguntas incómodas.
+          Transbank Webpay Plus, tarjetas de crédito, débito y transferencias
+          bancarias con cifrado SSL de extremo a extremo.
         </p>
       </div>
 
@@ -275,77 +360,92 @@ function formatPrice(amount) {
         class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 shadow-xs"
       >
         <div
-          class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xl"
+          class="w-10 h-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center font-bold text-xl"
         >
-          🩺
+          ⭐
         </div>
         <h3 class="text-base font-bold text-stone-900">
-          Asesoría Nutricional & Vet
+          Garantía de Satisfacción
         </h3>
         <p class="text-xs text-stone-600 leading-relaxed">
-          Nuestro equipo te orienta para elegir el alimento y dosis adecuada
-          según la edad, peso y necesidades de tu mascota.
+          30 días de garantía para cambios o devoluciones fáciles si tu mascota
+          no queda 100% satisfecha con su producto.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- NEWSLETTER / CLUB -->
-  <section class="py-14 bg-stone-900 text-white border-t border-stone-800">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+  <!-- NEWSLETTER / CLUB DE MASCOTAS -->
+  <section class="py-14 bg-brand-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
       <span
-        class="inline-block px-3 py-1 rounded-full bg-brand-primary/20 text-white text-xs font-semibold"
+        class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider backdrop-blur-xs"
       >
-        Club Patitas & Co.
+        Club Market-Pet
       </span>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-        15% de descuento en tu primera compra
+        Únete y obtén $5.000 de descuento en tu primera compra
       </h2>
-      <p
-        class="text-stone-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed"
-      >
-        Únete gratis y recibe promociones exclusivas, consejos de nutrición y
-        recordatorios de desparasitación para tus mascotas.
+      <p class="text-sm text-white/90 max-w-xl mx-auto leading-relaxed">
+        Recibe promociones exclusivas, consejos de veterinarios expertos y
+        novedades para el cuidado de tu mascota.
       </p>
 
       <form
-        id="newsletter-form"
-        class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2"
-        onsubmit="event.preventDefault();"
+        class="pt-2 flex flex-col sm:flex-row gap-2 max-w-md mx-auto"
+        onsubmit="event.preventDefault(); alert('¡Gracias por unirte al Club Market-Pet! Revisa tu correo con tu cupón.');"
       >
         <label for="newsletter-email" class="sr-only">Correo electrónico</label>
         <input
           type="email"
           id="newsletter-email"
           required
-          placeholder="tu@correo.cl"
-          class="flex-1 px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white placeholder-stone-400 text-xs focus:outline-none focus:ring-2 focus:ring-stone-500"
+          placeholder="tu-correo@ejemplo.cl"
+          class="flex-1 px-4 py-3 rounded-xl bg-white text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-white"
         />
         <button
           type="submit"
-          class="px-5 py-2.5 rounded-xl bg-brand-primary text-white font-bold text-xs transition-colors cursor-pointer hover:opacity-95"
+          class="px-6 py-3 rounded-xl bg-stone-900 text-white text-sm font-bold shadow-md hover:bg-stone-800 transition-colors cursor-pointer"
         >
           Suscribirme
         </button>
       </form>
+      <p class="text-[11px] text-white/70">
+        Respetamos tu privacidad. Puedes darte de baja en cualquier momento con
+        un clic.
+      </p>
     </div>
   </section>
-
-  <!-- Script cliente para añadir al carrito -->
-  <script>
-    const buttons = document.querySelectorAll('.add-to-cart-btn');
-    const badge = document.getElementById('cart-count-badge');
-    let totalItems = 0;
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        totalItems += 1;
-        if (badge) {
-          badge.textContent = String(totalItems);
-          badge.classList.add('scale-125');
-          setTimeout(() => badge.classList.remove('scale-125'), 200);
-        }
-      });
-    });
-  </script>
 </BaseLayout>
+
+<script>
+  // Manejo de clicks en botones de agregar al carrito con feedback visual
+  document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const button = e.currentTarget;
+      const productName = button.getAttribute('data-product-name');
+
+      // Animación en el botón
+      button.classList.add('scale-95', '!bg-emerald-600', '!text-white');
+      setTimeout(() => {
+        button.classList.remove('scale-95', '!bg-emerald-600', '!text-white');
+      }, 350);
+
+      // Incrementar contador visual del carrito en el Header
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) {
+        const currentCount = parseInt(badge.textContent || '0', 10);
+        badge.textContent = String(currentCount + 1);
+        badge.classList.add(
+          'scale-125',
+          '!bg-rose-600',
+          '!text-white',
+          'transition-transform'
+        );
+        setTimeout(() => {
+          badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
+        }, 400);
+      }
+    });
+  });
+</script>
