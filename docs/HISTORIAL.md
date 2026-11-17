@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(catalog): sliders compactos de ofertas y novedades de 5 productos con fotos reales por ia
+- **Último commit relevante:** feat(home): agrega banners especiales por etapa de vida (cachorros, adultos y seniors)
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, y dos filas de carruseles de productos compactos (`ProductSlider.astro`: Fila 1 "Productos en Oferta" y Fila 2 "Novedades de la Semana", mostrando 5 productos por vista en desktop con flechas de desplazamiento suave para explorar 5 más cada uno) con 10 fotografías de productos generadas por IA optimizadas a WebP, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con tarjetas interactivas y redirección), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.55s con 21 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -49,10 +49,26 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Retiro de pills flotantes redundantes en carrusel | Al expandirse la fotografía a sangre, los pills aislados sobraban; se despejó el lado derecho para lucir la escena | Mantener etiquetas secundarias flotando sobre la imagen |
 | 2026-11-16 | Barra de beneficios comerciales y fotos realistas en categorías | Inspirado en retail chileno (Delivery Gratis/Express/Retiro/Asesoría) y sustitución de emojis por fotos reales WebP | Categorías con párrafos de relleno y emojis simples |
 | 2026-11-17 | Sliders compactos de Ofertas y Novedades (5 productos/vista) | Optimización del espacio vertical en home: carruseles horizontales con navegación suave por flechas y 10 fotos IA | Grillas verticales grandes que ocupaban demasiado espacio |
+| 2026-11-17 | Banners comerciales por Etapa de Vida (Cachorros/Gatitos, Adultos, Seniors) | Segmentación por edad con tarjetas visuales, patrón de huellitas, CTAs directos y redirección hacia secciones de catálogo | Agrupar todo en un catálogo plano sin segmentación por edad |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · banners especiales por etapa de vida (cachorros, adultos y seniors)
+- **Qué:** Implementación del bloque de segmentación comercial por ciclo de vida de la mascota según la referencia de retail:
+  1. **Componente `LifeStageBanners.astro`:** Grilla responsive de 3 columnas (`grid-cols-1 md:grid-cols-3`) ubicada estratégicamente entre las filas de Ofertas y Novedades. Incluye microinteracciones con elevación suave (`group-hover:-translate-y-1`), zoom sutil en imagen y aparición del llamado a la acción (`Ver productos →`).
+  2. **3 Banners Gráficos de Alta Resolución con Patrón de Huellitas:**
+     - **Especial Cachorros y Gatitos:** Fondo celeste cielo (`#52bee8`), titular llamativo, botón coral *"COMPRAR"*, y fotografía combinada de cachorro golden y gatito gris juntos. Subtexto inferior: *"Pañales, juguetes de apego, leche maternizada y accesorios ideales para sus primeros pasos."*
+     - **Especial Adultos:** Fondo durazno cálido (`#fcdaac`), titular destacado, botón coral *"COMPRAR"*, y fotografía de estudio con perro labrador y gato doméstico adulto juntos. Subtexto inferior: *"Alimento balanceado, antiparasitarios, arneses de paseo y bienestar diario para su mejor momento."*
+     - **Especial Seniors:** Fondo gris plata/taupe (`#bcc1c6`), titular destacado, botón coral *"COMPRAR"*, conservando la composición original de perro senior con pañuelo rojo y gato senior juntos. Subtexto inferior: *"Suplementos articulares, camas ortopédicas y nutrición adaptada para su máximo confort."*
+  3. **Redirección Interactiva:** Cada tarjeta está completamente envuelta en un enlace con `cursor-pointer` que redirige directamente hacia las secciones relevantes del catálogo (`#ofertas`, `#novedades`), lista para enlazar a las páginas dinámicas de la Fase 2.
+- **Archivos clave:** `src/components/LifeStageBanners.astro`, `src/assets/banners/*`, `src/pages/index.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Adaptación visual de la referencia de retail a la identidad estética de Market-Pet, aplicando paleta 60-30-10, patrón de huellitas decorativo y jerarquía de textos.
+  - `desarrollo`: Creación de `LifeStageBanners.astro`, integración con `astro:assets` `<Image />` (WebP optimizado a 12-17 kB) y colocación rítmica en `index.astro`.
+  - `qa`: Verificación de `npm run lint` (0 errores) y `npm run build` (21 imágenes optimizadas en 1.55s).
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · sliders compactos de ofertas y novedades con 10 fotos reales por ia
 - **Qué:** Reemplazo de la grilla anterior de productos destacados por dos carruseles horizontales compactos y optimizados en espacio vertical (Ofertas y Novedades):
