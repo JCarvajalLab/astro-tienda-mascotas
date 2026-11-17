@@ -5,8 +5,10 @@ import bannerGato from '../assets/banners/banner-gato-arena.jpg';
 import bannerPack from '../assets/banners/banner-pack-ahorro.jpg';
 
 /**
- * Carousel Hero Moderno - Con imágenes fotográficas de alta resolución generadas
- * y textos comerciales configurables a la izquierda con HTML/Tailwind CSS.
+ * Carousel Hero Moderno - Fondo Expandido (Generative Expand Style)
+ * La imagen fotográfica abarca todo el fondo del banner a sangre (full-bleed),
+ * con un degradado de fusión que garantiza legibilidad perfecta a la izquierda
+ * y permite que los animalitos y productos resalten en su entorno natural sin marcos ni recortes artificiales.
  */
 const slides = [
   {
@@ -23,7 +25,8 @@ const slides = [
       'Nutrición holística',
       'Sabor insuperable',
     ],
-    bgClass: 'bg-gradient-to-r from-stone-900 via-neutral-900 to-amber-950',
+    overlayClass:
+      'from-stone-950 via-stone-950/90 sm:via-stone-950/75 to-transparent',
     ctaClass:
       'bg-amber-400 text-stone-950 hover:bg-amber-300 font-black shadow-lg shadow-amber-500/20',
     image: bannerMascotas,
@@ -44,7 +47,8 @@ const slides = [
       'Desodorización natural',
       'Rinde hasta 60 días',
     ],
-    bgClass: 'bg-gradient-to-r from-sky-800 via-cyan-700 to-sky-900',
+    overlayClass:
+      'from-sky-950 via-sky-950/90 sm:via-sky-900/70 to-transparent',
     ctaClass:
       'bg-red-600 text-white hover:bg-red-500 font-black shadow-lg shadow-red-600/30 uppercase tracking-wider',
     image: bannerGato,
@@ -65,7 +69,8 @@ const slides = [
       'Stock limitado',
       'Envíos a todo Chile',
     ],
-    bgClass: 'bg-gradient-to-r from-rose-950 via-rose-900 to-stone-900',
+    overlayClass:
+      'from-rose-950 via-rose-950/90 sm:via-rose-950/70 to-transparent',
     ctaClass:
       'bg-white text-rose-700 hover:bg-stone-100 font-black shadow-lg shadow-black/20',
     image: bannerPack,
@@ -86,28 +91,40 @@ const slides = [
   >
     {
       slides.map((slide, index) => (
-        <div
-          class={`w-full shrink-0 relative py-12 sm:py-16 lg:py-20 px-6 sm:px-12 lg:px-16 overflow-hidden ${slide.bgClass}`}
-        >
-          <div class="absolute inset-0 bg-radial from-transparent to-black/40 pointer-events-none" />
+        <div class="w-full shrink-0 relative py-14 sm:py-20 lg:py-24 px-6 sm:px-12 lg:px-20 overflow-hidden bg-stone-950">
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <Image
+              src={slide.image}
+              alt={slide.imageAlt}
+              width={1600}
+              height={800}
+              format="webp"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : 'auto'}
+              class="w-full h-full object-cover object-right lg:object-[82%_center] transition-transform duration-700 transform scale-[1.02]"
+            />
+            <div
+              class={`absolute inset-0 bg-gradient-to-r ${slide.overlayClass}`}
+            />
+          </div>
 
           <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[380px] sm:min-h-[440px]">
-            <div class="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs">
                 <span>{slide.badge}</span>
               </div>
 
-              <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] drop-shadow-sm">
+              <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] drop-shadow-md">
                 {slide.title}
               </h2>
 
-              <p class="text-sm sm:text-lg text-white/90 max-w-xl leading-relaxed font-normal">
+              <p class="text-sm sm:text-lg text-white/95 max-w-xl leading-relaxed font-normal drop-shadow-sm">
                 {slide.subtitle}
               </p>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs sm:text-sm font-semibold text-white/95 max-w-lg">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs sm:text-sm font-semibold text-white/95 max-w-lg">
                 {slide.badges.map((b) => (
-                  <div class="flex items-center gap-2 bg-black/25 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10">
+                  <div class="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/15 shadow-xs">
                     <span class="text-emerald-400 font-black">✓</span>
                     <span>{b}</span>
                   </div>
@@ -124,23 +141,10 @@ const slides = [
               </div>
             </div>
 
-            <div class="lg:col-span-5 flex justify-center lg:justify-end">
-              <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 bg-stone-900 group">
-                <Image
-                  src={slide.image}
-                  alt={slide.imageAlt}
-                  width={640}
-                  height={480}
-                  format="webp"
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                  fetchpriority={index === 0 ? 'high' : 'auto'}
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <span class="absolute bottom-3.5 right-3.5 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-black/65 backdrop-blur-md text-white border border-white/20 shadow-md">
-                  {slide.petTag}
-                </span>
-              </div>
+            <div class="lg:col-span-5 hidden sm:flex justify-end items-end self-end pb-2">
+              <span class="px-3.5 py-1.5 rounded-full text-xs font-black tracking-widest uppercase bg-black/60 backdrop-blur-md text-white/90 border border-white/20 shadow-lg">
+                {slide.petTag}
+              </span>
             </div>
           </div>
         </div>
@@ -153,7 +157,7 @@ const slides = [
     id="carousel-prev"
     type="button"
     aria-label="Diapositiva anterior"
-    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
   >
     <svg
       class="w-6 h-6 stroke-current stroke-2"
@@ -169,7 +173,7 @@ const slides = [
     id="carousel-next"
     type="button"
     aria-label="Diapositiva siguiente"
-    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
   >
     <svg
       class="w-6 h-6 stroke-current stroke-2"
