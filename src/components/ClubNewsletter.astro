@@ -26,28 +26,25 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
       <div
         class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider backdrop-blur-md border border-white/25"
       >
-        <span>✨</span>
-        <span>CLUB MARKET-PET · BENEFICIO EXCLUSIVO</span>
+        <span>🐾</span>
+        <span>COMUNIDAD MARKET-PET</span>
       </div>
 
       <h2
         class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight"
       >
-        Únete y obtén{' '}
-        <span
-          class="text-amber-300 underline decoration-amber-300/50 decoration-wavy"
-        >
-          $5.000 de descuento
-        </span>{' '}
-        en tu primera compra
+        Únete a nuestra comunidad de amantes de las mascotas
       </h2>
 
       <p
         class="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed max-w-2xl"
       >
-        Tu mascota merece consentimientos especiales. Al suscribirte recibes un
-        cupón de bienvenida inmediato, ofertas secretas para socios y consejos
-        prácticos de veterinarios certificados.
+        Recibe promociones exclusivas,{' '}
+        <span class="text-amber-300 font-bold underline decoration-amber-300/50">
+          descuentos de hasta $5.000*
+        </span>{' '}
+        y consejos prácticos de veterinarios certificados para consentir a tus
+        peluditos.
       </p>
 
       {/* 3 Micro-beneficios con checks */}
@@ -55,24 +52,24 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
         >
-          <span class="text-amber-300 font-bold">✓</span> Cupón de $5.000 inmediato
+          <span class="text-amber-300 font-bold">🎁</span> Cupón de $5.000 de regalo*
         </span>
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
         >
-          <span class="text-amber-300 font-bold">✓</span> Ofertas flash exclusivas
+          <span class="text-amber-300 font-bold">⚡</span> Promociones y descuentos flash
         </span>
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
         >
-          <span class="text-amber-300 font-bold">✓</span> Consejos de salud y nutrición
+          <span class="text-amber-300 font-bold">🩺</span> Consejos veterinarios expertos
         </span>
       </div>
 
       {/* Formulario de Suscripción */}
       <form
         class="pt-3 space-y-2.5 max-w-xl"
-        onsubmit="event.preventDefault(); alert('🎉 ¡Felicidades! Te has unido al Club Market-Pet. Hemos enviado tu cupón de $5.000 a tu correo.');"
+        onsubmit="event.preventDefault(); alert('🎉 ¡Felicidades! Te has unido a la comunidad Market-Pet. Hemos enviado tu cupón de $5.000 a tu correo (válido en compras sobre $40.000).');"
       >
         <div class="flex flex-col sm:flex-row gap-2.5">
           <div class="relative flex-1">
@@ -106,17 +103,20 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
             type="submit"
             class="px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 text-sm sm:text-base font-black shadow-lg hover:shadow-xl hover:scale-102 transition-all cursor-pointer whitespace-nowrap"
           >
-            ¡Obtener mi cupón! →
+            ¡Unirme y recibir mi cupón! →
           </button>
         </div>
 
-        <p class="text-[11px] sm:text-xs text-white/70 flex items-center gap-1.5">
-          <span>🔒</span>
-          <span
-            >Cero spam. Respetamos tu privacidad y puedes cancelar en cualquier
-            momento con un clic.</span
-          >
-        </p>
+        {/* Letra pequeña y disclaimer de privacidad */}
+        <div class="space-y-1 text-white/75 text-[11px] sm:text-xs leading-relaxed">
+          <p>
+            *Cupón de $5.000 aplicable en tu primera compra online por compras mayores a $40.000.
+          </p>
+          <p class="flex items-center gap-1.5 text-white/65">
+            <span>🔒</span>
+            <span>Cero spam. Respetamos tu privacidad y puedes cancelar en cualquier momento con un clic.</span>
+          </p>
+        </div>
       </form>
     </div>
 
