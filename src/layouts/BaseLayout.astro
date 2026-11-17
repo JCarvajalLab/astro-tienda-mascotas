@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import RegionModal from '../components/RegionModal.astro';
 
 /**
@@ -91,124 +92,7 @@ const ogImageURL = new URL(
     <!-- Modal de Despacho Región / Comuna de Chile (según Imagen 2 de referencia) -->
     <RegionModal />
 
-    <!-- Pie de página -->
-    <footer class="bg-stone-50 text-stone-600 transition-colors">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          <!-- Columna Marca -->
-          <div class="md:col-span-1 space-y-3">
-            <div class="flex items-center gap-2">
-              <span
-                class="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-white"
-              >
-                <svg
-                  class="w-5 h-5 fill-current"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-4.5 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 1c-2.8 0-5 1.8-5 4.5 0 1.9 1.8 3.5 5 3.5s5-1.6 5-3.5c0-2.7-2.2-4.5-5-4.5Z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="font-bold text-lg text-stone-900">Market-Pet</span>
-            </div>
-            <p class="text-sm leading-relaxed text-stone-600">
-              Ecommerce especializado en nutrición, confort y entretenimiento
-              para consentir a tus mejores compañeros peludos en todo Chile.
-            </p>
-          </div>
-
-          <!-- Columna Catálogo -->
-          <div>
-            <h3
-              class="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3"
-            >
-              Categorías Principales
-            </h3>
-            <ul class="space-y-2 text-sm text-stone-600">
-              <li>
-                <a
-                  href="/#perros"
-                  class="hover:text-stone-900 transition-colors"
-                  >Perros: Alimentos & Paseo</a
-                >
-              </li>
-              <li>
-                <a href="/#gatos" class="hover:text-stone-900 transition-colors"
-                  >Gatos: Arenas & Rascadores</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/#accesorios"
-                  class="hover:text-stone-900 transition-colors"
-                  >Accesorios: Camas & Juguetes</a
-                >
-              </li>
-              <li>
-                <a href="/#salud" class="hover:text-stone-900 transition-colors"
-                  >Farmacia & Antiparasitarios</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <!-- Columna Confianza -->
-          <div>
-            <h3
-              class="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3"
-            >
-              Compras Seguras en Chile
-            </h3>
-            <ul class="space-y-2 text-sm text-stone-600">
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-600 font-bold">✓</span> Despacho rápido
-                en 24/48h
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-600 font-bold">✓</span> Pagos seguros en
-                moneda local ($ CLP)
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-600 font-bold">✓</span> Garantía de satisfacción
-                de 30 días
-              </li>
-            </ul>
-          </div>
-
-          <!-- Columna Contacto -->
-          <div>
-            <h3
-              class="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3"
-            >
-              Atención al Cliente
-            </h3>
-            <p class="text-sm leading-relaxed mb-2 text-stone-600">
-              Lunes a Sábado de 09:00 a 19:00 hrs.
-            </p>
-            <p class="text-xs text-stone-500">
-              Soporte telefónico, WhatsApp y correo para todo Chile.
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500"
-        >
-          <p>
-            © {new Date().getFullYear()} Market-Pet. Todos los derechos reservados.
-            Proyecto ecommerce con Astro 5.
-          </p>
-          <div class="flex items-center gap-4">
-            <span>Astro 5 SSR</span>
-            <span>•</span>
-            <span>Tailwind CSS v4</span>
-            <span>•</span>
-            <span>JavaScript Nativo</span>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <!-- Pie de página moderno con redes sociales -->
+    <Footer />
   </body>
 </html>

@@ -1,0 +1,234 @@
+---
+// Footer moderno de Market-Pet con redes sociales, navegación comercial, medios de pago y contacto
+const socialLinks = [
+  {
+    name: 'Instagram',
+    href: '#',
+    icon: 'instagram',
+    color: 'hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white',
+  },
+  {
+    name: 'TikTok',
+    href: '#',
+    icon: 'tiktok',
+    color: 'hover:bg-black hover:text-white',
+  },
+  {
+    name: 'Facebook',
+    href: '#',
+    icon: 'facebook',
+    color: 'hover:bg-blue-600 hover:text-white',
+  },
+  {
+    name: 'YouTube',
+    href: '#',
+    icon: 'youtube',
+    color: 'hover:bg-red-600 hover:text-white',
+  },
+  {
+    name: 'WhatsApp',
+    href: '#',
+    icon: 'whatsapp',
+    color: 'hover:bg-emerald-600 hover:text-white',
+  },
+];
+
+const paymentMethods = [
+  'Webpay Plus',
+  'Transbank',
+  'Visa',
+  'Mastercard',
+  'Redcompra',
+  'Transferencia Bancaria',
+];
+---
+
+<footer class="bg-stone-900 text-stone-300 pt-16 pb-12 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* 1. Fila Principal: Branding, Redes Sociales y Columnas de Navegación */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-stone-800">
+      {/* Columna Marca + Redes Sociales (4 columnas en desktop) */}
+      <div class="lg:col-span-4 space-y-5">
+        <a href="/" class="inline-flex items-center gap-2.5 group">
+          <span
+            class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 fill-current"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-4.5 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 1c-2.8 0-5 1.8-5 4.5 0 1.9 1.8 3.5 5 3.5s5-1.6 5-3.5c0-2.7-2.2-4.5-5-4.5Z"
+              ></path>
+            </svg>
+          </span>
+          <span class="font-black text-2xl text-white tracking-tight">Market-Pet</span>
+        </a>
+
+        <p class="text-sm text-stone-400 leading-relaxed pr-2">
+          Tu tienda online de confianza para consentir a tus mascotas en todo Chile. Nutrición premium, accesorios de confort, higiene y asesoría con despacho express a tu puerta.
+        </p>
+
+        {/* Redes Sociales Integradas */}
+        <div class="space-y-2 pt-1">
+          <p class="text-xs font-bold uppercase tracking-wider text-stone-400">
+            Síguenos en nuestras redes
+          </p>
+          <div class="flex items-center gap-2.5">
+            {
+              socialLinks.map((social) => (
+                <a
+                  href={social.href}
+                  aria-label={social.name}
+                  class={`w-10 h-10 rounded-xl bg-stone-800 text-stone-300 flex items-center justify-center shadow-xs transition-all duration-300 hover:-translate-y-1 ${social.color}`}
+                >
+                  {social.icon === 'instagram' && (
+                    <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                  )}
+                  {social.icon === 'tiktok' && (
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.89 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.31 0 .61.05.89.14v-3.52a6.4 6.4 0 0 0-.89-.06 6.34 6.34 0 0 0-6.34 6.33 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.32a8.3 8.3 0 0 0 4.77 1.49v-3.5a4.84 4.84 0 0 1-1-.62Z" />
+                    </svg>
+                  )}
+                  {social.icon === 'facebook' && (
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                  )}
+                  {social.icon === 'youtube' && (
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                  )}
+                  {social.icon === 'whatsapp' && (
+                    <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                  )}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Columna Catálogo (2 columnas en desktop) */}
+      <div class="lg:col-span-2 space-y-3">
+        <h3 class="font-extrabold text-white text-sm uppercase tracking-wider">
+          Categorías
+        </h3>
+        <ul class="space-y-2.5 text-sm text-stone-400">
+          <li>
+            <a href="#perros" class="hover:text-rose-400 transition-colors">Alimentos Perro</a>
+          </li>
+          <li>
+            <a href="#gatos" class="hover:text-rose-400 transition-colors">Alimentos Gato</a>
+          </li>
+          <li>
+            <a href="#etapas" class="hover:text-rose-400 transition-colors">Cachorros & Gatitos</a>
+          </li>
+          <li>
+            <a href="#ofertas" class="hover:text-rose-400 transition-colors">Ofertas Flash</a>
+          </li>
+          <li>
+            <a href="#novedades" class="hover:text-rose-400 transition-colors">Novedades</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Columna Ayuda y Compras (3 columnas en desktop) */}
+      <div class="lg:col-span-3 space-y-3">
+        <h3 class="font-extrabold text-white text-sm uppercase tracking-wider">
+          Servicio al Cliente
+        </h3>
+        <ul class="space-y-2.5 text-sm text-stone-400">
+          <li>
+            <a href="#" class="hover:text-rose-400 transition-colors">Seguimiento de Despacho</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-rose-400 transition-colors">Cambios y Devoluciones (30 días)</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-rose-400 transition-colors">Costos y Cobertura de Envío</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-rose-400 transition-colors">Preguntas Frecuentes</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-rose-400 transition-colors">Términos y Condiciones</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Columna Contacto y Horarios (3 columnas en desktop) */}
+      <div class="lg:col-span-3 space-y-3">
+        <h3 class="font-extrabold text-white text-sm uppercase tracking-wider">
+          Contacto & Despacho
+        </h3>
+        <div class="space-y-3 text-sm text-stone-400">
+          <div class="flex items-start gap-2.5">
+            <span class="text-rose-400 text-base">🕒</span>
+            <div>
+              <p class="font-semibold text-stone-200">Horario de Atención:</p>
+              <p class="text-xs text-stone-400">Lunes a Sábado: 09:00 a 19:00 hrs.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2.5">
+            <span class="text-emerald-400 text-base">💬</span>
+            <div>
+              <p class="font-semibold text-stone-200">WhatsApp Oficial:</p>
+              <p class="text-xs text-stone-400">+56 9 8765 4321</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2.5">
+            <span class="text-rose-400 text-base">✉️</span>
+            <div>
+              <p class="font-semibold text-stone-200">Correo Electrónico:</p>
+              <p class="text-xs text-stone-400">contacto@market-pet.cl</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 2. Barra de Métodos de Pago y Seguridad en Chile */}
+    <div class="py-8 border-b border-stone-800 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-stone-400">
+        <span class="text-emerald-400 font-bold">🔒</span>
+        <span>Compra 100% Segura con Cifrado SSL de 256 bits</span>
+      </div>
+
+      {/* Badges de Medios de Pago */}
+      <div class="flex flex-wrap items-center justify-center gap-2 text-xs">
+        {
+          paymentMethods.map((method) => (
+            <span class="px-3 py-1.5 rounded-lg bg-stone-800 text-stone-300 font-semibold border border-stone-700/60 shadow-2xs">
+              {method}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* 3. Sub-footer: Copyright y Stack */}
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+      <p>
+        © {new Date().getFullYear()} Market-Pet Chile SpA. Todos los derechos reservados.
+      </p>
+      <div class="flex items-center gap-3">
+        <span>Astro 5 SSR</span>
+        <span>•</span>
+        <span>Tailwind CSS v4</span>
+        <span>•</span>
+        <span>JavaScript Nativo</span>
+      </div>
+    </div>
+  </div>
+</footer>
