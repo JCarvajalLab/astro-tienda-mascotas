@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(home): agrega banners especiales por etapa de vida (cachorros, adultos y seniors)
+- **Último commit relevante:** style(banners): rediseña fondos con patrón auténtico de huellitas y botón comprar resaltando
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con tarjetas interactivas y redirección), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos, patrón de huellitas, botón coral "COMPRAR" de alto impacto y redirección interactiva), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.55s con 21 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 2.27s con 21 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -50,10 +50,27 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Barra de beneficios comerciales y fotos realistas en categorías | Inspirado en retail chileno (Delivery Gratis/Express/Retiro/Asesoría) y sustitución de emojis por fotos reales WebP | Categorías con párrafos de relleno y emojis simples |
 | 2026-11-17 | Sliders compactos de Ofertas y Novedades (5 productos/vista) | Optimización del espacio vertical en home: carruseles horizontales con navegación suave por flechas y 10 fotos IA | Grillas verticales grandes que ocupaban demasiado espacio |
 | 2026-11-17 | Banners comerciales por Etapa de Vida (Cachorros/Gatitos, Adultos, Seniors) | Segmentación por edad con tarjetas visuales, patrón de huellitas, CTAs directos y redirección hacia secciones de catálogo | Agrupar todo en un catálogo plano sin segmentación por edad |
+| 2026-11-17 | Rediseño de fondos en banners por etapa de vida | Sustitución de fondos planos por patrones vectoriales de patitas y corazones, botón "COMPRAR" coral con sombra de elevación y difuminado suave de bordes en fotografías | Fondos planos con cortes duros o recuadros visibles |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · rediseño de fondos con patrón de huellitas auténtico y botón comprar resaltando
+- **Qué:** Rediseño completo de los fondos y estética de los 3 banners de etapas de vida (`src/assets/banners/banner-etapa-*`):
+  1. **Patrón Auténtico de Huellitas y Corazones:** Extracción del patrón original con huellitas y corazoncitos translúcidos en `rgba(255, 255, 255, 0.28)` dispersos armoniosamente con rotaciones naturales sobre colores distintivos:
+     - **Cachorros y Gatitos:** Celeste brillante `#40C1F0` con cachorro y gatito.
+     - **Adultos:** Naranja durazno cálido `#FCA262` con perro labrador y gato doméstico adulto.
+     - **Seniors:** Gris plata/pizarra suave `#A8AFBE` con perro senior con pañuelo rojo y gato senior.
+  2. **Botón "COMPRAR" Resaltando:** Píldora redondeada en tono coral vibrante (`#FC5E5E`), con tipografía blanca gruesa centrada y sombra de elevación suave que genera gran contraste visual y llamado a la acción.
+  3. **Tipografía con Detalle de Marca:** "Especial" con un corazoncito coral como punto de la letra "i", acompañado del nombre de etapa en negrita legible.
+  4. **Fusión Suave sin Cortes Duros (Feather Blending):** Los bordes laterales de las fotografías se fusionan progresivamente con el fondo texturizado, eliminando cualquier recuadro o costura visible.
+- **Archivos clave:** `src/assets/banners/banner-etapa-cachorros.jpg`, `src/assets/banners/banner-etapa-adultos.jpg`, `src/assets/banners/banner-etapa-seniors.jpg`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Redirección artística de los banners basada en la muestra enviada por el usuario, afinando colores distintivos, botón de conversión y detalles tipográficos.
+  - `desarrollo`: Re-generación en alta resolución (720x340 px) con difuminado suave de bordes y procesamiento a WebP mediante `astro:assets`.
+  - `qa`: Compilación exitosa en 2.27s (21 imágenes WebP optimizadas), linters 100% pasando y verificación del servidor local en 4321.
+  - `docs-seo`: Registro de la actualización en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · banners especiales por etapa de vida (cachorros, adultos y seniors)
 - **Qué:** Implementación del bloque de segmentación comercial por ciclo de vida de la mascota según la referencia de retail:
