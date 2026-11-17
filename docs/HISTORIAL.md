@@ -10,17 +10,17 @@
 
 _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
-- **Proyecto:** ecommerce (tienda de mascotas) — Ecommerce de tienda de artículos para mascotas
+- **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(theme): consolida paleta oficial retail carmin y restaura toggle de modo nocturno
+- **Último commit relevante:** feat(home): integra carousel hero moderno, categorias circulares y marca market-pet
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Paleta oficial definitiva "Retail Carmín" (60% Blanco Slate `#F8FAFC`, 30% Pizarra Grafito `#0F172A`, 10% Rojo Carmín Retail `#E11D48`), botón de modo nocturno/claro restaurado en el Header con accesibilidad e iconos sol/luna, modal de despacho de Chile según referencia visual con persistencia y header de 2 niveles con mega-menú de subcategorías.
+- **Qué funciona:** Marca actualizada a **Market-Pet**, Hero Carousel moderno interactivo con banners inspirados en tiendas chilenas de mascotas (Belcando/Leonardo Made in Germany holístico, Catit Go Natural arenas con botón "Comprar Aquí", y Packs de ahorro con 35% OFF) en 100% JS nativo, 5 categorías con headings circulares estilo Bootstrap ("Packs Promocionales", "Alimento Perro", "Alimento Gato", "Juguetes Perro", "Juguetes Gato"), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), modal de despacho chileno con persistencia `localStorage`, y botón de modo nocturno retirado temporalmente de la cabecera según instrucción del usuario.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections y fotos de productos en `src/assets/`)
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.34s, ESLint y Prettier 100% pasando
-- **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido)
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.14s, ESLint y Prettier 100% pasando sin errores.
+- **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
 
@@ -42,10 +42,30 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Modal dinámico de Región/Comuna según referencia de retail | Flujo estándar de supermercado/retail chileno (Lider/Jumbo/Falabella) con selects en cascada y persistencia | Dropdown plano sin selects en cascada |
 | 2026-11-16 | Sistema 60-30-10 con Rojo como acento de conversión principal | Equilibrio visual perfecto: 60% lienzo luminoso, 30% estructura neutra legible, 10% rojo de alta conversión para botones de compra y badges | Usar rojo en el 60% saturando la interfaz o usar fondos negros |
 | 2026-11-16 | Opción 1 "Retail Carmín" como identidad oficial y botón de tema restaurado | Aprobación del usuario para la paleta definitiva 60-30-10 y restauración del botón de tema (sol/luna) en el Header | Mantener barras temporales de comparación o servidores de prueba múltiples |
+| 2026-11-16 | Renombrar marca a Market-Pet y posponer modo nocturno | Ajuste a branding preferido por el usuario y simplificación de la interfaz en Fase 1 | Mantener nombre anterior o forzar botón de tema en header |
+| 2026-11-16 | Hero Carousel moderno + Headings circulares de categorías | Inspirado en Bootstrap 5 Carousel y tiendas chilenas de mascotas (Belcando/Catit/Packs) con JS nativo puro | Hero estático o sliders dependientes de librerías externas pesadas |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · integracion de carousel hero moderno, categorias circulares y marca market-pet
+- **Qué:** Implementación del nuevo Hero Carousel moderno y categorías circulares inspiradas en Bootstrap 5.3 y en las referencias visuales chilenas provistas por el usuario:
+  1. **Branding oficial Market-Pet:** Actualización del logo y copys de cabecera y pie de página de "Patitas & Co." a **Market-Pet**.
+  2. **Retiro temporal del botón de modo nocturno:** Siguiendo la indicación del usuario ("Recuerda que el modo nocturno lo vemos más adelante"), se retiró el toggle `#theme-toggle` del navbar para mantener la atención en la navegación y productos, conservando el modo claro luminoso por defecto.
+  3. **Hero Carousel Moderno (`Carousel.astro`):** Carrusel de ancho completo con 3 diapositivas comerciales adaptadas de las imágenes de referencia:
+     - Slide 1: Belcando & Leonardo Made in Germany holístico (sellos de carne fresca, cocción al vapor y sabor insuperable).
+     - Slide 2: Catit Go Natural arenas ecológicas de cáscara de arveja con botón CTA rojo "COMPRAR AQUÍ" y sello Multi-Cat.
+     - Slide 3: Packs Promocionales y de ahorro hasta 35% de descuento con despacho express en 24/48h.
+     - Navegación con flechas redondeadas estilo Bootstrap, barras indicadoras inferiores, autoplay inteligente (6s) y pausa automática en hover en 100% JavaScript nativo (cero dependencias).
+  4. **Categorías con Headings Circulares (`CircularCategories.astro`):** Fila de 5 categorías con círculos de gran formato, badges y botones "Ver catálogo »" inspirada en el ejemplo de Bootstrap Carousel y la referencia de tiendas de mascotas: Packs Promocionales (Rojo SALE), Alimento Perro (Cian), Alimento Gato (Amarillo), Juguetes Perro (Verde) y Juguetes Gato / Rascadores & Confort (Morado).
+  5. **Integración limpia en `index.astro`:** Reemplazo del hero estático anterior, respetando la regla cromática 60-30-10 con Rojo Carmín Retail (`#E11D48`) para acentos.
+- **Archivos clave:** `src/components/Carousel.astro`, `src/components/CircularCategories.astro`, `src/components/Header.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Adaptación visual de las piezas publicitarias (Belcando Made in Germany, Catit Go Natural) al carrusel, diagramación de headings circulares de categorías con badges flotantes y consistencia en la regla 60-30-10.
+  - `desarrollo`: Creación de `Carousel.astro` y `CircularCategories.astro` en JS nativo sin frameworks adicionales, integración en `index.astro`, retiro de `#theme-toggle` en `Header.astro` y actualización de títulos en `BaseLayout.astro`.
+  - `qa`: Ejecución de formateo con Prettier, verificación de ESLint (0 errores), compilación estática (`npm run build` en 1.14s) y verificación del hot-reloading en `http://localhost:4321/`.
+  - `docs-seo`: Actualización de la documentación en `HISTORIAL.md` con desglose de skills participantes.
 
 ### 2026-11-16 · `phase/01-design` · consolidacion de paleta oficial retail carmin y boton de modo nocturno restaurado
 - **Qué:** Consolidación definitiva de la identidad visual de la tienda tras la elección de la Opción 1 ("Retail Carmín"):
