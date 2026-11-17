@@ -5,6 +5,7 @@ import TrustBar from '../components/TrustBar.astro';
 import CircularCategories from '../components/CircularCategories.astro';
 import ProductSlider from '../components/ProductSlider.astro';
 import LifeStageBanners from '../components/LifeStageBanners.astro';
+import CatalogCtaBanner from '../components/CatalogCtaBanner.astro';
 
 // Importación de fotografías de productos reales en alta resolución
 import imgAlimentoPerro from '../assets/products/alimento-perro.jpg';
@@ -320,64 +321,8 @@ const productosNovedades = [
     products={productosNovedades}
   />
 
-  <!-- GARANTÍAS / BENEFICIOS ADICIONALES -->
-  <section
-    id="beneficios"
-    class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white"
-  >
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div
-        class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 shadow-xs"
-      >
-        <div
-          class="w-10 h-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center font-bold text-xl"
-        >
-          🚚
-        </div>
-        <h3 class="text-base font-bold text-stone-900">
-          Despachos Express en Chile
-        </h3>
-        <p class="text-xs text-stone-600 leading-relaxed">
-          Envíos a domicilio en 24 a 48 horas en Santiago y regiones principales
-          con número de seguimiento en línea.
-        </p>
-      </div>
-
-      <div
-        class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 shadow-xs"
-      >
-        <div
-          class="w-10 h-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center font-bold text-xl"
-        >
-          🔒
-        </div>
-        <h3 class="text-base font-bold text-stone-900">
-          Pagos 100% Seguros en CLP
-        </h3>
-        <p class="text-xs text-stone-600 leading-relaxed">
-          Transbank Webpay Plus, tarjetas de crédito, débito y transferencias
-          bancarias con cifrado SSL de extremo a extremo.
-        </p>
-      </div>
-
-      <div
-        class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 shadow-xs"
-      >
-        <div
-          class="w-10 h-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center font-bold text-xl"
-        >
-          ⭐
-        </div>
-        <h3 class="text-base font-bold text-stone-900">
-          Garantía de Satisfacción
-        </h3>
-        <p class="text-xs text-stone-600 leading-relaxed">
-          30 días de garantía para cambios o devoluciones fáciles si tu mascota
-          no queda 100% satisfecha con su producto.
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- 7. Banner Emocional de Llamado al Catálogo con Arcos de Mascotas -->
+  <CatalogCtaBanner />
 
   <!-- NEWSLETTER / CLUB DE MASCOTAS -->
   <section class="py-14 bg-brand-primary text-white">
