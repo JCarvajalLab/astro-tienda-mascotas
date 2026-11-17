@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(home): integra carousel hero moderno, categorias circulares y marca market-pet
+- **Último commit relevante:** feat(carousel): integra fotos profesionales generadas por ia procesadas con astro:assets
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca actualizada a **Market-Pet**, Hero Carousel moderno interactivo con banners inspirados en tiendas chilenas de mascotas (Belcando/Leonardo Made in Germany holístico, Catit Go Natural arenas con botón "Comprar Aquí", y Packs de ahorro con 35% OFF) en 100% JS nativo, 5 categorías con headings circulares estilo Bootstrap ("Packs Promocionales", "Alimento Perro", "Alimento Gato", "Juguetes Perro", "Juguetes Gato"), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), modal de despacho chileno con persistencia `localStorage`, y botón de modo nocturno retirado temporalmente de la cabecera según instrucción del usuario.
-- **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections y fotos de productos en `src/assets/`)
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.14s, ESLint y Prettier 100% pasando sin errores.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel con segmentación comercial (textos y ofertas 100% editables en HTML a la izquierda, y fotografías de estudio de alta resolución generadas con IA a la derecha en `src/assets/banners/`, procesadas automáticamente con `<Image />` de `astro:assets` a WebP reduciendo el peso de ~550kB a ~15kB sin CLS), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -44,10 +44,26 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Opción 1 "Retail Carmín" como identidad oficial y botón de tema restaurado | Aprobación del usuario para la paleta definitiva 60-30-10 y restauración del botón de tema (sol/luna) en el Header | Mantener barras temporales de comparación o servidores de prueba múltiples |
 | 2026-11-16 | Renombrar marca a Market-Pet y posponer modo nocturno | Ajuste a branding preferido por el usuario y simplificación de la interfaz en Fase 1 | Mantener nombre anterior o forzar botón de tema en header |
 | 2026-11-16 | Hero Carousel moderno + Headings circulares de categorías | Inspirado en Bootstrap 5 Carousel y tiendas chilenas de mascotas (Belcando/Catit/Packs) con JS nativo puro | Hero estático o sliders dependientes de librerías externas pesadas |
+| 2026-11-16 | Segmentación visual: Textos HTML a la izquierda y fotos IA a la derecha | Permite modificar ofertas y textos libremente sin alterar la gráfica, optimizando fotos a WebP con astro:assets | Generar banners estáticos con texto horneado en la imagen |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · fotografias generadas por ia y segmentacion editable en carousel hero
+- **Qué:** Generación e integración de activos fotográficos de alta resolución para el Hero Carousel y segmentación visual en dos columnas (textos a la izquierda y fotos a la derecha):
+  1. **Generación con IA (`image-generator`):** Se generaron 3 fotografías de estudio comercial de alta calidad libres de derechos para el lado derecho de cada slide:
+     - Slide 1 (`banner-mascotas-amigos.jpg`): Fotografía de un cachorro Jack Russell y un gato doméstico amigos, sonriendo sentados lado a lado con las patitas apoyadas al frente.
+     - Slide 2 (`banner-gato-arena.jpg`): Fotografía de un gato atigrado curioso asomándose entre envases minimalistas ecológicos de arena sanitaria en tonos celestes y blancos.
+     - Slide 3 (`banner-pack-ahorro.jpg`): Fotografía de estudio de una moderna torre rascador para gatos, cama ortopédica acolchada y juguetes para mascotas.
+  2. **Procesamiento de alto rendimiento con `astro:assets`:** Las imágenes se almacenaron en `src/assets/banners/` y se procesan con `<Image />` de Astro (WebP automático, `width={640}`, `height={480}`, carga `eager` con prioridad alta en el primer slide y `lazy` en los siguientes para 0 CLS). La optimización redujo el peso de ~550 kB a ~15 kB (reducción del 97%).
+  3. **Segmentación y modificabilidad completa:** El lado izquierdo contiene todos los títulos, porcentajes de descuento, sellos con checkmarks y botones CTA en HTML/Tailwind CSS puro, permitiendo que cualquier oferta o texto se modifique al instante sin alterar las imágenes.
+- **Archivos clave:** `src/assets/banners/*`, `src/components/Carousel.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte para el prompt de las imágenes de estudio, encuadre 4:3 y distribución en dos columnas destacando las mascotas en el lado derecho.
+  - `desarrollo`: Integración del componente `<Image />` de `astro:assets`, optimización responsiva y transiciones sutiles hover.
+  - `qa`: Compilación de producción con optimización de imágenes (`npm run build` en 1.68s con 3 imágenes WebP generadas), verificación de linters (`npm run lint` -> 0 errores) y recarga del servidor local.
+  - `docs-seo`: Registro de la decisión de segmentación en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · integracion de carousel hero moderno, categorias circulares y marca market-pet
 - **Qué:** Implementación del nuevo Hero Carousel moderno y categorías circulares inspiradas en Bootstrap 5.3 y en las referencias visuales chilenas provistas por el usuario:
