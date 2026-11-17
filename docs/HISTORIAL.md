@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** fix(club): redefine copy hacia comunidad de amantes de mascotas y condiciones transparentes
+- **Último commit relevante:** feat(footer): nuevo footer moderno con redes sociales, medios de pago y navegacion
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 5 botones de redes sociales con micro-interacciones hover dinámicas [Instagram, TikTok, Facebook, YouTube, WhatsApp], 3 columnas de navegación comercial [Categorías, Servicio al Cliente, Contacto & Despacho], cintillo de medios de pago chilenos [Webpay Plus, Transbank, Visa, Mastercard, Redcompra, Transferencia, SSL 256-bit] y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.67s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.59s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -57,10 +57,28 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Tarjeta VIP Club Market-Pet (Newsletter con Cupón $5.000) | Rediseño en tarjeta split flotante con degradado profundo, fotografía de bienvenida con voucher y beneficios destacados | Barra roja plana y centrada monótona sin fotografía ni tracción visual |
 | 2026-11-17 | Expansión a ancho completo de Club Newsletter y retiro de badge en foto | Ocupar todo el ancho visual disponible (w-full) con padding fluido y dejar la foto de las mascotas 100% limpia sin recuadros de texto superpuestos | Mantener tarjeta acotada en 1280px con badge artificial sobre las patas de las mascotas |
 | 2026-11-17 | Redefinición de copy en bloque de comunidad y cupón transparente | Titular empático centrado en la comunidad ("Únete a nuestra comunidad de amantes de las mascotas"), beneficio claro de $5.000 y disclaimer transparente de compras sobre $40.000 | Titular confuso o sin condiciones claras de retail |
+| 2026-11-17 | Footer moderno con redes sociales y medios de pago integrados | Experiencia retail profesional (Chewy/Falabella): 5 canales sociales con hovers de marca distintivos, navegación comercial clara y sellos de confianza de pago en Chile | Footer plano monocromático sin canales sociales ni sellos de pago |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · footer moderno con redes sociales integradas, medios de pago y navegacion comercial
+- **Qué:** Implementación y desacoplamiento del nuevo pie de página moderno (`Footer.astro`) en reemplazo del pie de página plano anterior en `BaseLayout.astro`:
+  1. **Branding & Identidad:** Logo oficial Market-Pet con icono de huella en carmín y breve descripción de propósito enfocada en el cuidado y consentimiento de mascotas en Chile.
+  2. **5 Redes Sociales Integradas:** Botones redondeados con iconos vectoriales SVG limpios y efectos *hover* dinámicos con los colores oficiales de cada red (Instagram con degradado rosa/ámbar/púrpura, TikTok en negro neutro, Facebook en azul corporativo, YouTube en rojo intenso y WhatsApp en esmeralda). Enlaces preparados de manera ficticia (`href="#"`) con `aria-label` accesible.
+  3. **3 Columnas de Navegación Comercial:**
+     - *Categorías:* Enlaces directos a Perros, Gatos, Accesorios y Farmacia/Salud.
+     - *Servicio al Cliente:* Enlaces a Seguimiento de Despacho, Preguntas Frecuentes, Cambios & Devoluciones y Términos & Condiciones.
+     - *Contacto & Despacho:* Horarios de atención, botón de asistencia directa por WhatsApp y correo electrónico oficial (`contacto@marketpet.cl`).
+  4. **Barra de Medios de Pago & Seguridad:** Sellos informativos para Chile (Webpay Plus, Transbank, Visa, Mastercard, Redcompra, Transferencia Bancaria y cifrado SSL 256-bit).
+  5. **Sub-footer:** Derechos reservados y especificación del stack tecnológico moderno (Astro 5 SSR, Tailwind CSS v4, JavaScript Nativo).
+- **Archivos clave:** `src/components/Footer.astro`, `src/layouts/BaseLayout.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte del footer (estilo oscuro sofisticado `bg-stone-900`, hovers temáticos por red social y jerarquía de columnas de ecommerce).
+  - `desarrollo`: Creación del componente `Footer.astro` en JavaScript nativo puro sin dependencias pesadas y refactorización modular de `BaseLayout.astro`.
+  - `qa`: Validación de linters (`npm run lint`) y compilación Astro en 1.59s sin fallos.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · redefinicion de copy de comunidad market-pet y condiciones claras de cupon
 - **Qué:** Ajustes de redacción persuasiva (*copywriting*) en `ClubNewsletter.astro` para mejorar la claridad del mensaje y la transparencia comercial:
