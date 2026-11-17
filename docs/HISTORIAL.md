@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** style(banners): rediseña fondos con patrón auténtico de huellitas y botón comprar resaltando
+- **Último commit relevante:** feat(home): banner emocional de llamado al catalogo con 4 arcos de mascotas y cta destacado
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos, patrón de huellitas, botón coral "COMPRAR" de alto impacto y redirección interactiva), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo (`CatalogCtaBanner.astro`: 4 arcos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 2.27s con 21 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.60s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -51,10 +51,26 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Sliders compactos de Ofertas y Novedades (5 productos/vista) | Optimización del espacio vertical en home: carruseles horizontales con navegación suave por flechas y 10 fotos IA | Grillas verticales grandes que ocupaban demasiado espacio |
 | 2026-11-17 | Banners comerciales por Etapa de Vida (Cachorros/Gatitos, Adultos, Seniors) | Segmentación por edad con tarjetas visuales, patrón de huellitas, CTAs directos y redirección hacia secciones de catálogo | Agrupar todo en un catálogo plano sin segmentación por edad |
 | 2026-11-17 | Rediseño de fondos en banners por etapa de vida | Sustitución de fondos planos por patrones vectoriales de patitas y corazones, botón "COMPRAR" coral con sombra de elevación y difuminado suave de bordes en fotografías | Fondos planos con cortes duros o recuadros visibles |
+| 2026-11-17 | Sustitución de bloque de garantías por Banner Emocional de Catálogo | Mayor tracción y conversión: reemplaza 3 cajas de texto estáticas por un banner con 4 arcos de mascotas expresivas (Beagle, gatos, Corgi) y botón CTA "Ver todo el catálogo" con icono circular | Mantener 3 tarjetas de texto plano redundantes con la TrustBar |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · banner emocional de catalogo con 4 arcos de mascotas y cta destacado
+- **Qué:** Reemplazo de la sección anterior de 3 tarjetas de texto ("Despachos Express", "Pagos 100% Seguros", "Garantía de Satisfacción") por un banner dinámico y emocional de llamado al catálogo inspirado en la referencia gráfica:
+  1. **Componente `CatalogCtaBanner.astro`:** Estructura en tres columnas (`order-2 lg:order-1` en móvil/desktop):
+     - **Flanco Izquierdo:** Dos cápsulas en forma de arco (`rounded-t-full rounded-b-2xl`) con un cachorro Beagle con orejas al viento (fondo lavanda suave) y un gato gris feliz relamiéndose (fondo verde lima pastel).
+     - **Centro:** Titular comercial empático en gran escala tipográfica: *"Porque tus peluditos merecen lo mejor, siempre."*, acompañado de bajada explicativa.
+     - **Botón CTA de Alta Conversión:** Píldora en Rojo Carmín Retail (`bg-brand-primary` / `bg-rose-600`) con texto *"Ver todo el catálogo"* y un distintivo botón circular blanco con flecha roja que reacciona con microinteracción al hover (`group-hover:translate-x-0.5`).
+     - **Flanco Derecho:** Dos cápsulas en arco con un perro Corgi sonriente (fondo amarillo cálido) y un gato atigrado de perfil (fondo rosa pastel).
+  2. **Imágenes Optimizadas (`src/assets/banner-animals/*`):** 4 fotografías nítidas procesadas en alta resolución (280x400 px) y convertidas por `astro:assets` a WebP con pesos ultraligeros de 7 a 11 kB.
+- **Archivos clave:** `src/components/CatalogCtaBanner.astro`, `src/assets/banner-animals/*`, `src/pages/index.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Adaptación de la composición de la referencia a la estética de Market-Pet, aplicando geometría de arcos (*vault arches*), paleta armónica pastel y botón de conversión con cápsula y flecha.
+  - `desarrollo`: Creación de `CatalogCtaBanner.astro`, integración con `astro:assets` `<Image />` (compresión de 28-32 kB a 7-11 kB WebP) y reemplazo limpio en `index.astro`.
+  - `qa`: Compilación limpia en 1.60s (25 imágenes WebP), ESLint 9 (0 errores) y verificación en puerto 4321.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · rediseño de fondos con patrón de huellitas auténtico y botón comprar resaltando
 - **Qué:** Rediseño completo de los fondos y estética de los 3 banners de etapas de vida (`src/assets/banners/banner-etapa-*`):
