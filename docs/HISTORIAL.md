@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(home): banner emocional de llamado al catalogo con 4 arcos de mascotas y cta destacado
+- **Último commit relevante:** style(home): elimina lineas divisorias artificiales en favor de espaciado limpio y ritmo visual
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo (`CatalogCtaBanner.astro`: 4 arcos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo (`CatalogCtaBanner.astro`: 4 arcos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), interfaz limpia sin líneas divisorias artificiales con ritmo visual orgánico, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.60s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.66s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -52,10 +52,24 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Banners comerciales por Etapa de Vida (Cachorros/Gatitos, Adultos, Seniors) | Segmentación por edad con tarjetas visuales, patrón de huellitas, CTAs directos y redirección hacia secciones de catálogo | Agrupar todo en un catálogo plano sin segmentación por edad |
 | 2026-11-17 | Rediseño de fondos en banners por etapa de vida | Sustitución de fondos planos por patrones vectoriales de patitas y corazones, botón "COMPRAR" coral con sombra de elevación y difuminado suave de bordes en fotografías | Fondos planos con cortes duros o recuadros visibles |
 | 2026-11-17 | Sustitución de bloque de garantías por Banner Emocional de Catálogo | Mayor tracción y conversión: reemplaza 3 cajas de texto estáticas por un banner con 4 arcos de mascotas expresivas (Beagle, gatos, Corgi) y botón CTA "Ver todo el catálogo" con icono circular | Mantener 3 tarjetas de texto plano redundantes con la TrustBar |
+| 2026-11-17 | Eliminación de líneas de división horizontales en home | Adopción de principios de diseño UX/UI modernos: separación limpia por espacio en blanco y ritmo visual en vez de bordes artificiales que cortaban el flujo | Mantener líneas grises divisorias rígidas entre secciones |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · eliminacion de lineas de separacion artificiales y limpieza visual ux/ui
+- **Qué:** Supresión de las 4 líneas grises horizontales de división que cortaban el flujo estético de la página de inicio, evaluadas y resueltas con el especialista de UX/UI:
+  1. **Línea entre Categorías y Ofertas:** Eliminado `border-b border-stone-200` en `CircularCategories.astro`. La sección ahora respira con su espaciado vertical nativo.
+  2. **Línea bajo Ofertas y en encabezado de Etapas:** Eliminado `border-b border-stone-200/80` en `ProductSlider.astro` y la línea inferior del título en `LifeStageBanners.astro`. El scroll entre carruseles y banners fluye sin interrupciones.
+  3. **Líneas en Banner Emocional:** Eliminado `border-y border-stone-200/80` en `CatalogCtaBanner.astro`. Se erradicó el doble borde que chocaba contra el fondo rojo del newsletter.
+  4. **Línea sobre el Footer:** Eliminado `border-t border-stone-200` y el margen descolgado en `BaseLayout.astro`. El pie de página enlaza directamente con el newsletter sin líneas flotantes.
+- **Archivos clave:** `src/components/CircularCategories.astro`, `src/components/ProductSlider.astro`, `src/components/LifeStageBanners.astro`, `src/components/CatalogCtaBanner.astro`, `src/layouts/BaseLayout.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Evaluación de jerarquía visual y aplicación de la regla de oro de diseño contemporáneo: delimitar secciones mediante espacio en blanco (*whitespace*), ritmo tipográfico y fondos alternados, eliminando bordes que fragmentaban la lectura.
+  - `desarrollo`: Refactorización de clases en 5 archivos componentes sin alterar el layout responsive ni la funcionalidad.
+  - `qa`: `npm run lint` (0 errores) y `npm run build` (compilación exitosa en 1.66s con 25 imágenes WebP).
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · banner emocional de catalogo con 4 arcos de mascotas y cta destacado
 - **Qué:** Reemplazo de la sección anterior de 3 tarjetas de texto ("Despachos Express", "Pagos 100% Seguros", "Garantía de Satisfacción") por un banner dinámico y emocional de llamado al catálogo inspirado en la referencia gráfica:
