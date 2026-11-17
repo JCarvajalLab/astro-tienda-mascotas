@@ -6,6 +6,7 @@ import CircularCategories from '../components/CircularCategories.astro';
 import ProductSlider from '../components/ProductSlider.astro';
 import LifeStageBanners from '../components/LifeStageBanners.astro';
 import CatalogCtaBanner from '../components/CatalogCtaBanner.astro';
+import ClubNewsletter from '../components/ClubNewsletter.astro';
 
 // Importación de fotografías de productos reales en alta resolución
 import imgAlimentoPerro from '../assets/products/alimento-perro.jpg';
@@ -324,47 +325,8 @@ const productosNovedades = [
   <!-- 7. Banner Emocional de Llamado al Catálogo con Arcos de Mascotas -->
   <CatalogCtaBanner />
 
-  <!-- NEWSLETTER / CLUB DE MASCOTAS -->
-  <section class="py-14 bg-brand-primary text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-      <span
-        class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider backdrop-blur-xs"
-      >
-        Club Market-Pet
-      </span>
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-        Únete y obtén $5.000 de descuento en tu primera compra
-      </h2>
-      <p class="text-sm text-white/90 max-w-xl mx-auto leading-relaxed">
-        Recibe promociones exclusivas, consejos de veterinarios expertos y
-        novedades para el cuidado de tu mascota.
-      </p>
-
-      <form
-        class="pt-2 flex flex-col sm:flex-row gap-2 max-w-md mx-auto"
-        onsubmit="event.preventDefault(); alert('¡Gracias por unirte al Club Market-Pet! Revisa tu correo con tu cupón.');"
-      >
-        <label for="newsletter-email" class="sr-only">Correo electrónico</label>
-        <input
-          type="email"
-          id="newsletter-email"
-          required
-          placeholder="tu-correo@ejemplo.cl"
-          class="flex-1 px-4 py-3 rounded-xl bg-white text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-white"
-        />
-        <button
-          type="submit"
-          class="px-6 py-3 rounded-xl bg-stone-900 text-white text-sm font-bold shadow-md hover:bg-stone-800 transition-colors cursor-pointer"
-        >
-          Suscribirme
-        </button>
-      </form>
-      <p class="text-[11px] text-white/70">
-        Respetamos tu privacidad. Puedes darte de baja en cualquier momento con
-        un clic.
-      </p>
-    </div>
-  </section>
+  <!-- 8. Tarjeta VIP Club Market-Pet (Newsletter con Cupón de $5.000) -->
+  <ClubNewsletter />
 </BaseLayout>
 
 <script>
