@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(home): expande banner emocional de catalogo a ancho completo con arcos heroicos
+- **Último commit relevante:** feat(home): rediseña newsletter como tarjeta vip club con foto y cupon de bienvenida
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), interfaz limpia sin líneas divisorias artificiales con ritmo visual orgánico, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Tarjeta flotante VIP Club Market-Pet (`ClubNewsletter.astro`: split 2 columnas con fotografía de bienvenida, voucher de $5.000, checks de beneficios y formulario optimizado), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.52s con 25 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.80s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -54,10 +54,24 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Sustitución de bloque de garantías por Banner Emocional de Catálogo | Mayor tracción y conversión: reemplaza 3 cajas de texto estáticas por un banner con 4 arcos de mascotas expresivas (Beagle, gatos, Corgi) y botón CTA "Ver todo el catálogo" con icono circular | Mantener 3 tarjetas de texto plano redundantes con la TrustBar |
 | 2026-11-17 | Eliminación de líneas de división horizontales en home | Adopción de principios de diseño UX/UI modernos: separación limpia por espacio en blanco y ritmo visual en vez de bordes artificiales que cortaban el flujo | Mantener líneas grises divisorias rígidas entre secciones |
 | 2026-11-17 | Expansión a ancho completo (Full-width) en Banner Emocional de Catálogo | Aprovechar el ancho de pantalla eliminando max-w-7xl, agrandando los arcos a escala heroica (hasta 240x336px) y llevando las mascotas a los extremos laterales | Confinar el banner en 1280px dejando amplios vacíos blancos a los costados |
+| 2026-11-17 | Tarjeta VIP Club Market-Pet (Newsletter con Cupón $5.000) | Rediseño en tarjeta split flotante con degradado profundo, fotografía de bienvenida con voucher y beneficios destacados | Barra roja plana y centrada monótona sin fotografía ni tracción visual |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · rediseño de newsletter como tarjeta vip club market-pet con foto de bienvenida y voucher
+- **Qué:** Sustitución de la franja plana y monótona de newsletter por un componente flotante de alta conversión (`ClubNewsletter.astro`):
+  1. **Tarjeta Flotante VIP (`rounded-3xl sm:rounded-4xl`):** Contenedor con degradado de rojo carmín a borgoña profundo y sombras envolventes (`shadow-2xl`), ubicado dentro del flujo comercial sin cortar la página de forma brusca.
+  2. **Estructura Split de 2 Columnas:**
+     - **Columna Izquierda:** Titular persuasivo con resaltado ondulado en amarillo dorado (`$5.000 de descuento`), badge reflectante (*✨ CLUB MARKET-PET · BENEFICIO EXCLUSIVO*), viñetas de valor añadido (cupón inmediato, ofertas flash y consejos veterinarios), input con icono de sobre y botón de llamado a la acción contrastado en amarillo ámbar (*¡Obtener mi cupón! →*).
+     - **Columna Derecha:** Fotografía de bienvenida (`club-mascotas-bienvenida.jpg`) con perro labrador y gato doméstico amigables acompañados de un voucher flotante (*🎁 BIENVENIDA · $5.000 OFF*), optimizada a WebP (40 kB).
+- **Archivos clave:** `src/components/ClubNewsletter.astro`, `src/assets/club-mascotas-bienvenida.jpg`, `src/pages/index.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Redirección del bloque de captura de leads según estándares de ecommerce moderno (tarjeta flotante, jerarquía de beneficios tangibles, microinteracciones y armonía de color).
+  - `desarrollo`: Creación de `ClubNewsletter.astro`, composición gráfica del voucher de bienvenida con Pillow en alta resolución y renderizado con `astro:assets`.
+  - `qa`: Compilación limpia en 1.80s (26 imágenes WebP) y ESLint 9 verificado con 0 errores.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · expansion a ancho completo de banner emocional de catalogo
 - **Qué:** Expansión del componente `CatalogCtaBanner.astro` para abarcar el 100% del ancho del viewport (`w-full`), eliminando el contenedor restrictivo `max-w-7xl` y redimensionando sus componentes:
