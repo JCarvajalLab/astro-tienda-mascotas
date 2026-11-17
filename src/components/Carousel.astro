@@ -31,7 +31,6 @@ const slides = [
       'bg-amber-400 text-stone-950 hover:bg-amber-300 font-black shadow-lg shadow-amber-500/20',
     image: bannerMascotas,
     imageAlt: 'Cachorro Jack Russell y gato doméstico amigos felices juntos',
-    petTag: 'Belcando & Leonardo',
   },
   {
     id: 2,
@@ -53,7 +52,6 @@ const slides = [
       'bg-red-600 text-white hover:bg-red-500 font-black shadow-lg shadow-red-600/30 uppercase tracking-wider',
     image: bannerGato,
     imageAlt: 'Gato bengalí curioso junto a cajas de arena sanitaria ecológica',
-    petTag: 'Multi-Cat Formula',
   },
   {
     id: 3,
@@ -75,7 +73,6 @@ const slides = [
       'bg-white text-rose-700 hover:bg-stone-100 font-black shadow-lg shadow-black/20',
     image: bannerPack,
     imageAlt: 'Pack de rascador moderno para gatos, cama ortopédica y juguetes',
-    petTag: 'Descuentos Exclusivos',
   },
 ];
 ---
@@ -109,7 +106,7 @@ const slides = [
           </div>
 
           <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[380px] sm:min-h-[440px]">
-            <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
+            <div class="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs">
                 <span>{slide.badge}</span>
               </div>
@@ -139,12 +136,6 @@ const slides = [
                   {slide.ctaText} →
                 </a>
               </div>
-            </div>
-
-            <div class="lg:col-span-5 hidden sm:flex justify-end items-end self-end pb-2">
-              <span class="px-3.5 py-1.5 rounded-full text-xs font-black tracking-widest uppercase bg-black/60 backdrop-blur-md text-white/90 border border-white/20 shadow-lg">
-                {slide.petTag}
-              </span>
             </div>
           </div>
         </div>
