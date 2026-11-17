@@ -15,9 +15,9 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-16
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(carousel): expande fotografias a sangre en todo el banner eliminando marcos y recortes
+- **Último commit relevante:** feat(carousel): remueve pills flotantes redundantes dejando fondo limpio
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style: la fotografía abarca el 100% del banner de borde a borde, eliminando cajas o marcos flotantes; las mascotas y productos lucen en su entorno natural al lado derecho y el fondo se extiende suavemente a la izquierda con un degradado cinematográfico para máxima legibilidad de títulos, sellos y botones CTA en HTML/Tailwind CSS), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style: la fotografía abarca el 100% del banner de borde a borde, con el lado derecho completamente despejado y limpio para destacar a las mascotas sin marcos ni etiquetas flotantes redundantes; títulos, sellos y botones CTA en HTML/Tailwind CSS sobre degradado a la izquierda), 5 categorías circulares estilo Bootstrap, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
 - **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
@@ -46,10 +46,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Hero Carousel moderno + Headings circulares de categorías | Inspirado en Bootstrap 5 Carousel y tiendas chilenas de mascotas (Belcando/Catit/Packs) con JS nativo puro | Hero estático o sliders dependientes de librerías externas pesadas |
 | 2026-11-16 | Segmentación visual: Textos HTML a la izquierda y fotos IA a la derecha | Permite modificar ofertas y textos libremente sin alterar la gráfica, optimizando fotos a WebP con astro:assets | Generar banners estáticos con texto horneado en la imagen |
 | 2026-11-16 | Fondo expandido a sangre (Generative Expand) en Hero Carousel | La fotografía abarca el 100% del fondo del banner sin marcos ni cajas aisladas, fusionándose con degradados | Mantener tarjetas rectangulares flotantes con marcos |
+| 2026-11-16 | Retiro de pills flotantes redundantes en carrusel | Al expandirse la fotografía a sangre, los pills aislados sobraban; se despejó el lado derecho para lucir la escena | Mantener etiquetas secundarias flotando sobre la imagen |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-16 · `phase/01-design` · retiro de pills flotantes en hero carousel
+- **Qué:** Limpieza visual del Hero Carousel retirando los badges secundarios flotantes (`BELCANDO & LEONARDO`, `MULTI-CAT FORMULA`, `DESCUENTOS EXCLUSIVOS`) que habían quedado aislados en la esquina derecha tras la eliminación de los marcos:
+  1. Se eliminó el contenedor derecho residual del banner en `Carousel.astro`.
+  2. Se expandió la columna de contenido textual (`lg:col-span-8`) para que los títulos y beneficios fluyan con mayor amplitud.
+  3. El lado derecho de cada diapositiva queda 100% limpio y despejado, permitiendo apreciar sin ninguna interferencia a los cachorros, gatos y productos fotográficos de fondo.
+- **Archivos clave:** `src/components/Carousel.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Limpieza compositiva, eliminación de ruido visual y priorización del punto focal en la fotografía de mascotas.
+  - `desarrollo`: Retiro de `petTag` y elementos residuales en `Carousel.astro`.
+  - `qa`: Verificación de sintaxis, linters y build (`npm run build` en 1.52s con 0 errores).
+  - `docs-seo`: Actualización de la documentación en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · fondo expandido a sangre en hero carousel eliminando marcos
 - **Qué:** Rediseño del fondo del Hero Carousel implementando el efecto "Generative Expand" a sangre completa:
