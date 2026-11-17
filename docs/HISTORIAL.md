@@ -12,12 +12,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
-- **Última actualización:** 2026-11-16
+- **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(home): agrega barra de beneficios y fotografias realistas de categorias eliminando textos de relleno
+- **Último commit relevante:** feat(catalog): sliders compactos de ofertas y novedades de 5 productos con fotos reales por ia
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`: Delivery Gratis, Delivery Express, Retiro en Tienda y Asesoría Especializada con iconos SVG vectoriales), 5 categorías circulares con fotografías de producto realistas de alta resolución generadas con IA y procesadas a WebP (reducción del 99% de peso), sin textos de relleno innecesarios, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno con persistencia.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, y dos filas de carruseles de productos compactos (`ProductSlider.astro`: Fila 1 "Productos en Oferta" y Fila 2 "Novedades de la Semana", mostrando 5 productos por vista en desktop con flechas de desplazamiento suave para explorar 5 más cada uno) con 10 fotografías de productos generadas por IA optimizadas a WebP, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
 - **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.68s con imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
@@ -48,10 +48,37 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-16 | Fondo expandido a sangre (Generative Expand) en Hero Carousel | La fotografía abarca el 100% del fondo del banner sin marcos ni cajas aisladas, fusionándose con degradados | Mantener tarjetas rectangulares flotantes con marcos |
 | 2026-11-16 | Retiro de pills flotantes redundantes en carrusel | Al expandirse la fotografía a sangre, los pills aislados sobraban; se despejó el lado derecho para lucir la escena | Mantener etiquetas secundarias flotando sobre la imagen |
 | 2026-11-16 | Barra de beneficios comerciales y fotos realistas en categorías | Inspirado en retail chileno (Delivery Gratis/Express/Retiro/Asesoría) y sustitución de emojis por fotos reales WebP | Categorías con párrafos de relleno y emojis simples |
+| 2026-11-17 | Sliders compactos de Ofertas y Novedades (5 productos/vista) | Optimización del espacio vertical en home: carruseles horizontales con navegación suave por flechas y 10 fotos IA | Grillas verticales grandes que ocupaban demasiado espacio |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · sliders compactos de ofertas y novedades con 10 fotos reales por ia
+- **Qué:** Reemplazo de la grilla anterior de productos destacados por dos carruseles horizontales compactos y optimizados en espacio vertical (Ofertas y Novedades):
+  1. **Componente Reutilizable `ProductSlider.astro`:** Carrusel horizontal de productos con diseño compacto de 5 tarjetas por vista en pantallas de escritorio (`w-[calc(20%-13px)]`), 4 en tablet, 3 en pantallas pequeñas y 2 en móvil con scroll-snap táctil suave. Incluye flechas de navegación izquierda/derecha para desplazar 5 productos a la vez de forma fluida.
+  2. **10 Fotografías de Producto Reales Generadas con IA (`image-generator`):**
+     - Alimento premium para perros adultos con salmón (`alimento-perro.jpg`).
+     - Cama ortopédica viscoelástica Memory Foam en gris marengo (`cama-ortopedica.jpg`).
+     - Fuente de agua automática en acero inoxidable con luz LED (`fuente-agua.jpg`).
+     - Poste rascador vertical de sisal y madera con pompón (`rascador-poste.jpg`).
+     - Snacks dentales de espirulina y clorofila (`snacks-dentales.jpg`).
+     - Alimento para gatos esterilizados en tonos rosa y plata (`alimento-gato.jpg`).
+     - Arnés ergonómico antitirones reflectante naranja (`arnes-perro.jpg`).
+     - Comedero inteligente automático programable con visor WiFi (`comedero-smart.jpg`).
+     - Golosinas cremosas tipo Churu de atún y pollo (`churu-gatos.jpg`).
+     - Mochila transportadora de viaje con burbuja panorámica (`mochila-viaje.jpg`).
+  3. **Dos Filas Comerciales Estratégicas:**
+     - Fila 1: **"Productos en Oferta"** (10 productos con badges de descuento `-23%` a `-28% OFF`, precios tachados y precio rebajado en rojo carmín).
+     - Fila 2: **"Novedades de la Semana"** (10 productos con badges `NUEVO`, `TOP VENTAS`, `LANZAMIENTO` y precios regulares en CLP).
+  4. **Microinteracciones y Carrito:** Botón compacto de agregar con icono `+`, animación de confirmación visual verde y badge contador del carrito en el Header con rebote.
+- **Archivos clave:** `src/components/ProductSlider.astro`, `src/pages/index.astro`, `src/assets/products/*`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `image-generator`: Generación de las 10 fotografías comerciales cuadradas en estudio aislado.
+  - `ux-ui`: Diseño de tarjetas de producto compactas optimizadas para visualización de 5 columnas, con jerarquía de precios, badges y flechas de navegación.
+  - `desarrollo`: Creación de `ProductSlider.astro`, interactividad Vanilla JS y procesamiento de 18 imágenes con `<Image />` de `astro:assets` a WebP.
+  - `qa`: Compilación limpia en 2.91s con 18 imágenes WebP optimizadas, ESLint 9 (0 errores) y verificación del servidor local en 4321.
+  - `docs-seo`: Actualización de la memoria técnica en `HISTORIAL.md`.
 
 ### 2026-11-16 · `phase/01-design` · barra de beneficios comerciales y fotografias realistas de categorias
 - **Qué:** Implementación de la barra de confianza/beneficios comercial y modernización fotográfica de las 5 categorías circulares:
