@@ -1,122 +1,113 @@
 ---
+import { Image } from 'astro:assets';
+import imgPacks from '../assets/categories/cat-packs.jpg';
+import imgPerro from '../assets/categories/cat-perro.jpg';
+import imgGato from '../assets/categories/cat-gato.jpg';
+import imgJuguetesPerro from '../assets/categories/cat-juguetes-perro.jpg';
+import imgRascadoresGato from '../assets/categories/cat-rascadores-gato.jpg';
+
 /**
- * Categorías Circulares (Headings Circulares inspirados en Bootstrap Carousel y Ecommerce de Mascotas)
- * Basado en las 5 categorías circulares clave de la imagen de referencia del usuario:
- * 1. Packs Promocionales (Rojo SALE)
- * 2. Alimento Para Perro (Cian Dog)
- * 3. Alimento Para Gato (Amarillo Cat)
- * 4. Juguetes para Perro (Verde Ball)
- * 5. Juguetes para Gato / Rascadores & Confort (Morado Scratcher)
+ * Categorías Circulares Modernas
+ * Con fotografías de productos de alta resolución generadas por IA,
+ * círculos de color inspirados en tiendas de retail y sin textos innecesarios.
  */
 const categoriasCirculares = [
   {
     id: 'packs',
     title: 'Packs Promocionales',
-    description: 'Combos con hasta 35% de ahorro en marcas premium.',
     href: '#ofertas',
-    bgClass: 'bg-rose-600',
-    iconEmoji: '🏷️',
+    image: imgPacks,
+    imageAlt: 'Pack promocional de snacks y juguetes con descuento',
+    bgBorder: 'hover:border-rose-500 hover:ring-rose-200',
     badge: 'SALE',
-    badgeClass: 'bg-white text-rose-700 border border-rose-200',
+    badgeColor: 'bg-rose-600 text-white',
   },
   {
     id: 'perros',
     title: 'Alimento Para Perro',
-    description: 'Seco premium, comida húmeda y fórmulas para cachorros.',
     href: '#perros',
-    bgClass: 'bg-sky-500',
-    iconEmoji: '🐶',
+    image: imgPerro,
+    imageAlt: 'Saco de alimento seco premium para perros',
+    bgBorder: 'hover:border-sky-500 hover:ring-sky-200',
     badge: 'PERROS',
-    badgeClass: 'bg-white text-sky-700 border border-sky-200',
+    badgeColor: 'bg-sky-600 text-white',
   },
   {
     id: 'gatos',
     title: 'Alimento Para Gato',
-    description: 'Pienso esterilizados, paté y snacks cremosos Churu.',
     href: '#gatos',
-    bgClass: 'bg-amber-400',
-    iconEmoji: '🐱',
+    image: imgGato,
+    imageAlt: 'Bolsa de alimento gourmet para gatos',
+    bgBorder: 'hover:border-amber-500 hover:ring-amber-200',
     badge: 'GATOS',
-    badgeClass: 'bg-white text-amber-800 border border-amber-200',
+    badgeColor: 'bg-amber-500 text-white',
   },
   {
     id: 'juguetes-perro',
     title: 'Juguetes para Perro',
-    description: 'Mordedores KONG, pelotas resistentes y cuerdas.',
     href: '#accesorios',
-    bgClass: 'bg-emerald-500',
-    iconEmoji: '🎾',
+    image: imgJuguetesPerro,
+    imageAlt: 'Pelota de goma y cuerda trenzada para perros',
+    bgBorder: 'hover:border-emerald-500 hover:ring-emerald-200',
     badge: 'JUEGO',
-    badgeClass: 'bg-white text-emerald-700 border border-emerald-200',
+    badgeColor: 'bg-emerald-600 text-white',
   },
   {
-    id: 'juguetes-gato',
-    title: 'Juguetes para Gato',
-    description: 'Rascadores multinivel, varitas y ratones con catnip.',
+    id: 'rascadores-gato',
+    title: 'Rascadores & Confort',
     href: '#accesorios',
-    bgClass: 'bg-purple-600',
-    iconEmoji: '🏰',
+    image: imgRascadoresGato,
+    imageAlt: 'Torre rascador moderna multinivel para gatos',
+    bgBorder: 'hover:border-purple-500 hover:ring-purple-200',
     badge: 'CONFORT',
-    badgeClass: 'bg-white text-purple-700 border border-purple-200',
+    badgeColor: 'bg-purple-600 text-white',
   },
 ];
 ---
 
 <section
-  class="py-12 sm:py-16 bg-white border-b border-stone-200"
+  class="py-10 sm:py-14 bg-white border-b border-stone-200"
   aria-label="Categorías Populares"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Encabezado de sección -->
-    <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-      <span
-        class="inline-block px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-xs font-black tracking-widest uppercase mb-2"
-      >
-        Explora lo más buscado
-      </span>
+    <div class="text-center mb-8 sm:mb-10">
       <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
         Categorías Populares
       </h2>
-      <p class="text-stone-500 text-xs sm:text-sm mt-1">
-        Encuentra rápidamente la sección especializada para tu compañero peludo.
-      </p>
     </div>
 
-    <!-- Grid de 5 círculos estilo Bootstrap Carousel Headings -->
     <div
-      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 text-center"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 justify-items-center"
     >
       {
         categoriasCirculares.map((item) => (
-          <div class="flex flex-col items-center group">
-            <a
-              href={item.href}
-              class={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full flex items-center justify-center text-5xl sm:text-6xl text-white shadow-lg transition-all duration-300 transform group-hover:scale-105 group-hover:-translate-y-1.5 ${item.bgClass} border-4 border-white shadow-stone-200`}
+          <a
+            href={item.href}
+            class="flex flex-col items-center group text-center cursor-pointer"
+          >
+            <div
+              class={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-stone-50 border-3 border-stone-200 shadow-md group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:ring-4 ${item.bgBorder}`}
             >
+              <Image
+                src={item.image}
+                alt={item.imageAlt}
+                width={200}
+                height={200}
+                format="webp"
+                loading="lazy"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+              />
               <span
-                class={`absolute -top-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-xs ${item.badgeClass}`}
+                class={`absolute top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider shadow-xs ${item.badgeColor}`}
               >
                 {item.badge}
               </span>
-              <span class="filter drop-shadow-md">{item.iconEmoji}</span>
-            </a>
+            </div>
 
-            <h3 class="text-sm sm:text-base font-black text-stone-900 mt-4 mb-1 group-hover:text-rose-600 transition-colors leading-snug">
+            <h3 class="text-xs sm:text-sm font-black text-stone-800 mt-3 group-hover:text-brand-primary transition-colors leading-snug max-w-[140px]">
               {item.title}
             </h3>
-
-            <p class="text-xs text-stone-500 leading-relaxed line-clamp-2 px-1 mb-3">
-              {item.description}
-            </p>
-
-            <a
-              href={item.href}
-              class="mt-auto inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold transition-colors cursor-pointer"
-            >
-              <span>Ver catálogo</span>
-              <span class="text-rose-600 font-black">»</span>
-            </a>
-          </div>
+          </a>
         ))
       }
     </div>

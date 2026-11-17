@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Carousel from '../components/Carousel.astro';
+import TrustBar from '../components/TrustBar.astro';
 import CircularCategories from '../components/CircularCategories.astro';
 
 // Modelo de datos inicial para productos destacados (establece la estructura que usará Content Collections en Fase 2)
@@ -106,7 +107,10 @@ function formatPrice(amount) {
   <!-- 1. Hero Carousel estilo Bootstrap 5.3 adaptado a retail moderno de mascotas (Made in Germany, Catit, Packs) -->
   <Carousel />
 
-  <!-- 2. Categorías Circulares estilo Headings de Bootstrap Carousel y tienda chilena de mascotas -->
+  <!-- 2. Barra de Confianza y Beneficios Comerciales (Delivery Gratis, Express, Retiro, Asesoría) -->
+  <TrustBar />
+
+  <!-- 3. Categorías Circulares con fotografías realistas de productos sin textos de relleno -->
   <CircularCategories />
 
   <!-- CATÁLOGO DESTACADO -->
