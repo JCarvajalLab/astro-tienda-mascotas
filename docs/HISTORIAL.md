@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(club): expande newsletter a ancho completo y remueve badge de la fotografia
+- **Último commit relevante:** fix(club): redefine copy hacia comunidad de amantes de mascotas y condiciones transparentes
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Club Market-Pet a ancho completo (`ClubNewsletter.astro`: full-width con fotografía 100% limpia sin badges superpuestos, degradado carmín a borgoña profundo y formulario de alta conversión), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.57s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.67s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -56,10 +56,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Expansión a ancho completo (Full-width) en Banner Emocional de Catálogo | Aprovechar el ancho de pantalla eliminando max-w-7xl, agrandando los arcos a escala heroica (hasta 240x336px) y llevando las mascotas a los extremos laterales | Confinar el banner en 1280px dejando amplios vacíos blancos a los costados |
 | 2026-11-17 | Tarjeta VIP Club Market-Pet (Newsletter con Cupón $5.000) | Rediseño en tarjeta split flotante con degradado profundo, fotografía de bienvenida con voucher y beneficios destacados | Barra roja plana y centrada monótona sin fotografía ni tracción visual |
 | 2026-11-17 | Expansión a ancho completo de Club Newsletter y retiro de badge en foto | Ocupar todo el ancho visual disponible (w-full) con padding fluido y dejar la foto de las mascotas 100% limpia sin recuadros de texto superpuestos | Mantener tarjeta acotada en 1280px con badge artificial sobre las patas de las mascotas |
+| 2026-11-17 | Redefinición de copy en bloque de comunidad y cupón transparente | Titular empático centrado en la comunidad ("Únete a nuestra comunidad de amantes de las mascotas"), beneficio claro de $5.000 y disclaimer transparente de compras sobre $40.000 | Titular confuso o sin condiciones claras de retail |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · redefinicion de copy de comunidad market-pet y condiciones claras de cupon
+- **Qué:** Ajustes de redacción persuasiva (*copywriting*) en `ClubNewsletter.astro` para mejorar la claridad del mensaje y la transparencia comercial:
+  1. **Titular Centrado en Comunidad:** Se sustituyó la redacción anterior por *"Únete a nuestra comunidad de amantes de las mascotas"*, con kicker *"🐾 COMUNIDAD MARKET-PET"* y bajada que invita a recibir promociones, descuentos exclusivos de hasta $5.000 y consejos veterinarios.
+  2. **Términos Claros en Letra Pequeña:** Inclusión explícita de la condición de compra mínima: *"Cupón de $5.000 aplicable en tu primera compra online por compras mayores a $40.000."*, cumpliendo con las mejores prácticas de confianza en ecommerce.
+  3. **Llamado a la Acción Optimizado:** Botón principal actualizado a *"¡Unirme y recibir mi cupón! →"*.
+- **Archivos clave:** `src/components/ClubNewsletter.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Redacción publicitaria (*UX copywriting*) enfocada en empatía de comunidad y transparencia de condiciones comerciales.
+  - `desarrollo`: Actualización del marcado semántico y textos en el componente Astro.
+  - `qa`: `npm run lint` y `npm run build` limpios en 1.67s.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · expansion full-width de club newsletter y limpieza fotografica
 - **Qué:** Ajustes de diseño sobre el bloque `ClubNewsletter.astro` atendiendo la retroalimentación del usuario:
