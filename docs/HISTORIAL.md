@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(navigation): unifica nombres sin puppy/kitten y activa filtro de perro al seleccionar cachorros
+- **Último commit relevante:** fix(navigation): audita y corrige enlaces de subcategorias en cabecera y crea rutas suplementos y dermocosmetica
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Nombres limpios en español sin anglicismos dobles (Cachorros y Gatitos en vez de Puppy/Kitten)**, **Navegación contextual por especie en etapas: al presionar Cachorros bajo Perros se activa automáticamente el filtro `🐶 Perros` mostrando exclusivamente productos caninos**, **Píldoras interactivas de filtrado rápido (`[Todos]`, `[🐶 Perros]`, `[🐱 Gatos]`) en todas las categorías**, **Buscador en tiempo real e interactivo en categorías y en el catálogo general**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Auditoría al 100% de los 30 enlaces de subcategorías en Header funcionando con HTTP 200**, **Nuevas rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Glucosamina y suplementos redirigiendo exactamente a su colección de salud articular sin desvíos erróneos a seniors**, **Fuentes de agua apuntando a `/categoria/hidratacion`**, **Alimentos en oferta apuntando a `/categoria/ofertas?q=alimento`**, **Píldoras interactivas de filtrado rápido (`[Todos]`, `[🐶 Perros]`, `[🐱 Gatos]`) en todas las categorías**, **Buscador en tiempo real e interactivo en categorías y en el catálogo general**.
 - **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 4.02s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.53s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Proceder con el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
 
 ## 2. Decisiones importantes
@@ -82,10 +82,38 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Rutas dedicadas y filtros para Accesorios, Farmacia, Ofertas y Mascotas | Cada pestaña del Header y enlace 'Ver todo en...' redirige a su colección filtrada exacta en vez del catálogo genérico | Mandar todas las categorías secundarias a /catalogo sin filtrar |
 | 2026-11-18 | Barras de búsqueda en categorías y optimización de Mascotas por etapas | Integrar buscador reactivo en todas las categorías y enfocar Mascotas en Perros y Gatos por Etapas (Cachorros/Adultos/Seniors) eliminando Colecciones Especiales redundantes | Forzar al usuario a volver a /catalogo para buscar o sobrepoblar Mascotas duplicando el catálogo |
 | 2026-11-18 | Eliminación de dobles nombres anglos (Puppy/Kitten) y filtros contextuales por especie | Usar nombres limpios en español ('Cachorros' y 'Gatitos') y activar el filtro de perro (?pet=perros) automáticamente al acceder desde la sección canina | Mantener etiquetas redundantes en inglés o mezclar productos felinos y caninos sin filtro activo |
+| 2026-11-18 | Creación de rutas dedicadas /suplementos y /dermocosmetica tras auditoría exhaustiva | Garantizar que cada subcategoría del Header dirija a su colección exacta (ej. Glucosamina a /suplementos, fuentes a /hidratacion, ofertas a /ofertas) en vez de categorías equivocadas | Desviar suplementos articulares a 'seniors' o desviar fuentes a 'smart-pet' |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · auditoria y correccion de rutas de subcategorias en cabecera
+- **Qué:** Auditoría integral y corrección de las 30 subcategorías de navegación del Header:
+  1. **Nuevas Rutas Especializadas en `src/pages/categoria/[categoria].astro`:**
+     - `/categoria/suplementos`: Colección dedicada a suplementos articulares y nutricionales con glucosamina, condroprotectores y aceite de salmón (resolviendo el desvío erróneo hacia la categoría general de seniors).
+     - `/categoria/dermocosmetica`: Colección dedicada a shampoos hipoalergénicos con extracto de avena y cuidado dermoprotector.
+  2. **Corrección de Enlaces Mapeados en `src/components/Header.astro`:**
+     - `Farmacia & Salud > Glucosamina Articular`: redirigido de `/categoria/seniors` a `/categoria/suplementos`.
+     - `Farmacia & Salud > Omega 3 Aceite Salmón`: redirigido de `/categoria/seniors` a `/categoria/suplementos`.
+     - `Farmacia & Salud > Shampoos Hipoalergénicos`: redirigido a `/categoria/dermocosmetica`.
+     - `Gatos > Fuentes de Agua Eléctricas`: redirigido de `/categoria/smart-pet` a su ruta nativa `/categoria/hidratacion`.
+     - `Gatos > Arena Bentonita Blanca`: enfocado con query param `/categoria/higiene-cuidados?q=arena`.
+     - `Gatos > Snacks Cremosos Churu`: enfocado con filtro de gato `/categoria/snacks-premios?pet=gatos`.
+     - `Perros > Snacks Dentales & Premios`: enfocado con filtro de perro `/categoria/snacks-premios?pet=perros`.
+     - `Perros > Arneses Antitirones`: enfocado con `/categoria/paseo-seguridad?pet=perros`.
+     - `Perros > Shampoos Dermoprotectores`: redirigido a `/categoria/dermocosmetica`.
+     - `Ofertas Flash > Combos Cachorros`: enfocado con `/categoria/packs-promocionales?q=cachorro`.
+     - `Ofertas Flash > Alimentos en Oferta`: corregido de `/categoria/alimentos-perro` a `/categoria/ofertas?q=alimento`.
+  3. **Soporte de Búsqueda Paramétrica por URL en `[categoria].astro`:**
+     - Lectura en JavaScript nativo del parámetro `?q=...` o `?search=...`, precompletando el input de búsqueda de la categoría y filtrando la grilla automáticamente al cargar.
+  4. **Validación Exhaustiva:**
+     - Script automatizado verificó que las **30 URLs de cabecera** retornan **HTTP 200 OK** y muestran sus productos pertinentes.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de rutas `suplementos` y `dermocosmetica`, soporte de `?q=` en `[categoria].astro` y corrección de las 30 URLs en `Header.astro`.
+  - `qa`: Script de auditoría de enlaces en servidor local (30/30 OK), 0 errores en ESLint y compilación de 50 páginas estáticas en 3.53s.
+  - `docs-seo`: Actualización de la matriz de decisiones y registro en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · nombres limpios de cachorros/gatitos y activacion de filtro por mascota
 - **Qué:** Refinamiento de la navegación por etapas de vida y enriquecimiento de las páginas de categoría con filtros por especie:
