@@ -32,7 +32,7 @@ const ogImageURL = new URL(
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth bg-white text-stone-900">
+<html lang="es" class="scroll-smooth bg-canvas text-main">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -89,7 +89,7 @@ const ogImageURL = new URL(
     {!hideHeader && <Header variant={navbarVariant} />}
 
     <!-- Contenido Principal -->
-    <main id="main-content" class="flex-1 bg-white">
+    <main id="main-content" class="flex-1 bg-canvas">
       <slot />
     </main>
 

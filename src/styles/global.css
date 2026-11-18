@@ -9,8 +9,8 @@
 
 :root {
   /* 60% Dominante (Lienzo & Superficie) */
-  --color-60-bg: #f8fafc; /* Blanco Slate suave y limpio */
-  --color-60-surface: #ffffff; /* Blanco puro en tarjetas y modales */
+  --color-60-bg: #FAF7F2; /* Lienzo cálido Warm Biscuit ultra-suave y orgánico */
+  --color-60-surface: #ffffff; /* Blanco puro en tarjetas y modales para relieve tridimensional */
 
   /* 30% Estructural (Contraste, Textos & Bordes) */
   --color-30-text: #0f172a; /* Pizarra Grafito para lectura nítida */
