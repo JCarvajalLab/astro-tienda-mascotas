@@ -12,15 +12,15 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
-- **Última actualización:** 2026-11-17
+- **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): modela coleccion de productos con esquema zod y 10 productos iniciales
+- **Último commit relevante:** feat(catalog): conecta coleccion a la home e implementa pagina dinamica de detalle de producto
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación de esquemas Zod y 10 productos enriquecidos en `src/content/productos/` vinculados a imágenes locales de alta fidelidad, Navbar, Footer y secciones intermedias sobre lienzo marfil continuo `#FAF7F2`, tarjetas en blanco puro con relieve, transición al ras entre comunidad y pie de página, Hero Carousel expandido a sangre, Barra de beneficios, 5 categorías circulares, 2 carruseles de productos, banners de etapa de vida y banner emocional de catálogo.
-- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): conexión dinámica de la Home con `getCollection('productos')` y creación de las páginas `/catalogo`, `/categoria/[slug]` y `/producto/[slug]`.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 2.44s con 26 imágenes WebP optimizadas y validación de tipos Zod al 100%.
-- **Siguiente paso concreto:** Conectar los sliders de la Home a `getCollection('productos')` y crear la página de detalle de producto `/producto/[slug]`.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y 10 productos estructurados en JSON, **conexión dinámica de la portada con `getCollection('productos')`**, **tarjetas de producto enlazadas a sus páginas de detalle**, **páginas dinámicas de producto (`/producto/[slug]`)** con galería principal, breadcrumbs, control interactivo de cantidad, sellos de despacho chileno, especificaciones técnicas y slider de productos recomendados, y **página 404 personalizada con ilustración SVG animada de fantasmas** adaptada al ecosistema de mascotas (`/404`).
+- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): catálogo general con filtros (`/catalogo`) y vistas por categoría (`/categoria/[slug]`).
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 12 páginas estáticas en 2.93s con 36 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Crear la página de catálogo general (`/catalogo`) y las rutas dinámicas por categoría (`/categoria/[slug]`).
 
 ## 2. Decisiones importantes
 
@@ -66,10 +66,25 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Unificación de lienzo cálido en todas las secciones intermedias | Retirar clases bg-white y via-white en categorías, sliders y banner de catálogo para que el fondo fluya de forma 100% continua en toda la web | Dejar fondos blancos aislados fragmentando la página |
 | 2026-11-17 | Cierre de Fase 1 e inicio de Fase 2 (Catálogo & Contenido) | Consolidación de identidad visual completa (Setup, Navbar, Footer, Hero, Banners, ritmo y lienzo cálido); merge a develop y main; apertura de rama `phase/02-catalog` | Acumular cambios sin cerrar fase formalmente |
 | 2026-11-17 | Content Collections con Astro 5 loader glob y JSON | Modelado tipado de productos con Zod y schema({ image }) para validación de datos y optimización de imágenes locales con astro:assets | Cargar datos en arrays dentro de componentes .astro |
+| 2026-11-18 | Página 404 animada de fantasmas unificada | Reutilizar la ilustración SVG animada con CSS de los proyectos anteriores adaptada a la estética retail cálida de Market-Pet | Mensaje 404 estático genérico del navegador |
+| 2026-11-18 | Páginas de detalle con getStaticPaths y Content Layer | Renderizado dinámico de fichas de producto (/producto/[slug]) con selector de cantidad, breadcrumbs, especificaciones y productos relacionados | Páginas de producto manuales o vistas en modales |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de pagina 404 y ficha dinamica de producto
+- **Qué:** Implementación del segundo hito de la Fase 2 (Catálogo & Contenido) e incorporación de la página 404 animada solicitada por el usuario:
+  1. **Página 404 Personalizada con Ilustración SVG Animada (`src/pages/404.astro`):** Se adaptó la reconocida ilustración de fantasmas amigables flotantes con animación CSS y respeto por `@media (prefers-reduced-motion: reduce)`, incorporando la paleta cálida `Warm Biscuit`, textos temáticos de mascotas ("¡Guau! Parece que esta página se perdió") y botones de retorno a la portada y al catálogo.
+  2. **Conexión Dinámica de la Portada (`src/pages/index.astro`):** Se refactorizó la Home para consumir directamente `getCollection('productos')` en los sliders de "Ofertas Flash" y "Novedades de la Semana", eliminando más de 250 líneas de datos estáticos en favor de la fuente de verdad tipada con Zod.
+  3. **Tarjetas de Producto Enlazables (`src/components/ProductSlider.astro`):** Tanto la imagen del producto como su título ahora son enlaces directos e interactivos a la ruta `/producto/${prod.slug}`.
+  4. **Página Dinámica de Detalle de Producto (`src/pages/producto/[slug].astro`):** Ficha comercial completa con renderizado estático (`getStaticPaths`), breadcrumbs accesibles, imagen optimizada en WebP a gran tamaño, sellos de confianza de despacho, ahorro de precio, selector interactivo de cantidad (`-` / `+`), botón de compra con feedback visual sincronizado al badge del Header, lista de puntos clave (`features`), tabla de especificaciones técnicas y slider inferior de productos recomendados.
+- **Archivos clave:** `src/pages/404.astro`, `src/pages/producto/[slug].astro`, `src/pages/index.astro`, `src/components/ProductSlider.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de la página dinámica con `getStaticPaths`, enlace en sliders y refactor de la Home.
+  - `ux-ui`: Adaptación del diseño 404 a la paleta cálida y jerarquía comercial de la ficha de producto.
+  - `qa`: Compilación de 12 páginas estáticas en 2.93s, validación de estado HTTP 200 y 404 con script Node y servidor dev activo.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/02-catalog` · implementacion de content collections y 10 productos iniciales
 - **Qué:** Implementación del primer hito de la Fase 2 (Catálogo & Contenido):
