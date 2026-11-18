@@ -1,0 +1,38 @@
+{
+  "id": "of-07",
+  "slug": "alimento-gatos-esterilizados-salmon",
+  "name": "Alimento Esterilizados Salmón 1.5kg",
+  "brand": "FelineCare Chile",
+  "description": "Fórmula nutricional diseñada para el metabolismo de gatos esterilizados o castrados. Con control preciso de calorías, fibras naturales para el tránsito de bolas de pelo y niveles balanceados de minerales que protegen las vías urinarias.",
+  "shortDescription": "Fórmula baja en calorías con control de pH urinario y prevención de bolas de pelo.",
+  "price": 16490,
+  "originalPrice": 21990,
+  "discount": "-25% OFF",
+  "petType": "gatos",
+  "category": "Alimentos Gato",
+  "categorySlug": "alimentos-gato",
+  "lifeStage": "adultos",
+  "rating": 4.9,
+  "reviewsCount": 45,
+  "stock": 30,
+  "sku": "FEL-EST-1.5KG",
+  "badge": "-25% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/alimento-gato.jpg",
+  "imageAlt": "Alimento para gatos esterilizados con salmón",
+  "features": [
+    "Proteína de salmón de alto valor biológico",
+    "pH urinario balanceado (6.0 - 6.5) para prevenir cálculos",
+    "L-carnitina añadida para mantener el peso muscular óptimo",
+    "Croquetas crujientes que favorecen la limpieza dental"
+  ],
+  "specifications": {
+    "Peso": "1.5 kg",
+    "Edad": "Adultos esterilizados (1 a 10 años)",
+    "Sabor": "Salmón y Verduras del Huerto",
+    "Envase": "Bolsa con cierre zipper sellado hermético"
+  }
+}

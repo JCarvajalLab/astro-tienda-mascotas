@@ -1,0 +1,38 @@
+{
+  "id": "of-01",
+  "slug": "alimento-premium-adulto-salmon-3kg",
+  "name": "Alimento Premium Adulto Salmón 3kg",
+  "brand": "NutriPet Chile",
+  "description": "Nutrición integral formulada con salmón fresco del pacífico, arroz integral y omega 3 y 6 para mantener el pelaje brillante y articulaciones fuertes en perros adultos de todas las razas.",
+  "shortDescription": "Fórmula con salmón fresco y omega 3 para perros adultos.",
+  "price": 22990,
+  "originalPrice": 29990,
+  "discount": "-23% OFF",
+  "petType": "perros",
+  "category": "Alimentos Perro",
+  "categorySlug": "alimentos-perro",
+  "lifeStage": "adultos",
+  "rating": 4.9,
+  "reviewsCount": 48,
+  "stock": 25,
+  "sku": "ALM-SAL-3KG",
+  "badge": "-23% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/alimento-perro.jpg",
+  "imageAlt": "Saco de alimento seco para perros adultos con salmón",
+  "features": [
+    "70% de proteína de salmón y carnes seleccionadas",
+    "Ácidos grasos Omega 3 y 6 para piel sana y pelaje reluciente",
+    "Sin colorantes ni saborizantes artificiales",
+    "Elaborado bajo estrictos estándares de nutrición veterinaria"
+  ],
+  "specifications": {
+    "Peso": "3 kg",
+    "Edad": "Adulto (1 a 7 años)",
+    "Sabor": "Salmón y Arroz",
+    "Origen": "Chile"
+  }
+}
