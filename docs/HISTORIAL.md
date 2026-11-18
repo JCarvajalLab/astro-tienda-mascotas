@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): implementa catalogo general y rutas dinamicas por categoria con filtros interactivos
+- **Último commit relevante:** feat(catalog): amplia catalogo a 20 productos con packs reales, buscador y botones inclusivos
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y 10 productos estructurados en JSON, conexión dinámica de la portada con `getCollection('productos')`, tarjetas de producto enlazadas a sus páginas de detalle, páginas dinámicas de producto (`/producto/[slug]`), **Catálogo general completo (`/catalogo`) con filtrado interactivo por tipo de mascota y ordenamiento por precio/valoración en JavaScript nativo**, **11 rutas dinámicas por categoría (`/categoria/[categoria]`) con cabecera visual y conteo de productos**, categorías circulares y megamenú del Header enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **20 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales y 5 productos esenciales a precio regular sin descuento), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva en tiempo real y selector combinado de filtros**, **13 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, banners y categorías circulares enlazadas a sus rutas comerciales reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
 - **Qué está en progreso:** Cierre de Fase 2 (Catálogo & Contenido) y preparación de la Fase 3 (Carrito Interactivo & Modo Nocturno).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 24 páginas estáticas en 2.77s con 46 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Validar con el usuario el catálogo y las páginas de categoría en `http://localhost:4321/`, cerrar la Fase 2 en `docs/PLAN.md` y dar inicio a la Fase 3.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 36 páginas estáticas en 2.63s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` la experiencia de compra con los nuevos packs y buscador, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
 
 ## 2. Decisiones importantes
 
@@ -70,10 +70,29 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Páginas de detalle con getStaticPaths y Content Layer | Renderizado dinámico de fichas de producto (/producto/[slug]) con selector de cantidad, breadcrumbs, especificaciones y productos relacionados | Páginas de producto manuales o vistas en modales |
 | 2026-11-18 | Modo nocturno programado al inicio de Fase 3 | Probar la alternancia de tema claro/oscuro sobre todo el catálogo y carrito consolidado | Forzar modo oscuro anticipadamente sin catálogo o posponerlo a la fase final |
 | 2026-11-18 | Vistas dinámicas de catálogo y categorías con filtros JS nativo | Navegación comercial fluida por especie (perros, gatos) y categoría sin recargas pesadas | Catálogo rígido plano sin filtros ni páginas por categoría |
+| 2026-11-18 | Botones de compra inclusivos y accesibles con texto explícito | Reemplazar el botón circular '+' ambiguo por un botón prominente con icono de carrito y texto explícito 'Agregar' / 'Agregar al carrito', accesible para todas las edades | Mantener icono '+' minimalista poco intuitivo para adultos mayores |
+| 2026-11-18 | Ampliación de catálogo a 20 productos con packs reales y regulares | Incorporar 5 combos de bienvenida/ahorro y 5 productos esenciales sin descuento para contraste comercial realista | Catálogo limitado donde el 100% de los productos tenían ofertas artificiales |
+| 2026-11-18 | Barra de búsqueda reactiva y filtros combinados en catálogo | Input de búsqueda en vivo por texto (nombre, categoría, tipo) combinado con píldoras de filtros rápidos y URL query params | Filtrado exclusivo por botones sin caja de búsqueda textual |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · ampliacion a 20 productos con packs reales, buscador y botones inclusivos
+- **Qué:** Implementación de las mejoras de usabilidad e inclusión solicitadas por el usuario para la Fase 2:
+  1. **Rediseño Inclusivo de Tarjetas de Producto:** Se reemplazó el botón circular con el signo `+` (poco intuitivo para personas adultas) por un botón prominente de alta accesibilidad con icono de carrito de compras y texto explícito (**"Agregar"** en carruseles y **"Agregar al carrito"** en catálogo y categorías), con feedback visual inmediato ("¡Agregado!") e incremento del badge del Header.
+  2. **Ampliación del Catálogo a 20 Productos:** Se agregaron 10 nuevas variantes tipadas con Zod y sus correspondientes fotografías de estudio generadas por IA:
+     - **5 Packs Promocionales Reales:** *Pack Bienvenida Cachorro* (alimento + mordedor + manta), *Pack Felino Confort & Diversión* (rascador + churu + varita), *Pack Paseo Seguro* (arnés reflectante + correa + dispensador), *Pack Higiene Felina Total* (arena 10kg + pala + tapete panal) y *Pack Descanso Dúo* (cama circular + manta sherpa).
+     - **5 Productos Esenciales a Precio Regular (Sin oferta):** *Arena Bentonita Blanca 10kg*, *Shampoo Hipoalergénico de Avena 500ml*, *Pelota Interactiva Dispensadora de Premios*, *Manta Térmica Sherpa 80x60cm* y *Collar de Seguridad Reflectante*.
+  3. **Barra de Búsqueda Integrada en el Catálogo General (`/catalogo`):** Se implementó una barra de búsqueda en tiempo real con icono, botón de limpieza instantánea (`✕`) y filtrado cruzado con píldoras rápidas (Todos, 🎁 Packs Ahorro, 🐶 Perros, 🐱 Gatos, 🔥 Ofertas) y selector de ordenamiento.
+  4. **Nuevas Rutas Dinámicas de Categoría:** Se crearon `/categoria/packs-promocionales` e `/categoria/higiene-cuidados` y se actualizó `CircularCategories.astro` para que "Packs Promocionales" conduzca directamente a su colección real.
+  5. **Conexión del CTA de Catálogo:** El banner emocional "Porque tus peluditos merecen lo mejor" ahora enlaza directamente a `/catalogo` en vez del ancla `#ofertas`.
+- **Archivos clave:** `src/components/ProductSlider.astro`, `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `src/components/CircularCategories.astro`, `src/components/CatalogCtaBanner.astro`, `src/pages/index.astro`, `src/content/productos/*.json` (10 nuevos), `src/assets/products/*.jpg` (10 nuevas), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de diseño inclusivo para todas las edades, botones de compra accesibles, jerarquía de packs y tarjetas de producto.
+  - `desarrollo`: Implementación de la barra de búsqueda en vivo, lógica de filtros JS nativo, esquemas JSON y rutas dinámicas.
+  - `qa`: Compilación exitosa de 36 páginas estáticas en 2.63s con 76 imágenes WebP optimizadas, ESLint limpio con 0 errores y validación HTTP 200 en endpoints.
+  - `docs-seo`: Actualización de la memoria técnica y bitácora de decisiones.
 
 ### 2026-11-18 · `phase/02-catalog` · implementacion de catalogo general y rutas dinamicas por categoria
 - **Qué:** Implementación del hito final de la Fase 2 (Catálogo & Contenido):
