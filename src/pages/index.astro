@@ -30,23 +30,25 @@ const productosOfertas = allProducts
     imageAlt: p.data.imageAlt,
   }));
 
-// Catálogo 2: Novedades de la Semana
-const productosNovedades = allProducts.map((p) => ({
-  id: p.data.id,
-  slug: p.data.slug,
-  name: p.data.name,
-  category: p.data.category,
-  price: p.data.price,
-  originalPrice: p.data.originalPrice,
-  rating: p.data.rating,
-  reviewsCount: p.data.reviewsCount,
-  badge: p.data.isNew ? '✨ NUEVO' : p.data.badge,
-  badgeColor: p.data.isNew
-    ? 'bg-emerald-600 text-white'
-    : p.data.badgeColor || 'bg-amber-500 text-white',
-  image: p.data.image,
-  imageAlt: p.data.imageAlt,
-}));
+// Catálogo 2: Novedades & Esenciales de la Semana
+const productosNovedades = allProducts
+  .filter((p) => p.data.isNew || !p.data.isOffer)
+  .map((p) => ({
+    id: p.data.id,
+    slug: p.data.slug,
+    name: p.data.name,
+    category: p.data.category,
+    price: p.data.price,
+    originalPrice: p.data.originalPrice,
+    rating: p.data.rating,
+    reviewsCount: p.data.reviewsCount,
+    badge: p.data.isNew ? '✨ NUEVO' : (p.data.badge || ''),
+    badgeColor: p.data.isNew
+      ? 'bg-emerald-600 text-white'
+      : (p.data.badgeColor || 'bg-stone-800 text-white'),
+    image: p.data.image,
+    imageAlt: p.data.imageAlt,
+  }));
 ---
 
 <BaseLayout>

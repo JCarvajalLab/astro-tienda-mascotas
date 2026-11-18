@@ -1,0 +1,35 @@
+{
+  "id": "reg-03",
+  "slug": "pelota-interactiva-dispensadora-premios",
+  "name": "Pelota Interactiva Dispensadora de Premios",
+  "brand": "PlayPet Dental",
+  "description": "Juguete multifunción de caucho natural ultra resistente con ranuras de limpieza dental y núcleo dispensador de snacks. Mantiene a tu perro entretenido mientras masajea encías y combate el sarro.",
+  "shortDescription": "Caucho natural no tóxico con ranuras dentales y dispensador de treats.",
+  "price": 8490,
+  "petType": "perros",
+  "category": "Paseo & Seguridad",
+  "categorySlug": "paseo-seguridad",
+  "lifeStage": "todas",
+  "rating": 4.7,
+  "reviewsCount": 35,
+  "stock": 50,
+  "sku": "JUG-PEL-DENT",
+  "badge": "INTERACTIVO",
+  "badgeColor": "bg-sky-700 text-white",
+  "isOffer": false,
+  "isNew": true,
+  "isBestSeller": false,
+  "image": "../../assets/products/pelota-dispensadora.jpg",
+  "imageAlt": "Pelota de caucho resistente color turquesa con ranuras para comida y snacks",
+  "features": [
+    "Caucho termoplástico de grado alimenticio altamente elástico",
+    "Dientes de sierra que limpian suavemente entre los dientes",
+    "Estimulación mental que disminuye comportamientos destructivos",
+    "Fácil de lavar bajo el grifo con agua tibia"
+  ],
+  "specifications": {
+    "Diámetro": "7 cm",
+    "Material": "Caucho natural no tóxico libre de BPA",
+    "Apto para": "Perros chicos, medianos y grandes"
+  }
+}

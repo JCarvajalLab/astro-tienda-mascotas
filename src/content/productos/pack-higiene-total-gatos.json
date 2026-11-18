@@ -1,0 +1,37 @@
+{
+  "id": "pack-04",
+  "slug": "pack-higiene-total-felina",
+  "name": "Pack Higiene Felina Total (Arena 10kg + Pala + Tapete Atrapador)",
+  "brand": "Market-Pet Packs",
+  "description": "Mantén tu hogar limpio y libre de olores. Este pack reúne el saco de arena sanitaria aglomerante blanca de 10kg, una pala higiénica ranurada con mango ergonómico y un tapete trampa de arena con doble fondo.",
+  "shortDescription": "Arena sanitaria 10kg, pala ergonómica y alfombra trampa de arena.",
+  "price": 25990,
+  "originalPrice": 35990,
+  "discount": "-28% PACK",
+  "petType": "gatos",
+  "category": "Packs Promocionales",
+  "categorySlug": "packs-promocionales",
+  "lifeStage": "todas",
+  "rating": 4.9,
+  "reviewsCount": 51,
+  "stock": 22,
+  "sku": "PCK-HIG-GAT",
+  "badge": "PACK AHORRO",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/pack-higiene.jpg",
+  "imageAlt": "Combo higiene para gato con saco de arena blanca, pala ranurada y tapete panal",
+  "features": [
+    "Arena de bentonita aglomerante de alto rendimiento sin polvo",
+    "Control superior de olores hasta por 30 días",
+    "Tapete tipo colmena de EVA impermeable que retiene los gránulos",
+    "Pala con ranuras optimizadas para no desperdiciar arena limpia"
+  ],
+  "specifications": {
+    "Peso Arena": "10 kg",
+    "Medidas Tapete": "60 x 45 cm",
+    "Material Tapete": "Goma EVA no tóxica impermeable"
+  }
+}

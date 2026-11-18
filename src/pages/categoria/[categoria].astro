@@ -73,6 +73,18 @@ export async function getStaticPaths() {
       icon: '💧',
       filter: (p) => p.data.categorySlug === 'hidratacion',
     },
+    'packs-promocionales': {
+      title: 'Packs Promocionales & Ahorro',
+      subtitle: 'Combos inteligentes de bienvenida, higiene, paseo y confort para consentir a tu mascota con hasta 32% de ahorro',
+      icon: '🎁',
+      filter: (p) => p.data.categorySlug === 'packs-promocionales' || p.data.category.toLowerCase().includes('pack'),
+    },
+    'higiene-cuidados': {
+      title: 'Higiene & Cuidados',
+      subtitle: 'Arenas sanitarias de bentonita blanca, shampoos dermoprotectores y bienestar',
+      icon: '🧼',
+      filter: (p) => p.data.categorySlug === 'higiene-cuidados',
+    },
   };
 
   return Object.entries(categoriesMap).map(([slug, meta]) => ({
@@ -183,14 +195,21 @@ function formatPrice(amount) {
                   <span class="text-stone-400 text-[10px]">({prod.data.reviewsCount})</span>
                 </div>
 
-                <div class="pt-2.5 border-t border-stone-100 flex items-center justify-between gap-1 mt-auto">
-                  <div class="flex flex-col">
-                    <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
-                      {formatPrice(prod.data.price)}
-                    </span>
-                    {prod.data.originalPrice && (
-                      <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
-                        {formatPrice(prod.data.originalPrice)}
+                <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+                  <div class="flex items-baseline justify-between gap-1">
+                    <div class="flex flex-col">
+                      <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
+                        {formatPrice(prod.data.price)}
+                      </span>
+                      {prod.data.originalPrice && (
+                        <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
+                          {formatPrice(prod.data.originalPrice)}
+                        </span>
+                      )}
+                    </div>
+                    {prod.data.discount && (
+                      <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                        {prod.data.discount}
                       </span>
                     )}
                   </div>
@@ -201,12 +220,13 @@ function formatPrice(amount) {
                     data-product-id={prod.data.id}
                     data-product-name={prod.data.name}
                     data-product-price={prod.data.price}
-                    class="add-to-cart-btn p-2 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+                    class="add-to-cart-btn w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                     aria-label={`Añadir ${prod.data.name} al carrito`}
                   >
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
                       <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                     </svg>
+                    <span class="btn-text">Agregar al carrito</span>
                   </button>
                 </div>
               </div>
@@ -231,14 +251,20 @@ function formatPrice(amount) {
 </BaseLayout>
 
 <script>
-  // Manejo de botones de carrito en categoría (JavaScript nativo)
+  // Manejo accesible y claro al agregar al carrito en categorías (JavaScript nativo)
   document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const button = e.currentTarget;
-      button.classList.add('scale-95', '!bg-emerald-600', '!text-white');
+      const textSpan = button.querySelector('.btn-text');
+      const originalText = textSpan ? textSpan.textContent : 'Agregar al carrito';
+
+      button.classList.add('!bg-emerald-600', 'scale-98');
+      if (textSpan) textSpan.textContent = '¡Agregado!';
+
       setTimeout(() => {
-        button.classList.remove('scale-95', '!bg-emerald-600', '!text-white');
-      }, 350);
+        button.classList.remove('!bg-emerald-600', 'scale-98');
+        if (textSpan) textSpan.textContent = originalText;
+      }, 700);
 
       const badge = document.getElementById('cart-count-badge');
       if (badge) {

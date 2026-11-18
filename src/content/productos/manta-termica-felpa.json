@@ -1,0 +1,35 @@
+{
+  "id": "reg-04",
+  "slug": "manta-termica-felpa-sherpa-80x60",
+  "name": "Manta Térmica de Felpa Sherpa 80x60cm",
+  "brand": "CozyPet Chile",
+  "description": "Manta suave de doble capa diseñada para aislar el frío del suelo y retener el calor corporal de perros y gatos. Su textura ultra mullida brinda una sensación inmediata de seguridad y descanso profundo.",
+  "shortDescription": "Doble capa térmica con textura de sherpa para perros y gatos.",
+  "price": 12990,
+  "petType": "todas",
+  "category": "Camas & Confort",
+  "categorySlug": "camas-confort",
+  "lifeStage": "todas",
+  "rating": 4.9,
+  "reviewsCount": 44,
+  "stock": 30,
+  "sku": "MNT-TER-8060",
+  "badge": "CONFORT",
+  "badgeColor": "bg-stone-800 text-white",
+  "isOffer": false,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/manta-termica.jpg",
+  "imageAlt": "Manta térmica de felpa color gris claro para mascotas extendida sobre fondo blanco",
+  "features": [
+    "Retiene el calor natural sin necesidad de electricidad",
+    "Protege sofás, camas y asientos de automóvil de pelos y suciedad",
+    "Material hipoalergénico que no desprende pelusas",
+    "Resiste lavado frecuente a máquina sin perder suavidad"
+  ],
+  "specifications": {
+    "Medidas": "80 x 60 cm",
+    "Color": "Gris perla neutro",
+    "Lavado": "Lavadora ciclo delicado 30°C"
+  }
+}

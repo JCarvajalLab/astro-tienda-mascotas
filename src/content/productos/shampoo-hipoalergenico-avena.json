@@ -1,0 +1,35 @@
+{
+  "id": "reg-02",
+  "slug": "shampoo-hipoalergenico-avena-perros-500ml",
+  "name": "Shampoo Hipoalergénico con Extracto de Avena 500ml",
+  "brand": "DermaPet Care",
+  "description": "Fórmula dermoprotectora enriquecida con avena coloidal, aloe vera y vitamina E. Especialmente formulado para perros con piel sensible, dermatitis, picazón o alergias estacionales.",
+  "shortDescription": "Fórmula con avena coloidal y aloe vera para pieles sensibles.",
+  "price": 9990,
+  "petType": "perros",
+  "category": "Higiene & Cuidados",
+  "categorySlug": "higiene-cuidados",
+  "lifeStage": "todas",
+  "rating": 4.9,
+  "reviewsCount": 28,
+  "stock": 35,
+  "sku": "SHM-AVN-500",
+  "badge": "DERMATOLÓGICO",
+  "badgeColor": "bg-emerald-700 text-white",
+  "isOffer": false,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/shampoo-perro.jpg",
+  "imageAlt": "Botella de 500ml de shampoo hipoalergénico para perros con dispensador",
+  "features": [
+    "pH neutro 7.0 perfectamente calibrado para la piel canina",
+    "Calma irritaciones y regenera la barrera lipídica",
+    "Libre de sulfatos agresivos, parabenos y colorantes",
+    "Aroma suave a vainilla natural y coco"
+  ],
+  "specifications": {
+    "Volumen": "500 ml",
+    "Aplicación": "Perros de cualquier edad a partir de los 3 meses",
+    "Ingrediente Activo": "Avena coloidal 100% orgánica y Aloe Vera"
+  }
+}
