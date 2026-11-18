@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** docs(plan): cierra fase 1 y abre checklist de fase 2 catalogo y contenido
+- **Último commit relevante:** feat(catalog): modela coleccion de productos con esquema zod y 10 productos iniciales
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit (Navbar, Footer y todas las secciones intermedias de la web sobre lienzo marfil continuo `#FAF7F2` sin parches blancos aislados: TrustBar en `#F5F0E8`, Categorías, Sliders de Ofertas y Novedades y Banner de Catálogo transparentes sobre el lienzo), tarjetas de producto individuales en blanco puro (`bg-white`) con sutil relieve y borde para máxima jerarquía comercial, transición continua y al ras entre el bloque de comunidad (`ClubNewsletter.astro` con `mb-0`) y el pie de página eliminando cualquier franja intermedia, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
-- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): modelado de Content Collections con validación Zod en `src/content.config.js` y datos de productos en `src/content/productos/`.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.86s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
-- **Siguiente paso concreto:** Crear `src/content.config.js` y estructurar la colección inicial de productos con validación Zod.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación de esquemas Zod y 10 productos enriquecidos en `src/content/productos/` vinculados a imágenes locales de alta fidelidad, Navbar, Footer y secciones intermedias sobre lienzo marfil continuo `#FAF7F2`, tarjetas en blanco puro con relieve, transición al ras entre comunidad y pie de página, Hero Carousel expandido a sangre, Barra de beneficios, 5 categorías circulares, 2 carruseles de productos, banners de etapa de vida y banner emocional de catálogo.
+- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): conexión dinámica de la Home con `getCollection('productos')` y creación de las páginas `/catalogo`, `/categoria/[slug]` y `/producto/[slug]`.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 2.44s con 26 imágenes WebP optimizadas y validación de tipos Zod al 100%.
+- **Siguiente paso concreto:** Conectar los sliders de la Home a `getCollection('productos')` y crear la página de detalle de producto `/producto/[slug]`.
 
 ## 2. Decisiones importantes
 
@@ -65,10 +65,22 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Lienzo cálido Warm Biscuit (#FAF7F2) y transición fluida a Footer | Eliminar choque térmico con blanco frío, aportar relieve tridimensional a las tarjetas de productos y eliminar franja blanca residual sobre el footer | Fondo blanco plano con cortes duros |
 | 2026-11-17 | Unificación de lienzo cálido en todas las secciones intermedias | Retirar clases bg-white y via-white en categorías, sliders y banner de catálogo para que el fondo fluya de forma 100% continua en toda la web | Dejar fondos blancos aislados fragmentando la página |
 | 2026-11-17 | Cierre de Fase 1 e inicio de Fase 2 (Catálogo & Contenido) | Consolidación de identidad visual completa (Setup, Navbar, Footer, Hero, Banners, ritmo y lienzo cálido); merge a develop y main; apertura de rama `phase/02-catalog` | Acumular cambios sin cerrar fase formalmente |
+| 2026-11-17 | Content Collections con Astro 5 loader glob y JSON | Modelado tipado de productos con Zod y schema({ image }) para validación de datos y optimización de imágenes locales con astro:assets | Cargar datos en arrays dentro de componentes .astro |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/02-catalog` · implementacion de content collections y 10 productos iniciales
+- **Qué:** Implementación del primer hito de la Fase 2 (Catálogo & Contenido):
+  1. **Configuración de Content Collections (`src/content.config.js`):** Se definió la colección `productos` utilizando el loader `glob` de Astro 5+ con validación exhaustiva mediante esquemas Zod (campos: id, slug, name, brand, description, shortDescription, price, originalPrice, discount, petType, category, categorySlug, lifeStage, rating, reviewsCount, stock, sku, badge, badgeColor, isOffer, isNew, isBestSeller, image con helper de Astro, imageAlt, features y specifications).
+  2. **Modelado de Productos Iniciales (`src/content/productos/*.json`):** Se crearon 10 productos estructurados en formato JSON cubriendo perros, gatos, hidratación, confort, paseo y smart pet, vinculados directamente a sus fotografías optimizadas de alta fidelidad en `src/assets/products/`.
+  3. **Verificación de Tipos y Compilación:** `npx astro sync` generó los tipos de contenido de forma automática y `astro build` verificó la integridad del catálogo en 2.44s.
+- **Archivos clave:** `src/content.config.js`, `src/content/productos/*.json` (10 archivos), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de la configuración de Content Collections Astro 5 y esquemas Zod.
+  - `qa`: Verificación de sincronización de tipos y compilación limpia con `astro build`.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/02-catalog` · cierre formal de fase 1 y apertura de fase 2
 - **Qué:** Cierre formal de la Fase 1 (Diseño & Setup Base) y apertura de la Fase 2 (Catálogo & Contenido):
