@@ -99,7 +99,10 @@ function formatPrice(amount) {
       {
         products.map((prod) => (
           <article class="snap-start shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden">
-            <div class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center">
+            <a
+              href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
+              class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+            >
               {prod.badge && (
                 <span
                   class={`absolute top-2 left-2 z-10 px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider shadow-xs ${prod.badgeColor || 'bg-rose-600 text-white'}`}
@@ -117,7 +120,7 @@ function formatPrice(amount) {
                 loading="lazy"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-            </div>
+            </a>
 
             <div class="p-3 sm:p-3.5 flex flex-col flex-1">
               <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
@@ -128,7 +131,12 @@ function formatPrice(amount) {
                 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1"
                 title={prod.name}
               >
-                {prod.name}
+                <a
+                  href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
+                  class="hover:text-rose-600 transition-colors"
+                >
+                  {prod.name}
+                </a>
               </h3>
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
