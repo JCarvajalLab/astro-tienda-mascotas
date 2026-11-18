@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): normalizacion de acentos en buscador, navegacion por etapas de vida y categoria seniors
+- **Último commit relevante:** feat(header): implementa mega-menu desplegable hover y focus con subcategorias activas
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
 - **Qué está en progreso:** Cierre de Fase 2 (Catálogo & Contenido) y preparación de la Fase 3 (Carrito Interactivo & Modo Nocturno).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 41 páginas estáticas en 2.86s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` la experiencia de compra y búsqueda sin tildes, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 41 páginas estáticas en 2.80s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` el correcto despliegue visual del hover en el Header y la navegación por subcategorías, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
 
 ## 2. Decisiones importantes
 
@@ -75,10 +75,26 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Barra de búsqueda reactiva y filtros combinados en catálogo | Input de búsqueda en vivo por texto (nombre, categoría, tipo) combinado con píldoras de filtros rápidos y URL query params | Filtrado exclusivo por botones sin caja de búsqueda textual |
 | 2026-11-18 | Búsqueda estricta por nombre de producto y anclas en Header | Aislar la búsqueda al nombre exacto del producto (sin mezclar categoría ni especie que se filtran en botones) y unificar Farmacia/Pequeñas Mascotas con anclas locales | Búsqueda difusa que traía toda la categoría al escribir una especie |
 | 2026-11-18 | Búsqueda tolerante a tildes y navegación por Etapas de Vida | Normalización NFD para buscar sin respetar tildes ('arnes' = 'Arnés'), reemplazo de Pequeñas Mascotas por Mascotas por etapas de vida (Cachorros, Adultos, Seniors) y ancla #ofertas en Ofertas Flash | Forzar escritura exacta con tildes y enlaces rotos sin productos |
+| 2026-11-18 | Mega-menú desplegable en Header con scoped CSS (hover & focus-within) | Resolver recorte de overflow-x-auto con md:overflow-visible y garantizar despliegue fluido con animación y teclado | Usar Tailwind group-hover arbitrario sin soporte en v4 o scripts complejos |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · mega-menu desplegable hover y focus con subcategorias activas
+- **Qué:** Solución integral del despliegue del Mega-Menú interactivo en la barra inferior del Header (`src/components/Header.astro`):
+  1. **Desbloqueo de Recorte de Contenedor (Overflow Clipping):** Se agregó `md:overflow-visible` al elemento `<ul>` de navegación. En especificación CSS, `overflow-x: auto` fuerza automáticamente `overflow-y` a recortar los elementos hijos absolutos; con `md:overflow-visible` en desktop los menús flotantes descienden libremente sobre la página.
+  2. **Reglas CSS Scoped con Animación Suave:** En lugar de depender de modificadores arbitrarios de grupo de Tailwind (`group-hover/menu`) que no eran reconocidos por el compilador v4, se implementaron reglas CSS directas en bloque `<style>` de Astro (`.nav-item:hover > .nav-dropdown`, `.nav-item:focus-within > .nav-dropdown`).
+  3. **Rotación de Flecha y Accesibilidad por Teclado:** La flecha SVG rota 180 grados suavemente (`.nav-arrow`) y el menú se abre automáticamente al navegar con la tecla `Tab` (`:focus-within`), garantizando accesibilidad total sin JavaScript.
+  4. **Puente de Hover sin Parpadeos:** Contenedor con `pt-2` que conecta el botón de la categoría con la tarjeta flotante sin brechas muertas de cursor.
+  5. **Alineación Inteligente Anti-Desborde:** Las categorías de la derecha (`Farmacia & Salud`, `Ofertas Flash`) alinean su tarjeta a `right-0` para prevenir desbordes laterales fuera de la ventana.
+  6. **Enlaces Específicos y Funcionales en Subcategorías:** Cada subcategoría contiene enlaces reales a colecciones del ecommerce (`/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/alimentos-perro`, `/categoria/alimentos-gato`, `/categoria/packs-promocionales`, `/categoria/smart-pet`, `/categoria/higiene-cuidados`).
+- **Archivos clave:** `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Refactorización de marcado semántico, eliminación del recorte de overflow, scoped CSS con keyframes e hidratación de URLs activas.
+  - `ux-ui`: Animación sutil de entrada (0.18s), rotación de chevron indicador, soporte a `prefers-reduced-motion` y distribución en 2 columnas por categoría.
+  - `qa`: Compilación limpia de 41 páginas en 2.80s y ESLint sin errores.
+  - `docs-seo`: Actualización de la memoria técnica del proyecto en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · normalizacion de acentos en buscador, navegacion por etapas de vida y categoria seniors
 - **Qué:** Implementación de las mejoras de usabilidad y navegación solicitadas por el usuario:
