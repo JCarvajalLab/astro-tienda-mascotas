@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(design): establece footer warm-biscuit como predeterminado en coordinacion con navbar
+- **Último commit relevante:** feat(design): adopta lienzo calido warm-biscuit y elimina espacio en blanco entre newsletter y footer
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada en estilo Cálido Natural / Warm Biscuit (tanto Navbar como Footer en marfil suave `#FAF7F2` con acentos en crema arena, botones de redes sociales en relieve blanco y sellos de medios de pago en arena suave), Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada en estilo Cálido Natural / Warm Biscuit (Navbar, Footer y lienzo general en marfil suave `#FAF7F2` con acentos en crema arena, botones de redes sociales en relieve blanco y sellos de medios de pago en arena suave), fondo de página que aporta relieve tridimensional a las tarjetas de producto en blanco puro, transición continua y fluida entre el bloque de comunidad (`ClubNewsletter.astro` con `mb-0`) y el pie de página eliminando cualquier franja residual intermedia, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.83s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.73s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -62,10 +62,22 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Variantes de Navbar y Laboratorio /preview-navbars | Permitir evaluar las 3 opciones cromáticas de cabecera simultáneamente y probarlas en la Home sin alterar la base | Forzar una única cabecera sin test de usuario |
 | 2026-11-17 | Navbar Warm Biscuit como predeterminado y variantes de Footer | Adopción de estética boutique orgánica acogedora en cabecera y creación de 4 alternativas cromáticas para el cierre de página en el laboratorio | Forzar footer oscuro rígido sin explorar simetría cálida |
 | 2026-11-17 | Simetría cálida total: Navbar y Footer en Warm Biscuit | Armonía visual integral de apertura y cierre de página en tonos orgánicos y eliminación de rutas de preview | Dejar footer en tono discordante o mantener páginas de pruebas |
+| 2026-11-17 | Lienzo cálido Warm Biscuit (#FAF7F2) y transición fluida a Footer | Eliminar choque térmico con blanco frío, aportar relieve tridimensional a las tarjetas de productos y eliminar franja blanca residual sobre el footer | Fondo blanco plano con cortes duros |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · adopcion de lienzo calido warm-biscuit y eliminacion de espacio blanco sobre footer
+- **Qué:** Ajustes de diseño de superficie y ritmo vertical entre secciones:
+  1. **Lienzo Base Cálido (`#FAF7F2`):** Se actualizó la variable `--color-60-bg` en `src/styles/global.css` y las clases de `<html>` y `<main>` en `src/layouts/BaseLayout.astro` para usar la clase `bg-canvas`. Toda la tienda adopta el tono marfil sedoso, permitiendo que las tarjetas de producto en blanco puro (`bg-white`) resalten con relieve y volumen tridimensional natural.
+  2. **Eliminación de la Franja Blanca Residual sobre el Footer:** En `src/components/ClubNewsletter.astro`, se eliminó el margen inferior (`my-8 sm:my-12` cambiado a `mt-10 sm:mt-16 mb-0`). La banda roja de comunidad ahora se extiende hacia la base y conecta de forma continua y directa con el pie de página cálido, resolviendo el espacio en blanco que mostraba 3 bloques desconectados.
+- **Archivos clave:** `src/components/ClubNewsletter.astro`, `src/layouts/BaseLayout.astro`, `src/styles/global.css`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Auditoría de ritmo vertical (eliminación del espacio residual inferior) y armonización de temperatura visual en el lienzo general.
+  - `desarrollo`: Ajuste de tokens en CSS y clases Tailwind en layout y componentes.
+  - `qa`: Compilación verificada en 1.73s con linter pasando sin errores.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · fijacion de footer warm-biscuit y limpieza de rutas de previsualizacion
 - **Qué:** Consolidación de la identidad visual definitiva de la tienda en estilo boutique orgánica y retiro de componentes temporales:
