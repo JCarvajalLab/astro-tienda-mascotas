@@ -15,7 +15,7 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** fix(carousel): adapta desplazamiento en movil para avanzar de a un producto con snap suave
+- **Último commit relevante:** fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
 - **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
 - **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
@@ -85,10 +85,32 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Creación de rutas dedicadas /suplementos y /dermocosmetica tras auditoría exhaustiva | Garantizar que cada subcategoría del Header dirija a su colección exacta (ej. Glucosamina a /suplementos, fuentes a /hidratacion, ofertas a /ofertas) en vez de categorías equivocadas | Desviar suplementos articulares a 'seniors' o desviar fuentes a 'smart-pet' |
 | 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
 | 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
+| 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · blindaje de detencion unitaria con scroll-snap-stop y swipe tactil en moviles
+- **Qué:** Solución definitiva al comportamiento del carrusel de productos en dispositivos y emuladores móviles:
+  1. **Freno Obligatorio por Tarjeta (`scroll-snap-stop: always`):**
+     - Se añadió la regla CSS `.product-slider-card { scroll-snap-stop: always !important; }` en `src/styles/global.css` y el estilo inline `style="scroll-snap-stop: always;"` en cada `<article>`.
+     - Esto obliga físicamente al motor de scroll táctil del navegador (en iOS Safari, Android Chrome y emuladores de escritorio) a detener la inercia en la tarjeta inmediatamente siguiente, impidiendo por completo que un gesto de deslizamiento con el pulgar salga disparado pasando de largo 5 productos.
+  2. **Control de Gestos Táctiles (`touchstart` / `touchend`):**
+     - Se incorporó un manejador de eventos táctiles en JavaScript nativo que detecta swipes horizontales intencionales (`deltaX > 35px`) y dispara el desplazamiento controlado `scrollSlider('next')` o `scrollSlider('prev')`.
+  3. **Cálculo Exacto de Distancia entre Tarjetas (`offsetLeft`):**
+     - Se sustituyó el cálculo anterior por `secondCard.offsetLeft - firstCard.offsetLeft`, obteniendo la distancia real y exacta en píxeles enteros entre productos.
+  4. **Liberación Temporal de Snap durante el Desplazamiento Programático:**
+     - Al presionar las flechas o ejecutar swipe, se desactiva brevemente `scrollSnapType = 'none'` para permitir un desplazamiento fluido con `scrollBy`, reactivándose 400ms después. Esto evita el conocido bug de Chromium donde el algoritmo de snap interfiere en tiempo real con la animación y salta páginas enteras.
+  5. **Breakpoint Móvil Alineado a `< 768px` (`< md`):**
+     - Se sincronizó el umbral de avance unitario a `< 768px`, garantizando coherencia con el menú hamburguesa del Header móvil.
+- **Por qué:** En la versión móvil, los usuarios interactúan principalmente deslizando con el dedo (gesto táctil). Sin `scroll-snap-stop: always`, la física de aceleración nativa del navegador saltaba múltiples tarjetas en bloque (5 productos a la vez). Con este blindaje combinado de CSS y JavaScript táctil, el carrusel avanza estrictamente de a 1 producto a la vez tanto por toque directo como por flechas.
+- **Especialistas activados:**
+  - `ux-ui`: Análisis del comportamiento de inercia táctil en móviles y diseño de la física de detención unitaria estricta (`scroll-snap-stop: always`).
+  - `desarrollo`: Implementación de listeners táctiles `touchstart`/`touchend`, cálculo con `offsetLeft`, desconexión temporal de snap durante animación y clases CSS dedicadas.
+  - `qa`: Comprobación con ESLint (0 errores), compilación estática de 50 páginas en 4.03s y verificación de sintaxis.
+  - `docs-seo`: Actualización del registro en `docs/HISTORIAL.md`.
+- **Commit asociado:** `f17c74f` · `fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil`
 
 ### 2026-11-18 · `phase/02-catalog` · adaptacion de desplazamiento suave y unitario en carruseles de producto para movil
 - **Qué:** Corrección y perfeccionamiento de la interacción en los carruseles horizontales de producto (`ProductSlider.astro`) presentes en la página principal (*"Productos en Oferta"* y *"Novedades de la Semana"*):
