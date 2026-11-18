@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(mobile): implementa menu hamburguesa y drawer lateral tactil con acordeones para moviles
+- **Último commit relevante:** fix(carousel): adapta desplazamiento en movil para avanzar de a un producto con snap suave
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Nueva navegación móvil responsiva al 100%: botón hamburguesa accesible (`< md`), backdrop desenfocado y Drawer lateral deslizante (Offcanvas)**, **Acordeones táctiles con chevron animado para navegar categorías y subcategorías sin desbordamiento horizontal**, **Selector de comuna chilena y acceso rápido a login/WhatsApp integrados en el drawer móvil**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y en el catálogo general**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
 - **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.10s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Revisar con el usuario el comportamiento responsivo en móviles y validar los flujos de la Fase 2 antes de proceder con la ficha técnica detallada.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.19s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar con el usuario la fluidez del carrusel en móviles y proceder con la siguiente tarea del plan.
 
 ## 2. Decisiones importantes
 
@@ -84,10 +84,34 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Eliminación de dobles nombres anglos (Puppy/Kitten) y filtros contextuales por especie | Usar nombres limpios en español ('Cachorros' y 'Gatitos') y activar el filtro de perro (?pet=perros) automáticamente al acceder desde la sección canina | Mantener etiquetas redundantes en inglés o mezclar productos felinos y caninos sin filtro activo |
 | 2026-11-18 | Creación de rutas dedicadas /suplementos y /dermocosmetica tras auditoría exhaustiva | Garantizar que cada subcategoría del Header dirija a su colección exacta (ej. Glucosamina a /suplementos, fuentes a /hidratacion, ofertas a /ofertas) en vez de categorías equivocadas | Desviar suplementos articulares a 'seniors' o desviar fuentes a 'smart-pet' |
 | 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
+| 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · adaptacion de desplazamiento suave y unitario en carruseles de producto para movil
+- **Qué:** Corrección y perfeccionamiento de la interacción en los carruseles horizontales de producto (`ProductSlider.astro`) presentes en la página principal (*"Productos en Oferta"* y *"Novedades de la Semana"*):
+  1. **Navegación Discreta y Unitaria en Móvil:**
+     - En pantallas móviles (`< 640px`), el botón siguiente (`>`) y anterior (`<`) ahora avanzan **exactamente 1 producto por clic** (`cardWidth + gap`) en lugar de saltar el 85% del ancho del viewport o avanzar 5 productos como en escritorio.
+     - En tablets (`640px` a `1023px`), el carrusel avanza 2 productos por clic.
+     - En escritorio (`>= 1024px`), avanza 3 productos por clic, manteniendo siempre productos visibles de referencia para no perder la orientación visual.
+  2. **Alineación Perfecta con CSS Scroll Snap:**
+     - Se reemplazó el `scrollBy` porcentual por un cálculo matemático discreto que calcula el múltiplo entero de snap-point (`Math.floor((current + step + 5) / step) * step`), garantizando que al presionar las flechas la tarjeta quede 100% encajada al borde izquierdo sin sacudidas ni desalineaciones.
+  3. **Gestión de Estados en Botones de Navegación:**
+     - Los botones de navegación ahora detectan dinámicamente si se ha llegado al inicio (`scrollLeft <= 4`) o al final de la lista, desactivándose de forma accesible (`disabled` y `opacity-30 cursor-not-allowed`).
+  4. **Experiencia Táctil y Prevención de Desbordamiento:**
+     - Se incorporó `overscroll-x-contain` en el contenedor de productos para evitar que el gesto táctil horizontal arrastre accidentalmente la navegación del navegador en dispositivos Android e iOS.
+     - Se añadió la clase utilitaria `.scrollbar-none` en `src/styles/global.css` para suprimir barras de desplazamiento nativas antiestéticas en Firefox, Chrome y Safari.
+  5. **Encabezado Adaptado a Pantallas Angostas:**
+     - Se unificó el encabezado con `flex items-end justify-between`, ubicando las flechas de navegación a la derecha en la misma línea visual sin crear saltos de línea innecesarios.
+- **Por qué:** El usuario detectó que en el modo móvil los carruseles saltaban bruscamente 5 productos de golpe (heredado de la lógica desktop), lo que dificultaba explorar el catálogo y generaba una experiencia tosca. Al avanzar de a 1 producto en móvil, el usuario puede revisar cada oferta detalladamente sin perderse nada.
+- **Especialistas activados:**
+  - `ux-ui`: Rediseño de la jerarquía del encabezado del slider en móvil, definición del avance unitario (1 producto a la vez) para mantener el contexto visual en pantalla, y estados de desactivación en flechas.
+  - `desarrollo`: Refactorización del script interactivo en `src/components/ProductSlider.astro` con cálculo dinámico de `getCardStep()` basado en `getBoundingClientRect()` y `getComputedStyle(gap)`, además de la regla CSS `.scrollbar-none` en `src/styles/global.css`.
+  - `qa`: Validación de linter ESLint (0 errores), build de producción exitoso (50 páginas estáticas en 4.19s) y verificación de eventos táctiles.
+  - `docs-seo`: Registro en `HISTORIAL.md` del cambio y actualización del estado actual de la Fase 2.
+- **Commit asociado:** `224333a` · `fix(carousel): adapta desplazamiento en movil para avanzar de a un producto con snap suave`
 
 ### 2026-11-18 · `phase/02-catalog` · implementacion de menu hamburguesa y drawer movil con acordeones
 - **Qué:** Implementación integral de la experiencia de navegación móvil para smartphones:
