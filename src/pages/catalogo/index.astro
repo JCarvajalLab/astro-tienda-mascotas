@@ -105,6 +105,20 @@ function formatPrice(amount) {
           </button>
           <button
             type="button"
+            data-filter="accesorios"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🎾 Accesorios
+          </button>
+          <button
+            type="button"
+            data-filter="farmacia"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🩺 Farmacia & Salud
+          </button>
+          <button
+            type="button"
             data-filter="ofertas"
             class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
           >
@@ -142,6 +156,7 @@ function formatPrice(amount) {
             data-is-pack={prod.data.categorySlug === 'packs-promocionales' || prod.data.name.toLowerCase().includes('pack') ? 'true' : 'false'}
             data-name={prod.data.name.toLowerCase()}
             data-category={prod.data.category.toLowerCase()}
+            data-category-slug={prod.data.categorySlug || ''}
             data-price={prod.data.price}
             data-rating={prod.data.rating}
           >
@@ -283,10 +298,40 @@ function formatPrice(amount) {
 
       // 1. Filtrado por Píldoras de Categoría / Tipo
       let matchesFilter = true;
+      const catSlug = card.getAttribute('data-category-slug') || '';
+      const catName = card.getAttribute('data-category') || '';
+
       if (currentFilter === 'ofertas') {
         matchesFilter = isOffer;
       } else if (currentFilter === 'packs') {
         matchesFilter = isPack;
+      } else if (currentFilter === 'accesorios') {
+        const accessorySlugs = [
+          'paseo-seguridad',
+          'camas-confort',
+          'smart-pet',
+          'viajes-paseo',
+          'hidratacion',
+          'rascadores-camas',
+        ];
+        matchesFilter =
+          accessorySlugs.includes(catSlug) ||
+          catName.includes('accesorio') ||
+          catName.includes('paseo') ||
+          catName.includes('descanso') ||
+          catName.includes('cama') ||
+          catName.includes('juguete') ||
+          catName.includes('smart');
+      } else if (currentFilter === 'farmacia') {
+        matchesFilter =
+          catSlug === 'higiene-cuidados' ||
+          catName.includes('farmacia') ||
+          catName.includes('higiene') ||
+          catName.includes('salud') ||
+          cleanName.includes('suplemento') ||
+          cleanName.includes('articular') ||
+          cleanName.includes('shampoo') ||
+          cleanName.includes('dental');
       } else if (currentFilter !== 'todos') {
         matchesFilter = pet === currentFilter || pet === 'todas';
       }
@@ -390,7 +435,10 @@ function formatPrice(amount) {
 
   // Inicializar desde parámetros URL si existen (ej. /catalogo?filtro=packs o /catalogo?q=salmón)
   const urlParams = new URLSearchParams(window.location.search);
-  const filtroParam = urlParams.get('filtro');
+  const filtroParam =
+    urlParams.get('filtro') ||
+    urlParams.get('filter') ||
+    urlParams.get('categoria');
   const queryParam = urlParams.get('q');
 
   if (queryParam && searchInput) {

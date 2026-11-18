@@ -103,6 +103,112 @@ export async function getStaticPaths() {
       icon: '🧓',
       filter: (p) => p.data.lifeStage === 'seniors' || p.data.lifeStage === 'todas',
     },
+    accesorios: {
+      title: 'Accesorios para Mascotas',
+      subtitle: 'Arneses ergonómicos, collares de seguridad, camas viscoelásticas, comederos WiFi y transportadoras de viaje',
+      icon: '🎾',
+      filter: (p) => {
+        const catSlug = p.data.categorySlug || '';
+        const catName = (p.data.category || '').toLowerCase();
+        const accessorySlugs = [
+          'paseo-seguridad',
+          'camas-confort',
+          'smart-pet',
+          'viajes-paseo',
+          'hidratacion',
+          'rascadores-camas',
+        ];
+        return (
+          accessorySlugs.includes(catSlug) ||
+          catName.includes('accesorio') ||
+          catName.includes('paseo') ||
+          catName.includes('descanso') ||
+          catName.includes('juguete') ||
+          catName.includes('cama') ||
+          catName.includes('smart')
+        );
+      },
+    },
+    'farmacia-salud': {
+      title: 'Farmacia, Salud & Bienestar',
+      subtitle: 'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
+      icon: '🩺',
+      filter: (p) => {
+        const catSlug = p.data.categorySlug || '';
+        const catName = (p.data.category || '').toLowerCase();
+        const pName = (p.data.name || '').toLowerCase();
+        const pSlug = (p.data.slug || '').toLowerCase();
+        return (
+          catSlug === 'higiene-cuidados' ||
+          catName.includes('farmacia') ||
+          catName.includes('higiene') ||
+          catName.includes('salud') ||
+          catName.includes('dental') ||
+          pName.includes('suplemento') ||
+          pName.includes('articular') ||
+          pName.includes('shampoo') ||
+          pName.includes('dental') ||
+          pSlug.includes('suplemento') ||
+          pSlug.includes('shampoo') ||
+          pSlug.includes('articular')
+        );
+      },
+    },
+    farmacia: {
+      title: 'Farmacia, Salud & Bienestar',
+      subtitle: 'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
+      icon: '🩺',
+      filter: (p) => {
+        const catSlug = p.data.categorySlug || '';
+        const catName = (p.data.category || '').toLowerCase();
+        const pName = (p.data.name || '').toLowerCase();
+        const pSlug = (p.data.slug || '').toLowerCase();
+        return (
+          catSlug === 'higiene-cuidados' ||
+          catName.includes('farmacia') ||
+          catName.includes('higiene') ||
+          catName.includes('salud') ||
+          catName.includes('dental') ||
+          pName.includes('suplemento') ||
+          pName.includes('articular') ||
+          pName.includes('shampoo') ||
+          pName.includes('dental') ||
+          pSlug.includes('suplemento') ||
+          pSlug.includes('shampoo') ||
+          pSlug.includes('articular')
+        );
+      },
+    },
+    ofertas: {
+      title: 'Ofertas Flash & Descuentos',
+      subtitle: 'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
+      icon: '🔥',
+      filter: (p) => {
+        const hasDiscount = Boolean(p.data.discount);
+        const hasOriginalPrice = Boolean(p.data.originalPrice && p.data.originalPrice > p.data.price);
+        const isPack = (p.data.category || '').toLowerCase().includes('pack') || p.data.categorySlug === 'packs-promocionales';
+        const isOfferBadge = (p.data.badge || '').toLowerCase().includes('off') || (p.data.badge || '').toLowerCase().includes('oferta');
+        return hasDiscount || hasOriginalPrice || isPack || isOfferBadge || p.data.isOffer === true;
+      },
+    },
+    'ofertas-flash': {
+      title: 'Ofertas Flash & Descuentos',
+      subtitle: 'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
+      icon: '🔥',
+      filter: (p) => {
+        const hasDiscount = Boolean(p.data.discount);
+        const hasOriginalPrice = Boolean(p.data.originalPrice && p.data.originalPrice > p.data.price);
+        const isPack = (p.data.category || '').toLowerCase().includes('pack') || p.data.categorySlug === 'packs-promocionales';
+        const isOfferBadge = (p.data.badge || '').toLowerCase().includes('off') || (p.data.badge || '').toLowerCase().includes('oferta');
+        return hasDiscount || hasOriginalPrice || isPack || isOfferBadge || p.data.isOffer === true;
+      },
+    },
+    mascotas: {
+      title: 'Especial Mascotas & Etapas de Vida',
+      subtitle: 'Nutrición balanceada, accesorios de paseo, higiene y confort especializado para cachorros, adultos y seniors',
+      icon: '🐾',
+      filter: () => true,
+    },
   };
 
   return Object.entries(categoriesMap).map(([slug, meta]) => ({
