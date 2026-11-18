@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): amplia catalogo a 20 productos con packs reales, buscador y botones inclusivos
+- **Último commit relevante:** feat(catalog): normalizacion de acentos en buscador, navegacion por etapas de vida y categoria seniors
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **20 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales y 5 productos esenciales a precio regular sin descuento), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva en tiempo real y selector combinado de filtros**, **13 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, banners y categorías circulares enlazadas a sus rutas comerciales reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
 - **Qué está en progreso:** Cierre de Fase 2 (Catálogo & Contenido) y preparación de la Fase 3 (Carrito Interactivo & Modo Nocturno).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 36 páginas estáticas en 2.63s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` la experiencia de compra con los nuevos packs y buscador, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 41 páginas estáticas en 2.86s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` la experiencia de compra y búsqueda sin tildes, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
 
 ## 2. Decisiones importantes
 
@@ -74,10 +74,27 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Ampliación de catálogo a 20 productos con packs reales y regulares | Incorporar 5 combos de bienvenida/ahorro y 5 productos esenciales sin descuento para contraste comercial realista | Catálogo limitado donde el 100% de los productos tenían ofertas artificiales |
 | 2026-11-18 | Barra de búsqueda reactiva y filtros combinados en catálogo | Input de búsqueda en vivo por texto (nombre, categoría, tipo) combinado con píldoras de filtros rápidos y URL query params | Filtrado exclusivo por botones sin caja de búsqueda textual |
 | 2026-11-18 | Búsqueda estricta por nombre de producto y anclas en Header | Aislar la búsqueda al nombre exacto del producto (sin mezclar categoría ni especie que se filtran en botones) y unificar Farmacia/Pequeñas Mascotas con anclas locales | Búsqueda difusa que traía toda la categoría al escribir una especie |
+| 2026-11-18 | Búsqueda tolerante a tildes y navegación por Etapas de Vida | Normalización NFD para buscar sin respetar tildes ('arnes' = 'Arnés'), reemplazo de Pequeñas Mascotas por Mascotas por etapas de vida (Cachorros, Adultos, Seniors) y ancla #ofertas en Ofertas Flash | Forzar escritura exacta con tildes y enlaces rotos sin productos |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · normalizacion de acentos en buscador, navegacion por etapas de vida y categoria seniors
+- **Qué:** Implementación de las mejoras de usabilidad y navegación solicitadas por el usuario:
+  1. **Búsqueda Tolerante a Acentos y Mayúsculas/Minúsculas (`src/pages/catalogo/index.astro`):** Se implementó una función de normalización Unicode NFD (`normalizeText`) que elimina marcas diacríticas y convierte a minúsculas tanto la consulta como el nombre del producto. Ahora al buscar *"arnes"*, *"Arnés"*, *"salmon"* o *"SALMÓN"* los resultados coinciden sin exigir tildes ortográficas.
+  2. **Ancla Local en Ofertas Flash (`src/components/Header.astro`):** Se corrigió `Ofertas Flash` para que use `href: '/#ofertas'`, manteniendo al usuario en la página y desplegando su menú sin forzar la redirección a `/catalogo`.
+  3. **Reemplazo y Reubicación de "Pequeñas Mascotas" por "Mascotas" en Header:** Se eliminó la pestaña sin productos "Pequeñas Mascotas" y se incorporó **"🐾 Mascotas"** como primer elemento de la barra de navegación (antes de Perros), con subcategorías estructuradas en torno a las **Etapas de Vida** (*Cachorritos & Gatitos*, *Compañeros Adultos* y *Fiel Amigo Senior 7+*).
+  4. **Creación de Productos Especializados para Seniors:** Se agregaron 2 productos a la colección JSON:
+     - `alimento-senior-perro-articular-7plus-3kg` (Nutrición suave con glucosamina y condroitina para perros mayores de 7 años, \$23.990).
+     - `suplemento-articular-senior-glucosamina-60comp` (Comprimidos masticables sabor hígado para alivio de rigidez articular en perros y gatos, \$14.990).
+  5. **Nuevas Rutas Dinámicas por Etapa de Vida:** Se generaron `/categoria/cachorros`, `/categoria/adultos` y `/categoria/seniors` en `src/pages/categoria/[categoria].astro`, y se enlazaron las 3 tarjetas de `LifeStageBanners.astro` directamente a estas rutas.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/components/Header.astro`, `src/components/LifeStageBanners.astro`, `src/pages/categoria/[categoria].astro`, `src/content/productos/*.json` (2 nuevos), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Normalización NFD en JS nativo, configuración de rutas dinámicas por lifeStage y modelado de productos senior.
+  - `ux-ui`: Estructura del megamenú por etapas de vida, tolerancia de búsqueda y experiencia de usuario.
+  - `qa`: Compilación exitosa de 41 páginas estáticas en 2.86s con 76 imágenes WebP optimizadas y validación HTTP 200.
+  - `docs-seo`: Actualización de la memoria técnica y bitácora de decisiones.
 
 ### 2026-11-18 · `phase/02-catalog` · calibracion de buscador exclusivo por nombre y navegacion en header
 - **Qué:** Ajustes de usabilidad solicitados por el usuario:
