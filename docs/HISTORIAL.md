@@ -73,10 +73,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Botones de compra inclusivos y accesibles con texto explícito | Reemplazar el botón circular '+' ambiguo por un botón prominente con icono de carrito y texto explícito 'Agregar' / 'Agregar al carrito', accesible para todas las edades | Mantener icono '+' minimalista poco intuitivo para adultos mayores |
 | 2026-11-18 | Ampliación de catálogo a 20 productos con packs reales y regulares | Incorporar 5 combos de bienvenida/ahorro y 5 productos esenciales sin descuento para contraste comercial realista | Catálogo limitado donde el 100% de los productos tenían ofertas artificiales |
 | 2026-11-18 | Barra de búsqueda reactiva y filtros combinados en catálogo | Input de búsqueda en vivo por texto (nombre, categoría, tipo) combinado con píldoras de filtros rápidos y URL query params | Filtrado exclusivo por botones sin caja de búsqueda textual |
+| 2026-11-18 | Búsqueda estricta por nombre de producto y anclas en Header | Aislar la búsqueda al nombre exacto del producto (sin mezclar categoría ni especie que se filtran en botones) y unificar Farmacia/Pequeñas Mascotas con anclas locales | Búsqueda difusa que traía toda la categoría al escribir una especie |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · calibracion de buscador exclusivo por nombre y navegacion en header
+- **Qué:** Ajustes de usabilidad solicitados por el usuario:
+  1. **Buscador Estrictamente por Nombre de Producto (`src/pages/catalogo/index.astro`):** Se restringió la búsqueda en tiempo real exclusivamente al nombre del producto (`name.includes(query)`), descartando categoría y tipo de mascota en la coincidencia de texto para evitar falsos positivos y respetar los botones de filtro dedicados (Todos, Packs, Perros, Gatos, Ofertas).
+  2. **Placeholder Intuitivo:** Se actualizó a `Buscar producto por nombre (ej. Salmón, Churu, Arnés, Cama)...`.
+  3. **Ajuste de Enlaces en Header (`src/components/Header.astro`):** Se corrigieron los enlaces de *Farmacia & Salud* (`/#farmacia`) y *Pequeñas Mascotas* (`/#pequenas-mascotas`) para que mantengan el mismo comportamiento de *Accesorios* (`/#accesorios`), desplegando su menú sin forzar una redirección inconsistente a `/catalogo`.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Refactor de la condición de búsqueda en JS y ajuste de rutas en Header.
+  - `ux-ui`: Precisión de copy en placeholder y consistencia de navegación.
+  - `qa`: Build limpio de 36 páginas estáticas en 2.57s y ESLint con 0 errores.
+  - `docs-seo`: Actualización de la memoria técnica.
 
 ### 2026-11-18 · `phase/02-catalog` · ampliacion a 20 productos con packs reales, buscador y botones inclusivos
 - **Qué:** Implementación de las mejoras de usabilidad e inclusión solicitadas por el usuario para la Fase 2:
