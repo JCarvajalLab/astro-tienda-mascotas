@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): agrega barras de busqueda reactivas a todas las categorias y refactoriza menu mascotas por etapas
+- **Último commit relevante:** feat(navigation): unifica nombres sin puppy/kitten y activa filtro de perro al seleccionar cachorros
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Menú Mascotas optimizado exclusivamente por etapas de vida (Cachorros/Puppy, Adultos y Seniors tanto para perros como para gatos) eliminando la redundancia de Colecciones Especiales**, **Buscador en cabecera conectado a `/catalogo?q=...`**, **Barra de búsqueda reactiva y ordenamiento interactivo (menor/mayor precio, rating, destacados) presente en todas las páginas de categoría (`/categoria/[categoria]`) con filtrado en tiempo real insensible a tildes y mayúsculas/minúsculas**, **Rutas dinámicas dedicadas para cada pestaña de cabecera (`/categoria/accesorios` con 9 productos, `/categoria/farmacia-salud` con 5 productos, `/categoria/ofertas` con 16 productos rebajados y `/categoria/mascotas` con 8 productos de etapas de vida)**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Nombres limpios en español sin anglicismos dobles (Cachorros y Gatitos en vez de Puppy/Kitten)**, **Navegación contextual por especie en etapas: al presionar Cachorros bajo Perros se activa automáticamente el filtro `🐶 Perros` mostrando exclusivamente productos caninos**, **Píldoras interactivas de filtrado rápido (`[Todos]`, `[🐶 Perros]`, `[🐱 Gatos]`) en todas las categorías**, **Buscador en tiempo real e interactivo en categorías y en el catálogo general**.
 - **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 3.71s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 4.02s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Proceder con el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
 
 ## 2. Decisiones importantes
@@ -81,10 +81,31 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Aprobación e implementación de Opción 1B en Header oficial | Adopción de la Vitrina Híbrida Split Showcase con micro-SVGs monocromáticos, fotos de producto reales y eliminación de emojis en todas las categorías | Menús de lista plana o menús con emojis |
 | 2026-11-18 | Rutas dedicadas y filtros para Accesorios, Farmacia, Ofertas y Mascotas | Cada pestaña del Header y enlace 'Ver todo en...' redirige a su colección filtrada exacta en vez del catálogo genérico | Mandar todas las categorías secundarias a /catalogo sin filtrar |
 | 2026-11-18 | Barras de búsqueda en categorías y optimización de Mascotas por etapas | Integrar buscador reactivo en todas las categorías y enfocar Mascotas en Perros y Gatos por Etapas (Cachorros/Adultos/Seniors) eliminando Colecciones Especiales redundantes | Forzar al usuario a volver a /catalogo para buscar o sobrepoblar Mascotas duplicando el catálogo |
+| 2026-11-18 | Eliminación de dobles nombres anglos (Puppy/Kitten) y filtros contextuales por especie | Usar nombres limpios en español ('Cachorros' y 'Gatitos') y activar el filtro de perro (?pet=perros) automáticamente al acceder desde la sección canina | Mantener etiquetas redundantes en inglés o mezclar productos felinos y caninos sin filtro activo |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · nombres limpios de cachorros/gatitos y activacion de filtro por mascota
+- **Qué:** Refinamiento de la navegación por etapas de vida y enriquecimiento de las páginas de categoría con filtros por especie:
+  1. **Nombres Limpios en Español sin Anglicismos Dobles:**
+     - Se eliminaron todos los textos secundarios redundantes en inglés (`Puppy`, `Kitten`) en `src/components/Header.astro` y en las categorías.
+     - Etiquetas estandarizadas a **Cachorros** y **Gatitos** (tanto en Mascotas como en los menús de Perros y Gatos).
+  2. **Activación Automática de Filtros por Especie (`?pet=perros` / `?pet=gatos`):**
+     - Al hacer clic en *"Cachorros"* o *"Perros Adultos"* bajo la columna de Perros, la URL resultante incluye el parámetro `?pet=perros`, activando de forma visual y funcional la píldora `🐶 Perros`.
+     - Al hacer clic en *"Gatitos"* o *"Gatos Adultos"*, se activa automáticamente la píldora `🐱 Gatos`.
+  3. **Píldoras de Filtro Rápido en Categorías (`[categoria].astro`):**
+     - Se añadieron los botones interactivos `[Todos]`, `[🐶 Perros]` y `[🐱 Gatos]` sobre la grilla de productos de cada categoría.
+     - Permiten al usuario alternar entre especies con un solo toque y actualizan el contador en tiempo real.
+  4. **Filtro Focalizado en `cachorros`, `adultos` y `seniors`:**
+     - Se limpió el filtro base de `cachorros` en `[categoria].astro` para excluir productos adultos no pertinentes (como arenas sanitarias de 10kg), dejando 7 productos especializados en apego, confort y nutrición de primeras etapas.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de botones de filtro por especie y soporte de parámetros `pet` en `[categoria].astro`, ajuste de URLs en `Header.astro`.
+  - `ux-ui`: Claridad lingüística en español neutro y experiencia fluida de filtrado acorde a la expectativa del usuario.
+  - `qa`: Compilación limpia de 48 páginas estáticas en 4.02s y verificación en servidor local.
+  - `docs-seo`: Registro en bitácora de decisiones e historial del proyecto.
 
 ### 2026-11-18 · `phase/02-catalog` · barras de busqueda reactivas en categorias y menu mascotas por etapas
 - **Qué:** Implementación de dos optimizaciones críticas de navegación y descubrimiento:
