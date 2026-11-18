@@ -222,6 +222,32 @@ export async function getStaticPaths() {
         );
       },
     },
+    suplementos: {
+      title: 'Suplementos & Salud Articular',
+      subtitle: 'Glucosamina pura con MSM, condroprotectores y suplementos articulares para vitalidad y movilidad',
+      icon: '💊',
+      filter: (p) => {
+        const name = (p.data.name || '').toLowerCase();
+        const slug = (p.data.slug || '').toLowerCase();
+        return (
+          name.includes('suplemento') ||
+          name.includes('articular') ||
+          name.includes('glucosamina') ||
+          slug.includes('suplemento') ||
+          slug.includes('articular')
+        );
+      },
+    },
+    dermocosmetica: {
+      title: 'Dermocosmética & Cuidado de Piel',
+      subtitle: 'Shampoos hipoalergénicos con extracto de avena, alivio de picazón y cuidado del pelaje',
+      icon: '🧴',
+      filter: (p) => {
+        const name = (p.data.name || '').toLowerCase();
+        const slug = (p.data.slug || '').toLowerCase();
+        return name.includes('shampoo') || slug.includes('shampoo') || slug.includes('avena');
+      },
+    },
     ofertas: {
       title: 'Ofertas Flash & Descuentos',
       subtitle: 'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
@@ -689,9 +715,17 @@ function formatPrice(amount) {
     applyCategoryFilter();
   });
 
-  // Inicializar filtro de mascota desde parámetros URL si existen (ej. ?pet=perros o ?pet=gatos)
+  // Inicializar filtro de mascota y búsqueda desde parámetros URL si existen (ej. ?pet=perros o ?q=glucosamina)
   const urlParams = new URLSearchParams(window.location.search);
   const petParam = urlParams.get('pet') || urlParams.get('mascota') || urlParams.get('filtro');
+  const queryParam = urlParams.get('q') || urlParams.get('search');
+
+  if (queryParam && searchInput) {
+    searchInput.value = queryParam;
+    searchQuery = queryParam;
+    clearBtn?.classList.remove('hidden');
+  }
+
   if (petParam) {
     const targetPetBtn = document.querySelector(`[data-pet-filter="${petParam}"]`);
     if (targetPetBtn) {

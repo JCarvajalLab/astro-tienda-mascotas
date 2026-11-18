@@ -57,7 +57,7 @@ const categoriasMenu = [
         grupo: 'Alimentos & Nutrición',
         items: [
           { label: 'Alimento Seco Premium', desc: 'Salmón, Pollo y Fórmulas 7+', href: '/categoria/alimentos-perro', icon: 'bowl' },
-          { label: 'Snacks Dentales & Premios', desc: 'Higiene bucal y clorofila', href: '/categoria/snacks-premios', icon: 'bone' },
+          { label: 'Snacks Dentales & Premios', desc: 'Higiene bucal y clorofila', href: '/categoria/snacks-premios?pet=perros', icon: 'bone' },
           { label: 'Fórmulas Cachorros', desc: 'Crecimiento y defensas', href: '/categoria/cachorros?pet=perros', icon: 'paw' },
           { label: 'Nutrición Senior 7+', desc: 'Glucosamina y movilidad', href: '/categoria/seniors?pet=perros', icon: 'heart' },
         ],
@@ -65,10 +65,10 @@ const categoriasMenu = [
       {
         grupo: 'Paseo & Confort',
         items: [
-          { label: 'Arneses Antitirones', desc: 'Ergonómicos y reflectantes', href: '/categoria/paseo-seguridad', icon: 'shield' },
+          { label: 'Arneses Antitirones', desc: 'Ergonómicos y reflectantes', href: '/categoria/paseo-seguridad?pet=perros', icon: 'shield' },
           { label: 'Collares de Seguridad', desc: 'Alta visibilidad nocturna', href: '/categoria/paseo-seguridad', icon: 'sparkles' },
           { label: 'Camas Ortopédicas', desc: 'Memory foam viscoelástico', href: '/categoria/camas-confort', icon: 'bed' },
-          { label: 'Shampoos Dermoprotectores', desc: 'Avena y extractos naturales', href: '/categoria/higiene-cuidados', icon: 'drop' },
+          { label: 'Shampoos Dermoprotectores', desc: 'Avena y extractos naturales', href: '/categoria/dermocosmetica', icon: 'drop' },
         ],
       },
     ],
@@ -91,16 +91,16 @@ const categoriasMenu = [
         grupo: 'Nutrición & Premios',
         items: [
           { label: 'Alimento Esterilizados', desc: 'Salud urinaria y peso óptimo', href: '/categoria/alimentos-gato', icon: 'bowl' },
-          { label: 'Snacks Cremosos Churu', desc: 'Palatabilidad y premios', href: '/categoria/snacks-premios', icon: 'heart' },
+          { label: 'Snacks Cremosos Churu', desc: 'Palatabilidad y premios', href: '/categoria/snacks-premios?pet=gatos', icon: 'heart' },
           { label: 'Fórmulas Gatitos', desc: 'Desarrollo y defensas', href: '/categoria/cachorros?pet=gatos', icon: 'paw' },
         ],
       },
       {
         grupo: 'Higiene & Rascadores',
         items: [
-          { label: 'Arena Bentonita Blanca', desc: 'Máxima aglomeración sin polvo', href: '/categoria/higiene-cuidados', icon: 'sparkles' },
+          { label: 'Arena Bentonita Blanca', desc: 'Máxima aglomeración sin polvo', href: '/categoria/higiene-cuidados?q=arena', icon: 'sparkles' },
           { label: 'Torres Rascador Sisal', desc: 'Multinivel para afilar uñas', href: '/categoria/rascadores-camas', icon: 'bed' },
-          { label: 'Fuentes de Agua Eléctricas', desc: 'Hidratación fresca continua', href: '/categoria/smart-pet', icon: 'tech' },
+          { label: 'Fuentes de Agua Eléctricas', desc: 'Hidratación fresca continua', href: '/categoria/hidratacion', icon: 'tech' },
         ],
       },
     ],
@@ -154,14 +154,14 @@ const categoriasMenu = [
       {
         grupo: 'Suplementos & Articular',
         items: [
-          { label: 'Glucosamina Articular', desc: 'Regeneración de cartílago 7+', href: '/categoria/seniors', icon: 'heart' },
-          { label: 'Omega 3 Aceite Salmón', desc: 'Salud de piel y pelaje brillante', href: '/categoria/seniors', icon: 'drop' },
+          { label: 'Glucosamina Articular', desc: 'Regeneración de cartílago 7+', href: '/categoria/suplementos', icon: 'heart' },
+          { label: 'Omega 3 Aceite Salmón', desc: 'Salud de piel y pelaje brillante', href: '/categoria/suplementos', icon: 'drop' },
         ],
       },
       {
         grupo: 'Dermocosmética & Cuidado',
         items: [
-          { label: 'Shampoos Hipoalergénicos', desc: 'Alivio de picazón con avena', href: '/categoria/higiene-cuidados', icon: 'sparkles' },
+          { label: 'Shampoos Hipoalergénicos', desc: 'Alivio de picazón con avena', href: '/categoria/dermocosmetica', icon: 'sparkles' },
           { label: 'Higiene & Cuidado Diario', desc: 'Cepillos y bienestar general', href: '/categoria/higiene-cuidados', icon: 'shield' },
         ],
       },
@@ -186,13 +186,13 @@ const categoriasMenu = [
         grupo: 'Packs de Ahorro',
         items: [
           { label: 'Packs Promocionales', desc: 'Hasta 32% OFF en combos de ahorro', href: '/categoria/packs-promocionales', icon: 'pack' },
-          { label: 'Combos Cachorros', desc: 'Ahorro garantizado de bienvenida', href: '/categoria/packs-promocionales', icon: 'paw' },
+          { label: 'Combos Cachorros', desc: 'Ahorro garantizado de bienvenida', href: '/categoria/packs-promocionales?q=cachorro', icon: 'paw' },
         ],
       },
       {
         grupo: 'Descuentos Especiales',
         items: [
-          { label: 'Alimentos en Oferta', desc: 'Precios rebajados en marcas top', href: '/categoria/alimentos-perro', icon: 'bowl' },
+          { label: 'Alimentos en Oferta', desc: 'Precios rebajados en marcas top', href: '/categoria/ofertas?q=alimento', icon: 'bowl' },
           { label: 'Outlet Semanal', desc: 'Revisa todos los descuentos activos', href: '/categoria/ofertas', icon: 'tag' },
         ],
       },
