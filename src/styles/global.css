@@ -78,6 +78,15 @@ html.dark {
   background-color: var(--color-10-accent-light);
 }
 
+/* Utilidad para ocultar barras de desplazamiento manteniendo el scroll funcional */
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
