@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-17
 - **Fase activa:** `phase/01-design`
 - **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(design): fija navbar warm-biscuit como predeterminado e incorpora variantes de footer en el laboratorio
+- **Último commit relevante:** feat(design): establece footer warm-biscuit como predeterminado en coordinacion con navbar
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Navbar oficial en estilo Cálido Natural / Warm Biscuit (`#FAF7F2` con acentos en crema arena suave, buscador de alto contraste y carrito carmín), Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), Laboratorio de Diseño en vivo en `/preview-navbars` (comparador simultáneo con renderizado en vivo de 4 estilos de Header y 4 estilos de Footer: `warm-biscuit`, `default`, `deep-slate`, `soft-greige`), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada en estilo Cálido Natural / Warm Biscuit (tanto Navbar como Footer en marfil suave `#FAF7F2` con acentos en crema arena, botones de redes sociales en relieve blanco y sellos de medios de pago en arena suave), Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
 - **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.63s con 2 páginas y 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.83s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
 - **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
 
 ## 2. Decisiones importantes
@@ -61,10 +61,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Enfoque de redes en Instagram, Facebook y WhatsApp oficial | Concentrar presencia en los 3 canales de mayor conversión en retail chileno y sustitución del icono genérico por el logotipo vectorial oficial de WhatsApp | Mantener TikTok y YouTube o usar iconos de chat genéricos |
 | 2026-11-17 | Variantes de Navbar y Laboratorio /preview-navbars | Permitir evaluar las 3 opciones cromáticas de cabecera simultáneamente y probarlas en la Home sin alterar la base | Forzar una única cabecera sin test de usuario |
 | 2026-11-17 | Navbar Warm Biscuit como predeterminado y variantes de Footer | Adopción de estética boutique orgánica acogedora en cabecera y creación de 4 alternativas cromáticas para el cierre de página en el laboratorio | Forzar footer oscuro rígido sin explorar simetría cálida |
+| 2026-11-17 | Simetría cálida total: Navbar y Footer en Warm Biscuit | Armonía visual integral de apertura y cierre de página en tonos orgánicos y eliminación de rutas de preview | Dejar footer en tono discordante o mantener páginas de pruebas |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/01-design` · fijacion de footer warm-biscuit y limpieza de rutas de previsualizacion
+- **Qué:** Consolidación de la identidad visual definitiva de la tienda en estilo boutique orgánica y retiro de componentes temporales:
+  1. **Footer Warm Biscuit Oficial:** Se configuró la variante `warm-biscuit` como el valor predeterminado del pie de página (`Footer.astro`), logrando una simetría armónica total con el Navbar (ambos en marfil suave `#FAF7F2`, acentos crema y bordes tenues).
+  2. **Limpieza de Páginas de Prueba:** Se eliminó la ruta temporal `src/pages/preview-navbars.astro`.
+  3. **Limpieza de Layouts y Home:** Se removieron los parámetros de consulta `?navbar` y `?footer` junto con la barra flotante de previsualización en `src/pages/index.astro` y `src/layouts/BaseLayout.astro`, dejando el código limpio, canónico y en producción.
+- **Archivos clave:** `src/components/Footer.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Validación de la simetría cromática cálida (apertura y cierre de página en tonos orgánicos que destacan el producto).
+  - `desarrollo`: Configuración del valor predeterminado en `Footer.astro` y limpieza de código residual.
+  - `qa`: Compilación verificada en 1.83s y ESLint 100% pasando sin errores.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-17 · `phase/01-design` · fijacion de navbar warm-biscuit e implementacion de alternativas de footer
 - **Qué:** Ajustes de identidad visual basados en la preferencia del usuario y ampliación del laboratorio de diseño:
