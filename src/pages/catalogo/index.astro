@@ -58,7 +58,7 @@ function formatPrice(amount) {
         <input
           type="text"
           id="search-input"
-          placeholder="Buscar por nombre, categoría o tipo de mascota (ej. Salmón, Pack, Rascador, Arnés)..."
+          placeholder="Buscar producto por nombre (ej. Salmón, Churu, Arnés, Cama)..."
           class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-800 text-xs sm:text-sm font-medium placeholder-stone-400 focus:bg-white focus:border-rose-500 focus:outline-none transition-all shadow-2xs"
         />
         <button
@@ -281,10 +281,10 @@ function formatPrice(amount) {
         matchesFilter = pet === currentFilter || pet === 'todas';
       }
 
-      // 2. Filtrado por Barra de Búsqueda
+      // 2. Filtrado por Barra de Búsqueda (estrictamente por nombre de producto)
       let matchesSearch = true;
       if (query.length > 0) {
-        matchesSearch = name.includes(query) || category.includes(query) || pet.includes(query);
+        matchesSearch = name.includes(query);
       }
 
       return matchesFilter && matchesSearch;
