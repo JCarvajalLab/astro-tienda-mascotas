@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import RegionModal from '../components/RegionModal.astro';
+
+/**
+ * @typedef {Object} Props
+ * @property {string} [title]
+ * @property {string} [description]
+ * @property {string} [image]
+ */
+
+const {
+  title = 'Market-Pet | Tu Tienda de Mascotas en Chile',
+  description = 'Alimentos premium, accesorios divertidos, juguetes y cuidados especiales para consentir a perros, gatos y otras mascotas en Chile.',
+  image = '/images/og-default.png',
+  navbarVariant = 'warm-biscuit',
+  footerVariant = 'warm-biscuit',
+  hideHeader = false,
+  hideFooter = false,
+} = Astro.props;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || 'https://tienda-mascotas.pages.dev'
+);
+const ogImageURL = new URL(
+  image,
+  Astro.site || 'https://tienda-mascotas.pages.dev'
+);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth bg-canvas text-main">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Redes Sociales (PNG/JPG obligatorio) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Script síncrono anti-FOUC: MODO CLARO por defecto, respeta si el usuario activa modo oscuro -->
+    <script is:inline>
+      (() => {
+        const storedTheme =
+          typeof localStorage !== 'undefined'
+            ? localStorage.getItem('theme')
+            : null;
+        if (storedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-canvas text-main antialiased selection:bg-rose-500 selection:text-white transition-colors duration-200"
+  >
+    <!-- Enlace de salto accesible para lectores de pantalla -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-stone-900 text-white rounded-lg shadow-lg font-medium outline-none ring-2 ring-offset-2 ring-stone-500"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <!-- Encabezado con 2 niveles horizontales -->
+    {!hideHeader && <Header variant={navbarVariant} />}
+
+    <!-- Contenido Principal -->
+    <main id="main-content" class="flex-1 bg-canvas">
+      <slot />
+    </main>
+
+    <!-- Modal de Despacho Región / Comuna de Chile (según Imagen 2 de referencia) -->
+    <RegionModal />
+
+    <!-- Pie de página moderno con redes sociales -->
+    {!hideFooter && <Footer variant={footerVariant} />}
+  </body>
+</html>

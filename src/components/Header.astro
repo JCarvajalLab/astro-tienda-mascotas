@@ -1,0 +1,568 @@
+---
+// Header de Ecommerce con 2 niveles horizontales y soporte para paletas dinámicas
+const categoriasMenu = [
+  {
+    name: 'Perros',
+    icon: '🐶',
+    href: '/#perros',
+    subcategorias: [
+      {
+        grupo: 'Alimentos & Snacks',
+        items: [
+          'Alimento Seco Premium',
+          'Comida Húmeda & Latas',
+          'Snacks Dentales',
+          'Fórmulas Cachorros',
+        ],
+      },
+      {
+        grupo: 'Paseo & Accesorios',
+        items: [
+          'Arneses Antitirones',
+          'Correas Extensibles',
+          'Collares Reflectantes',
+          'Bolsas Biodegradables',
+        ],
+      },
+      {
+        grupo: 'Descanso & Juguetes',
+        items: [
+          'Camas Ortopédicas',
+          'Juguetes Mordedores KONG',
+          'Pelotas & Cuerdas',
+          'Casas de Exterior',
+        ],
+      },
+      {
+        grupo: 'Higiene & Salud',
+        items: [
+          'Shampoos Hipoalergénicos',
+          'Antipulgas & Pipetas',
+          'Cepillos & Cortauñas',
+          'Cuidado Dental',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Gatos',
+    icon: '🐱',
+    href: '/#gatos',
+    subcategorias: [
+      {
+        grupo: 'Alimentos',
+        items: [
+          'Alimento Seco Esterilizados',
+          'Sobres & Paté',
+          'Snacks Cremosos Churu',
+          'Gatitos Kitten',
+        ],
+      },
+      {
+        grupo: 'Higiene & Areneros',
+        items: [
+          'Arena Bentonita Aglomerante',
+          'Arena Tofu Ecológica',
+          'Areneros Cerrados',
+          'Palas & Filtros',
+        ],
+      },
+      {
+        grupo: 'Rascadores & Camas',
+        items: [
+          'Torres Rascador Multinivel',
+          'Hamacas para Ventana',
+          'Camas Cueva Térmicas',
+          'Postes de Sisal',
+        ],
+      },
+      {
+        grupo: 'Juegos & Bienestar',
+        items: [
+          'Cañas & Plumas',
+          'Juguetes con Catnip',
+          'Túneles Plegables',
+          'Fuentes de Agua Eléctricas',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Accesorios',
+    icon: '🎾',
+    href: '/#accesorios',
+    subcategorias: [
+      {
+        grupo: 'Camas & Descanso',
+        items: [
+          'Camas Viscoelásticas',
+          'Mantas Térmicas',
+          'Colchonetas Impermeables',
+        ],
+      },
+      {
+        grupo: 'Juguetes Interactivos',
+        items: [
+          'Dispensadores de Premios',
+          'Puzzles de Inteligencia',
+          'Lanzadores de Pelotas',
+        ],
+      },
+      {
+        grupo: 'Paseo & Ropa',
+        items: [
+          'Capas de Lluvia',
+          'Chalecos de Invierno',
+          'Botines Protectores',
+          'Bandanas',
+        ],
+      },
+      {
+        grupo: 'Comederos & Viaje',
+        items: [
+          'Comederos Lentos Antivoracidad',
+          'Fuentes de Agua',
+          'Mochilas & Transportines',
+          'Cinturones Auto',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Farmacia & Salud',
+    icon: '🩺',
+    href: '/#salud',
+    subcategorias: [
+      {
+        grupo: 'Antiparasitarios',
+        items: [
+          'Pipetas Pulgas & Garrapatas',
+          'Pastillas Masticables',
+          'Collares Antiparasitarios',
+        ],
+      },
+      {
+        grupo: 'Suplementos',
+        items: [
+          'Omega 3 & Aceite de Salmón',
+          'Condroprotectores Articulares',
+          'Probióticos Digestivos',
+        ],
+      },
+      {
+        grupo: 'Cuidado Especial',
+        items: [
+          'Limpiadores Óticos',
+          'Lágrimas Artificiales',
+          'Sprays Cicatrizantes Naturales',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Pequeñas Mascotas',
+    icon: '🐰',
+    href: '/#pequenas-mascotas',
+    subcategorias: [
+      {
+        grupo: 'Conejos & Cobayas',
+        items: [
+          'Heno Festuca & Alfalfa',
+          'Pienso Prensado',
+          'Bebederos de Goteo',
+          'Sustrato de Papel',
+        ],
+      },
+      {
+        grupo: 'Aves & Otros',
+        items: [
+          'Semillas & Mixturas',
+          'Jaulas & Perchas',
+          'Juguetes de Madera',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Ofertas Flash',
+    icon: '🔥',
+    href: '/#ofertas',
+    isOffer: true,
+    subcategorias: [
+      {
+        grupo: 'Promociones Especiales',
+        items: [
+          'Hasta 40% OFF en Alimentos',
+          '2x1 en Snacks Seleccionados',
+          'Liquidación Temporada',
+          'Packs de Ahorro Mensual',
+        ],
+      },
+    ],
+  },
+];
+
+const { variant = 'warm-biscuit', isSticky = true } = Astro.props;
+
+const styles = {
+  default: {
+    header: 'bg-white border-b border-stone-200 text-stone-900',
+    brandName: 'text-stone-900',
+    brandTag: 'text-stone-400',
+    brandLogo: 'bg-brand-primary text-white',
+    searchWrapper: 'bg-stone-100 border border-stone-200/80 focus:border-stone-400 focus:bg-white text-stone-800 placeholder-stone-400',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white',
+    regionBtn: 'border-stone-200 hover:border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-800',
+    regionLabel: 'text-stone-400',
+    loginBtn: 'text-stone-700 hover:bg-stone-100',
+    loginIcon: 'text-stone-500',
+    cartBtn: 'bg-brand-primary text-white',
+    nav: 'bg-stone-50 border-t border-stone-200',
+    navLink: 'text-stone-700 hover:text-brand-primary hover:bg-white',
+    navOffer: 'text-rose-600 hover:bg-rose-50',
+    navArrow: 'text-stone-400 group-hover/menu:text-brand-primary',
+  },
+  'dark-navy': {
+    header: 'bg-slate-900 border-b border-slate-800 text-white shadow-md',
+    brandName: 'text-white',
+    brandTag: 'text-slate-400',
+    brandLogo: 'bg-brand-primary text-white shadow-rose-950/40',
+    searchWrapper: 'bg-white text-stone-900 placeholder-stone-400 border border-slate-700 focus:ring-2 focus:ring-rose-500',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    regionBtn: 'border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:border-slate-600',
+    regionLabel: 'text-slate-400',
+    loginBtn: 'text-slate-200 hover:bg-slate-800 hover:text-white',
+    loginIcon: 'text-slate-400',
+    cartBtn: 'bg-brand-primary text-white shadow-lg hover:bg-rose-700',
+    nav: 'bg-slate-800/95 border-t border-slate-700',
+    navLink: 'text-slate-200 hover:text-white hover:bg-slate-700',
+    navOffer: 'text-rose-400 hover:bg-rose-950/60 font-bold',
+    navArrow: 'text-slate-400 group-hover/menu:text-rose-400',
+  },
+  'warm-biscuit': {
+    header: 'bg-[#FAF7F2] border-b border-[#E8E2D9] text-stone-800 shadow-2xs',
+    brandName: 'text-stone-900',
+    brandTag: 'text-stone-500',
+    brandLogo: 'bg-brand-primary text-white',
+    searchWrapper: 'bg-white border border-[#E0D9CE] text-stone-800 placeholder-stone-400 focus:border-stone-400',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    regionBtn: 'border-[#E0D9CE] bg-white/90 text-stone-800 hover:bg-white hover:border-[#D0C7B8]',
+    regionLabel: 'text-stone-400',
+    loginBtn: 'text-stone-700 hover:bg-[#EFE9DF]',
+    loginIcon: 'text-stone-500',
+    cartBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    nav: 'bg-[#F1ECE3] border-t border-[#E5DEC7]/80',
+    navLink: 'text-stone-700 hover:text-brand-primary hover:bg-white/80',
+    navOffer: 'text-rose-600 hover:bg-rose-100/70 font-bold',
+    navArrow: 'text-stone-400 group-hover/menu:text-brand-primary',
+  },
+  'brand-carmin': {
+    header: 'bg-rose-600 border-b border-rose-700 text-white shadow-md',
+    brandName: 'text-white',
+    brandTag: 'text-rose-100',
+    brandLogo: 'bg-white text-rose-600 shadow-md',
+    searchWrapper: 'bg-white text-stone-900 placeholder-stone-400 border border-rose-500 focus:ring-2 focus:ring-stone-900',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-stone-900 text-white hover:bg-black',
+    regionBtn: 'border-rose-500/70 bg-rose-700/80 text-white hover:bg-rose-700 hover:border-rose-400',
+    regionLabel: 'text-rose-200',
+    loginBtn: 'text-white hover:bg-rose-700',
+    loginIcon: 'text-rose-200',
+    cartBtn: 'bg-stone-900 text-white shadow-lg hover:bg-black',
+    nav: 'bg-white border-t border-rose-100 shadow-xs',
+    navLink: 'text-stone-700 hover:text-rose-600 hover:bg-stone-50',
+    navOffer: 'text-rose-600 hover:bg-rose-50 font-bold',
+    navArrow: 'text-stone-400 group-hover/menu:text-rose-600',
+  },
+};
+
+const currentStyle = styles[variant] || styles.default;
+---
+
+<header
+  class={`w-full ${isSticky ? 'sticky top-0' : 'relative'} z-40 transition-colors ${currentStyle.header}`}
+>
+  <!-- NIVEL 1: Fila superior (Logo / Buscador / Selector Modal Comuna Chile / Iniciar Sesión / Carrito) -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between gap-3 sm:gap-6 py-3 sm:py-4">
+      <!-- 1. Logo & Nombre -->
+      <a
+        href="/"
+        class="flex items-center gap-2.5 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-lg"
+      >
+        <span
+          class={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-all ${currentStyle.brandLogo}`}
+        >
+          <svg
+            class="w-6 h-6 fill-current"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-4.5 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 1c-2.8 0-5 1.8-5 4.5 0 1.9 1.8 3.5 5 3.5s5-1.6 5-3.5c0-2.7-2.2-4.5-5-4.5Z"
+            ></path>
+          </svg>
+        </span>
+        <div class="flex flex-col">
+          <span
+            class={`font-extrabold text-xl sm:text-2xl tracking-tight leading-none ${currentStyle.brandName}`}
+          >
+            Market<span class={variant === 'brand-carmin' ? 'text-amber-300' : 'text-brand-primary'}>-Pet</span>
+          </span>
+          <span
+            class={`text-[10px] uppercase font-bold tracking-widest mt-0.5 ${currentStyle.brandTag}`}
+          >
+            Tu Tienda de Mascotas
+          </span>
+        </div>
+      </a>
+
+      <!-- 2. Buscador de productos central -->
+      <div class="hidden md:flex flex-1 max-w-xl mx-2">
+        <form class="relative w-full" onsubmit="event.preventDefault();">
+          <label for="site-search" class="sr-only"
+            >Buscar alimentos, juguetes o accesorios</label
+          >
+          <input
+            type="search"
+            id="site-search"
+            placeholder="Buscar alimento, snacks, rascadores, camas..."
+            class={`w-full pl-11 pr-24 py-2.5 rounded-full text-sm focus:outline-none transition-all ${currentStyle.searchWrapper}`}
+          />
+          <div
+            class={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none ${currentStyle.searchIcon}`}
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              ></path>
+            </svg>
+          </div>
+          <button
+            type="submit"
+            class={`absolute inset-y-1 right-1 px-4 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 shadow-xs ${currentStyle.searchBtn}`}
+          >
+            Buscar
+          </button>
+        </form>
+      </div>
+
+      <!-- Acciones de cabecera -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- 3. Selección de Región / Comuna de Chile (Abre Modal estilo Imagen 2) -->
+        <button
+          type="button"
+          id="header-open-region-btn"
+          onclick="if(window.openRegionModal) window.openRegionModal();"
+          class={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.regionBtn}`}
+          title="Escoger región y comuna de despacho"
+        >
+          <span class="text-base text-brand-primary">📍</span>
+          <div class="flex flex-col">
+            <span
+              class={`text-[10px] uppercase font-bold leading-none ${currentStyle.regionLabel}`}
+              >Enviar a</span
+            >
+            <span
+              id="selected-region-text"
+              class="text-xs font-bold truncate max-w-[120px] sm:max-w-[150px]"
+            >
+              Providencia
+            </span>
+          </div>
+          <svg
+            class="w-3.5 h-3.5 opacity-70 transition-colors"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19 9-7 7-7-7"></path>
+          </svg>
+        </button>
+
+        <!-- 4. Iniciar sesión / Mi cuenta -->
+        <a
+          href="/#login"
+          class={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.loginBtn}`}
+        >
+          <svg
+            class={`w-5 h-5 ${currentStyle.loginIcon}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+            ></path>
+          </svg>
+          <span class="hidden xl:inline">Iniciar sesión</span>
+        </a>
+
+        <!-- 5. Carrito de compras -->
+        <button
+          id="cart-button"
+          type="button"
+          aria-label="Ver carrito de compras"
+          class={`relative flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.cartBtn}`}
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          <span class="hidden sm:inline">Carrito</span>
+          <span
+            id="cart-count-badge"
+            class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-extrabold leading-none text-stone-900 bg-white rounded-full shadow-xs"
+          >
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Buscador en móvil -->
+    <div class="pb-3 md:hidden">
+      <form class="relative w-full" onsubmit="event.preventDefault();">
+        <label for="site-search-mobile" class="sr-only">Buscar productos</label>
+        <input
+          type="search"
+          id="site-search-mobile"
+          placeholder="Buscar alimento, juguetes, accesorios..."
+          class={`w-full pl-10 pr-20 py-2 rounded-xl text-xs focus:outline-none transition-all ${currentStyle.searchWrapper}`}
+        />
+        <div
+          class={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none ${currentStyle.searchIcon}`}
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            ></path>
+          </svg>
+        </div>
+        <button
+          type="submit"
+          class={`absolute inset-y-1 right-1 px-3 rounded-lg text-[11px] font-semibold ${currentStyle.searchBtn}`}
+        >
+          Buscar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NIVEL 2: Fila inferior (Categorías principales con Mega-Menú desplegable al hover) -->
+  <nav
+    class={`transition-colors ${currentStyle.nav}`}
+    aria-label="Categorías de productos"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ul
+        class="flex items-center gap-1 sm:gap-2 overflow-x-auto py-1 scrollbar-none"
+      >
+        {
+          categoriasMenu.map((cat) => (
+            <li class="relative group/menu shrink-0">
+              <a
+                href={cat.href}
+                class={`flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${
+                  cat.isOffer
+                    ? currentStyle.navOffer
+                    : currentStyle.navLink
+                }`}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.name}</span>
+                <svg
+                  class={`w-3 h-3 transition-transform duration-200 group-hover/menu:rotate-180 ${currentStyle.navArrow}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m19 9-7 7-7-7"
+                  />
+                </svg>
+              </a>
+
+              <div class="invisible group-hover/menu:visible opacity-0 group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/menu:translate-y-0 absolute top-full left-0 w-80 sm:w-96 md:w-[480px] bg-white rounded-2xl shadow-2xl border border-stone-200 p-5 z-50">
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-stone-100">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">{cat.icon}</span>
+                    <span class="font-bold text-sm text-stone-900">
+                      Todo en {cat.name}
+                    </span>
+                  </div>
+                  <a
+                    href={cat.href}
+                    class="text-xs font-semibold text-brand-primary hover:underline"
+                  >
+                    Ver todo →
+                  </a>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  {cat.subcategorias.map((sub) => (
+                    <div class="space-y-1.5">
+                      <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand-primary">
+                        {sub.grupo}
+                      </h4>
+                      <ul class="space-y-1">
+                        {sub.items.map((item) => (
+                          <li>
+                            <a
+                              href={cat.href}
+                              class="text-xs text-stone-600 hover:text-stone-900 hover:translate-x-0.5 transition-all block py-0.5"
+                            >
+                              {item}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+</header>

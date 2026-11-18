@@ -1,0 +1,340 @@
+---
+// Modal para selección de Región y Comuna de Chile (según diseño de referencia)
+const regionesYComunas = [
+  {
+    region: 'Región Metropolitana de Santiago',
+    comunas: [
+      'Providencia',
+      'Las Condes',
+      'Santiago Centro',
+      'Ñuñoa',
+      'Vitacura',
+      'Lo Barnechea',
+      'La Florida',
+      'Maipú',
+      'Puente Alto',
+      'San Miguel',
+      'Macul',
+      'Peñalolén',
+      'La Reina',
+      'Huechuraba',
+      'Quilicura',
+      'Estación Central',
+      'San Bernardo',
+    ],
+  },
+  {
+    region: 'Valparaíso',
+    comunas: [
+      'Viña del Mar',
+      'Valparaíso',
+      'Concón',
+      'Quilpué',
+      'Villa Alemana',
+      'Quillota',
+      'San Antonio',
+    ],
+  },
+  {
+    region: 'Biobío',
+    comunas: [
+      'Concepción',
+      'San Pedro de la Paz',
+      'Talcahuano',
+      'Chiguayante',
+      'Los Ángeles',
+      'Coronel',
+    ],
+  },
+  {
+    region: 'Coquimbo',
+    comunas: ['La Serena', 'Coquimbo', 'Ovalle', 'Illapel'],
+  },
+  {
+    region: 'Antofagasta',
+    comunas: ['Antofagasta', 'Calama', 'Mejillones'],
+  },
+  {
+    region: 'La Araucanía',
+    comunas: ['Temuco', 'Padre Las Casas', 'Villarrica', 'Pucón'],
+  },
+  {
+    region: 'Los Lagos',
+    comunas: ['Puerto Montt', 'Puerto Varas', 'Osorno', 'Castro'],
+  },
+  {
+    region: 'O’Higgins',
+    comunas: ['Rancagua', 'Machalí', 'San Fernando'],
+  },
+  {
+    region: 'Maule',
+    comunas: ['Talca', 'Curicó', 'Linares'],
+  },
+];
+---
+
+<!-- Backdrop y contenedor del modal -->
+<div
+  id="region-modal"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs transition-opacity duration-200"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <!-- Card del Modal -->
+  <div
+    class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-stone-100 transform transition-all animate-in fade-in zoom-in-95 duration-150"
+  >
+    <!-- Botón Cerrar (X) -->
+    <button
+      type="button"
+      id="modal-close-btn"
+      aria-label="Cerrar ventana"
+      class="absolute top-5 right-5 text-stone-400 hover:text-stone-700 transition-colors p-1 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <!-- Encabezado del Modal -->
+    <div class="pr-8 mb-6">
+      <h3
+        id="modal-title"
+        class="text-2xl font-black tracking-tight text-stone-900 leading-snug"
+      >
+        Escoge dónde recibir tus compras
+      </h3>
+      <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+        Así puedes ver el mejor precio y tiempo de envío, también promociones y
+        novedades de tu tienda más cercana.
+      </p>
+    </div>
+
+    <!-- Formulario de selección -->
+    <form id="region-form" class="space-y-5" onsubmit="event.preventDefault();">
+      <!-- Selector de Región -->
+      <div>
+        <label
+          for="select-region"
+          class="block text-sm font-bold text-stone-900 mb-1.5"
+        >
+          Región <span class="text-red-500">*</span>
+        </label>
+        <div class="relative">
+          <select
+            id="select-region"
+            required
+            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 bg-stone-50/60 text-stone-800 text-sm font-medium focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer"
+          >
+            <option value="" disabled selected>Selecciona una región</option>
+            {
+              regionesYComunas.map((item) => (
+                <option value={item.region}>{item.region}</option>
+              ))
+            }
+          </select>
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m19 9-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selector de Comuna -->
+      <div>
+        <label
+          for="select-comuna"
+          class="block text-sm font-bold text-stone-900 mb-1.5"
+        >
+          Comuna <span class="text-red-500">*</span>
+        </label>
+        <div class="relative">
+          <select
+            id="select-comuna"
+            required
+            disabled
+            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 bg-stone-50/60 text-stone-800 text-sm font-medium focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer disabled:bg-stone-100 disabled:text-stone-400 disabled:cursor-not-allowed"
+          >
+            <option value="" disabled selected
+              >Selecciona una región primero</option
+            >
+          </select>
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m19 9-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción (Cancelar / Guardar) -->
+      <div
+        class="pt-4 flex items-center justify-end gap-3 border-t border-stone-100"
+      >
+        <button
+          type="button"
+          id="modal-cancel-btn"
+          class="px-7 py-3 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-sm transition-colors cursor-pointer"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          id="modal-save-btn"
+          disabled
+          class="px-8 py-3 rounded-full bg-accent text-white font-bold text-sm shadow-md transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Datos y lógica cliente para modal interactivo -->
+<script define:vars={{ regionesYComunas }}>
+  const modal = document.getElementById('region-modal');
+  const closeBtn = document.getElementById('modal-close-btn');
+  const cancelBtn = document.getElementById('modal-cancel-btn');
+  const saveBtn = document.getElementById('modal-save-btn');
+  const selectRegion = document.getElementById('select-region');
+  const selectComuna = document.getElementById('select-comuna');
+  const headerRegionText = document.getElementById('selected-region-text');
+
+  // Abrir modal desde cualquier botón de selección de región
+  window.openRegionModal = function () {
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+  };
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+  // Cerrar al pulsar escape o clic fuera
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  }
+
+  // Dinámica: cambio de región actualiza comunas
+  if (selectRegion && selectComuna) {
+    selectRegion.addEventListener('change', () => {
+      const selectedRegName = selectRegion.value;
+      const found = regionesYComunas.find((r) => r.region === selectedRegName);
+
+      // Limpiar opciones anteriores
+      selectComuna.innerHTML =
+        '<option value="" disabled selected>Selecciona tu comuna</option>';
+
+      if (found && found.comunas.length > 0) {
+        found.comunas.forEach((com) => {
+          const opt = document.createElement('option');
+          opt.value = com;
+          opt.textContent = com;
+          selectComuna.appendChild(opt);
+        });
+        selectComuna.disabled = false;
+      } else {
+        selectComuna.disabled = true;
+      }
+      checkSaveState();
+    });
+
+    selectComuna.addEventListener('change', checkSaveState);
+  }
+
+  function checkSaveState() {
+    if (saveBtn && selectRegion && selectComuna) {
+      const isValid = Boolean(selectRegion.value && selectComuna.value);
+      saveBtn.disabled = !isValid;
+    }
+  }
+
+  // Guardar en localStorage
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      if (!selectRegion || !selectComuna) return;
+      const region = selectRegion.value;
+      const comuna = selectComuna.value;
+
+      if (region && comuna) {
+        const payload = { region, comuna };
+        localStorage.setItem('despacho_chile', JSON.stringify(payload));
+        localStorage.setItem(
+          'user_comuna',
+          `${region.replace('Región Metropolitana de Santiago', 'Santiago')} - ${comuna}`
+        );
+
+        if (headerRegionText) {
+          headerRegionText.textContent = `${comuna}`;
+        }
+
+        closeModal();
+
+        // Feedback toast simple
+        alert(`📍 Dirección de despacho guardada: ${comuna}, ${region}`);
+      }
+    });
+  }
+
+  // Recuperar al cargar la página
+  try {
+    const saved = localStorage.getItem('despacho_chile');
+    if (saved && headerRegionText) {
+      const parsed = JSON.parse(saved);
+      if (parsed.comuna) {
+        headerRegionText.textContent = `${parsed.comuna}`;
+      }
+    }
+  } catch (e) {
+    console.error('Error al recuperar comuna guardada', e);
+  }
+</script>

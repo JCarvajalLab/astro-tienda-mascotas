@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
+---
+
+<section
+  id="club-newsletter"
+  class="w-full mt-10 sm:mt-16 mb-0 bg-linear-to-r from-rose-600 via-rose-700 to-stone-950 text-white overflow-hidden relative"
+  aria-label="Club Market-Pet Descuento"
+>
+  {/* Fondos decorativos con resplandor sutil */}
+  <div
+    class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-rose-400/20 rounded-full blur-3xl pointer-events-none"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-1/4 w-[450px] h-[450px] bg-amber-400/15 rounded-full blur-3xl pointer-events-none"
+  >
+  </div>
+
+  <div
+    class="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-12 sm:py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+  >
+    {/* Columna Izquierda: Información, Beneficios y Formulario (7 columnas en desktop) */}
+    <div class="lg:col-span-7 space-y-5 sm:space-y-6">
+      <div
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider backdrop-blur-md border border-white/25"
+      >
+        <span>🐾</span>
+        <span>COMUNIDAD MARKET-PET</span>
+      </div>
+
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight"
+      >
+        Únete a nuestra comunidad de amantes de las mascotas
+      </h2>
+
+      <p
+        class="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed max-w-2xl"
+      >
+        Recibe promociones exclusivas,{' '}
+        <span class="text-amber-300 font-bold underline decoration-amber-300/50">
+          descuentos de hasta $5.000*
+        </span>{' '}
+        y consejos prácticos de veterinarios certificados para consentir a tus
+        peluditos.
+      </p>
+
+      {/* 3 Micro-beneficios con checks */}
+      <div class="flex flex-wrap gap-2.5 pt-1">
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
+        >
+          <span class="text-amber-300 font-bold">🎁</span> Cupón de $5.000 de regalo*
+        </span>
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
+        >
+          <span class="text-amber-300 font-bold">⚡</span> Promociones y descuentos flash
+        </span>
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
+        >
+          <span class="text-amber-300 font-bold">🩺</span> Consejos veterinarios expertos
+        </span>
+      </div>
+
+      {/* Formulario de Suscripción */}
+      <form
+        class="pt-3 space-y-2.5 max-w-xl"
+        onsubmit="event.preventDefault(); alert('🎉 ¡Felicidades! Te has unido a la comunidad Market-Pet. Hemos enviado tu cupón de $5.000 a tu correo (válido en compras sobre $40.000).');"
+      >
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <div class="relative flex-1">
+            <label for="newsletter-email-input" class="sr-only"
+              >Correo electrónico</label
+            >
+            <div
+              class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400"
+            >
+              <svg
+                class="w-5 h-5 fill-none stroke-current stroke-2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="email"
+              id="newsletter-email-input"
+              required
+              placeholder="tu-correo@ejemplo.cl"
+              class="w-full pl-11 pr-4 py-3.5 sm:py-4 rounded-xl bg-white text-stone-900 placeholder-stone-400 text-sm sm:text-base font-medium focus:outline-none focus:ring-3 focus:ring-amber-300 shadow-inner"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 text-sm sm:text-base font-black shadow-lg hover:shadow-xl hover:scale-102 transition-all cursor-pointer whitespace-nowrap"
+          >
+            ¡Unirme y recibir mi cupón! →
+          </button>
+        </div>
+
+        {/* Letra pequeña y disclaimer de privacidad */}
+        <div class="space-y-1 text-white/75 text-[11px] sm:text-xs leading-relaxed">
+          <p>
+            *Cupón de $5.000 aplicable en tu primera compra online por compras mayores a $40.000.
+          </p>
+          <p class="flex items-center gap-1.5 text-white/65">
+            <span>🔒</span>
+            <span>Cero spam. Respetamos tu privacidad y puedes cancelar en cualquier momento con un clic.</span>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    {/* Columna Derecha: Fotografía Limpia de Mascotas (5 columnas en desktop, sin badge encima) */}
+    <div class="lg:col-span-5 flex justify-center lg:justify-end">
+      <div
+        class="w-full max-w-sm sm:max-w-md lg:max-w-lg rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 transform hover:scale-102 transition-transform duration-300"
+      >
+        <Image
+          src={imgClubBienvenida}
+          alt="Perro labrador y gato doméstico amigables sonriendo para dar la bienvenida al Club Market-Pet"
+          width={560}
+          height={600}
+          loading="lazy"
+          class="w-full h-auto object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

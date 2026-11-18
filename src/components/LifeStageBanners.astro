@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import imgCachorros from '../assets/banners/banner-etapa-cachorros.jpg';
+import imgAdultos from '../assets/banners/banner-etapa-adultos.jpg';
+import imgSeniors from '../assets/banners/banner-etapa-seniors.jpg';
+
+const stages = [
+  {
+    id: 'cachorros-gatitos',
+    title: 'Para cachorritos y gatitos',
+    highlight: 'Especial Cachorros y Gatitos',
+    description:
+      'Pañales, juguetes de apego, leche maternizada y accesorios ideales para sus primeros pasos.',
+    image: imgCachorros,
+    imageAlt: 'Banner Especial Cachorros y Gatitos con cachorro y gatito',
+    href: '#ofertas',
+  },
+  {
+    id: 'adultos',
+    title: 'Para compañeros adultos',
+    highlight: 'Especial Adultos',
+    description:
+      'Alimento balanceado, antiparasitarios, arneses de paseo y bienestar diario para su mejor momento.',
+    image: imgAdultos,
+    imageAlt: 'Banner Especial Adultos con perro y gato adulto',
+    href: '#novedades',
+  },
+  {
+    id: 'seniors',
+    title: 'Para tu fiel amigo senior',
+    highlight: 'Especial Seniors',
+    description:
+      'Suplementos articulares, camas ortopédicas y nutrición adaptada para su máximo confort.',
+    image: imgSeniors,
+    imageAlt: 'Banner Especial Seniors con perro senior con pañuelo y gato',
+    href: '#ofertas',
+  },
+];
+---
+
+<section id="etapas" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-brand-primary text-xs font-bold uppercase tracking-wide border border-rose-200 mb-2">
+        🐾 ETAPAS DE VIDA
+      </div>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight">
+        Especiales para cada etapa de su vida
+      </h2>
+      <p class="text-xs sm:text-sm text-stone-600 mt-1">
+        Encuentra nutrición y accesorios diseñados a la medida de su edad y energía
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7">
+    {
+      stages.map((stage) => (
+        <a
+          href={stage.href}
+          data-stage={stage.id}
+          class="group block cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-2xl"
+        >
+          {/* Contenedor del banner gráfico */}
+          <div class="relative overflow-hidden rounded-2xl shadow-xs group-hover:shadow-md group-hover:-translate-y-1 transition-all duration-300 border border-stone-100">
+            <Image
+              src={stage.image}
+              alt={stage.imageAlt}
+              width={700}
+              height={300}
+              loading="lazy"
+              class="w-full h-auto object-cover group-hover:scale-102 transition-transform duration-300"
+            />
+          </div>
+
+          {/* Textos descriptivos debajo del banner */}
+          <div class="pt-3 px-1">
+            <h3 class="text-sm sm:text-base font-bold text-stone-900 group-hover:text-brand-primary transition-colors flex items-center justify-between">
+              <span>{stage.title}</span>
+              <span class="text-brand-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-xs font-bold">
+                Ver productos &rarr;
+              </span>
+            </h3>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              {stage.description}
+            </p>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>

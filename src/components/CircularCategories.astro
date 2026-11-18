@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import imgPacks from '../assets/categories/cat-packs.jpg';
+import imgPerro from '../assets/categories/cat-perro.jpg';
+import imgGato from '../assets/categories/cat-gato.jpg';
+import imgJuguetesPerro from '../assets/categories/cat-juguetes-perro.jpg';
+import imgRascadoresGato from '../assets/categories/cat-rascadores-gato.jpg';
+
+/**
+ * Categorías Circulares Modernas
+ * Con fotografías de productos de alta resolución generadas por IA,
+ * círculos de color inspirados en tiendas de retail y sin textos innecesarios.
+ */
+const categoriasCirculares = [
+  {
+    id: 'packs',
+    title: 'Packs Promocionales',
+    href: '#ofertas',
+    image: imgPacks,
+    imageAlt: 'Pack promocional de snacks y juguetes con descuento',
+    bgBorder: 'hover:border-rose-500 hover:ring-rose-200',
+    badge: 'SALE',
+    badgeColor: 'bg-rose-600 text-white',
+  },
+  {
+    id: 'perros',
+    title: 'Alimento Para Perro',
+    href: '#perros',
+    image: imgPerro,
+    imageAlt: 'Saco de alimento seco premium para perros',
+    bgBorder: 'hover:border-sky-500 hover:ring-sky-200',
+    badge: 'PERROS',
+    badgeColor: 'bg-sky-600 text-white',
+  },
+  {
+    id: 'gatos',
+    title: 'Alimento Para Gato',
+    href: '#gatos',
+    image: imgGato,
+    imageAlt: 'Bolsa de alimento gourmet para gatos',
+    bgBorder: 'hover:border-amber-500 hover:ring-amber-200',
+    badge: 'GATOS',
+    badgeColor: 'bg-amber-500 text-white',
+  },
+  {
+    id: 'juguetes-perro',
+    title: 'Juguetes para Perro',
+    href: '#accesorios',
+    image: imgJuguetesPerro,
+    imageAlt: 'Pelota de goma y cuerda trenzada para perros',
+    bgBorder: 'hover:border-emerald-500 hover:ring-emerald-200',
+    badge: 'JUEGO',
+    badgeColor: 'bg-emerald-600 text-white',
+  },
+  {
+    id: 'rascadores-gato',
+    title: 'Rascadores & Confort',
+    href: '#accesorios',
+    image: imgRascadoresGato,
+    imageAlt: 'Torre rascador moderna multinivel para gatos',
+    bgBorder: 'hover:border-purple-500 hover:ring-purple-200',
+    badge: 'CONFORT',
+    badgeColor: 'bg-purple-600 text-white',
+  },
+];
+---
+
+<section
+  class="py-10 sm:py-14"
+  aria-label="Categorías Populares"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8 sm:mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+        Categorías Populares
+      </h2>
+    </div>
+
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 justify-items-center"
+    >
+      {
+        categoriasCirculares.map((item) => (
+          <a
+            href={item.href}
+            class="flex flex-col items-center group text-center cursor-pointer"
+          >
+            <div
+              class={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-stone-50 border-3 border-stone-200 shadow-md group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:ring-4 ${item.bgBorder}`}
+            >
+              <Image
+                src={item.image}
+                alt={item.imageAlt}
+                width={200}
+                height={200}
+                format="webp"
+                loading="lazy"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+              />
+              <span
+                class={`absolute top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider shadow-xs ${item.badgeColor}`}
+              >
+                {item.badge}
+              </span>
+            </div>
+
+            <h3 class="text-xs sm:text-sm font-black text-stone-800 mt-3 group-hover:text-brand-primary transition-colors leading-snug max-w-[140px]">
+              {item.title}
+            </h3>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

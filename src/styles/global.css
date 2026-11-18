@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+/* Desacoplar dark: de las preferencias del sistema operativo */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ========================================================
+   PALETA OFICIAL (REGLA 60 - 30 - 10): "RETAIL CARMÍN"
+   ======================================================== */
+
+:root {
+  /* 60% Dominante (Lienzo & Superficie) */
+  --color-60-bg: #FAF7F2; /* Lienzo cálido Warm Biscuit ultra-suave y orgánico */
+  --color-60-surface: #ffffff; /* Blanco puro en tarjetas y modales para relieve tridimensional */
+
+  /* 30% Estructural (Contraste, Textos & Bordes) */
+  --color-30-text: #0f172a; /* Pizarra Grafito para lectura nítida */
+  --color-30-muted: #64748b; /* Gris slate para textos secundarios */
+  --color-30-border: #e2e8f0; /* Bordes suaves */
+  --color-30-subtle: #f1f5f9; /* Contenedores de categorías e inputs */
+
+  /* 10% Acento de Conversión */
+  --color-10-accent: #e11d48; /* Rojo Carmín Retail de alta conversión */
+  --color-10-accent-hover: #be123c;
+  --color-10-accent-light: #ffe4e6;
+}
+
+/* Modo Nocturno (Solo se activa si el usuario pulsa el botón del sol/luna) */
+html.dark {
+  --color-60-bg: #090d16; /* Fondo nocturno profundo */
+  --color-60-surface: #0f172a; /* Tarjetas y contenedores oscuros */
+  --color-30-text: #f8fafc; /* Texto blanco cálido */
+  --color-30-muted: #94a3b8; /* Texto secundario gris claro */
+  --color-30-border: #1e293b; /* Bordes oscuros suaves */
+  --color-30-subtle: #1e293b; /* Fila de categorías oscura */
+  --color-10-accent: #f43f5e; /* Rojo frambuesa brillante para alto contraste en oscuro */
+  --color-10-accent-hover: #e11d48;
+  --color-10-accent-light: #4c0519;
+}
+
+/* Clases utilitarias directas de la regla 60-30-10 */
+.bg-canvas {
+  background-color: var(--color-60-bg);
+}
+.bg-surface {
+  background-color: var(--color-60-surface);
+}
+.text-main {
+  color: var(--color-30-text);
+}
+.text-muted {
+  color: var(--color-30-muted);
+}
+.border-subtle {
+  border-color: var(--color-30-border);
+}
+.bg-subtle {
+  background-color: var(--color-30-subtle);
+}
+
+.bg-accent,
+.bg-brand-primary {
+  background-color: var(--color-10-accent);
+}
+.bg-accent:hover,
+.bg-brand-primary:hover {
+  background-color: var(--color-10-accent-hover);
+}
+.text-accent,
+.text-brand-primary {
+  color: var(--color-10-accent);
+}
+.border-accent,
+.border-brand-primary {
+  border-color: var(--color-10-accent);
+}
+.bg-accent-light,
+.bg-brand-light {
+  background-color: var(--color-10-accent-light);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-60-bg);
+    color: var(--color-30-text);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      sans-serif;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
