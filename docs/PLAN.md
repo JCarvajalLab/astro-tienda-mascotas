@@ -264,16 +264,16 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Configuración de SEO base (`site` en `astro.config.mjs`, robots.txt, metadatos Open Graph en PNG de 1200x630 px).
   - [x] Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
   - [x] Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
-- [/] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
+- [x] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
   - [x] Modelado de Content Collections con validación de esquemas Zod en `src/content.config.js`.
   - [x] Colección inicial de productos en formato JSON (`src/content/productos/`) estructurados por mascota (Perros, Gatos, Pequeñas Mascotas) y categorías.
   - [x] Integración de imágenes optimizadas en `src/assets/` con `astro:assets` (WebP/AVIF, dimensiones explícitas, lazy loading).
   - [x] Página de detalle de producto (`/producto/[slug]`) con galería/imagen principal, selector de cantidad, especificaciones y botón de carrito.
   - [x] Conexión de enlaces de la Home (sliders de ofertas y novedades) hacia las rutas reales de producto.
   - [x] Incorporación de página 404 animada (`src/pages/404.astro`) adaptada a la temática de mascotas.
-  - [ ] Página de catálogo general (`/catalogo`) con selector de filtros (categorías, precio, tipo de mascota), ordenamiento y breadcrumbs.
-  - [ ] Vistas dinámicas por categoría (`/categoria/[slug]`) con listado de productos y conteo.
-  - [ ] Conexión de categorías circulares y subcategorías del megamenú del Header hacia las rutas reales `/categoria/[slug]`.
+  - [x] Página de catálogo general (`/catalogo`) con selector de filtros (categorías, precio, tipo de mascota), ordenamiento y breadcrumbs.
+  - [x] Vistas dinámicas por categoría (`/categoria/[slug]`) con listado de productos y conteo.
+  - [x] Conexión de categorías circulares y subcategorías del megamenú del Header hacia las rutas reales `/categoria/[slug]`.
 - [ ] **Fase 3: Carrito Interactivo & Modo Nocturno** (`phase/03-cart`): 
   - [ ] Activación y calibración visual del modo nocturno (botón toggle sol/luna en Header) sobre el catálogo, fichas de producto y componentes globales.
   - [ ] Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).

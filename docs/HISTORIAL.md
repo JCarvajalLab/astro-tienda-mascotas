@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(catalog): conecta coleccion a la home e implementa pagina dinamica de detalle de producto
+- **Último commit relevante:** feat(catalog): implementa catalogo general y rutas dinamicas por categoria con filtros interactivos
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y 10 productos estructurados en JSON, **conexión dinámica de la portada con `getCollection('productos')`**, **tarjetas de producto enlazadas a sus páginas de detalle**, **páginas dinámicas de producto (`/producto/[slug]`)** con galería principal, breadcrumbs, control interactivo de cantidad, sellos de despacho chileno, especificaciones técnicas y slider de productos recomendados, y **página 404 personalizada con ilustración SVG animada de fantasmas** adaptada al ecosistema de mascotas (`/404`).
-- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): catálogo general con filtros (`/catalogo`) y vistas por categoría (`/categoria/[slug]`).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 12 páginas estáticas en 2.93s con 36 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Crear la página de catálogo general (`/catalogo`) y las rutas dinámicas por categoría (`/categoria/[slug]`).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y 10 productos estructurados en JSON, conexión dinámica de la portada con `getCollection('productos')`, tarjetas de producto enlazadas a sus páginas de detalle, páginas dinámicas de producto (`/producto/[slug]`), **Catálogo general completo (`/catalogo`) con filtrado interactivo por tipo de mascota y ordenamiento por precio/valoración en JavaScript nativo**, **11 rutas dinámicas por categoría (`/categoria/[categoria]`) con cabecera visual y conteo de productos**, categorías circulares y megamenú del Header enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué está en progreso:** Cierre de Fase 2 (Catálogo & Contenido) y preparación de la Fase 3 (Carrito Interactivo & Modo Nocturno).
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 24 páginas estáticas en 2.77s con 46 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar con el usuario el catálogo y las páginas de categoría en `http://localhost:4321/`, cerrar la Fase 2 en `docs/PLAN.md` y dar inicio a la Fase 3.
 
 ## 2. Decisiones importantes
 
@@ -68,10 +68,25 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Content Collections con Astro 5 loader glob y JSON | Modelado tipado de productos con Zod y schema({ image }) para validación de datos y optimización de imágenes locales con astro:assets | Cargar datos en arrays dentro de componentes .astro |
 | 2026-11-18 | Página 404 animada de fantasmas unificada | Reutilizar la ilustración SVG animada con CSS de los proyectos anteriores adaptada a la estética retail cálida de Market-Pet | Mensaje 404 estático genérico del navegador |
 | 2026-11-18 | Páginas de detalle con getStaticPaths y Content Layer | Renderizado dinámico de fichas de producto (/producto/[slug]) con selector de cantidad, breadcrumbs, especificaciones y productos relacionados | Páginas de producto manuales o vistas en modales |
+| 2026-11-18 | Modo nocturno programado al inicio de Fase 3 | Probar la alternancia de tema claro/oscuro sobre todo el catálogo y carrito consolidado | Forzar modo oscuro anticipadamente sin catálogo o posponerlo a la fase final |
+| 2026-11-18 | Vistas dinámicas de catálogo y categorías con filtros JS nativo | Navegación comercial fluida por especie (perros, gatos) y categoría sin recargas pesadas | Catálogo rígido plano sin filtros ni páginas por categoría |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de catalogo general y rutas dinamicas por categoria
+- **Qué:** Implementación del hito final de la Fase 2 (Catálogo & Contenido):
+  1. **Catálogo General con Filtros Interactivos (`src/pages/catalogo/index.astro`):** Vista de catálogo completa con selector de filtros por especie (Todos, Perros, Gatos, Ofertas) y ordenamiento por menor precio, mayor precio y mejor valorados en JavaScript nativo puro, contador dinámico de resultados y estado vacío intuitivo.
+  2. **11 Rutas Dinámicas por Categoría (`src/pages/categoria/[categoria].astro`):** Generación estática con `getStaticPaths` para perros, gatos, alimentos-perro, alimentos-gato, camas-confort, rascadores-camas, snacks-premios, paseo-seguridad, smart-pet, viajes-paseo e hidratacion con banner temático, descripción y conteo.
+  3. **Conexión de Enlaces Globales:** Se actualizaron `src/components/CircularCategories.astro` y la barra de navegación del Header (`src/components/Header.astro`) para apuntar a las rutas dinámicas reales de la tienda.
+  4. **Programación del Modo Nocturno:** Siguiendo la instrucción del usuario, se agendó la activación del modo nocturno (botón sol/luna en Navbar) exactamente al inicio de la Fase 3 (Carrito Interactivo) para validar el contraste sobre la tienda completa.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `src/components/CircularCategories.astro`, `src/components/Header.astro`, `docs/PLAN.md`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Construcción del catálogo general con filtrado JS nativo, rutas dinámicas y conexión de enlaces.
+  - `ux-ui`: Diseño de tarjetas de categoría, badges temáticos y experiencia responsive.
+  - `qa`: Compilación exitosa de 24 páginas estáticas en 2.77s, ESLint limpio con 0 errores y validación de endpoints HTTP 200 en servidor local.
+  - `docs-seo`: Actualización de la hoja de ruta en `docs/PLAN.md` y memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · implementacion de pagina 404 y ficha dinamica de producto
 - **Qué:** Implementación del segundo hito de la Fase 2 (Catálogo & Contenido) e incorporación de la página 404 animada solicitada por el usuario:
