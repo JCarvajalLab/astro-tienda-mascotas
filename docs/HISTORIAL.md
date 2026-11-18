@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** fix(navigation): audita y corrige enlaces de subcategorias en cabecera y crea rutas suplementos y dermocosmetica
+- **Último commit relevante:** feat(mobile): implementa menu hamburguesa y drawer lateral tactil con acordeones para moviles
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Auditoría al 100% de los 30 enlaces de subcategorías en Header funcionando con HTTP 200**, **Nuevas rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Glucosamina y suplementos redirigiendo exactamente a su colección de salud articular sin desvíos erróneos a seniors**, **Fuentes de agua apuntando a `/categoria/hidratacion`**, **Alimentos en oferta apuntando a `/categoria/ofertas?q=alimento`**, **Píldoras interactivas de filtrado rápido (`[Todos]`, `[🐶 Perros]`, `[🐱 Gatos]`) en todas las categorías**, **Buscador en tiempo real e interactivo en categorías y en el catálogo general**.
-- **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.53s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Proceder con el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Nueva navegación móvil responsiva al 100%: botón hamburguesa accesible (`< md`), backdrop desenfocado y Drawer lateral deslizante (Offcanvas)**, **Acordeones táctiles con chevron animado para navegar categorías y subcategorías sin desbordamiento horizontal**, **Selector de comuna chilena y acceso rápido a login/WhatsApp integrados en el drawer móvil**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y en el catálogo general**.
+- **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.10s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Revisar con el usuario el comportamiento responsivo en móviles y validar los flujos de la Fase 2 antes de proceder con la ficha técnica detallada.
 
 ## 2. Decisiones importantes
 
@@ -83,10 +83,38 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Barras de búsqueda en categorías y optimización de Mascotas por etapas | Integrar buscador reactivo en todas las categorías y enfocar Mascotas en Perros y Gatos por Etapas (Cachorros/Adultos/Seniors) eliminando Colecciones Especiales redundantes | Forzar al usuario a volver a /catalogo para buscar o sobrepoblar Mascotas duplicando el catálogo |
 | 2026-11-18 | Eliminación de dobles nombres anglos (Puppy/Kitten) y filtros contextuales por especie | Usar nombres limpios en español ('Cachorros' y 'Gatitos') y activar el filtro de perro (?pet=perros) automáticamente al acceder desde la sección canina | Mantener etiquetas redundantes en inglés o mezclar productos felinos y caninos sin filtro activo |
 | 2026-11-18 | Creación de rutas dedicadas /suplementos y /dermocosmetica tras auditoría exhaustiva | Garantizar que cada subcategoría del Header dirija a su colección exacta (ej. Glucosamina a /suplementos, fuentes a /hidratacion, ofertas a /ofertas) en vez de categorías equivocadas | Desviar suplementos articulares a 'seniors' o desviar fuentes a 'smart-pet' |
+| 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de menu hamburguesa y drawer movil con acordeones
+- **Qué:** Implementación integral de la experiencia de navegación móvil para smartphones:
+  1. **Cabecera Móvil Limpia y Despejada:**
+     - Botón hamburguesa accesible (`#mobile-drawer-toggle`) visible en viewports móviles (`< md`) con gestión de atributos de accesibilidad (`aria-expanded`, `aria-controls`).
+     - Ocultamiento de la barra horizontal de categorías de escritorio en pantallas pequeñas (`hidden md:block`), eliminando desbordamientos y desplazamientos rotos.
+     - Formulario de búsqueda móvil conectado con `action="/catalogo"` y `name="q"`.
+  2. **Drawer Lateral Deslizante (Offcanvas `#mobile-nav-drawer`):**
+     - Panel flotante desde la izquierda (`w-[85%] max-w-sm`) con estilo Warm Biscuit (`#FAF7F2`), fondo oscuro con desenfoque (`#mobile-drawer-backdrop`) y botón de cierre (`✕`).
+     - Selector de comuna de despacho integrado en el drawer, sincronizado con el modal de regiones de Chile (`#mobile-drawer-region-text`).
+     - Acceso directo destacado a *"Ver Todo el Catálogo"* (22 productos).
+  3. **Acordeones Táctiles para Categorías:**
+     - Cada categoría (`Mascotas`, `Perros`, `Gatos`, `Accesorios`, `Farmacia & Salud`, `Ofertas Flash`) cuenta con su botón de acordeón con icono, título y flecha con rotación animada de 180°.
+     - Al tocar una categoría, despliega sus subgrupos organizados con áreas táctiles amplias (mínimo 44px de altura) y enlace directo a *"Ver todo en [Categoría] →"*.
+  4. **Atención y Ayuda al Cliente:**
+     - Enlaces directos a inicio de sesión y botón verde de contacto directo a asesoría veterinaria por WhatsApp (`https://wa.me/...`).
+  5. **Comportamiento Interactivo Nativo (JavaScript Puro):**
+     - Apertura y cierre suave con transiciones CSS (`translate-x`).
+     - Bloqueo de scroll del body (`overflow-hidden`) cuando el menú está abierto.
+     - Cierre automático al tocar el backdrop, presionar la tecla `Escape` o hacer clic en cualquier enlace.
+     - Sincronización bidireccional en `RegionModal.astro` para actualizar la comuna seleccionada en el drawer móvil.
+- **Archivos clave:** `src/components/Header.astro`, `src/components/RegionModal.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Construcción del componente Drawer, acordeones y controladores de eventos en JavaScript nativo.
+  - `ux-ui`: Dirección de arte mobile-first, zonas táctiles accesibles (44px), transiciones fluidas y eliminación de la saturación visual en pantallas móviles.
+  - `qa`: Compilación de 50 páginas estáticas en 4.10s, 0 errores en ESLint y pruebas de renderizado en DOM.
+  - `docs-seo`: Registro en bitácora histórica y actualización de matriz de decisiones en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · auditoria y correccion de rutas de subcategorias en cabecera
 - **Qué:** Auditoría integral y corrección de las 30 subcategorías de navegación del Header:
