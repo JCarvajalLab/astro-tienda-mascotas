@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(header): implementa megamenu vitrina split con microsvgs y sin emojis
+- **Último commit relevante:** feat(navigation): crea rutas dedicadas para accesorios, farmacia, ofertas y mascotas con filtros sincronizados
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase (Opción 1B aprobada por el usuario): 2 columnas de navegación con micro-SVGs lineales monocromáticos y 1 columna con tarjeta promocional destacada con fotos reales de producto y enlaces activos**, eliminación total de emojis en toda la navegación de cabecera, **Página de Laboratorio Comparativo (`/preview-megamenu`)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase (Opción 1B aprobada por el usuario)** con micro-SVGs lineales monocromáticos y tarjetas destacadas de producto, **Rutas dinámicas dedicadas para cada pestaña de cabecera (`/categoria/accesorios` con 12 productos de confort/paseo/smart, `/categoria/farmacia-salud` con 6 productos de suplementos/higiene, `/categoria/ofertas` con todos los productos rebajados/packs y `/categoria/mascotas` con selección completa)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva y botones de filtro sincronizados para Accesorios y Farmacia & Salud**, y enlaces actualizados en el Footer.
 - **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 4.23s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Desarrollar el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 3.34s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Proceder con el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
 
 ## 2. Decisiones importantes
 
@@ -79,10 +79,31 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Laboratorio comparativo de Mega-Menús (/preview-megamenu) | Evaluar dos composiciones modernas de subcategorías (Vitrina Split vs Grilla Modular) sin alterar la cabecera activa | Forzar una única composición sin test visual del usuario |
 | 2026-11-18 | Eliminación total de emojis en subcategorías de navegación | Erradicar emojis infantiles que denotan aspecto genérico o IA, reemplazándolos por tipografía con jerarquía editorial o micro-SVGs monocromáticos | Mantener emojis coloridos en listas de enlaces |
 | 2026-11-18 | Aprobación e implementación de Opción 1B en Header oficial | Adopción de la Vitrina Híbrida Split Showcase con micro-SVGs monocromáticos, fotos de producto reales y eliminación de emojis en todas las categorías | Menús de lista plana o menús con emojis |
+| 2026-11-18 | Rutas dedicadas y filtros para Accesorios, Farmacia, Ofertas y Mascotas | Cada pestaña del Header y enlace 'Ver todo en...' redirige a su colección filtrada exacta en vez del catálogo genérico | Mandar todas las categorías secundarias a /catalogo sin filtrar |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · rutas dedicadas para accesorios, farmacia, ofertas y mascotas con filtros sincronizados
+- **Qué:** Solución integral del enrutamiento por categoría para evitar redirecciones genéricas al catálogo completo:
+  1. **Nuevas Rutas Dinámicas en `src/pages/categoria/[categoria].astro`:**
+     - `/categoria/accesorios`: Colección filtrada con los 12 productos de confort, paseo, smart pet, descanso y juguetes (arneses, collares, camas memory foam, mochilas, rascadores, comederos WiFi, fuentes y mantas térmicas).
+     - `/categoria/farmacia-salud` (y alias `/categoria/farmacia`): Colección con los 6 productos de suplementación articular, dermocosmética con avena, cuidado dental e higiene.
+     - `/categoria/ofertas` (y alias `/categoria/ofertas-flash`): Colección que reúne exclusivamente los productos con descuento activo, packs promocionales y ofertas especiales.
+     - `/categoria/mascotas`: Vista global de mascotas con selección completa y acceso directo a las etapas de vida.
+  2. **Actualización de Enlaces en Header y Footer:**
+     - En `src/components/Header.astro`, tanto el botón principal de cada categoría como el enlace *"Ver todo en [Categoría] →"* del mega-menú apuntan directamente a su ruta dedicada (`/categoria/accesorios`, `/categoria/farmacia-salud`, `/categoria/ofertas`, `/categoria/mascotas`).
+     - En `src/components/Footer.astro`, se sustituyeron las anclas antiguas `#perros`, `#gatos`, `#ofertas` por sus rutas estáticas reales.
+  3. **Sincronización de Filtros en `/catalogo`:**
+     - Se agregaron las píldoras de filtro rápido `🎾 Accesorios` y `🩺 Farmacia & Salud`.
+     - Se dotó al listado de soporte para el parámetro URL `?filter=...` o `?categoria=...`, activando el filtro correspondiente automáticamente.
+- **Archivos clave:** `src/pages/categoria/[categoria].astro`, `src/components/Header.astro`, `src/pages/catalogo/index.astro`, `src/components/Footer.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de filtros paramétricos en `[categoria].astro` y `catalogo/index.astro`, actualización de rutas en `Header.astro` y `Footer.astro`.
+  - `ux-ui`: Coherencia de expectativas de usuario (hacer clic en una categoría muestra única y exclusivamente los productos pertinentes).
+  - `qa`: Compilación de 48 páginas estáticas en 3.34s, 80 imágenes WebP optimizadas y verificación HTTP 200 en todas las nuevas rutas.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · megamenu vitrina split con microsvgs y sin emojis en header oficial
 - **Qué:** Implementación en producción de la **Opción 1B** aprobada por el usuario en `src/components/Header.astro`:
