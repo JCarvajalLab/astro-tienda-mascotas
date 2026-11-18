@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** style(preview): elimina emojis y presenta variantes tipografia limpia vs micro-svgs
+- **Último commit relevante:** feat(header): implementa megamenu vitrina split con microsvgs y sin emojis
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Página de Laboratorio Comparativo (`/preview-megamenu`) con 2 opciones profesionales sin emojis (Opción 1A: Tipografía Limpia vs Opción 1B: Micro-SVGs Lineales)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
-- **Qué está en progreso:** Selección final del usuario entre 1A (Tipografía pura) y 1B (Micro-SVGs lineales), aplicación al Header general e implementación del Menú Hamburguesa / Drawer para versión móvil.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 3.61s con 77 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Confirmar la variante preferida sin emojis en `http://localhost:4321/preview-megamenu`, trasladarla a `Header.astro` y comenzar inmediatamente la versión móvil con el menú drawer.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase (Opción 1B aprobada por el usuario): 2 columnas de navegación con micro-SVGs lineales monocromáticos y 1 columna con tarjeta promocional destacada con fotos reales de producto y enlaces activos**, eliminación total de emojis en toda la navegación de cabecera, **Página de Laboratorio Comparativo (`/preview-megamenu`)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 4.23s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Desarrollar el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
 
 ## 2. Decisiones importantes
 
@@ -78,10 +78,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Mega-menú desplegable en Header con scoped CSS (hover & focus-within) | Resolver recorte de overflow-x-auto con md:overflow-visible y garantizar despliegue fluido con animación y teclado | Usar Tailwind group-hover arbitrario sin soporte en v4 o scripts complejos |
 | 2026-11-18 | Laboratorio comparativo de Mega-Menús (/preview-megamenu) | Evaluar dos composiciones modernas de subcategorías (Vitrina Split vs Grilla Modular) sin alterar la cabecera activa | Forzar una única composición sin test visual del usuario |
 | 2026-11-18 | Eliminación total de emojis en subcategorías de navegación | Erradicar emojis infantiles que denotan aspecto genérico o IA, reemplazándolos por tipografía con jerarquía editorial o micro-SVGs monocromáticos | Mantener emojis coloridos en listas de enlaces |
+| 2026-11-18 | Aprobación e implementación de Opción 1B en Header oficial | Adopción de la Vitrina Híbrida Split Showcase con micro-SVGs monocromáticos, fotos de producto reales y eliminación de emojis en todas las categorías | Menús de lista plana o menús con emojis |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · megamenu vitrina split con microsvgs y sin emojis en header oficial
+- **Qué:** Implementación en producción de la **Opción 1B** aprobada por el usuario en `src/components/Header.astro`:
+  1. **Vitrina Híbrida Split Showcase en todas las Categorías:** Tarjeta flotante moderna (`w-[620px]` a `w-[680px]`) con división en 3 columnas: 2 columnas de navegación con micro-SVGs lineales monocromáticos y 1 columna dedicada a tarjeta promocional destacada con imagen real optimizada de producto (`astro:assets`), badge de ahorro y botón directo a colección.
+  2. **Erradicación Total de Emojis en el Header:** Sustitución de emojis en pestañas (`🐾`, `🐶`, `🐱`, `🎾`, `🩺`, `🔥`) por iconos vectoriales SVG de trazo fino (`stroke-2`) elegantes y monocromáticos.
+  3. **Alineación Inteligente Anti-Desborde:** Las categorías de la derecha (`Accesorios`, `Farmacia & Salud`, `Ofertas Flash`) alinean su menú a `right-0` para prevenir cualquier desborde fuera del viewport.
+- **Archivos clave:** `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte definitiva para el mega-menú de escritorio, elevación visual, micro-interacciones y armonía cromática con la identidad Warm Biscuit.
+  - `desarrollo`: Refactorización integral de `Header.astro` con micro-SVGs, optimización de imágenes locales WebP y compatibilidad con accesibilidad por teclado (`:focus-within`).
+  - `qa`: Compilación de 42 páginas en 4.23s con 80 imágenes WebP optimizadas y ESLint limpio con código 0.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · depuracion de emojis y variantes tipografia limpia vs micro-svgs
 - **Qué:** Actualización del laboratorio comparativo (`src/pages/preview-megamenu.astro`) en respuesta a la retroalimentación del usuario:
