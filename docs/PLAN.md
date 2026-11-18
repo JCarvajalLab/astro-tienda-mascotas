@@ -264,10 +264,13 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Configuración de SEO base (`site` en `astro.config.mjs`, robots.txt, metadatos Open Graph en PNG de 1200x630 px).
   - [x] Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
   - [x] Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
-- [ ] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
-  - Catálogo modelado mediante Content Collections (`src/content.config.js`) con validación de esquemas Zod.
-  - Fotos de productos descargadas localmente en `src/assets/` y procesadas con `<Image />` de `astro:assets` (WebP/AVIF, con `width`, `height`, `loading="lazy"` o `eager` para prevenir CLS).
-  - Vistas dinámicas de catálogo por categoría y páginas de detalle de producto con renderizado condicional defensivo.
+- [/] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
+  - [ ] Modelado de Content Collections con validación de esquemas Zod en `src/content.config.js`.
+  - [ ] Colección inicial de productos en formato JSON (`src/content/productos/`) estructurados por mascota (Perros, Gatos, Pequeñas Mascotas) y categorías.
+  - [ ] Integración de imágenes optimizadas en `src/assets/` con `astro:assets` (WebP/AVIF, dimensiones explícitas, lazy loading).
+  - [ ] Página de catálogo general (`/catalogo`) y vistas dinámicas por categoría (`/categoria/[slug]`) con breadcrumbs y filtrado.
+  - [ ] Página de detalle de producto (`/producto/[slug]`) con galería/imagen principal, selector de cantidad, especificaciones y botón de carrito.
+  - [ ] Conexión de enlaces de la Home (categorías circulares y sliders) hacia las rutas reales de catálogo y producto.
 - [ ] **Fase 3: Carrito Interactivo** (`phase/03-cart`): 
   - Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).
   - Renderizado seguro en el DOM con `.textContent` para prevenir DOM XSS.

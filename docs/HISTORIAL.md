@@ -13,14 +13,14 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
 - **Última actualización:** 2026-11-17
-- **Fase activa:** `phase/01-design`
-- **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(design): unifica fondo calido warm-biscuit en todas las secciones eliminando fondos blancos aislados
+- **Fase activa:** `phase/02-catalog`
+- **Rama de trabajo:** `phase/02-catalog`
+- **Último commit relevante:** docs(plan): cierra fase 1 y abre checklist de fase 2 catalogo y contenido
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
 - **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit (Navbar, Footer y todas las secciones intermedias de la web sobre lienzo marfil continuo `#FAF7F2` sin parches blancos aislados: TrustBar en `#F5F0E8`, Categorías, Sliders de Ofertas y Novedades y Banner de Catálogo transparentes sobre el lienzo), tarjetas de producto individuales en blanco puro (`bg-white`) con sutil relieve y borde para máxima jerarquía comercial, transición continua y al ras entre el bloque de comunidad (`ClubNewsletter.astro` con `mb-0`) y el pie de página eliminando cualquier franja intermedia, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
-- **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
+- **Qué está en progreso:** Fase 2 (Catálogo & Contenido): modelado de Content Collections con validación Zod en `src/content.config.js` y datos de productos en `src/content/productos/`.
 - **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.86s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
-- **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
+- **Siguiente paso concreto:** Crear `src/content.config.js` y estructurar la colección inicial de productos con validación Zod.
 
 ## 2. Decisiones importantes
 
@@ -64,10 +64,21 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Simetría cálida total: Navbar y Footer en Warm Biscuit | Armonía visual integral de apertura y cierre de página en tonos orgánicos y eliminación de rutas de preview | Dejar footer en tono discordante o mantener páginas de pruebas |
 | 2026-11-17 | Lienzo cálido Warm Biscuit (#FAF7F2) y transición fluida a Footer | Eliminar choque térmico con blanco frío, aportar relieve tridimensional a las tarjetas de productos y eliminar franja blanca residual sobre el footer | Fondo blanco plano con cortes duros |
 | 2026-11-17 | Unificación de lienzo cálido en todas las secciones intermedias | Retirar clases bg-white y via-white en categorías, sliders y banner de catálogo para que el fondo fluya de forma 100% continua en toda la web | Dejar fondos blancos aislados fragmentando la página |
+| 2026-11-17 | Cierre de Fase 1 e inicio de Fase 2 (Catálogo & Contenido) | Consolidación de identidad visual completa (Setup, Navbar, Footer, Hero, Banners, ritmo y lienzo cálido); merge a develop y main; apertura de rama `phase/02-catalog` | Acumular cambios sin cerrar fase formalmente |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-17 · `phase/02-catalog` · cierre formal de fase 1 y apertura de fase 2
+- **Qué:** Cierre formal de la Fase 1 (Diseño & Setup Base) y apertura de la Fase 2 (Catálogo & Contenido):
+  1. **Integración en Ramas Base:** Se integró la rama `phase/01-design` en `develop` y posteriormente en `main` mediante fast-forward, consolidando el setup inicial, la arquitectura de layout, la identidad visual Market-Pet y el diseño completo de la portada.
+  2. **Creación de Rama de Fase 2:** Se creó la rama `phase/02-catalog` a partir de `develop`.
+  3. **Planificación de Catálogo:** Se actualizó el checklist en `docs/PLAN.md` detallando las tareas de modelado con Content Collections (Astro 5+), esquemas Zod, vistas por categoría, páginas de detalle de producto y optimización de imágenes con `astro:assets`.
+- **Archivos clave:** `docs/PLAN.md`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `docs-seo`: Registro de transición de fase, actualización de estado en `HISTORIAL.md` y checklist de `PLAN.md`.
+  - `qa`: Verificación de limpieza del árbol de trabajo y estado de ramas.
 
 ### 2026-11-17 · `phase/01-design` · unificacion integral de lienzo calido warm-biscuit en toda la web
 - **Qué:** Validación y corrección exhaustiva del fondo en todas las secciones de la Home para lograr consistencia cromática total:
