@@ -94,11 +94,14 @@ function formatPrice(amount) {
     <!-- Pista de productos (con desplazamiento táctil y snap suave) -->
     <div
       id={`track-${id}`}
-      class="flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-2 -mx-4 px-4 sm:mx-0 sm:px-0 overscroll-x-contain"
+      class="product-slider-track flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-2 -mx-4 px-4 sm:mx-0 sm:px-0 overscroll-x-contain"
     >
       {
         products.map((prod) => (
-          <article class="snap-start shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden">
+          <article
+            class="product-slider-card snap-start snap-always shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+            style="scroll-snap-stop: always;"
+          >
             <a
               href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
               class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
@@ -201,48 +204,75 @@ function formatPrice(amount) {
 
     if (!track || !prevBtn || !nextBtn) return;
 
-    // Calcula el paso exacto por tarjeta (ancho + gap) para evitar saltos desalineados
+    // Calcula la distancia real exacta entre tarjetas (ancho real + gap)
     function getCardStep() {
-      const firstCard = track.querySelector('article');
-      if (!firstCard) return 200;
+      const cards = track.querySelectorAll('article');
+      if (!cards.length) return 200;
+      const firstCard = cards[0];
+      const secondCard = cards[1];
+      const cardDistance = secondCard
+        ? (secondCard.offsetLeft - firstCard.offsetLeft)
+        : (firstCard.offsetWidth + 12);
 
-      const cardRect = firstCard.getBoundingClientRect();
-      const style = window.getComputedStyle(track);
-      const gap = parseFloat(style.columnGap || style.gap || '12') || 12;
-      const singleCardStep = cardRect.width + gap;
-
-      // En móviles (< 640px): avanzar exactamente 1 producto por clic
-      if (window.innerWidth < 640) {
-        return singleCardStep;
+      // En móviles y vista reducida (< 768px, alineado con el breakpoint md del menú móvil):
+      // Avanzar exactamente 1 producto a la vez
+      if (window.innerWidth < 768) {
+        return cardDistance;
       }
-      // En tablets (< 1024px): avanzar 2 productos por clic
+      // En tablets (768px a 1023px): avanzar 2 productos
       if (window.innerWidth < 1024) {
-        return singleCardStep * 2;
+        return cardDistance * 2;
       }
-      // En desktop (>= 1024px): avanzar 3 productos por clic
-      return singleCardStep * 3;
+      // En desktop grande: avanzar 3 productos
+      return cardDistance * 3;
     }
 
-    // Desplazamiento discreto y perfectamente alineado con snap-start
+    // Desplazamiento suave y controlado sin interferencia del motor de paginación de Chrome
     function scrollSlider(direction) {
       const step = getCardStep();
-      const currentScroll = track.scrollLeft;
-      let targetScroll;
+      const scrollAmount = direction === 'next' ? step : -step;
 
-      if (direction === 'next') {
-        targetScroll = Math.floor((currentScroll + step + 5) / step) * step;
-      } else {
-        targetScroll = Math.ceil((currentScroll - step - 5) / step) * step;
-      }
+      // Desactivar temporalmente snap para que Chrome no fuerce salto de páginas completas
+      track.style.scrollSnapType = 'none';
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 
-      const maxScroll = track.scrollWidth - track.clientWidth;
-      targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
-
-      track.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      clearTimeout(track._snapTimer);
+      track._snapTimer = setTimeout(() => {
+        track.style.scrollSnapType = 'x mandatory';
+        updateArrowStates();
+      }, 400);
     }
 
     prevBtn.addEventListener('click', () => scrollSlider('prev'));
     nextBtn.addEventListener('click', () => scrollSlider('next'));
+
+    // Gesto táctil swipe en móviles: avanzar estrictamente de a 1 producto
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const duration = Date.now() - touchStartTime;
+
+      // Si fue un swipe horizontal claro y rápido
+      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && duration < 500) {
+        if (deltaX < 0) {
+          scrollSlider('next');
+        } else {
+          scrollSlider('prev');
+        }
+      }
+    }, { passive: true });
 
     // Actualiza la disponibilidad visual de los botones de navegación
     function updateArrowStates() {
