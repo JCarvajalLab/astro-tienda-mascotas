@@ -1,0 +1,35 @@
+{
+  "id": "reg-05",
+  "slug": "collar-seguridad-reflectante-gato",
+  "name": "Collar de Seguridad Reflectante para Gatos",
+  "brand": "SafePet Chile",
+  "description": "Collar para gatos con hebilla de liberación rápida antipánico (breakaway) que se abre automáticamente ante tirones accidentales para evitar asfixias. Con franja reflectante de alta luminosidad y cascabel removible.",
+  "shortDescription": "Hebilla antipánico breakaway, franja reflectante y cascabel seguro.",
+  "price": 6990,
+  "petType": "gatos",
+  "category": "Paseo & Seguridad",
+  "categorySlug": "paseo-seguridad",
+  "lifeStage": "todas",
+  "rating": 4.8,
+  "reviewsCount": 21,
+  "stock": 45,
+  "sku": "COL-REF-GAT",
+  "badge": "SEGURIDAD",
+  "badgeColor": "bg-indigo-700 text-white",
+  "isOffer": false,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/collar-reflectante.jpg",
+  "imageAlt": "Collar reflectante azul noche para gato con hebilla de seguridad y cascabel",
+  "features": [
+    "Cierre de seguridad breakaway que se abre con más de 2kg de tensión",
+    "Banda reflectante 360° para visibilidad en la oscuridad",
+    "Cascabel metálico de tono moderado y removible",
+    "Nylon sedoso suave que no maltrata el cuello ni corta el pelaje"
+  ],
+  "specifications": {
+    "Rango Ajustable": "19 a 30 cm de circunferencia de cuello",
+    "Ancho de Cinta": "1 cm",
+    "Color": "Azul noche con reflectante plateado"
+  }
+}

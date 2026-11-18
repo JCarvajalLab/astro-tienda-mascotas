@@ -1,0 +1,35 @@
+{
+  "id": "sen-02",
+  "slug": "suplemento-articular-senior-glucosamina-60comp",
+  "name": "Suplemento Articular Senior Glucosamina & MSM 60 Comprimidos",
+  "brand": "DermaPet Care",
+  "description": "Comprimidos masticables altamente palatables con sabor a hígado. Regeneran el cartílago articular, reducen la rigidez matutina y mejoran la movilidad en perros y gatos seniors.",
+  "shortDescription": "Comprimidos masticables para alivio articular y movilidad en mascotas senior.",
+  "price": 14990,
+  "petType": "todas",
+  "category": "Higiene & Cuidados",
+  "categorySlug": "higiene-cuidados",
+  "lifeStage": "seniors",
+  "rating": 5.0,
+  "reviewsCount": 47,
+  "stock": 25,
+  "sku": "SUP-ART-60C",
+  "badge": "ARTICULAR",
+  "badgeColor": "bg-emerald-700 text-white",
+  "isOffer": false,
+  "isNew": true,
+  "isBestSeller": true,
+  "image": "../../assets/products/snacks-dentales.jpg",
+  "imageAlt": "Frasco con comprimidos masticables de soporte articular para perros y gatos mayores",
+  "features": [
+    "Glucosamina HCL 500mg + Condroitina 400mg por dosis",
+    "MSM antiinflamatorio natural para aliviar articulaciones rígidas",
+    "Saborizante natural a hígado irresistible para mascotas",
+    "Apto tanto para perros como para gatos de edad avanzada"
+  ],
+  "specifications": {
+    "Contenido": "60 comprimidos masticables",
+    "Dosis diaria": "1 comprimido por cada 10kg de peso",
+    "Indicación": "Artritis, displasia o prevención en edad dorada"
+  }
+}

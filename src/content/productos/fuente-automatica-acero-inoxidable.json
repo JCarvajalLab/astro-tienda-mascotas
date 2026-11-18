@@ -1,0 +1,38 @@
+{
+  "id": "of-03",
+  "slug": "fuente-automatica-acero-inoxidable",
+  "name": "Fuente Automática Acero Inoxidable 2L",
+  "brand": "AquaPaw Flow",
+  "description": "Bebedero automático recirculante de 2 litros con bomba ultrasilenciosa (<20dB) y bandeja superior de acero inoxidable 304 quirúrgico. Estimula la hidratación continua y previene problemas renales en perros y gatos.",
+  "shortDescription": "Agua filtrada en constante movimiento con bomba silenciosa y filtro cuádruple.",
+  "price": 18990,
+  "originalPrice": 24990,
+  "discount": "-24% OFF",
+  "petType": "todas",
+  "category": "Hidratación",
+  "categorySlug": "hidratacion",
+  "lifeStage": "todas",
+  "rating": 4.8,
+  "reviewsCount": 56,
+  "stock": 18,
+  "sku": "FNT-INOX-2L",
+  "badge": "-24% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/fuente-agua.jpg",
+  "imageAlt": "Fuente de agua automática para mascotas",
+  "features": [
+    "Capacidad generosa de 2.0 litros para varios días",
+    "Bandeja de acero quirúrgico antibacteriana",
+    "Filtro de carbón activado, resina y algodón en 4 capas",
+    "Bajo consumo energético (1.5W) con conector USB universal"
+  ],
+  "specifications": {
+    "Capacidad": "2.0 Litros",
+    "Material": "Acero Inoxidable 304 + ABS alimentario",
+    "Ruido": "< 20 dB (ultrasilencioso)",
+    "Filtros incluidos": "2 unidades de repuesto"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "of-05",
+  "slug": "snacks-dentales-higiene-clorofila",
+  "name": "Snacks Dentales Higiene Clorofila 250g",
+  "brand": "Dentavet Pro",
+  "description": "Barritas dentales masticables enriquecidas con espirulina, clorofila y hexametafosfato de sodio. Ayudan a reducir el sarro en hasta un 80%, previenen el mal aliento y fortalecen las encías sin dañar el esmalte dental.",
+  "shortDescription": "Barritas masticables que limpian sarro y refrescan el aliento de forma natural.",
+  "price": 7490,
+  "originalPrice": 9990,
+  "discount": "-25% OFF",
+  "petType": "perros",
+  "category": "Snacks & Premios",
+  "categorySlug": "snacks-premios",
+  "lifeStage": "adultos",
+  "rating": 4.9,
+  "reviewsCount": 62,
+  "stock": 40,
+  "sku": "SNK-DNT-250G",
+  "badge": "-25% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/snacks-dentales.jpg",
+  "imageAlt": "Snacks dentales de espirulina y clorofila",
+  "features": [
+    "Textura porosa diseñada para cepillar mecánicamente el diente",
+    "Con clorofila natural que combate las bacterias del mal aliento",
+    "Bajo en calorías y libre de granos refinados",
+    "Recomendado por veterinarios para higiene diaria"
+  ],
+  "specifications": {
+    "Contenido": "250 gramos (aprox. 14 unidades)",
+    "Uso recomendado": "1 barrita al día después de la comida",
+    "Apto para": "Perros adultos sobre 5 kg",
+    "Conservación": "Lugar fresco y seco con cierre zip hermético"
+  }
+}

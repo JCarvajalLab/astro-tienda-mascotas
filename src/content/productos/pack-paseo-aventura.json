@@ -1,0 +1,37 @@
+{
+  "id": "pack-03",
+  "slug": "pack-paseo-seguro-aventura",
+  "name": "Pack Paseo Seguro (Arnés Reflectante + Correa + Dispensador)",
+  "brand": "Market-Pet Packs",
+  "description": "El set completo e imprescindible para pasear a tu perro con total comodidad y seguridad nocturna. Incluye arnés acolchado antitirones, correa de nylon de alta resistencia y dispensador con bolsas biodegradables.",
+  "shortDescription": "Arnés reflectante acolchado, correa de alta resistencia y dispensador.",
+  "price": 23990,
+  "originalPrice": 32990,
+  "discount": "-27% PACK",
+  "petType": "perros",
+  "category": "Packs Promocionales",
+  "categorySlug": "packs-promocionales",
+  "lifeStage": "todas",
+  "rating": 4.8,
+  "reviewsCount": 29,
+  "stock": 20,
+  "sku": "PCK-PAS-ROJO",
+  "badge": "PACK AHORRO",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": true,
+  "isBestSeller": false,
+  "image": "../../assets/products/pack-paseo.jpg",
+  "imageAlt": "Set de paseo canino con arnés reflectante rojo, correa y dispensador de bolsas",
+  "features": [
+    "Arnés antitirones con tiras reflectantes 3M de alta visibilidad",
+    "Correa reforzada de 1.5 metros con mango acolchado anti-rozaduras",
+    "Dispensador en forma de hueso con mosquetón metálico",
+    "Incluye 2 rollos de bolsitas sanitarias biodegradables"
+  ],
+  "specifications": {
+    "Tallas": "Ajustable para perros medianos y grandes",
+    "Color": "Rojo carmesí con reflectante plateado",
+    "Material": "Nylon balístico y herrajes de acero"
+  }
+}

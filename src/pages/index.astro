@@ -7,286 +7,48 @@ import ProductSlider from '../components/ProductSlider.astro';
 import LifeStageBanners from '../components/LifeStageBanners.astro';
 import CatalogCtaBanner from '../components/CatalogCtaBanner.astro';
 import ClubNewsletter from '../components/ClubNewsletter.astro';
+import { getCollection } from 'astro:content';
 
-// Importación de fotografías de productos reales en alta resolución
-import imgAlimentoPerro from '../assets/products/alimento-perro.jpg';
-import imgCamaOrtopedica from '../assets/products/cama-ortopedica.jpg';
-import imgFuenteAgua from '../assets/products/fuente-agua.jpg';
-import imgRascadorPoste from '../assets/products/rascador-poste.jpg';
-import imgSnacksDentales from '../assets/products/snacks-dentales.jpg';
-import imgAlimentoGato from '../assets/products/alimento-gato.jpg';
-import imgArnesPerro from '../assets/products/arnes-perro.jpg';
-import imgComederoSmart from '../assets/products/comedero-smart.jpg';
-import imgChuruGatos from '../assets/products/churu-gatos.jpg';
-import imgMochilaViaje from '../assets/products/mochila-viaje.jpg';
+// Obtención dinámica del catálogo desde Content Collections (Fase 2)
+const allProducts = await getCollection('productos');
 
-// Catálogo 1: Productos en Oferta (10 productos, 5 por vista en desktop + flechas)
-const productosOfertas = [
-  {
-    id: 'of-01',
-    name: 'Alimento Premium Adulto Salmón 3kg',
-    category: 'Perros',
-    price: 22990,
-    originalPrice: 29990,
-    rating: 4.9,
-    reviewsCount: 48,
-    badge: '-23% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgAlimentoPerro,
-    imageAlt: 'Saco de alimento seco para perros adultos con salmón',
-  },
-  {
-    id: 'of-02',
-    name: 'Cama Ortopédica Memory Foam Viscoelástica',
-    category: 'Descanso',
-    price: 28990,
-    originalPrice: 39990,
-    rating: 5.0,
-    reviewsCount: 31,
-    badge: '-28% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgCamaOrtopedica,
-    imageAlt: 'Cama ortopédica gris marengo para perros',
-  },
-  {
-    id: 'of-03',
-    name: 'Fuente Automática Acero Inoxidable 2L',
-    category: 'Hidratación',
-    price: 18990,
-    originalPrice: 24990,
-    rating: 4.8,
-    reviewsCount: 56,
-    badge: '-24% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgFuenteAgua,
-    imageAlt: 'Fuente de agua automática para mascotas',
-  },
-  {
-    id: 'of-04',
-    name: 'Poste Rascador Sisal Natural con Pompón',
-    category: 'Gatos',
-    price: 14990,
-    originalPrice: 19990,
-    rating: 4.7,
-    reviewsCount: 24,
-    badge: '-25% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgRascadorPoste,
-    imageAlt: 'Poste rascador vertical de sisal y madera',
-  },
-  {
-    id: 'of-05',
-    name: 'Snacks Dentales Higiene Clorofila 250g',
-    category: 'Snacks',
-    price: 7490,
-    originalPrice: 9990,
-    rating: 4.9,
-    reviewsCount: 62,
-    badge: '-25% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgSnacksDentales,
-    imageAlt: 'Snacks dentales de espirulina y clorofila',
-  },
-  {
-    id: 'of-06',
-    name: 'Arnés Ergonómico Reflectante Antitirones',
-    category: 'Paseo',
-    price: 15990,
-    originalPrice: 21990,
-    rating: 4.8,
-    reviewsCount: 39,
-    badge: '-27% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgArnesPerro,
-    imageAlt: 'Arnés ergonómico para perros color naranja',
-  },
-  {
-    id: 'of-07',
-    name: 'Alimento Esterilizados Salmón 1.5kg',
-    category: 'Gatos',
-    price: 16490,
-    originalPrice: 21990,
-    rating: 4.9,
-    reviewsCount: 45,
-    badge: '-25% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgAlimentoGato,
-    imageAlt: 'Alimento para gatos esterilizados con salmón',
-  },
-  {
-    id: 'of-08',
-    name: 'Pack Churu Variedades Atún & Pollo 8u',
-    category: 'Snacks',
-    price: 6990,
-    originalPrice: 9490,
-    rating: 5.0,
-    reviewsCount: 88,
-    badge: '-26% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgChuruGatos,
-    imageAlt: 'Pack de golosinas cremosas Churu para gatos',
-  },
-  {
-    id: 'of-09',
-    name: 'Comedero Automático WiFi con Visor',
-    category: 'Smart Pet',
-    price: 39990,
-    originalPrice: 54990,
-    rating: 4.9,
-    reviewsCount: 18,
-    badge: '-27% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgComederoSmart,
-    imageAlt: 'Dispensador inteligente de alimento para mascotas',
-  },
-  {
-    id: 'of-10',
-    name: 'Mochila Transportadora Ventilada Burbuja',
-    category: 'Viajes',
-    price: 24990,
-    originalPrice: 32990,
-    rating: 4.8,
-    reviewsCount: 29,
-    badge: '-24% OFF',
-    badgeColor: 'bg-rose-600 text-white',
-    image: imgMochilaViaje,
-    imageAlt: 'Mochila transportadora ergonómica para mascotas',
-  },
-];
+// Catálogo 1: Productos en Oferta
+const productosOfertas = allProducts
+  .filter((p) => p.data.isOffer)
+  .map((p) => ({
+    id: p.data.id,
+    slug: p.data.slug,
+    name: p.data.name,
+    category: p.data.category,
+    price: p.data.price,
+    originalPrice: p.data.originalPrice,
+    rating: p.data.rating,
+    reviewsCount: p.data.reviewsCount,
+    badge: p.data.badge,
+    badgeColor: p.data.badgeColor,
+    image: p.data.image,
+    imageAlt: p.data.imageAlt,
+  }));
 
-// Catálogo 2: Novedades de la Semana (10 productos, 5 por vista en desktop + flechas)
-const productosNovedades = [
-  {
-    id: 'nov-01',
-    name: 'Comedero Inteligente Programable WiFi 4L',
-    category: 'Tecnología',
-    price: 44990,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 14,
-    badge: 'NUEVO',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgComederoSmart,
-    imageAlt: 'Comedero inteligente automático con app móvil',
-  },
-  {
-    id: 'nov-02',
-    name: 'Mochila Espacial de Viaje Transpirable',
-    category: 'Accesorios',
-    price: 29990,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 16,
-    badge: 'NUEVO',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgMochilaViaje,
-    imageAlt: 'Mochila transportadora con paneles de ventilación',
-  },
-  {
-    id: 'nov-03',
-    name: 'Snacks Crema Churu Atún Premium 4x14g',
-    category: 'Golosinas',
-    price: 4990,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 34,
-    badge: 'TOP VENTAS',
-    badgeColor: 'bg-amber-500 text-white',
-    image: imgChuruGatos,
-    imageAlt: 'Premios cremosos japoneses de atún para gatos',
-  },
-  {
-    id: 'nov-04',
-    name: 'Arnés Pro Neopreno Antitirones Naranja',
-    category: 'Paseo',
-    price: 18990,
-    originalPrice: null,
-    rating: 4.8,
-    reviewsCount: 21,
-    badge: 'LANZAMIENTO',
-    badgeColor: 'bg-sky-600 text-white',
-    image: imgArnesPerro,
-    imageAlt: 'Arnés antitirones con costuras reflectantes',
-  },
-  {
-    id: 'nov-05',
-    name: 'Alimento Holístico Grain-Free Salmón 3kg',
-    category: 'Nutrición',
-    price: 26990,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 27,
-    badge: 'RECOMENDADO',
-    badgeColor: 'bg-purple-600 text-white',
-    image: imgAlimentoPerro,
-    imageAlt: 'Alimento seco holístico sin granos para perros',
-  },
-  {
-    id: 'nov-06',
-    name: 'Fuente Cascada Ultra Silenciosa 2.5L',
-    category: 'Hidratación',
-    price: 22990,
-    originalPrice: null,
-    rating: 4.8,
-    reviewsCount: 19,
-    badge: 'NUEVO',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgFuenteAgua,
-    imageAlt: 'Bebedero automático de agua corriente para mascotas',
-  },
-  {
-    id: 'nov-07',
-    name: 'Cama Viscoelástica Desenfundable Lavable',
-    category: 'Confort',
-    price: 34990,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 15,
-    badge: 'EXCLUSIVO',
-    badgeColor: 'bg-stone-900 text-white',
-    image: imgCamaOrtopedica,
-    imageAlt: 'Cama ortopédica viscoelástica para perros y gatos',
-  },
-  {
-    id: 'nov-08',
-    name: 'Poste Rascador Madera Nórdica & Sisal',
-    category: 'Descanso',
-    price: 17990,
-    originalPrice: null,
-    rating: 4.7,
-    reviewsCount: 11,
-    badge: 'NUEVO',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgRascadorPoste,
-    imageAlt: 'Rascador vertical con pompón de felpa',
-  },
-  {
-    id: 'nov-09',
-    name: 'Bocaditos Dentales con Menta Orgánica',
-    category: 'Salud Oral',
-    price: 8490,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 23,
-    badge: '100% NATURAL',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgSnacksDentales,
-    imageAlt: 'Snacks masticables para limpieza dental canina',
-  },
-  {
-    id: 'nov-10',
-    name: 'Alimento Control Bolas de Pelo 1.5kg',
-    category: 'Especializado',
-    price: 18990,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 14,
-    badge: 'NUEVO',
-    badgeColor: 'bg-emerald-600 text-white',
-    image: imgAlimentoGato,
-    imageAlt: 'Alimento seco anti bolas de pelo para felinos',
-  },
-];
+// Catálogo 2: Novedades & Esenciales de la Semana
+const productosNovedades = allProducts
+  .filter((p) => p.data.isNew || !p.data.isOffer)
+  .map((p) => ({
+    id: p.data.id,
+    slug: p.data.slug,
+    name: p.data.name,
+    category: p.data.category,
+    price: p.data.price,
+    originalPrice: p.data.originalPrice,
+    rating: p.data.rating,
+    reviewsCount: p.data.reviewsCount,
+    badge: p.data.isNew ? '✨ NUEVO' : (p.data.badge || ''),
+    badgeColor: p.data.isNew
+      ? 'bg-emerald-600 text-white'
+      : (p.data.badgeColor || 'bg-stone-800 text-white'),
+    image: p.data.image,
+    imageAlt: p.data.imageAlt,
+  }));
 ---
 
 <BaseLayout>
@@ -334,7 +96,6 @@ const productosNovedades = [
   document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const button = e.currentTarget;
-      const productName = button.getAttribute('data-product-name');
 
       // Animación en el botón
       button.classList.add('scale-95', '!bg-emerald-600', '!text-white');

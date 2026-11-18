@@ -1,0 +1,38 @@
+{
+  "id": "of-06",
+  "slug": "arnes-ergonomico-reflectante",
+  "name": "Arnés Ergonómico Reflectante Antitirones",
+  "brand": "ActiveHarness Co.",
+  "description": "Pechera ergonómica en Y con distribución equilibrada de la fuerza para evitar presión sobre el cuello o tráquea. Cuenta con costuras reflectantes 3M de alta visibilidad para paseos nocturnos seguros y doble anilla de enganche.",
+  "shortDescription": "Distribución ergonómica antitirones con costuras reflectantes 3M.",
+  "price": 15990,
+  "originalPrice": 21990,
+  "discount": "-27% OFF",
+  "petType": "perros",
+  "category": "Paseo & Seguridad",
+  "categorySlug": "paseo-seguridad",
+  "lifeStage": "adultos",
+  "rating": 4.8,
+  "reviewsCount": 39,
+  "stock": 22,
+  "sku": "ARN-REF-NAR",
+  "badge": "-27% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/arnes-perro.jpg",
+  "imageAlt": "Arnés ergonómico para perros color naranja",
+  "features": [
+    "Doble anilla de aleación de zinc (delantera antitirones y trasera clásica)",
+    "Malla transpirable interior acolchada que evita rozaduras",
+    "4 puntos de ajuste regulables para adaptarse al contorno del perro",
+    "Asa superior reforzada para control rápido en situaciones de tráfico"
+  ],
+  "specifications": {
+    "Talla": "M (pecho 56 a 69 cm)",
+    "Color": "Naranja Seguridad con vivos negros",
+    "Material": "Nylon Oxford 1000D + Malla transpirable",
+    "Hebillas": "Polímero de alta resistencia con bloqueo de seguridad"
+  }
+}

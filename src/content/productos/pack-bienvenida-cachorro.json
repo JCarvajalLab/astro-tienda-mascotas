@@ -1,0 +1,37 @@
+{
+  "id": "pack-01",
+  "slug": "pack-bienvenida-cachorro",
+  "name": "Pack Bienvenida Cachorro (Alimento + Mordedor + Manta)",
+  "brand": "Market-Pet Packs",
+  "description": "El kit inicial ideal para recibir a un nuevo cachorro en casa. Incluye saco de nutrición balanceada para cachorros, cuerda mordedora suave para aliviar la dentición y una cálida manta de felpa.",
+  "shortDescription": "Combo integral con alimento para cachorro, mordedor y manta suave.",
+  "price": 24990,
+  "originalPrice": 36990,
+  "discount": "-32% PACK",
+  "petType": "perros",
+  "category": "Packs Promocionales",
+  "categorySlug": "packs-promocionales",
+  "lifeStage": "cachorros",
+  "rating": 5.0,
+  "reviewsCount": 34,
+  "stock": 18,
+  "sku": "PCK-CACH-01",
+  "badge": "PACK AHORRO",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": true,
+  "isBestSeller": true,
+  "image": "../../assets/products/pack-cachorro.jpg",
+  "imageAlt": "Caja de presentación pack bienvenida cachorro con comida, cuerda y manta",
+  "features": [
+    "Incluye saco de nutrición para cachorros etapa 1 rica en DHA",
+    "Juguete de cuerda trenzada suave para encías en crecimiento",
+    "Manta térmica suave antialérgica lavable a máquina",
+    "Ahorro de más del 30% comparado con la compra individual"
+  ],
+  "specifications": {
+    "Contenido": "Alimento 2kg + Cuerda mordedor + Manta 70x50cm",
+    "Apto para": "Cachorros de 2 a 12 meses",
+    "Empaque": "Caja de regalo ecológica kraft"
+  }
+}

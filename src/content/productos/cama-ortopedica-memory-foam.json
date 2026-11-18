@@ -1,0 +1,38 @@
+{
+  "id": "of-02",
+  "slug": "cama-ortopedica-memory-foam",
+  "name": "Cama Ortopédica Memory Foam Viscoelástica",
+  "brand": "PawsRest Confort",
+  "description": "Cama terapéutica para perros de razas medianas y grandes con espuma viscoelástica de alta densidad. Alivia la presión articular y favorece un descanso reparador, especialmente en perros con displasia o edad avanzada.",
+  "shortDescription": "Espuma viscoelástica terapéutica que alivia la presión articular.",
+  "price": 28990,
+  "originalPrice": 39990,
+  "discount": "-28% OFF",
+  "petType": "perros",
+  "category": "Camas & Confort",
+  "categorySlug": "camas-confort",
+  "lifeStage": "seniors",
+  "rating": 5.0,
+  "reviewsCount": 31,
+  "stock": 14,
+  "sku": "CAM-MEM-GRIS",
+  "badge": "-28% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/cama-ortopedica.jpg",
+  "imageAlt": "Cama ortopédica gris marengo para perros",
+  "features": [
+    "Núcleo de espuma ortopédica Memory Foam de 10 cm",
+    "Funda lavable con cierre impermeable oculta",
+    "Base antideslizante con agarre de silicona",
+    "Tejido ultrasuave hipoalergénico resistente a rasguños"
+  ],
+  "specifications": {
+    "Dimensiones": "90 x 70 x 15 cm",
+    "Material": "Espuma viscoelástica + Poliéster impermeable",
+    "Color": "Gris Marengo",
+    "Mantenimiento": "Funda apta para lavadora en ciclo suave"
+  }
+}

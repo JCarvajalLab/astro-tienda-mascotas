@@ -1,0 +1,37 @@
+{
+  "id": "pack-05",
+  "slug": "pack-descanso-plush-manta-termica",
+  "name": "Pack Descanso Dúo (Cama Acolchada + Manta Térmica)",
+  "brand": "Market-Pet Packs",
+  "description": "El confort de hotel cinco estrellas para tu perro o gato. Incluye cama ortopédica circular con bordes elevados que alivian la ansiedad y una manta térmica de felpa sherpa para las noches más frías.",
+  "shortDescription": "Cama circular antiansiedad y manta térmica sherpa ultra suave.",
+  "price": 38990,
+  "originalPrice": 52990,
+  "discount": "-26% PACK",
+  "petType": "todas",
+  "category": "Packs Promocionales",
+  "categorySlug": "packs-promocionales",
+  "lifeStage": "todas",
+  "rating": 5.0,
+  "reviewsCount": 38,
+  "stock": 12,
+  "sku": "PCK-DESC-DUO",
+  "badge": "PACK AHORRO",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": true,
+  "isBestSeller": false,
+  "image": "../../assets/products/pack-descanso.jpg",
+  "imageAlt": "Pack descanso para mascotas con cama redonda acolchada y manta térmica de felpa",
+  "features": [
+    "Cama con relleno hipoalergénico de microfibra de alta resiliencia",
+    "Bordes elevados diseñados para apoyar el cuello y aliviar articulaciones",
+    "Manta sherpa de doble textura ultra suave y acogedora",
+    "Fácil de lavar a máquina en ciclo suave con agua fría"
+  ],
+  "specifications": {
+    "Diámetro Cama": "65 cm",
+    "Medidas Manta": "80 x 60 cm",
+    "Apto para": "Perros pequeños/medianos y gatos de cualquier edad"
+  }
+}
