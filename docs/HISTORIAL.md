@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(preview): crea laboratorio comparativo de mega-menus para evaluar subcategorias
+- **Último commit relevante:** style(preview): elimina emojis y presenta variantes tipografia limpia vs micro-svgs
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Página de Laboratorio Comparativo (`/preview-megamenu`) con 2 opciones de composición para subcategorías (Vitrina Híbrida Split vs Grilla Modular de Píldoras)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
-- **Qué está en progreso:** Evaluación con el usuario de las 2 opciones de composición de subcategorías en `/preview-megamenu`, definición de la opción definitiva, implementación del Menú Hamburguesa / Drawer para versión móvil y preparación de la Fase 3.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 2.93s con 77 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Revisar con el usuario el laboratorio en `http://localhost:4321/preview-megamenu`, recibir su elección y aplicar la opción ganadora en `Header.astro`, para luego pasar de inmediato a la versión móvil.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Página de Laboratorio Comparativo (`/preview-megamenu`) con 2 opciones profesionales sin emojis (Opción 1A: Tipografía Limpia vs Opción 1B: Micro-SVGs Lineales)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué está en progreso:** Selección final del usuario entre 1A (Tipografía pura) y 1B (Micro-SVGs lineales), aplicación al Header general e implementación del Menú Hamburguesa / Drawer para versión móvil.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 3.61s con 77 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Confirmar la variante preferida sin emojis en `http://localhost:4321/preview-megamenu`, trasladarla a `Header.astro` y comenzar inmediatamente la versión móvil con el menú drawer.
 
 ## 2. Decisiones importantes
 
@@ -77,10 +77,24 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Búsqueda tolerante a tildes y navegación por Etapas de Vida | Normalización NFD para buscar sin respetar tildes ('arnes' = 'Arnés'), reemplazo de Pequeñas Mascotas por Mascotas por etapas de vida (Cachorros, Adultos, Seniors) y ancla #ofertas en Ofertas Flash | Forzar escritura exacta con tildes y enlaces rotos sin productos |
 | 2026-11-18 | Mega-menú desplegable en Header con scoped CSS (hover & focus-within) | Resolver recorte de overflow-x-auto con md:overflow-visible y garantizar despliegue fluido con animación y teclado | Usar Tailwind group-hover arbitrario sin soporte en v4 o scripts complejos |
 | 2026-11-18 | Laboratorio comparativo de Mega-Menús (/preview-megamenu) | Evaluar dos composiciones modernas de subcategorías (Vitrina Split vs Grilla Modular) sin alterar la cabecera activa | Forzar una única composición sin test visual del usuario |
+| 2026-11-18 | Eliminación total de emojis en subcategorías de navegación | Erradicar emojis infantiles que denotan aspecto genérico o IA, reemplazándolos por tipografía con jerarquía editorial o micro-SVGs monocromáticos | Mantener emojis coloridos en listas de enlaces |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · depuracion de emojis y variantes tipografia limpia vs micro-svgs
+- **Qué:** Actualización del laboratorio comparativo (`src/pages/preview-megamenu.astro`) en respuesta a la retroalimentación del usuario:
+  1. **Eliminación Total de Emojis:** Se retiraron todos los emojis de alimentos, snacks, huesos, camas y juguetes del menú de subcategorías.
+  2. **Opción 1A (Tipografía Limpia & Sofisticada):** Cero iconos. La navegación se sustenta en tipografía editorial con kickers en tracking abierto, títulos nítidos, subtítulos discretos y un micro-indicador de flecha sutil (`→`) que aparece suavemente al hacer hover sobre la tarjeta.
+  3. **Opción 1B (Con Micro-SVGs Lineales Monocromáticos):** Añade pequeños iconos vectoriales SVG de trazo fino (1.75px) en tono café/rosa sobrio, sin colores chillones, aportando anclaje visual rápido y sobrio.
+  4. **Tarjeta Promocional Refinada:** Mantiene el banner split lateral con fotografía real de producto optimizada, badge textual limpio (`Hasta 32% OFF`) y botón CTA directo.
+- **Archivos clave:** `src/pages/preview-megamenu.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Depuración visual completa, reemplazo de emojis por jerarquía tipográfica y diseño de micro-iconos SVG coherentes.
+  - `desarrollo`: Refactorización de componentes y datos en la página de preview.
+  - `qa`: Compilación limpia de 42 páginas en 3.61s y ESLint verificado con código 0.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · laboratorio comparativo de mega-menus para evaluar subcategorias
 - **Qué:** Creación de una página de laboratorio de diseño (`src/pages/preview-megamenu.astro`) para evaluar dos composiciones modernas de subcategorías:
