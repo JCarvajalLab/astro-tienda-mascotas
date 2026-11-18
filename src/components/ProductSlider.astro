@@ -27,37 +27,37 @@ function formatPrice(amount) {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Encabezado de la fila con flechas de navegación a la derecha -->
     <div
-      class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-3"
+      class="flex items-end justify-between mb-5 sm:mb-6 gap-3"
     >
-      <div>
+      <div class="min-w-0 flex-1">
         {
           badge && (
             <span
-              class={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider border mb-1.5 ${badgeColor}`}
+              class={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider border mb-1 sm:mb-1.5 ${badgeColor}`}
             >
               {badge}
             </span>
           )
         }
         <h2
-          class="text-xl sm:text-2xl lg:text-3xl font-black text-stone-900 tracking-tight"
+          class="text-lg sm:text-2xl lg:text-3xl font-black text-stone-900 tracking-tight"
         >
           {title}
         </h2>
         {
           subtitle && (
-            <p class="text-xs sm:text-sm text-stone-500 mt-0.5">{subtitle}</p>
+            <p class="text-xs sm:text-sm text-stone-500 mt-0.5 line-clamp-1 sm:line-clamp-none">{subtitle}</p>
           )
         }
       </div>
 
       <!-- Flechas de navegación del carrusel -->
-      <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <button
           type="button"
           data-slider-prev={id}
           aria-label={`Ver productos anteriores de ${title}`}
-          class="w-9 h-9 rounded-full border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
+          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <svg
             class="w-4 h-4 stroke-current stroke-2"
@@ -75,7 +75,7 @@ function formatPrice(amount) {
           type="button"
           data-slider-next={id}
           aria-label={`Ver más productos de ${title}`}
-          class="w-9 h-9 rounded-full border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
+          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <svg
             class="w-4 h-4 stroke-current stroke-2"
@@ -91,15 +91,21 @@ function formatPrice(amount) {
       </div>
     </div>
 
-    <!-- Pista de productos (5 por pantalla en desktop) -->
+    <!-- Pista de productos (con desplazamiento táctil y snap suave) -->
     <div
       id={`track-${id}`}
-      class="flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-2 -mx-4 px-4 sm:mx-0 sm:px-0"
+      class="product-slider-track flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-2 -mx-4 px-4 sm:mx-0 sm:px-0 overscroll-x-contain"
     >
       {
         products.map((prod) => (
-          <article class="snap-start shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden">
-            <div class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center">
+          <article
+            class="product-slider-card snap-start snap-always shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+            style="scroll-snap-stop: always;"
+          >
+            <a
+              href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
+              class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+            >
               {prod.badge && (
                 <span
                   class={`absolute top-2 left-2 z-10 px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider shadow-xs ${prod.badgeColor || 'bg-rose-600 text-white'}`}
@@ -117,7 +123,7 @@ function formatPrice(amount) {
                 loading="lazy"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-            </div>
+            </a>
 
             <div class="p-3 sm:p-3.5 flex flex-col flex-1">
               <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
@@ -128,7 +134,12 @@ function formatPrice(amount) {
                 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1"
                 title={prod.name}
               >
-                {prod.name}
+                <a
+                  href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
+                  class="hover:text-rose-600 transition-colors"
+                >
+                  {prod.name}
+                </a>
               </h3>
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
@@ -139,14 +150,21 @@ function formatPrice(amount) {
                 </span>
               </div>
 
-              <div class="pt-2 border-t border-stone-100 flex items-center justify-between gap-1 mt-auto">
-                <div class="flex flex-col">
-                  <span class="text-xs sm:text-sm font-black text-stone-900 leading-none">
-                    {formatPrice(prod.price)}
-                  </span>
-                  {prod.originalPrice && (
-                    <span class="text-[10px] text-stone-400 line-through mt-0.5 leading-none">
-                      {formatPrice(prod.originalPrice)}
+              <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+                <div class="flex items-baseline justify-between gap-1">
+                  <div class="flex flex-col">
+                    <span class="text-xs sm:text-sm font-black text-stone-900 leading-none">
+                      {formatPrice(prod.price)}
+                    </span>
+                    {prod.originalPrice && (
+                      <span class="text-[10px] text-stone-400 line-through mt-0.5 leading-none">
+                        {formatPrice(prod.originalPrice)}
+                      </span>
+                    )}
+                  </div>
+                  {prod.discount && (
+                    <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                      {prod.discount}
                     </span>
                   )}
                 </div>
@@ -157,21 +175,16 @@ function formatPrice(amount) {
                   data-product-id={prod.id}
                   data-product-name={prod.name}
                   data-product-price={prod.price}
-                  class="add-to-cart-btn p-2 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
-                  title="Agregar al carrito"
+                  class="add-to-cart-btn w-full py-2 px-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                   aria-label={`Agregar ${prod.name} al carrito`}
                 >
                   <svg
-                    class="w-4 h-4 stroke-current stroke-2"
-                    fill="none"
+                    class="w-3.5 h-3.5 fill-current shrink-0"
                     viewBox="0 0 24 24"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M12 4.5v15m7.5-7.5h-15"
-                    />
+                    <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                   </svg>
+                  <span class="btn-text">Agregar</span>
                 </button>
               </div>
             </div>
@@ -184,19 +197,120 @@ function formatPrice(amount) {
 
 <!-- Script interactivo de desplazamiento para este slider -->
 <script define:vars={{ id }}>
-  const track = document.getElementById(`track-${id}`);
-  const prevBtn = document.querySelector(`[data-slider-prev="${id}"]`);
-  const nextBtn = document.querySelector(`[data-slider-next="${id}"]`);
+  (function () {
+    const track = document.getElementById(`track-${id}`);
+    const prevBtn = document.querySelector(`[data-slider-prev="${id}"]`);
+    const nextBtn = document.querySelector(`[data-slider-next="${id}"]`);
 
-  if (track && prevBtn && nextBtn) {
-    const scrollStep = () => track.clientWidth * 0.85;
+    if (!track || !prevBtn || !nextBtn) return;
 
-    prevBtn.addEventListener('click', () => {
-      track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+    // Calcula la distancia real exacta entre tarjetas (ancho real + gap)
+    function getCardStep() {
+      const cards = track.querySelectorAll('article');
+      if (!cards.length) return 200;
+      const firstCard = cards[0];
+      const secondCard = cards[1];
+      const cardDistance = secondCard
+        ? (secondCard.offsetLeft - firstCard.offsetLeft)
+        : (firstCard.offsetWidth + 12);
+
+      // En móviles y vista reducida (< 768px, alineado con el breakpoint md del menú móvil):
+      // Avanzar exactamente 1 producto a la vez
+      if (window.innerWidth < 768) {
+        return cardDistance;
+      }
+      // En tablets (768px a 1023px): avanzar 2 productos
+      if (window.innerWidth < 1024) {
+        return cardDistance * 2;
+      }
+      // En desktop grande: avanzar 3 productos
+      return cardDistance * 3;
+    }
+
+    // Desplazamiento suave y controlado sin interferencia del motor de paginación de Chrome
+    function scrollSlider(direction) {
+      const step = getCardStep();
+      const scrollAmount = direction === 'next' ? step : -step;
+
+      // Desactivar temporalmente snap para que Chrome no fuerce salto de páginas completas
+      track.style.scrollSnapType = 'none';
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+      clearTimeout(track._snapTimer);
+      track._snapTimer = setTimeout(() => {
+        track.style.scrollSnapType = 'x mandatory';
+        updateArrowStates();
+      }, 400);
+    }
+
+    prevBtn.addEventListener('click', () => scrollSlider('prev'));
+    nextBtn.addEventListener('click', () => scrollSlider('next'));
+
+    // Gesto táctil swipe en móviles: avanzar estrictamente de a 1 producto
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const duration = Date.now() - touchStartTime;
+
+      // Si fue un swipe horizontal claro y rápido
+      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && duration < 500) {
+        if (deltaX < 0) {
+          scrollSlider('next');
+        } else {
+          scrollSlider('prev');
+        }
+      }
+    }, { passive: true });
+
+    // Actualiza la disponibilidad visual de los botones de navegación
+    function updateArrowStates() {
+      const maxScroll = track.scrollWidth - track.clientWidth - 4;
+      prevBtn.disabled = track.scrollLeft <= 4;
+      nextBtn.disabled = track.scrollLeft >= maxScroll;
+    }
+
+    track.addEventListener('scroll', updateArrowStates, { passive: true });
+    window.addEventListener('resize', updateArrowStates, { passive: true });
+    // Estado inicial de las flechas
+    updateArrowStates();
+
+    // Interacción clara al presionar 'Agregar' en las tarjetas de producto
+    document.querySelectorAll(`#${id} .add-to-cart-btn`).forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const button = e.currentTarget;
+        const textSpan = button.querySelector('.btn-text');
+        const originalText = textSpan ? textSpan.textContent : 'Agregar';
+
+        button.classList.add('!bg-emerald-600', 'scale-98');
+        if (textSpan) textSpan.textContent = '¡Agregado!';
+
+        setTimeout(() => {
+          button.classList.remove('!bg-emerald-600', 'scale-98');
+          if (textSpan) textSpan.textContent = originalText;
+        }, 700);
+
+        const badge = document.getElementById('cart-count-badge');
+        if (badge) {
+          const currentCount = parseInt(badge.textContent || '0', 10);
+          badge.textContent = String(currentCount + 1);
+          badge.classList.add('scale-125', '!bg-rose-600', '!text-white', 'transition-transform');
+          setTimeout(() => {
+            badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
+          }, 400);
+        }
+      });
     });
-
-    nextBtn.addEventListener('click', () => {
-      track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
-    });
-  }
+  })();
 </script>

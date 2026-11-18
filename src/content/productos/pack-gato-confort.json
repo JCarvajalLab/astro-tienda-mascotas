@@ -1,0 +1,37 @@
+{
+  "id": "pack-02",
+  "slug": "pack-gato-confort-diversion",
+  "name": "Pack Felino Confort & Diversión (Rascador + Churus + Varita)",
+  "brand": "Market-Pet Packs",
+  "description": "El combo consentidor definitivo para gatos. Incluye un rascador de poste en sisal natural para proteger tus muebles, un pack surtido de deliciosos Churu cremosos y una varita teaser con plumas naturales.",
+  "shortDescription": "Poste rascador, snacks Churu cremosos y varita con plumas para gatos.",
+  "price": 26990,
+  "originalPrice": 38990,
+  "discount": "-30% PACK",
+  "petType": "gatos",
+  "category": "Packs Promocionales",
+  "categorySlug": "packs-promocionales",
+  "lifeStage": "todas",
+  "rating": 4.9,
+  "reviewsCount": 42,
+  "stock": 15,
+  "sku": "PCK-GAT-CONF",
+  "badge": "PACK AHORRO",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": true,
+  "isBestSeller": true,
+  "image": "../../assets/products/pack-gato.jpg",
+  "imageAlt": "Combo promocional felino con rascador de sisal, churus cremosos y varita de plumas",
+  "features": [
+    "Poste rascador de 45cm con sisal 100% natural",
+    "Pack de 8 tubos Churu con alto contenido de humedad",
+    "Varita de madera con plumas coloridas y cascabel interactivo",
+    "Estimula el instinto cazador y reduce el estrés felino"
+  ],
+  "specifications": {
+    "Contenido": "Rascador 45cm + Pack Churu 8u + Varita 40cm",
+    "Material Rascador": "Sisal natural y base afelpada",
+    "Apto para": "Gatitos y gatos adultos"
+  }
+}

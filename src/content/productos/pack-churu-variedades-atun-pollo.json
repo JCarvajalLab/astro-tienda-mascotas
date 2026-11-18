@@ -1,0 +1,38 @@
+{
+  "id": "of-08",
+  "slug": "pack-churu-variedades-atun-pollo",
+  "name": "Pack Churu Variedades Atún & Pollo 8u",
+  "brand": "Inaba Churu",
+  "description": "El snack cremoso favorito de los felinos a nivel mundial. Elaborado con ingredientes grado de consumo humano, libre de granos y con 91% de humedad, ideal para hidratar a tu gato y premiarlo directamente desde el tubo.",
+  "shortDescription": "Puré cremoso irresistible con alto contenido de agua y sin conservantes.",
+  "price": 6990,
+  "originalPrice": 9490,
+  "discount": "-26% OFF",
+  "petType": "gatos",
+  "category": "Snacks & Premios",
+  "categorySlug": "snacks-premios",
+  "lifeStage": "todas",
+  "rating": 5.0,
+  "reviewsCount": 88,
+  "stock": 50,
+  "sku": "CHU-VAR-8X14G",
+  "badge": "-26% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/churu-gatos.jpg",
+  "imageAlt": "Pack de golosinas cremosas Churu para gatos",
+  "features": [
+    "Textura cremosa y sabor irresistible para paladares exigentes",
+    "91% de humedad que apoya la salud de los riñones",
+    "Con taurina esencial, vitamina E y extracto de té verde",
+    "Sin granos, sin conservantes y sin colorantes artificiales"
+  ],
+  "specifications": {
+    "Formato": "8 tubos de 14 gramos c/u (112g total)",
+    "Sabores": "4x Receta de Atún + 4x Receta de Pollo",
+    "Textura": "Puré sedoso",
+    "Origen": "Japón"
+  }
+}

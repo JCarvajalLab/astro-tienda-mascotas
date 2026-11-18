@@ -12,15 +12,15 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
-- **Última actualización:** 2026-11-17
-- **Fase activa:** `phase/01-design`
-- **Rama de trabajo:** `phase/01-design`
-- **Último commit relevante:** feat(design): unifica fondo calido warm-biscuit en todas las secciones eliminando fondos blancos aislados
+- **Última actualización:** 2026-11-18
+- **Fase activa:** `phase/02-catalog`
+- **Rama de trabajo:** `phase/02-catalog`
+- **Último commit relevante:** fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit (Navbar, Footer y todas las secciones intermedias de la web sobre lienzo marfil continuo `#FAF7F2` sin parches blancos aislados: TrustBar en `#F5F0E8`, Categorías, Sliders de Ofertas y Novedades y Banner de Catálogo transparentes sobre el lienzo), tarjetas de producto individuales en blanco puro (`bg-white`) con sutil relieve y borde para máxima jerarquía comercial, transición continua y al ras entre el bloque de comunidad (`ClubNewsletter.astro` con `mb-0`) y el pie de página eliminando cualquier franja intermedia, Hero Carousel inmersivo con fondo expandido a sangre (Generative Expand style), Barra de beneficios comerciales (`TrustBar.astro`), 5 categorías circulares con fotografías realistas de alta resolución, dos filas de carruseles de productos compactos (`ProductSlider.astro`: Ofertas y Novedades con 5 productos por vista), sección de Banners por Etapa de Vida (`LifeStageBanners.astro`: Cachorros y Gatitos, Adultos y Seniors con fondos distintivos y patrón de huellitas), Banner emocional de llamado al catálogo a ancho completo (`CatalogCtaBanner.astro`: 4 arcos heroicos en los extremos con Beagle, gatitos y Corgi + botón píldora "Ver todo el catálogo"), Bloque Comunidad Market-Pet a ancho completo (`ClubNewsletter.astro`: titular empático de comunidad, cupón de bienvenida de $5.000 con letra pequeña transparente de compras sobre $40.000 y fotografía limpia), Footer moderno e integrado (`Footer.astro`: branding con patita Market-Pet, 3 redes sociales clave [Instagram, Facebook y WhatsApp oficial con SVG auténtico de alta fidelidad], 3 columnas de navegación comercial, medios de pago en Chile y subfooter con stack tecnológico), interfaz limpia sin líneas divisorias artificiales, paleta 60-30-10 con Rojo Carmín Retail (`#E11D48`), y modal de despacho chileno.
-- **Qué está en progreso:** Cierre de Fase 1 (Diseño & Setup Base) y preparación de Fase 2 (Catálogo & Contenido con Content Collections).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio en 1.86s con 26 imágenes WebP optimizadas, ESLint y Prettier 100% pasando sin errores.
-- **Siguiente paso concreto:** Proceder al cierre de la Fase 1 en `docs/PLAN.md` y dar inicio a la Fase 2 (Catálogo & Contenido).
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
+- **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.19s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar con el usuario la fluidez del carrusel en móviles y proceder con la siguiente tarea del plan.
 
 ## 2. Decisiones importantes
 
@@ -64,10 +64,334 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-17 | Simetría cálida total: Navbar y Footer en Warm Biscuit | Armonía visual integral de apertura y cierre de página en tonos orgánicos y eliminación de rutas de preview | Dejar footer en tono discordante o mantener páginas de pruebas |
 | 2026-11-17 | Lienzo cálido Warm Biscuit (#FAF7F2) y transición fluida a Footer | Eliminar choque térmico con blanco frío, aportar relieve tridimensional a las tarjetas de productos y eliminar franja blanca residual sobre el footer | Fondo blanco plano con cortes duros |
 | 2026-11-17 | Unificación de lienzo cálido en todas las secciones intermedias | Retirar clases bg-white y via-white en categorías, sliders y banner de catálogo para que el fondo fluya de forma 100% continua en toda la web | Dejar fondos blancos aislados fragmentando la página |
+| 2026-11-17 | Cierre de Fase 1 e inicio de Fase 2 (Catálogo & Contenido) | Consolidación de identidad visual completa (Setup, Navbar, Footer, Hero, Banners, ritmo y lienzo cálido); merge a develop y main; apertura de rama `phase/02-catalog` | Acumular cambios sin cerrar fase formalmente |
+| 2026-11-17 | Content Collections con Astro 5 loader glob y JSON | Modelado tipado de productos con Zod y schema({ image }) para validación de datos y optimización de imágenes locales con astro:assets | Cargar datos en arrays dentro de componentes .astro |
+| 2026-11-18 | Página 404 animada de fantasmas unificada | Reutilizar la ilustración SVG animada con CSS de los proyectos anteriores adaptada a la estética retail cálida de Market-Pet | Mensaje 404 estático genérico del navegador |
+| 2026-11-18 | Páginas de detalle con getStaticPaths y Content Layer | Renderizado dinámico de fichas de producto (/producto/[slug]) con selector de cantidad, breadcrumbs, especificaciones y productos relacionados | Páginas de producto manuales o vistas en modales |
+| 2026-11-18 | Modo nocturno programado al inicio de Fase 3 | Probar la alternancia de tema claro/oscuro sobre todo el catálogo y carrito consolidado | Forzar modo oscuro anticipadamente sin catálogo o posponerlo a la fase final |
+| 2026-11-18 | Vistas dinámicas de catálogo y categorías con filtros JS nativo | Navegación comercial fluida por especie (perros, gatos) y categoría sin recargas pesadas | Catálogo rígido plano sin filtros ni páginas por categoría |
+| 2026-11-18 | Botones de compra inclusivos y accesibles con texto explícito | Reemplazar el botón circular '+' ambiguo por un botón prominente con icono de carrito y texto explícito 'Agregar' / 'Agregar al carrito', accesible para todas las edades | Mantener icono '+' minimalista poco intuitivo para adultos mayores |
+| 2026-11-18 | Ampliación de catálogo a 20 productos con packs reales y regulares | Incorporar 5 combos de bienvenida/ahorro y 5 productos esenciales sin descuento para contraste comercial realista | Catálogo limitado donde el 100% de los productos tenían ofertas artificiales |
+| 2026-11-18 | Barra de búsqueda reactiva y filtros combinados en catálogo | Input de búsqueda en vivo por texto (nombre, categoría, tipo) combinado con píldoras de filtros rápidos y URL query params | Filtrado exclusivo por botones sin caja de búsqueda textual |
+| 2026-11-18 | Búsqueda estricta por nombre de producto y anclas en Header | Aislar la búsqueda al nombre exacto del producto (sin mezclar categoría ni especie que se filtran en botones) y unificar Farmacia/Pequeñas Mascotas con anclas locales | Búsqueda difusa que traía toda la categoría al escribir una especie |
+| 2026-11-18 | Búsqueda tolerante a tildes y navegación por Etapas de Vida | Normalización NFD para buscar sin respetar tildes ('arnes' = 'Arnés'), reemplazo de Pequeñas Mascotas por Mascotas por etapas de vida (Cachorros, Adultos, Seniors) y ancla #ofertas en Ofertas Flash | Forzar escritura exacta con tildes y enlaces rotos sin productos |
+| 2026-11-18 | Mega-menú desplegable en Header con scoped CSS (hover & focus-within) | Resolver recorte de overflow-x-auto con md:overflow-visible y garantizar despliegue fluido con animación y teclado | Usar Tailwind group-hover arbitrario sin soporte en v4 o scripts complejos |
+| 2026-11-18 | Laboratorio comparativo de Mega-Menús (/preview-megamenu) | Evaluar dos composiciones modernas de subcategorías (Vitrina Split vs Grilla Modular) sin alterar la cabecera activa | Forzar una única composición sin test visual del usuario |
+| 2026-11-18 | Eliminación total de emojis en subcategorías de navegación | Erradicar emojis infantiles que denotan aspecto genérico o IA, reemplazándolos por tipografía con jerarquía editorial o micro-SVGs monocromáticos | Mantener emojis coloridos en listas de enlaces |
+| 2026-11-18 | Aprobación e implementación de Opción 1B en Header oficial | Adopción de la Vitrina Híbrida Split Showcase con micro-SVGs monocromáticos, fotos de producto reales y eliminación de emojis en todas las categorías | Menús de lista plana o menús con emojis |
+| 2026-11-18 | Rutas dedicadas y filtros para Accesorios, Farmacia, Ofertas y Mascotas | Cada pestaña del Header y enlace 'Ver todo en...' redirige a su colección filtrada exacta en vez del catálogo genérico | Mandar todas las categorías secundarias a /catalogo sin filtrar |
+| 2026-11-18 | Barras de búsqueda en categorías y optimización de Mascotas por etapas | Integrar buscador reactivo en todas las categorías y enfocar Mascotas en Perros y Gatos por Etapas (Cachorros/Adultos/Seniors) eliminando Colecciones Especiales redundantes | Forzar al usuario a volver a /catalogo para buscar o sobrepoblar Mascotas duplicando el catálogo |
+| 2026-11-18 | Eliminación de dobles nombres anglos (Puppy/Kitten) y filtros contextuales por especie | Usar nombres limpios en español ('Cachorros' y 'Gatitos') y activar el filtro de perro (?pet=perros) automáticamente al acceder desde la sección canina | Mantener etiquetas redundantes en inglés o mezclar productos felinos y caninos sin filtro activo |
+| 2026-11-18 | Creación de rutas dedicadas /suplementos y /dermocosmetica tras auditoría exhaustiva | Garantizar que cada subcategoría del Header dirija a su colección exacta (ej. Glucosamina a /suplementos, fuentes a /hidratacion, ofertas a /ofertas) en vez de categorías equivocadas | Desviar suplementos articulares a 'seniors' o desviar fuentes a 'smart-pet' |
+| 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
+| 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
+| 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · blindaje de detencion unitaria con scroll-snap-stop y swipe tactil en moviles
+- **Qué:** Solución definitiva al comportamiento del carrusel de productos en dispositivos y emuladores móviles:
+  1. **Freno Obligatorio por Tarjeta (`scroll-snap-stop: always`):**
+     - Se añadió la regla CSS `.product-slider-card { scroll-snap-stop: always !important; }` en `src/styles/global.css` y el estilo inline `style="scroll-snap-stop: always;"` en cada `<article>`.
+     - Esto obliga físicamente al motor de scroll táctil del navegador (en iOS Safari, Android Chrome y emuladores de escritorio) a detener la inercia en la tarjeta inmediatamente siguiente, impidiendo por completo que un gesto de deslizamiento con el pulgar salga disparado pasando de largo 5 productos.
+  2. **Control de Gestos Táctiles (`touchstart` / `touchend`):**
+     - Se incorporó un manejador de eventos táctiles en JavaScript nativo que detecta swipes horizontales intencionales (`deltaX > 35px`) y dispara el desplazamiento controlado `scrollSlider('next')` o `scrollSlider('prev')`.
+  3. **Cálculo Exacto de Distancia entre Tarjetas (`offsetLeft`):**
+     - Se sustituyó el cálculo anterior por `secondCard.offsetLeft - firstCard.offsetLeft`, obteniendo la distancia real y exacta en píxeles enteros entre productos.
+  4. **Liberación Temporal de Snap durante el Desplazamiento Programático:**
+     - Al presionar las flechas o ejecutar swipe, se desactiva brevemente `scrollSnapType = 'none'` para permitir un desplazamiento fluido con `scrollBy`, reactivándose 400ms después. Esto evita el conocido bug de Chromium donde el algoritmo de snap interfiere en tiempo real con la animación y salta páginas enteras.
+  5. **Breakpoint Móvil Alineado a `< 768px` (`< md`):**
+     - Se sincronizó el umbral de avance unitario a `< 768px`, garantizando coherencia con el menú hamburguesa del Header móvil.
+- **Por qué:** En la versión móvil, los usuarios interactúan principalmente deslizando con el dedo (gesto táctil). Sin `scroll-snap-stop: always`, la física de aceleración nativa del navegador saltaba múltiples tarjetas en bloque (5 productos a la vez). Con este blindaje combinado de CSS y JavaScript táctil, el carrusel avanza estrictamente de a 1 producto a la vez tanto por toque directo como por flechas.
+- **Especialistas activados:**
+  - `ux-ui`: Análisis del comportamiento de inercia táctil en móviles y diseño de la física de detención unitaria estricta (`scroll-snap-stop: always`).
+  - `desarrollo`: Implementación de listeners táctiles `touchstart`/`touchend`, cálculo con `offsetLeft`, desconexión temporal de snap durante animación y clases CSS dedicadas.
+  - `qa`: Comprobación con ESLint (0 errores), compilación estática de 50 páginas en 4.03s y verificación de sintaxis.
+  - `docs-seo`: Actualización del registro en `docs/HISTORIAL.md`.
+- **Commit asociado:** `f17c74f` · `fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil`
+
+### 2026-11-18 · `phase/02-catalog` · adaptacion de desplazamiento suave y unitario en carruseles de producto para movil
+- **Qué:** Corrección y perfeccionamiento de la interacción en los carruseles horizontales de producto (`ProductSlider.astro`) presentes en la página principal (*"Productos en Oferta"* y *"Novedades de la Semana"*):
+  1. **Navegación Discreta y Unitaria en Móvil:**
+     - En pantallas móviles (`< 640px`), el botón siguiente (`>`) y anterior (`<`) ahora avanzan **exactamente 1 producto por clic** (`cardWidth + gap`) en lugar de saltar el 85% del ancho del viewport o avanzar 5 productos como en escritorio.
+     - En tablets (`640px` a `1023px`), el carrusel avanza 2 productos por clic.
+     - En escritorio (`>= 1024px`), avanza 3 productos por clic, manteniendo siempre productos visibles de referencia para no perder la orientación visual.
+  2. **Alineación Perfecta con CSS Scroll Snap:**
+     - Se reemplazó el `scrollBy` porcentual por un cálculo matemático discreto que calcula el múltiplo entero de snap-point (`Math.floor((current + step + 5) / step) * step`), garantizando que al presionar las flechas la tarjeta quede 100% encajada al borde izquierdo sin sacudidas ni desalineaciones.
+  3. **Gestión de Estados en Botones de Navegación:**
+     - Los botones de navegación ahora detectan dinámicamente si se ha llegado al inicio (`scrollLeft <= 4`) o al final de la lista, desactivándose de forma accesible (`disabled` y `opacity-30 cursor-not-allowed`).
+  4. **Experiencia Táctil y Prevención de Desbordamiento:**
+     - Se incorporó `overscroll-x-contain` en el contenedor de productos para evitar que el gesto táctil horizontal arrastre accidentalmente la navegación del navegador en dispositivos Android e iOS.
+     - Se añadió la clase utilitaria `.scrollbar-none` en `src/styles/global.css` para suprimir barras de desplazamiento nativas antiestéticas en Firefox, Chrome y Safari.
+  5. **Encabezado Adaptado a Pantallas Angostas:**
+     - Se unificó el encabezado con `flex items-end justify-between`, ubicando las flechas de navegación a la derecha en la misma línea visual sin crear saltos de línea innecesarios.
+- **Por qué:** El usuario detectó que en el modo móvil los carruseles saltaban bruscamente 5 productos de golpe (heredado de la lógica desktop), lo que dificultaba explorar el catálogo y generaba una experiencia tosca. Al avanzar de a 1 producto en móvil, el usuario puede revisar cada oferta detalladamente sin perderse nada.
+- **Especialistas activados:**
+  - `ux-ui`: Rediseño de la jerarquía del encabezado del slider en móvil, definición del avance unitario (1 producto a la vez) para mantener el contexto visual en pantalla, y estados de desactivación en flechas.
+  - `desarrollo`: Refactorización del script interactivo en `src/components/ProductSlider.astro` con cálculo dinámico de `getCardStep()` basado en `getBoundingClientRect()` y `getComputedStyle(gap)`, además de la regla CSS `.scrollbar-none` en `src/styles/global.css`.
+  - `qa`: Validación de linter ESLint (0 errores), build de producción exitoso (50 páginas estáticas en 4.19s) y verificación de eventos táctiles.
+  - `docs-seo`: Registro en `HISTORIAL.md` del cambio y actualización del estado actual de la Fase 2.
+- **Commit asociado:** `224333a` · `fix(carousel): adapta desplazamiento en movil para avanzar de a un producto con snap suave`
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de menu hamburguesa y drawer movil con acordeones
+- **Qué:** Implementación integral de la experiencia de navegación móvil para smartphones:
+  1. **Cabecera Móvil Limpia y Despejada:**
+     - Botón hamburguesa accesible (`#mobile-drawer-toggle`) visible en viewports móviles (`< md`) con gestión de atributos de accesibilidad (`aria-expanded`, `aria-controls`).
+     - Ocultamiento de la barra horizontal de categorías de escritorio en pantallas pequeñas (`hidden md:block`), eliminando desbordamientos y desplazamientos rotos.
+     - Formulario de búsqueda móvil conectado con `action="/catalogo"` y `name="q"`.
+  2. **Drawer Lateral Deslizante (Offcanvas `#mobile-nav-drawer`):**
+     - Panel flotante desde la izquierda (`w-[85%] max-w-sm`) con estilo Warm Biscuit (`#FAF7F2`), fondo oscuro con desenfoque (`#mobile-drawer-backdrop`) y botón de cierre (`✕`).
+     - Selector de comuna de despacho integrado en el drawer, sincronizado con el modal de regiones de Chile (`#mobile-drawer-region-text`).
+     - Acceso directo destacado a *"Ver Todo el Catálogo"* (22 productos).
+  3. **Acordeones Táctiles para Categorías:**
+     - Cada categoría (`Mascotas`, `Perros`, `Gatos`, `Accesorios`, `Farmacia & Salud`, `Ofertas Flash`) cuenta con su botón de acordeón con icono, título y flecha con rotación animada de 180°.
+     - Al tocar una categoría, despliega sus subgrupos organizados con áreas táctiles amplias (mínimo 44px de altura) y enlace directo a *"Ver todo en [Categoría] →"*.
+  4. **Atención y Ayuda al Cliente:**
+     - Enlaces directos a inicio de sesión y botón verde de contacto directo a asesoría veterinaria por WhatsApp (`https://wa.me/...`).
+  5. **Comportamiento Interactivo Nativo (JavaScript Puro):**
+     - Apertura y cierre suave con transiciones CSS (`translate-x`).
+     - Bloqueo de scroll del body (`overflow-hidden`) cuando el menú está abierto.
+     - Cierre automático al tocar el backdrop, presionar la tecla `Escape` o hacer clic en cualquier enlace.
+     - Sincronización bidireccional en `RegionModal.astro` para actualizar la comuna seleccionada en el drawer móvil.
+- **Archivos clave:** `src/components/Header.astro`, `src/components/RegionModal.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Construcción del componente Drawer, acordeones y controladores de eventos en JavaScript nativo.
+  - `ux-ui`: Dirección de arte mobile-first, zonas táctiles accesibles (44px), transiciones fluidas y eliminación de la saturación visual en pantallas móviles.
+  - `qa`: Compilación de 50 páginas estáticas en 4.10s, 0 errores en ESLint y pruebas de renderizado en DOM.
+  - `docs-seo`: Registro en bitácora histórica y actualización de matriz de decisiones en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · auditoria y correccion de rutas de subcategorias en cabecera
+- **Qué:** Auditoría integral y corrección de las 30 subcategorías de navegación del Header:
+  1. **Nuevas Rutas Especializadas en `src/pages/categoria/[categoria].astro`:**
+     - `/categoria/suplementos`: Colección dedicada a suplementos articulares y nutricionales con glucosamina, condroprotectores y aceite de salmón (resolviendo el desvío erróneo hacia la categoría general de seniors).
+     - `/categoria/dermocosmetica`: Colección dedicada a shampoos hipoalergénicos con extracto de avena y cuidado dermoprotector.
+  2. **Corrección de Enlaces Mapeados en `src/components/Header.astro`:**
+     - `Farmacia & Salud > Glucosamina Articular`: redirigido de `/categoria/seniors` a `/categoria/suplementos`.
+     - `Farmacia & Salud > Omega 3 Aceite Salmón`: redirigido de `/categoria/seniors` a `/categoria/suplementos`.
+     - `Farmacia & Salud > Shampoos Hipoalergénicos`: redirigido a `/categoria/dermocosmetica`.
+     - `Gatos > Fuentes de Agua Eléctricas`: redirigido de `/categoria/smart-pet` a su ruta nativa `/categoria/hidratacion`.
+     - `Gatos > Arena Bentonita Blanca`: enfocado con query param `/categoria/higiene-cuidados?q=arena`.
+     - `Gatos > Snacks Cremosos Churu`: enfocado con filtro de gato `/categoria/snacks-premios?pet=gatos`.
+     - `Perros > Snacks Dentales & Premios`: enfocado con filtro de perro `/categoria/snacks-premios?pet=perros`.
+     - `Perros > Arneses Antitirones`: enfocado con `/categoria/paseo-seguridad?pet=perros`.
+     - `Perros > Shampoos Dermoprotectores`: redirigido a `/categoria/dermocosmetica`.
+     - `Ofertas Flash > Combos Cachorros`: enfocado con `/categoria/packs-promocionales?q=cachorro`.
+     - `Ofertas Flash > Alimentos en Oferta`: corregido de `/categoria/alimentos-perro` a `/categoria/ofertas?q=alimento`.
+  3. **Soporte de Búsqueda Paramétrica por URL en `[categoria].astro`:**
+     - Lectura en JavaScript nativo del parámetro `?q=...` o `?search=...`, precompletando el input de búsqueda de la categoría y filtrando la grilla automáticamente al cargar.
+  4. **Validación Exhaustiva:**
+     - Script automatizado verificó que las **30 URLs de cabecera** retornan **HTTP 200 OK** y muestran sus productos pertinentes.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de rutas `suplementos` y `dermocosmetica`, soporte de `?q=` en `[categoria].astro` y corrección de las 30 URLs en `Header.astro`.
+  - `qa`: Script de auditoría de enlaces en servidor local (30/30 OK), 0 errores en ESLint y compilación de 50 páginas estáticas en 3.53s.
+  - `docs-seo`: Actualización de la matriz de decisiones y registro en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · nombres limpios de cachorros/gatitos y activacion de filtro por mascota
+- **Qué:** Refinamiento de la navegación por etapas de vida y enriquecimiento de las páginas de categoría con filtros por especie:
+  1. **Nombres Limpios en Español sin Anglicismos Dobles:**
+     - Se eliminaron todos los textos secundarios redundantes en inglés (`Puppy`, `Kitten`) en `src/components/Header.astro` y en las categorías.
+     - Etiquetas estandarizadas a **Cachorros** y **Gatitos** (tanto en Mascotas como en los menús de Perros y Gatos).
+  2. **Activación Automática de Filtros por Especie (`?pet=perros` / `?pet=gatos`):**
+     - Al hacer clic en *"Cachorros"* o *"Perros Adultos"* bajo la columna de Perros, la URL resultante incluye el parámetro `?pet=perros`, activando de forma visual y funcional la píldora `🐶 Perros`.
+     - Al hacer clic en *"Gatitos"* o *"Gatos Adultos"*, se activa automáticamente la píldora `🐱 Gatos`.
+  3. **Píldoras de Filtro Rápido en Categorías (`[categoria].astro`):**
+     - Se añadieron los botones interactivos `[Todos]`, `[🐶 Perros]` y `[🐱 Gatos]` sobre la grilla de productos de cada categoría.
+     - Permiten al usuario alternar entre especies con un solo toque y actualizan el contador en tiempo real.
+  4. **Filtro Focalizado en `cachorros`, `adultos` y `seniors`:**
+     - Se limpió el filtro base de `cachorros` en `[categoria].astro` para excluir productos adultos no pertinentes (como arenas sanitarias de 10kg), dejando 7 productos especializados en apego, confort y nutrición de primeras etapas.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de botones de filtro por especie y soporte de parámetros `pet` en `[categoria].astro`, ajuste de URLs en `Header.astro`.
+  - `ux-ui`: Claridad lingüística en español neutro y experiencia fluida de filtrado acorde a la expectativa del usuario.
+  - `qa`: Compilación limpia de 48 páginas estáticas en 4.02s y verificación en servidor local.
+  - `docs-seo`: Registro en bitácora de decisiones e historial del proyecto.
+
+### 2026-11-18 · `phase/02-catalog` · barras de busqueda reactivas en categorias y menu mascotas por etapas
+- **Qué:** Implementación de dos optimizaciones críticas de navegación y descubrimiento:
+  1. **Barras de Búsqueda y Ordenamiento en todas las Categorías (`src/pages/categoria/[categoria].astro`):**
+     - Integración de barra de búsqueda reactiva en tiempo real en cada página de categoría (`/categoria/perros`, `/categoria/gatos`, `/categoria/accesorios`, `/categoria/farmacia-salud`, `/categoria/ofertas`, `/categoria/mascotas`, `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`).
+     - Normalización completa de búsqueda: insensible a mayúsculas/minúsculas y a tildes/acentos (ej. "arnes" encuentra "Arnés", "salmon" encuentra "Salmón").
+     - Selector de ordenamiento dinámico en cliente (destacados, menor precio, mayor precio, mejor valorados).
+     - Contador de productos reactivo sincronizado con el banner y estado vacío accesible con botón "Limpiar búsqueda" cuando no hay coincidencias.
+     - Conexión del buscador central del Header (`#site-search`) para enviar el formulario a `/catalogo?q=...`.
+  2. **Refactorización de la pestaña Mascotas (`src/components/Header.astro` y `[categoria].astro`):**
+     - Se eliminó el grupo redundante "Colecciones Especiales" (packs, camas, smart-pet) que duplicaba innecesariamente el catálogo.
+     - La navegación de Mascotas se organizó estrictamente por etapas de vida:
+       - **Perros por Etapa:** Cachorros (Puppy), Perros Adultos, Perros Senior (7+).
+       - **Gatos por Etapa:** Gatitos (Kitten), Gatos Adultos, Gatos Senior (7+).
+     - La página `/categoria/mascotas` ahora filtra de forma focalizada los 8 productos especializados en etapas de vida de caninos y felinos.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de la barra de búsqueda y lógica de filtrado/ordenamiento en JS nativo sin dependencias en `[categoria].astro`, y ajuste de subcategorías en `Header.astro`.
+  - `ux-ui`: Claridad visual y editorial de la pestaña Mascotas orientada a etapas de edad, manteniendo consistencia y accesibilidad en el buscador y estado vacío.
+  - `qa`: Compilación de 48 páginas estáticas en 3.71s, 0 errores en ESLint y verificación de funcionamiento en servidor local.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro histórico en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · rutas dedicadas para accesorios, farmacia, ofertas y mascotas con filtros sincronizados
+- **Qué:** Solución integral del enrutamiento por categoría para evitar redirecciones genéricas al catálogo completo:
+  1. **Nuevas Rutas Dinámicas en `src/pages/categoria/[categoria].astro`:**
+     - `/categoria/accesorios`: Colección filtrada con los 12 productos de confort, paseo, smart pet, descanso y juguetes (arneses, collares, camas memory foam, mochilas, rascadores, comederos WiFi, fuentes y mantas térmicas).
+     - `/categoria/farmacia-salud` (y alias `/categoria/farmacia`): Colección con los 6 productos de suplementación articular, dermocosmética con avena, cuidado dental e higiene.
+     - `/categoria/ofertas` (y alias `/categoria/ofertas-flash`): Colección que reúne exclusivamente los productos con descuento activo, packs promocionales y ofertas especiales.
+     - `/categoria/mascotas`: Vista global de mascotas con selección completa y acceso directo a las etapas de vida.
+  2. **Actualización de Enlaces en Header y Footer:**
+     - En `src/components/Header.astro`, tanto el botón principal de cada categoría como el enlace *"Ver todo en [Categoría] →"* del mega-menú apuntan directamente a su ruta dedicada (`/categoria/accesorios`, `/categoria/farmacia-salud`, `/categoria/ofertas`, `/categoria/mascotas`).
+     - En `src/components/Footer.astro`, se sustituyeron las anclas antiguas `#perros`, `#gatos`, `#ofertas` por sus rutas estáticas reales.
+  3. **Sincronización de Filtros en `/catalogo`:**
+     - Se agregaron las píldoras de filtro rápido `🎾 Accesorios` y `🩺 Farmacia & Salud`.
+     - Se dotó al listado de soporte para el parámetro URL `?filter=...` o `?categoria=...`, activando el filtro correspondiente automáticamente.
+- **Archivos clave:** `src/pages/categoria/[categoria].astro`, `src/components/Header.astro`, `src/pages/catalogo/index.astro`, `src/components/Footer.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de filtros paramétricos en `[categoria].astro` y `catalogo/index.astro`, actualización de rutas en `Header.astro` y `Footer.astro`.
+  - `ux-ui`: Coherencia de expectativas de usuario (hacer clic en una categoría muestra única y exclusivamente los productos pertinentes).
+  - `qa`: Compilación de 48 páginas estáticas en 3.34s, 80 imágenes WebP optimizadas y verificación HTTP 200 en todas las nuevas rutas.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · megamenu vitrina split con microsvgs y sin emojis en header oficial
+- **Qué:** Implementación en producción de la **Opción 1B** aprobada por el usuario en `src/components/Header.astro`:
+  1. **Vitrina Híbrida Split Showcase en todas las Categorías:** Tarjeta flotante moderna (`w-[620px]` a `w-[680px]`) con división en 3 columnas: 2 columnas de navegación con micro-SVGs lineales monocromáticos y 1 columna dedicada a tarjeta promocional destacada con imagen real optimizada de producto (`astro:assets`), badge de ahorro y botón directo a colección.
+  2. **Erradicación Total de Emojis en el Header:** Sustitución de emojis en pestañas (`🐾`, `🐶`, `🐱`, `🎾`, `🩺`, `🔥`) por iconos vectoriales SVG de trazo fino (`stroke-2`) elegantes y monocromáticos.
+  3. **Alineación Inteligente Anti-Desborde:** Las categorías de la derecha (`Accesorios`, `Farmacia & Salud`, `Ofertas Flash`) alinean su menú a `right-0` para prevenir cualquier desborde fuera del viewport.
+- **Archivos clave:** `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte definitiva para el mega-menú de escritorio, elevación visual, micro-interacciones y armonía cromática con la identidad Warm Biscuit.
+  - `desarrollo`: Refactorización integral de `Header.astro` con micro-SVGs, optimización de imágenes locales WebP y compatibilidad con accesibilidad por teclado (`:focus-within`).
+  - `qa`: Compilación de 42 páginas en 4.23s con 80 imágenes WebP optimizadas y ESLint limpio con código 0.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · depuracion de emojis y variantes tipografia limpia vs micro-svgs
+- **Qué:** Actualización del laboratorio comparativo (`src/pages/preview-megamenu.astro`) en respuesta a la retroalimentación del usuario:
+  1. **Eliminación Total de Emojis:** Se retiraron todos los emojis de alimentos, snacks, huesos, camas y juguetes del menú de subcategorías.
+  2. **Opción 1A (Tipografía Limpia & Sofisticada):** Cero iconos. La navegación se sustenta en tipografía editorial con kickers en tracking abierto, títulos nítidos, subtítulos discretos y un micro-indicador de flecha sutil (`→`) que aparece suavemente al hacer hover sobre la tarjeta.
+  3. **Opción 1B (Con Micro-SVGs Lineales Monocromáticos):** Añade pequeños iconos vectoriales SVG de trazo fino (1.75px) en tono café/rosa sobrio, sin colores chillones, aportando anclaje visual rápido y sobrio.
+  4. **Tarjeta Promocional Refinada:** Mantiene el banner split lateral con fotografía real de producto optimizada, badge textual limpio (`Hasta 32% OFF`) y botón CTA directo.
+- **Archivos clave:** `src/pages/preview-megamenu.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Depuración visual completa, reemplazo de emojis por jerarquía tipográfica y diseño de micro-iconos SVG coherentes.
+  - `desarrollo`: Refactorización de componentes y datos en la página de preview.
+  - `qa`: Compilación limpia de 42 páginas en 3.61s y ESLint verificado con código 0.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · laboratorio comparativo de mega-menus para evaluar subcategorias
+- **Qué:** Creación de una página de laboratorio de diseño (`src/pages/preview-megamenu.astro`) para evaluar dos composiciones modernas de subcategorías:
+  1. **Opción 1 · Vitrina Híbrida Split Showcase (Estilo Retail Moderno):** Divide el menú en 2/3 para navegación táctil con micro-iconos y descripciones cortas, y 1/3 para una tarjeta promocional destacada con imagen real optimizada de producto/pack (`astro:assets`), badge comercial (`🔥 Hasta 32% OFF`) y botón CTA directo.
+  2. **Opción 2 · Grilla Modular de Píldoras Visuales (Estilo Boutique Minimalista):** Grilla simétrica de 3 columnas de tarjetas individuales con iconos grandes de color suave, títulos en negrita y subtítulos explicativos.
+  3. **Demostración Interactiva y Vista Abierta:** La página incluye una barra de navegación funcional con hover activo y dos tarjetas gigantes de vista abierta estática para inspeccionar cada detalle tipográfico, espaciado y contraste cromático.
+- **Archivos clave:** `src/pages/preview-megamenu.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte de las dos alternativas, micro-interacciones, armonía de color con la identidad cálida y tipografía con jerarquía.
+  - `desarrollo`: Creación de la página en Astro 5+ con imágenes optimizadas y diseño responsive sin dependencias de terceros.
+  - `qa`: Compilación de 42 páginas en 2.93s, ESLint pasando al 100% y validación de código HTTP 200 en `/preview-megamenu`.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · mega-menu desplegable hover y focus con subcategorias activas
+- **Qué:** Solución integral del despliegue del Mega-Menú interactivo en la barra inferior del Header (`src/components/Header.astro`):
+  1. **Desbloqueo de Recorte de Contenedor (Overflow Clipping):** Se agregó `md:overflow-visible` al elemento `<ul>` de navegación. En especificación CSS, `overflow-x: auto` fuerza automáticamente `overflow-y` a recortar los elementos hijos absolutos; con `md:overflow-visible` en desktop los menús flotantes descienden libremente sobre la página.
+  2. **Reglas CSS Scoped con Animación Suave:** En lugar de depender de modificadores arbitrarios de grupo de Tailwind (`group-hover/menu`) que no eran reconocidos por el compilador v4, se implementaron reglas CSS directas en bloque `<style>` de Astro (`.nav-item:hover > .nav-dropdown`, `.nav-item:focus-within > .nav-dropdown`).
+  3. **Rotación de Flecha y Accesibilidad por Teclado:** La flecha SVG rota 180 grados suavemente (`.nav-arrow`) y el menú se abre automáticamente al navegar con la tecla `Tab` (`:focus-within`), garantizando accesibilidad total sin JavaScript.
+  4. **Puente de Hover sin Parpadeos:** Contenedor con `pt-2` que conecta el botón de la categoría con la tarjeta flotante sin brechas muertas de cursor.
+  5. **Alineación Inteligente Anti-Desborde:** Las categorías de la derecha (`Farmacia & Salud`, `Ofertas Flash`) alinean su tarjeta a `right-0` para prevenir desbordes laterales fuera de la ventana.
+  6. **Enlaces Específicos y Funcionales en Subcategorías:** Cada subcategoría contiene enlaces reales a colecciones del ecommerce (`/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/alimentos-perro`, `/categoria/alimentos-gato`, `/categoria/packs-promocionales`, `/categoria/smart-pet`, `/categoria/higiene-cuidados`).
+- **Archivos clave:** `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Refactorización de marcado semántico, eliminación del recorte de overflow, scoped CSS con keyframes e hidratación de URLs activas.
+  - `ux-ui`: Animación sutil de entrada (0.18s), rotación de chevron indicador, soporte a `prefers-reduced-motion` y distribución en 2 columnas por categoría.
+  - `qa`: Compilación limpia de 41 páginas en 2.80s y ESLint sin errores.
+  - `docs-seo`: Actualización de la memoria técnica del proyecto en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · normalizacion de acentos en buscador, navegacion por etapas de vida y categoria seniors
+- **Qué:** Implementación de las mejoras de usabilidad y navegación solicitadas por el usuario:
+  1. **Búsqueda Tolerante a Acentos y Mayúsculas/Minúsculas (`src/pages/catalogo/index.astro`):** Se implementó una función de normalización Unicode NFD (`normalizeText`) que elimina marcas diacríticas y convierte a minúsculas tanto la consulta como el nombre del producto. Ahora al buscar *"arnes"*, *"Arnés"*, *"salmon"* o *"SALMÓN"* los resultados coinciden sin exigir tildes ortográficas.
+  2. **Ancla Local en Ofertas Flash (`src/components/Header.astro`):** Se corrigió `Ofertas Flash` para que use `href: '/#ofertas'`, manteniendo al usuario en la página y desplegando su menú sin forzar la redirección a `/catalogo`.
+  3. **Reemplazo y Reubicación de "Pequeñas Mascotas" por "Mascotas" en Header:** Se eliminó la pestaña sin productos "Pequeñas Mascotas" y se incorporó **"🐾 Mascotas"** como primer elemento de la barra de navegación (antes de Perros), con subcategorías estructuradas en torno a las **Etapas de Vida** (*Cachorritos & Gatitos*, *Compañeros Adultos* y *Fiel Amigo Senior 7+*).
+  4. **Creación de Productos Especializados para Seniors:** Se agregaron 2 productos a la colección JSON:
+     - `alimento-senior-perro-articular-7plus-3kg` (Nutrición suave con glucosamina y condroitina para perros mayores de 7 años, \$23.990).
+     - `suplemento-articular-senior-glucosamina-60comp` (Comprimidos masticables sabor hígado para alivio de rigidez articular en perros y gatos, \$14.990).
+  5. **Nuevas Rutas Dinámicas por Etapa de Vida:** Se generaron `/categoria/cachorros`, `/categoria/adultos` y `/categoria/seniors` en `src/pages/categoria/[categoria].astro`, y se enlazaron las 3 tarjetas de `LifeStageBanners.astro` directamente a estas rutas.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/components/Header.astro`, `src/components/LifeStageBanners.astro`, `src/pages/categoria/[categoria].astro`, `src/content/productos/*.json` (2 nuevos), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Normalización NFD en JS nativo, configuración de rutas dinámicas por lifeStage y modelado de productos senior.
+  - `ux-ui`: Estructura del megamenú por etapas de vida, tolerancia de búsqueda y experiencia de usuario.
+  - `qa`: Compilación exitosa de 41 páginas estáticas en 2.86s con 76 imágenes WebP optimizadas y validación HTTP 200.
+  - `docs-seo`: Actualización de la memoria técnica y bitácora de decisiones.
+
+### 2026-11-18 · `phase/02-catalog` · calibracion de buscador exclusivo por nombre y navegacion en header
+- **Qué:** Ajustes de usabilidad solicitados por el usuario:
+  1. **Buscador Estrictamente por Nombre de Producto (`src/pages/catalogo/index.astro`):** Se restringió la búsqueda en tiempo real exclusivamente al nombre del producto (`name.includes(query)`), descartando categoría y tipo de mascota en la coincidencia de texto para evitar falsos positivos y respetar los botones de filtro dedicados (Todos, Packs, Perros, Gatos, Ofertas).
+  2. **Placeholder Intuitivo:** Se actualizó a `Buscar producto por nombre (ej. Salmón, Churu, Arnés, Cama)...`.
+  3. **Ajuste de Enlaces en Header (`src/components/Header.astro`):** Se corrigieron los enlaces de *Farmacia & Salud* (`/#farmacia`) y *Pequeñas Mascotas* (`/#pequenas-mascotas`) para que mantengan el mismo comportamiento de *Accesorios* (`/#accesorios`), desplegando su menú sin forzar una redirección inconsistente a `/catalogo`.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/components/Header.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Refactor de la condición de búsqueda en JS y ajuste de rutas en Header.
+  - `ux-ui`: Precisión de copy en placeholder y consistencia de navegación.
+  - `qa`: Build limpio de 36 páginas estáticas en 2.57s y ESLint con 0 errores.
+  - `docs-seo`: Actualización de la memoria técnica.
+
+### 2026-11-18 · `phase/02-catalog` · ampliacion a 20 productos con packs reales, buscador y botones inclusivos
+- **Qué:** Implementación de las mejoras de usabilidad e inclusión solicitadas por el usuario para la Fase 2:
+  1. **Rediseño Inclusivo de Tarjetas de Producto:** Se reemplazó el botón circular con el signo `+` (poco intuitivo para personas adultas) por un botón prominente de alta accesibilidad con icono de carrito de compras y texto explícito (**"Agregar"** en carruseles y **"Agregar al carrito"** en catálogo y categorías), con feedback visual inmediato ("¡Agregado!") e incremento del badge del Header.
+  2. **Ampliación del Catálogo a 20 Productos:** Se agregaron 10 nuevas variantes tipadas con Zod y sus correspondientes fotografías de estudio generadas por IA:
+     - **5 Packs Promocionales Reales:** *Pack Bienvenida Cachorro* (alimento + mordedor + manta), *Pack Felino Confort & Diversión* (rascador + churu + varita), *Pack Paseo Seguro* (arnés reflectante + correa + dispensador), *Pack Higiene Felina Total* (arena 10kg + pala + tapete panal) y *Pack Descanso Dúo* (cama circular + manta sherpa).
+     - **5 Productos Esenciales a Precio Regular (Sin oferta):** *Arena Bentonita Blanca 10kg*, *Shampoo Hipoalergénico de Avena 500ml*, *Pelota Interactiva Dispensadora de Premios*, *Manta Térmica Sherpa 80x60cm* y *Collar de Seguridad Reflectante*.
+  3. **Barra de Búsqueda Integrada en el Catálogo General (`/catalogo`):** Se implementó una barra de búsqueda en tiempo real con icono, botón de limpieza instantánea (`✕`) y filtrado cruzado con píldoras rápidas (Todos, 🎁 Packs Ahorro, 🐶 Perros, 🐱 Gatos, 🔥 Ofertas) y selector de ordenamiento.
+  4. **Nuevas Rutas Dinámicas de Categoría:** Se crearon `/categoria/packs-promocionales` e `/categoria/higiene-cuidados` y se actualizó `CircularCategories.astro` para que "Packs Promocionales" conduzca directamente a su colección real.
+  5. **Conexión del CTA de Catálogo:** El banner emocional "Porque tus peluditos merecen lo mejor" ahora enlaza directamente a `/catalogo` en vez del ancla `#ofertas`.
+- **Archivos clave:** `src/components/ProductSlider.astro`, `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `src/components/CircularCategories.astro`, `src/components/CatalogCtaBanner.astro`, `src/pages/index.astro`, `src/content/productos/*.json` (10 nuevos), `src/assets/products/*.jpg` (10 nuevas), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de diseño inclusivo para todas las edades, botones de compra accesibles, jerarquía de packs y tarjetas de producto.
+  - `desarrollo`: Implementación de la barra de búsqueda en vivo, lógica de filtros JS nativo, esquemas JSON y rutas dinámicas.
+  - `qa`: Compilación exitosa de 36 páginas estáticas en 2.63s con 76 imágenes WebP optimizadas, ESLint limpio con 0 errores y validación HTTP 200 en endpoints.
+  - `docs-seo`: Actualización de la memoria técnica y bitácora de decisiones.
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de catalogo general y rutas dinamicas por categoria
+- **Qué:** Implementación del hito final de la Fase 2 (Catálogo & Contenido):
+  1. **Catálogo General con Filtros Interactivos (`src/pages/catalogo/index.astro`):** Vista de catálogo completa con selector de filtros por especie (Todos, Perros, Gatos, Ofertas) y ordenamiento por menor precio, mayor precio y mejor valorados en JavaScript nativo puro, contador dinámico de resultados y estado vacío intuitivo.
+  2. **11 Rutas Dinámicas por Categoría (`src/pages/categoria/[categoria].astro`):** Generación estática con `getStaticPaths` para perros, gatos, alimentos-perro, alimentos-gato, camas-confort, rascadores-camas, snacks-premios, paseo-seguridad, smart-pet, viajes-paseo e hidratacion con banner temático, descripción y conteo.
+  3. **Conexión de Enlaces Globales:** Se actualizaron `src/components/CircularCategories.astro` y la barra de navegación del Header (`src/components/Header.astro`) para apuntar a las rutas dinámicas reales de la tienda.
+  4. **Programación del Modo Nocturno:** Siguiendo la instrucción del usuario, se agendó la activación del modo nocturno (botón sol/luna en Navbar) exactamente al inicio de la Fase 3 (Carrito Interactivo) para validar el contraste sobre la tienda completa.
+- **Archivos clave:** `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `src/components/CircularCategories.astro`, `src/components/Header.astro`, `docs/PLAN.md`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Construcción del catálogo general con filtrado JS nativo, rutas dinámicas y conexión de enlaces.
+  - `ux-ui`: Diseño de tarjetas de categoría, badges temáticos y experiencia responsive.
+  - `qa`: Compilación exitosa de 24 páginas estáticas en 2.77s, ESLint limpio con 0 errores y validación de endpoints HTTP 200 en servidor local.
+  - `docs-seo`: Actualización de la hoja de ruta en `docs/PLAN.md` y memoria técnica en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/02-catalog` · implementacion de pagina 404 y ficha dinamica de producto
+- **Qué:** Implementación del segundo hito de la Fase 2 (Catálogo & Contenido) e incorporación de la página 404 animada solicitada por el usuario:
+  1. **Página 404 Personalizada con Ilustración SVG Animada (`src/pages/404.astro`):** Se adaptó la reconocida ilustración de fantasmas amigables flotantes con animación CSS y respeto por `@media (prefers-reduced-motion: reduce)`, incorporando la paleta cálida `Warm Biscuit`, textos temáticos de mascotas ("¡Guau! Parece que esta página se perdió") y botones de retorno a la portada y al catálogo.
+  2. **Conexión Dinámica de la Portada (`src/pages/index.astro`):** Se refactorizó la Home para consumir directamente `getCollection('productos')` en los sliders de "Ofertas Flash" y "Novedades de la Semana", eliminando más de 250 líneas de datos estáticos en favor de la fuente de verdad tipada con Zod.
+  3. **Tarjetas de Producto Enlazables (`src/components/ProductSlider.astro`):** Tanto la imagen del producto como su título ahora son enlaces directos e interactivos a la ruta `/producto/${prod.slug}`.
+  4. **Página Dinámica de Detalle de Producto (`src/pages/producto/[slug].astro`):** Ficha comercial completa con renderizado estático (`getStaticPaths`), breadcrumbs accesibles, imagen optimizada en WebP a gran tamaño, sellos de confianza de despacho, ahorro de precio, selector interactivo de cantidad (`-` / `+`), botón de compra con feedback visual sincronizado al badge del Header, lista de puntos clave (`features`), tabla de especificaciones técnicas y slider inferior de productos recomendados.
+- **Archivos clave:** `src/pages/404.astro`, `src/pages/producto/[slug].astro`, `src/pages/index.astro`, `src/components/ProductSlider.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de la página dinámica con `getStaticPaths`, enlace en sliders y refactor de la Home.
+  - `ux-ui`: Adaptación del diseño 404 a la paleta cálida y jerarquía comercial de la ficha de producto.
+  - `qa`: Compilación de 12 páginas estáticas en 2.93s, validación de estado HTTP 200 y 404 con script Node y servidor dev activo.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
+
+### 2026-11-17 · `phase/02-catalog` · implementacion de content collections y 10 productos iniciales
+- **Qué:** Implementación del primer hito de la Fase 2 (Catálogo & Contenido):
+  1. **Configuración de Content Collections (`src/content.config.js`):** Se definió la colección `productos` utilizando el loader `glob` de Astro 5+ con validación exhaustiva mediante esquemas Zod (campos: id, slug, name, brand, description, shortDescription, price, originalPrice, discount, petType, category, categorySlug, lifeStage, rating, reviewsCount, stock, sku, badge, badgeColor, isOffer, isNew, isBestSeller, image con helper de Astro, imageAlt, features y specifications).
+  2. **Modelado de Productos Iniciales (`src/content/productos/*.json`):** Se crearon 10 productos estructurados en formato JSON cubriendo perros, gatos, hidratación, confort, paseo y smart pet, vinculados directamente a sus fotografías optimizadas de alta fidelidad en `src/assets/products/`.
+  3. **Verificación de Tipos y Compilación:** `npx astro sync` generó los tipos de contenido de forma automática y `astro build` verificó la integridad del catálogo en 2.44s.
+- **Archivos clave:** `src/content.config.js`, `src/content/productos/*.json` (10 archivos), `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación de la configuración de Content Collections Astro 5 y esquemas Zod.
+  - `qa`: Verificación de sincronización de tipos y compilación limpia con `astro build`.
+  - `docs-seo`: Actualización de la memoria técnica en `docs/HISTORIAL.md`.
+
+### 2026-11-17 · `phase/02-catalog` · cierre formal de fase 1 y apertura de fase 2
+- **Qué:** Cierre formal de la Fase 1 (Diseño & Setup Base) y apertura de la Fase 2 (Catálogo & Contenido):
+  1. **Integración en Ramas Base:** Se integró la rama `phase/01-design` en `develop` y posteriormente en `main` mediante fast-forward, consolidando el setup inicial, la arquitectura de layout, la identidad visual Market-Pet y el diseño completo de la portada.
+  2. **Creación de Rama de Fase 2:** Se creó la rama `phase/02-catalog` a partir de `develop`.
+  3. **Planificación de Catálogo:** Se actualizó el checklist en `docs/PLAN.md` detallando las tareas de modelado con Content Collections (Astro 5+), esquemas Zod, vistas por categoría, páginas de detalle de producto y optimización de imágenes con `astro:assets`.
+- **Archivos clave:** `docs/PLAN.md`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `docs-seo`: Registro de transición de fase, actualización de estado en `HISTORIAL.md` y checklist de `PLAN.md`.
+  - `qa`: Verificación de limpieza del árbol de trabajo y estado de ramas.
 
 ### 2026-11-17 · `phase/01-design` · unificacion integral de lienzo calido warm-biscuit en toda la web
 - **Qué:** Validación y corrección exhaustiva del fondo en todas las secciones de la Home para lograr consistencia cromática total:

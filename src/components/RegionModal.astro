@@ -316,6 +316,10 @@ const regionesYComunas = [
         if (headerRegionText) {
           headerRegionText.textContent = `${comuna}`;
         }
+        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
+        if (mobileDrawerRegionText) {
+          mobileDrawerRegionText.textContent = `${comuna}`;
+        }
 
         closeModal();
 
@@ -328,10 +332,12 @@ const regionesYComunas = [
   // Recuperar al cargar la página
   try {
     const saved = localStorage.getItem('despacho_chile');
-    if (saved && headerRegionText) {
+    if (saved) {
       const parsed = JSON.parse(saved);
       if (parsed.comuna) {
-        headerRegionText.textContent = `${parsed.comuna}`;
+        if (headerRegionText) headerRegionText.textContent = `${parsed.comuna}`;
+        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
+        if (mobileDrawerRegionText) mobileDrawerRegionText.textContent = `${parsed.comuna}`;
       }
     }
   } catch (e) {

@@ -1,0 +1,38 @@
+{
+  "id": "of-04",
+  "slug": "poste-rascador-sisal-natural",
+  "name": "Poste Rascador Sisal Natural con Pompón",
+  "brand": "KittyClaw Chile",
+  "description": "Rascador vertical con poste de fibra de sisal 100% natural y base pesada de madera contrachapada acolchada. Satisface el instinto natural de afilar garras y protege los muebles del hogar mientras entretiene a tu felino.",
+  "shortDescription": "Sisal natural resistente con base pesada antivuelco y juguete colgante.",
+  "price": 14990,
+  "originalPrice": 19990,
+  "discount": "-25% OFF",
+  "petType": "gatos",
+  "category": "Rascadores & Camas",
+  "categorySlug": "rascadores-camas",
+  "lifeStage": "todas",
+  "rating": 4.7,
+  "reviewsCount": 24,
+  "stock": 20,
+  "sku": "RSC-SIS-65CM",
+  "badge": "-25% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/rascador-poste.jpg",
+  "imageAlt": "Poste rascador vertical de sisal y madera",
+  "features": [
+    "Cuerda de sisal grueso natural no tratada químicamente",
+    "Base ancha y pesada que previene vuelcos durante el juego",
+    "Pompón elástico con sonajero interior para estimulación",
+    "Fácil armado en 2 minutos con llave incluida"
+  ],
+  "specifications": {
+    "Altura": "65 cm",
+    "Base": "35 x 35 cm",
+    "Material": "Sisal natural + Madera comprimida + Felpa",
+    "Garantía": "6 meses"
+  }
+}

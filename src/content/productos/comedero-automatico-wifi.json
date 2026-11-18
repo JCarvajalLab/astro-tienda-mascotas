@@ -1,0 +1,38 @@
+{
+  "id": "of-09",
+  "slug": "comedero-automatico-wifi",
+  "name": "Comedero Automático WiFi con Visor",
+  "brand": "SmartPet Connect",
+  "description": "Dispensador de alimento inteligente programable mediante aplicación móvil iOS y Android. Permite configurar hasta 6 porciones diarias exactas con horarios programados, grabación de voz para llamar a tu mascota y visor de nivel de comida.",
+  "shortDescription": "Programación inteligente de porciones por app WiFi con respaldo de batería.",
+  "price": 39990,
+  "originalPrice": 54990,
+  "discount": "-27% OFF",
+  "petType": "todas",
+  "category": "Smart Pet",
+  "categorySlug": "smart-pet",
+  "lifeStage": "todas",
+  "rating": 4.9,
+  "reviewsCount": 18,
+  "stock": 12,
+  "sku": "SMT-FED-4L-WIFI",
+  "badge": "-27% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/comedero-smart.jpg",
+  "imageAlt": "Dispensador inteligente de alimento para mascotas",
+  "features": [
+    "Conexión WiFi 2.4GHz con control total desde el celular",
+    "Programación de 1 a 6 comidas diarias (1 a 20 porciones por comida)",
+    "Grabación de voz de 10 segundos para llamada a la comida",
+    "Doble fuente de energía: adaptador de corriente y baterías de respaldo ante cortes de luz"
+  ],
+  "specifications": {
+    "Capacidad": "4 Litros (aprox. 2 a 2.5 kg de croquetas secas)",
+    "Compatibilidad croquetas": "Diámetro de 2 a 12 mm",
+    "App": "Tuya Smart / Smart Life (iOS y Android en español)",
+    "Material": "ABS de grado alimenticio + Plato de acero inoxidable 304"
+  }
+}

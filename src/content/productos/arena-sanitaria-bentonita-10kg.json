@@ -1,0 +1,35 @@
+{
+  "id": "reg-01",
+  "slug": "arena-sanitaria-bentonita-blanca-10kg",
+  "name": "Arena Sanitaria Bentonita Blanca 10kg",
+  "brand": "CatClean Chile",
+  "description": "Arena sanitaria para gatos de bentonita 100% natural aglomerante. Su fórmula libre de polvo al 99.5% genera terrones compactos instantáneos que facilitan la limpieza diaria y neutralizan los malos olores de forma prolongada.",
+  "shortDescription": "Bentonita natural aglomerante blanca de rápida compactación.",
+  "price": 13990,
+  "petType": "gatos",
+  "category": "Higiene & Cuidados",
+  "categorySlug": "higiene-cuidados",
+  "lifeStage": "todas",
+  "rating": 4.8,
+  "reviewsCount": 64,
+  "stock": 40,
+  "sku": "ARE-BEN-10KG",
+  "badge": "ESENCIAL",
+  "badgeColor": "bg-stone-800 text-white",
+  "isOffer": false,
+  "isNew": false,
+  "isBestSeller": true,
+  "image": "../../assets/products/arena-sanitaria.jpg",
+  "imageAlt": "Saco de 10kg de arena sanitaria para gatos con gránulos finos de bentonita blanca",
+  "features": [
+    "99.5% libre de polvo para proteger las vías respiratorias",
+    "Aglomeración ultra rápida en menos de 3 segundos",
+    "Poder de absorción mineral 4 veces su peso en líquido",
+    "Aroma neutro hipoalergénico sin perfumes artificiales"
+  ],
+  "specifications": {
+    "Peso": "10 kg",
+    "Composición": "Bentonita sódica mineral 100% natural",
+    "Rendimiento": "Hasta 45 días por gato adulto"
+  }
+}

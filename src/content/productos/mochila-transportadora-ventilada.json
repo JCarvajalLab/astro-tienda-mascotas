@@ -1,0 +1,38 @@
+{
+  "id": "of-10",
+  "slug": "mochila-transportadora-ventilada",
+  "name": "Mochila Transportadora Ventilada Burbuja",
+  "brand": "PetVoyage Chile",
+  "description": "Mochila ergonómica de viaje para gatos y perros pequeños de hasta 8 kg. Diseñada con domo transparente panorámico, 9 orificios de ventilación reforzados y paneles de malla transpirable lateral para una ventilación óptima en paseos o visitas al veterinario.",
+  "shortDescription": "Visión panorámica de 180° con 9 orificios de ventilación y arnés de seguridad interno.",
+  "price": 24990,
+  "originalPrice": 32990,
+  "discount": "-24% OFF",
+  "petType": "todas",
+  "category": "Viajes & Paseo",
+  "categorySlug": "viajes-paseo",
+  "lifeStage": "todas",
+  "rating": 4.8,
+  "reviewsCount": 29,
+  "stock": 16,
+  "sku": "TRN-MOC-BURB",
+  "badge": "-24% OFF",
+  "badgeColor": "bg-rose-600 text-white",
+  "isOffer": true,
+  "isNew": false,
+  "isBestSeller": false,
+  "image": "../../assets/products/mochila-viaje.jpg",
+  "imageAlt": "Mochila transportadora ergonómica para mascotas",
+  "features": [
+    "Domo de policarbonato semirrígido con vista panorámica",
+    "9 orificios de ventilación metálicos y 2 mallas laterales",
+    "Correa interna con mosquetón para fijar al collar o arnés",
+    "Espaldar ergonómico con acolchado transpirable y correas de pecho ajustables"
+  ],
+  "specifications": {
+    "Dimensiones": "42 x 32 x 28 cm",
+    "Peso máximo soportado": "Hasta 8 kg",
+    "Material": "Policarbonato ecológico + Tela Oxford impermeable",
+    "Color": "Turquesa Glaciar con detalles grises"
+  }
+}

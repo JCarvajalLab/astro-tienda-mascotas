@@ -1,0 +1,487 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const allProducts = await getCollection('productos');
+
+function formatPrice(amount) {
+  if (!amount) return '';
+  return new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+---
+
+<BaseLayout
+  title="Catálogo Completo de Productos | Market-Pet Chile"
+  description="Explora todo nuestro catálogo de alimentos, accesorios, rascadores, camas y juguetes para consentir a tus perros y gatos con despacho rápido a todo Chile."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-stone-500 mb-6 overflow-x-auto whitespace-nowrap">
+      <a href="/" class="hover:text-rose-600 transition-colors">Inicio</a>
+      <span>/</span>
+      <span class="text-stone-900 font-bold">Catálogo Completo</span>
+    </nav>
+
+    <!-- Encabezado de Catálogo -->
+    <div class="mb-8 pb-6 border-b border-stone-200/80 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-200 mb-3">
+          🐾 TIENDA ONLINE
+        </div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight">
+          Catálogo de Productos para Mascotas
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-600 mt-1 max-w-2xl">
+          Nutrición de alta gama, accesorios de confort, higiene y juguetes seleccionados para cuidar a tus peluditos en todo Chile.
+        </p>
+      </div>
+
+      <div class="text-xs font-bold text-stone-500 bg-white/80 px-4 py-2 rounded-xl border border-stone-200/80 self-start md:self-auto shadow-2xs">
+        <span id="product-count" class="text-stone-900 font-black">{allProducts.length}</span> productos encontrados
+      </div>
+    </div>
+
+    <!-- Barra de Búsqueda y Filtros Rápidos -->
+    <div class="mb-8 space-y-4 bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-2xs">
+      <!-- Input de Búsqueda Principal -->
+      <div class="relative w-full">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+          <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Buscar producto por nombre (ej. Salmón, Churu, Arnés, Cama)..."
+          class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-800 text-xs sm:text-sm font-medium placeholder-stone-400 focus:bg-white focus:border-rose-500 focus:outline-none transition-all shadow-2xs"
+        />
+        <button
+          type="button"
+          id="btn-clear-search"
+          class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600 cursor-pointer font-bold"
+          aria-label="Limpiar búsqueda"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Filtros Rápidos y Ordenamiento -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100">
+        <!-- Píldoras de filtro -->
+        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0" id="filter-pet-buttons">
+          <button
+            type="button"
+            data-filter="todos"
+            class="filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-rose-600 text-white shadow-xs whitespace-nowrap"
+          >
+            Todos
+          </button>
+          <button
+            type="button"
+            data-filter="packs"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🎁 Packs Ahorro
+          </button>
+          <button
+            type="button"
+            data-filter="perros"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🐶 Perros
+          </button>
+          <button
+            type="button"
+            data-filter="gatos"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🐱 Gatos
+          </button>
+          <button
+            type="button"
+            data-filter="accesorios"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🎾 Accesorios
+          </button>
+          <button
+            type="button"
+            data-filter="farmacia"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🩺 Farmacia & Salud
+          </button>
+          <button
+            type="button"
+            data-filter="ofertas"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+          >
+            🔥 Ofertas
+          </button>
+        </div>
+
+        <!-- Selector de Ordenamiento -->
+        <div class="flex items-center gap-2 text-xs shrink-0">
+          <label for="sort-select" class="font-bold text-stone-600 whitespace-nowrap">Ordenar por:</label>
+          <select
+            id="sort-select"
+            class="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-800 font-semibold focus:bg-white focus:border-rose-500 focus:outline-none cursor-pointer"
+          >
+            <option value="featured">Destacados</option>
+            <option value="price-asc">Menor precio</option>
+            <option value="price-desc">Mayor precio</option>
+            <option value="rating">Mejor valorados</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grilla de Productos -->
+    <div
+      id="products-grid"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+    >
+      {
+        allProducts.map((prod) => (
+          <article
+            class="product-card flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+            data-pet={prod.data.petType}
+            data-offer={prod.data.isOffer ? 'true' : 'false'}
+            data-is-pack={prod.data.categorySlug === 'packs-promocionales' || prod.data.name.toLowerCase().includes('pack') ? 'true' : 'false'}
+            data-name={prod.data.name.toLowerCase()}
+            data-category={prod.data.category.toLowerCase()}
+            data-category-slug={prod.data.categorySlug || ''}
+            data-price={prod.data.price}
+            data-rating={prod.data.rating}
+          >
+            <!-- Imagen con enlace al detalle -->
+            <a
+              href={`/producto/${prod.data.slug}`}
+              class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+            >
+              {prod.data.badge && (
+                <span
+                  class={`absolute top-2 left-2 z-10 px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider shadow-xs ${prod.data.badgeColor || 'bg-rose-600 text-white'}`}
+                >
+                  {prod.data.badge}
+                </span>
+              )}
+
+              <Image
+                src={prod.data.image}
+                alt={prod.data.imageAlt || prod.data.name}
+                width={320}
+                height={320}
+                format="webp"
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+
+            <!-- Contenido del Producto -->
+            <div class="p-3.5 sm:p-4 flex flex-col flex-1">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
+                {prod.data.category}
+              </span>
+
+              <h2 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
+                <a
+                  href={`/producto/${prod.data.slug}`}
+                  class="hover:text-rose-600 transition-colors"
+                >
+                  {prod.data.name}
+                </a>
+              </h2>
+
+              <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
+                <span>★</span>
+                <span class="font-bold text-stone-700">{prod.data.rating}</span>
+                <span class="text-stone-400 text-[10px]">({prod.data.reviewsCount})</span>
+              </div>
+
+              <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+                <div class="flex items-baseline justify-between gap-1">
+                  <div class="flex flex-col">
+                    <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
+                      {formatPrice(prod.data.price)}
+                    </span>
+                    {prod.data.originalPrice && (
+                      <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
+                        {formatPrice(prod.data.originalPrice)}
+                      </span>
+                    )}
+                  </div>
+                  {prod.data.discount && (
+                    <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                      {prod.data.discount}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  data-add-to-cart
+                  data-product-id={prod.data.id}
+                  data-product-name={prod.data.name}
+                  data-product-price={prod.data.price}
+                  class="add-to-cart-btn w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+                  aria-label={`Añadir ${prod.data.name} al carrito`}
+                >
+                  <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                    <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                  </svg>
+                  <span class="btn-text">Agregar al carrito</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Mensaje cuando no hay resultados tras un filtro -->
+    <div id="no-results" class="hidden text-center py-16 bg-white rounded-3xl border border-stone-200/80 p-8 shadow-xs">
+      <span class="text-4xl">🔍</span>
+      <h3 class="text-lg font-bold text-stone-900 mt-3">No encontramos productos en esta selección</h3>
+      <p class="text-xs sm:text-sm text-stone-500 mt-1">Prueba seleccionando otro filtro o revisa todo el catálogo.</p>
+      <button
+        type="button"
+        id="btn-reset-filters"
+        class="mt-4 px-6 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition-colors cursor-pointer"
+      >
+        Ver todos los productos
+      </button>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Filtros interactivos y búsqueda en el cliente (JavaScript nativo puro)
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const sortSelect = document.getElementById('sort-select');
+  const searchInput = document.getElementById('search-input');
+  const clearSearchBtn = document.getElementById('btn-clear-search');
+  const cards = Array.from(document.querySelectorAll('.product-card'));
+  const grid = document.getElementById('products-grid');
+  const countDisplay = document.getElementById('product-count');
+  const noResults = document.getElementById('no-results');
+  const resetBtn = document.getElementById('btn-reset-filters');
+
+  let currentFilter = 'todos';
+  let searchQuery = '';
+
+  // Función de normalización: remueve acentos/tildes y convierte a minúsculas
+  function normalizeText(str) {
+    if (!str) return '';
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function applyFilterAndSort() {
+    const cleanQuery = normalizeText(searchQuery);
+
+    let visibleCards = cards.filter((card) => {
+      const pet = card.getAttribute('data-pet') || '';
+      const isOffer = card.getAttribute('data-offer') === 'true';
+      const isPack = card.getAttribute('data-is-pack') === 'true';
+      const name = card.getAttribute('data-name') || '';
+      const cleanName = normalizeText(name);
+
+      // 1. Filtrado por Píldoras de Categoría / Tipo
+      let matchesFilter = true;
+      const catSlug = card.getAttribute('data-category-slug') || '';
+      const catName = card.getAttribute('data-category') || '';
+
+      if (currentFilter === 'ofertas') {
+        matchesFilter = isOffer;
+      } else if (currentFilter === 'packs') {
+        matchesFilter = isPack;
+      } else if (currentFilter === 'accesorios') {
+        const accessorySlugs = [
+          'paseo-seguridad',
+          'camas-confort',
+          'smart-pet',
+          'viajes-paseo',
+          'hidratacion',
+          'rascadores-camas',
+        ];
+        matchesFilter =
+          accessorySlugs.includes(catSlug) ||
+          catName.includes('accesorio') ||
+          catName.includes('paseo') ||
+          catName.includes('descanso') ||
+          catName.includes('cama') ||
+          catName.includes('juguete') ||
+          catName.includes('smart');
+      } else if (currentFilter === 'farmacia') {
+        matchesFilter =
+          catSlug === 'higiene-cuidados' ||
+          catName.includes('farmacia') ||
+          catName.includes('higiene') ||
+          catName.includes('salud') ||
+          cleanName.includes('suplemento') ||
+          cleanName.includes('articular') ||
+          cleanName.includes('shampoo') ||
+          cleanName.includes('dental');
+      } else if (currentFilter !== 'todos') {
+        matchesFilter = pet === currentFilter || pet === 'todas';
+      }
+
+      // 2. Filtrado por Barra de Búsqueda (estrictamente por nombre, insensible a tildes/mayúsculas)
+      let matchesSearch = true;
+      if (cleanQuery.length > 0) {
+        matchesSearch = cleanName.includes(cleanQuery);
+      }
+
+      return matchesFilter && matchesSearch;
+    });
+
+    // 3. Ordenamiento
+    const sortVal = sortSelect?.value || 'featured';
+    visibleCards.sort((a, b) => {
+      const priceA = parseInt(a.getAttribute('data-price') || '0', 10);
+      const priceB = parseInt(b.getAttribute('data-price') || '0', 10);
+      const ratingA = parseFloat(a.getAttribute('data-rating') || '0');
+      const ratingB = parseFloat(b.getAttribute('data-rating') || '0');
+
+      if (sortVal === 'price-asc') return priceA - priceB;
+      if (sortVal === 'price-desc') return priceB - priceA;
+      if (sortVal === 'rating') return ratingB - ratingA;
+      return 0;
+    });
+
+    // 4. Actualizar visualización en DOM
+    cards.forEach((c) => (c.style.display = 'none'));
+    visibleCards.forEach((c) => {
+      c.style.display = 'flex';
+      if (grid) grid.appendChild(c);
+    });
+
+    if (countDisplay) {
+      countDisplay.textContent = String(visibleCards.length);
+    }
+
+    if (noResults && grid) {
+      if (visibleCards.length === 0) {
+        noResults.classList.remove('hidden');
+        grid.classList.add('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        grid.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Eventos de barra de búsqueda
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    if (clearSearchBtn) {
+      if (searchQuery.length > 0) {
+        clearSearchBtn.classList.remove('hidden');
+      } else {
+        clearSearchBtn.classList.add('hidden');
+      }
+    }
+    applyFilterAndSort();
+  });
+
+  clearSearchBtn?.addEventListener('click', () => {
+    if (searchInput) {
+      searchInput.value = '';
+      searchQuery = '';
+    }
+    clearSearchBtn.classList.add('hidden');
+    applyFilterAndSort();
+    searchInput?.focus();
+  });
+
+  // Eventos de botones de filtro
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach((b) => {
+        b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
+        b.classList.add('bg-stone-100', 'text-stone-700');
+      });
+      btn.classList.remove('bg-stone-100', 'text-stone-700');
+      btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
+
+      currentFilter = btn.getAttribute('data-filter') || 'todos';
+      applyFilterAndSort();
+    });
+  });
+
+  sortSelect?.addEventListener('change', () => {
+    applyFilterAndSort();
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    if (searchInput) {
+      searchInput.value = '';
+      searchQuery = '';
+    }
+    clearSearchBtn?.classList.add('hidden');
+    const todosBtn = document.querySelector('[data-filter="todos"]');
+    todosBtn?.click();
+  });
+
+  // Inicializar desde parámetros URL si existen (ej. /catalogo?filtro=packs o /catalogo?q=salmón)
+  const urlParams = new URLSearchParams(window.location.search);
+  const filtroParam =
+    urlParams.get('filtro') ||
+    urlParams.get('filter') ||
+    urlParams.get('categoria');
+  const queryParam = urlParams.get('q');
+
+  if (queryParam && searchInput) {
+    searchInput.value = queryParam;
+    searchQuery = queryParam;
+    clearSearchBtn?.classList.remove('hidden');
+  }
+
+  if (filtroParam) {
+    const targetBtn = document.querySelector(`[data-filter="${filtroParam}"]`);
+    if (targetBtn) {
+      targetBtn.click();
+    } else {
+      applyFilterAndSort();
+    }
+  } else {
+    applyFilterAndSort();
+  }
+
+  // Interacción clara y accesible al agregar al carrito
+  document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const button = e.currentTarget;
+      const textSpan = button.querySelector('.btn-text');
+      const originalText = textSpan ? textSpan.textContent : 'Agregar al carrito';
+
+      button.classList.add('!bg-emerald-600', 'scale-98');
+      if (textSpan) textSpan.textContent = '¡Agregado!';
+
+      setTimeout(() => {
+        button.classList.remove('!bg-emerald-600', 'scale-98');
+        if (textSpan) textSpan.textContent = originalText;
+      }, 700);
+
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) {
+        const currentCount = parseInt(badge.textContent || '0', 10);
+        badge.textContent = String(currentCount + 1);
+        badge.classList.add('scale-125', '!bg-rose-600', '!text-white', 'transition-transform');
+        setTimeout(() => {
+          badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
+        }, 400);
+      }
+    });
+  });
+</script>
