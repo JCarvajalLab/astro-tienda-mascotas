@@ -13,28 +13,28 @@ const categoriasMenu = [
     href: '/categoria/mascotas',
     tagline: 'Nutrición y accesorios para cada etapa de su vida',
     destacado: {
-      badge: 'Colección Especial',
+      badge: 'Etapas de Vida',
       title: 'Especial Etapas de Vida',
-      desc: 'Nutrición y accesorios a la medida de su edad y energía.',
-      cta: 'Ver Mascotas',
+      desc: 'Nutrición y bienestar diseñados a la medida de la edad y vitalidad de tu perro o gato.',
+      cta: 'Ver Etapas',
       href: '/categoria/mascotas',
       image: packCachorro,
     },
     subcategorias: [
       {
-        grupo: 'Por Etapa de Vida',
+        grupo: 'Perros por Etapa',
         items: [
-          { label: 'Especial Cachorritos & Gatitos', desc: 'Primeros pasos y apego', href: '/categoria/cachorros', icon: 'paw' },
-          { label: 'Compañeros Adultos', desc: 'Energía y nutrición diaria', href: '/categoria/adultos', icon: 'bowl' },
-          { label: 'Fiel Amigo Senior (7+)', desc: 'Movilidad y cuidado articular', href: '/categoria/seniors', icon: 'heart' },
+          { label: 'Cachorros (Puppy)', desc: 'Nutrición y apego inicial', href: '/categoria/cachorros', icon: 'paw' },
+          { label: 'Perros Adultos', desc: 'Energía y nutrición diaria', href: '/categoria/adultos', icon: 'bowl' },
+          { label: 'Perros Senior (7+)', desc: 'Movilidad y cuidado articular', href: '/categoria/seniors', icon: 'heart' },
         ],
       },
       {
-        grupo: 'Colecciones Especiales',
+        grupo: 'Gatos por Etapa',
         items: [
-          { label: 'Packs Bienvenida & Ahorro', desc: 'Kits listos con hasta 32% OFF', href: '/categoria/packs-promocionales', icon: 'pack' },
-          { label: 'Camas & Mantas Térmicas', desc: 'Descanso reconfortante', href: '/categoria/camas-confort', icon: 'bed' },
-          { label: 'Smart Pet & Tecnología', desc: 'Comederos y fuentes WiFi', href: '/categoria/smart-pet', icon: 'tech' },
+          { label: 'Gatitos (Kitten)', desc: 'Crecimiento y primeras fórmulas', href: '/categoria/cachorros', icon: 'paw' },
+          { label: 'Gatos Adultos', desc: 'Esterilizados y peso óptimo', href: '/categoria/adultos', icon: 'bowl' },
+          { label: 'Gatos Senior (7+)', desc: 'Confort articular y descanso', href: '/categoria/seniors', icon: 'heart' },
         ],
       },
     ],
@@ -320,13 +320,14 @@ const currentStyle = styles[variant] || styles.default;
 
       <!-- 2. Buscador de productos central -->
       <div class="hidden md:flex flex-1 max-w-xl mx-2">
-        <form class="relative w-full" onsubmit="event.preventDefault();">
+        <form class="relative w-full" action="/catalogo" method="GET">
           <label for="site-search" class="sr-only"
             >Buscar alimentos, juguetes o accesorios</label
           >
           <input
             type="search"
             id="site-search"
+            name="q"
             placeholder="Buscar alimento, snacks, rascadores, camas..."
             class={`w-full pl-11 pr-24 py-2.5 rounded-full text-sm focus:outline-none transition-all ${currentStyle.searchWrapper}`}
           />
