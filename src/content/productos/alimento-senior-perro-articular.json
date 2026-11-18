@@ -1,0 +1,37 @@
+{
+  "id": "sen-01",
+  "slug": "alimento-senior-perro-articular-7plus-3kg",
+  "name": "Alimento Perro Senior 7+ Cuidado Articular Salmón 3kg",
+  "brand": "NutriPet Chile",
+  "description": "Fórmula especialmente adaptada para perros mayores de 7 años. Contiene croquetas de consistencia suave para fácil masticación, glucosamina y condroitina para proteger cartílagos, y antioxidantes naturales para la vitalidad cerebral.",
+  "shortDescription": "Nutrición con glucosamina y textura suave para perros de 7 o más años.",
+  "price": 23990,
+  "originalPrice": 28990,
+  "discount": "-17% SENIOR",
+  "petType": "perros",
+  "category": "Alimentos Perro",
+  "categorySlug": "alimentos-perro",
+  "lifeStage": "seniors",
+  "rating": 4.9,
+  "reviewsCount": 31,
+  "stock": 20,
+  "sku": "ALM-SEN-3KG",
+  "badge": "SENIOR 7+",
+  "badgeColor": "bg-amber-600 text-white",
+  "isOffer": true,
+  "isNew": true,
+  "isBestSeller": false,
+  "image": "../../assets/products/alimento-perro.jpg",
+  "imageAlt": "Saco de alimento especial senior para perros mayores de 7 años",
+  "features": [
+    "Glucosamina y condroitina para movilidad articular sin dolor",
+    "Croquetas fáciles de masticar y digestión ultra ligera",
+    "L-Carnitina para control de peso en perros de menor actividad",
+    "Antioxidantes naturales que preservan la agilidad mental"
+  ],
+  "specifications": {
+    "Edad": "Senior (7+ años)",
+    "Peso": "3 kg",
+    "Fórmula": "Baja en sodio con soporte renal y articular"
+  }
+}

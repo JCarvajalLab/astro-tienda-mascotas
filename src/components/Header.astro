@@ -2,6 +2,37 @@
 // Header de Ecommerce con 2 niveles horizontales y soporte para paletas dinámicas
 const categoriasMenu = [
   {
+    name: 'Mascotas',
+    icon: '🐾',
+    href: '/#etapas',
+    subcategorias: [
+      {
+        grupo: 'Por Etapa de Vida',
+        items: [
+          'Especial Cachorritos & Gatitos',
+          'Compañeros Adultos',
+          'Fiel Amigo Senior (7+)',
+        ],
+      },
+      {
+        grupo: 'Nutrición por Edad',
+        items: [
+          'Fórmulas Puppy & Kitten',
+          'Alimento Seco Adultos',
+          'Nutrición Senior Articular',
+        ],
+      },
+      {
+        grupo: 'Confort & Cuidados',
+        items: [
+          'Camas Ortopédicas Seniors',
+          'Mantas Térmicas Felpa',
+          'Packs Bienvenida & Ahorro',
+        ],
+      },
+    ],
+  },
+  {
     name: 'Perros',
     icon: '🐶',
     href: '/categoria/perros',
@@ -160,33 +191,9 @@ const categoriasMenu = [
     ],
   },
   {
-    name: 'Pequeñas Mascotas',
-    icon: '🐰',
-    href: '/#pequenas-mascotas',
-    subcategorias: [
-      {
-        grupo: 'Conejos & Cobayas',
-        items: [
-          'Heno Festuca & Alfalfa',
-          'Pienso Prensado',
-          'Bebederos de Goteo',
-          'Sustrato de Papel',
-        ],
-      },
-      {
-        grupo: 'Aves & Otros',
-        items: [
-          'Semillas & Mixturas',
-          'Jaulas & Perchas',
-          'Juguetes de Madera',
-        ],
-      },
-    ],
-  },
-  {
     name: 'Ofertas Flash',
     icon: '🔥',
-    href: '/catalogo',
+    href: '/#ofertas',
     isOffer: true,
     subcategorias: [
       {

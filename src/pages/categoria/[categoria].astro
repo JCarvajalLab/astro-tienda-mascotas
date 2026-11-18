@@ -85,6 +85,24 @@ export async function getStaticPaths() {
       icon: '🧼',
       filter: (p) => p.data.categorySlug === 'higiene-cuidados',
     },
+    cachorros: {
+      title: 'Especial Cachorritos & Gatitos',
+      subtitle: 'Alimentos puppy/kitten, juguetes de apego, mantas térmicas y combos de bienvenida para sus primeros pasos',
+      icon: '🍼',
+      filter: (p) => p.data.lifeStage === 'cachorros' || p.data.lifeStage === 'todas',
+    },
+    adultos: {
+      title: 'Especial Compañeros Adultos',
+      subtitle: 'Nutrición balanceada premium, arneses ergonómicos, rascadores y accesorios para su mejor momento',
+      icon: '🐕',
+      filter: (p) => p.data.lifeStage === 'adultos' || p.data.lifeStage === 'todas',
+    },
+    seniors: {
+      title: 'Especial Fiel Amigo Senior (7+)',
+      subtitle: 'Suplementos articulares, camas ortopédicas y nutrición adaptada para su máximo confort en su edad dorada',
+      icon: '🧓',
+      filter: (p) => p.data.lifeStage === 'seniors' || p.data.lifeStage === 'todas',
+    },
   };
 
   return Object.entries(categoriesMap).map(([slug, meta]) => ({
