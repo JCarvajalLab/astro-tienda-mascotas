@@ -15,6 +15,8 @@ const {
   title = 'Market-Pet | Tu Tienda de Mascotas en Chile',
   description = 'Alimentos premium, accesorios divertidos, juguetes y cuidados especiales para consentir a perros, gatos y otras mascotas en Chile.',
   image = '/images/og-default.png',
+  navbarVariant = 'default',
+  hideHeader = false,
 } = Astro.props;
 
 const canonicalURL = new URL(
@@ -82,7 +84,7 @@ const ogImageURL = new URL(
     </a>
 
     <!-- Encabezado con 2 niveles horizontales -->
-    <Header />
+    {!hideHeader && <Header variant={navbarVariant} />}
 
     <!-- Contenido Principal -->
     <main id="main-content" class="flex-1 bg-white">

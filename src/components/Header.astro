@@ -201,10 +201,89 @@ const categoriasMenu = [
     ],
   },
 ];
+
+const { variant = 'default', isSticky = true } = Astro.props;
+
+const styles = {
+  default: {
+    header: 'bg-white border-b border-stone-200 text-stone-900',
+    brandName: 'text-stone-900',
+    brandTag: 'text-stone-400',
+    brandLogo: 'bg-brand-primary text-white',
+    searchWrapper: 'bg-stone-100 border border-stone-200/80 focus:border-stone-400 focus:bg-white text-stone-800 placeholder-stone-400',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white',
+    regionBtn: 'border-stone-200 hover:border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-800',
+    regionLabel: 'text-stone-400',
+    loginBtn: 'text-stone-700 hover:bg-stone-100',
+    loginIcon: 'text-stone-500',
+    cartBtn: 'bg-brand-primary text-white',
+    nav: 'bg-stone-50 border-t border-stone-200',
+    navLink: 'text-stone-700 hover:text-brand-primary hover:bg-white',
+    navOffer: 'text-rose-600 hover:bg-rose-50',
+    navArrow: 'text-stone-400 group-hover/menu:text-brand-primary',
+  },
+  'dark-navy': {
+    header: 'bg-slate-900 border-b border-slate-800 text-white shadow-md',
+    brandName: 'text-white',
+    brandTag: 'text-slate-400',
+    brandLogo: 'bg-brand-primary text-white shadow-rose-950/40',
+    searchWrapper: 'bg-white text-stone-900 placeholder-stone-400 border border-slate-700 focus:ring-2 focus:ring-rose-500',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    regionBtn: 'border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:border-slate-600',
+    regionLabel: 'text-slate-400',
+    loginBtn: 'text-slate-200 hover:bg-slate-800 hover:text-white',
+    loginIcon: 'text-slate-400',
+    cartBtn: 'bg-brand-primary text-white shadow-lg hover:bg-rose-700',
+    nav: 'bg-slate-800/95 border-t border-slate-700',
+    navLink: 'text-slate-200 hover:text-white hover:bg-slate-700',
+    navOffer: 'text-rose-400 hover:bg-rose-950/60 font-bold',
+    navArrow: 'text-slate-400 group-hover/menu:text-rose-400',
+  },
+  'warm-biscuit': {
+    header: 'bg-[#FAF7F2] border-b border-[#E8E2D9] text-stone-800 shadow-2xs',
+    brandName: 'text-stone-900',
+    brandTag: 'text-stone-500',
+    brandLogo: 'bg-brand-primary text-white',
+    searchWrapper: 'bg-white border border-[#E0D9CE] text-stone-800 placeholder-stone-400 focus:border-stone-400',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    regionBtn: 'border-[#E0D9CE] bg-white/90 text-stone-800 hover:bg-white hover:border-[#D0C7B8]',
+    regionLabel: 'text-stone-400',
+    loginBtn: 'text-stone-700 hover:bg-[#EFE9DF]',
+    loginIcon: 'text-stone-500',
+    cartBtn: 'bg-brand-primary text-white hover:bg-rose-700',
+    nav: 'bg-[#F1ECE3] border-t border-[#E5DEC7]/80',
+    navLink: 'text-stone-700 hover:text-brand-primary hover:bg-white/80',
+    navOffer: 'text-rose-600 hover:bg-rose-100/70 font-bold',
+    navArrow: 'text-stone-400 group-hover/menu:text-brand-primary',
+  },
+  'brand-carmin': {
+    header: 'bg-rose-600 border-b border-rose-700 text-white shadow-md',
+    brandName: 'text-white',
+    brandTag: 'text-rose-100',
+    brandLogo: 'bg-white text-rose-600 shadow-md',
+    searchWrapper: 'bg-white text-stone-900 placeholder-stone-400 border border-rose-500 focus:ring-2 focus:ring-stone-900',
+    searchIcon: 'text-stone-400',
+    searchBtn: 'bg-stone-900 text-white hover:bg-black',
+    regionBtn: 'border-rose-500/70 bg-rose-700/80 text-white hover:bg-rose-700 hover:border-rose-400',
+    regionLabel: 'text-rose-200',
+    loginBtn: 'text-white hover:bg-rose-700',
+    loginIcon: 'text-rose-200',
+    cartBtn: 'bg-stone-900 text-white shadow-lg hover:bg-black',
+    nav: 'bg-white border-t border-rose-100 shadow-xs',
+    navLink: 'text-stone-700 hover:text-rose-600 hover:bg-stone-50',
+    navOffer: 'text-rose-600 hover:bg-rose-50 font-bold',
+    navArrow: 'text-stone-400 group-hover/menu:text-rose-600',
+  },
+};
+
+const currentStyle = styles[variant] || styles.default;
 ---
 
 <header
-  class="w-full bg-white border-b border-stone-200 sticky top-0 z-40 shadow-xs transition-colors"
+  class={`w-full ${isSticky ? 'sticky top-0' : 'relative'} z-40 transition-colors ${currentStyle.header}`}
 >
   <!-- NIVEL 1: Fila superior (Logo / Buscador / Selector Modal Comuna Chile / Iniciar Sesión / Carrito) -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -215,7 +294,7 @@ const categoriasMenu = [
         class="flex items-center gap-2.5 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-lg"
       >
         <span
-          class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-brand-primary flex items-center justify-center text-white shadow-md shadow-black/10 group-hover:scale-105 transition-all"
+          class={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-all ${currentStyle.brandLogo}`}
         >
           <svg
             class="w-6 h-6 fill-current"
@@ -229,12 +308,12 @@ const categoriasMenu = [
         </span>
         <div class="flex flex-col">
           <span
-            class="font-extrabold text-xl sm:text-2xl tracking-tight text-stone-900 leading-none"
+            class={`font-extrabold text-xl sm:text-2xl tracking-tight leading-none ${currentStyle.brandName}`}
           >
-            Market<span class="text-brand-primary">-Pet</span>
+            Market<span class={variant === 'brand-carmin' ? 'text-amber-300' : 'text-brand-primary'}>-Pet</span>
           </span>
           <span
-            class="text-[10px] uppercase font-bold tracking-widest text-stone-400 mt-0.5"
+            class={`text-[10px] uppercase font-bold tracking-widest mt-0.5 ${currentStyle.brandTag}`}
           >
             Tu Tienda de Mascotas
           </span>
@@ -251,10 +330,10 @@ const categoriasMenu = [
             type="search"
             id="site-search"
             placeholder="Buscar alimento, snacks, rascadores, camas..."
-            class="w-full pl-11 pr-24 py-2.5 rounded-full bg-stone-100 border border-stone-200/80 focus:border-stone-400 focus:bg-white text-stone-800 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-stone-200 transition-all"
+            class={`w-full pl-11 pr-24 py-2.5 rounded-full text-sm focus:outline-none transition-all ${currentStyle.searchWrapper}`}
           />
           <div
-            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400"
+            class={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none ${currentStyle.searchIcon}`}
           >
             <svg
               class="w-4 h-4"
@@ -272,7 +351,7 @@ const categoriasMenu = [
           </div>
           <button
             type="submit"
-            class="absolute inset-y-1 right-1 px-4 rounded-full bg-brand-primary text-white text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 shadow-xs"
+            class={`absolute inset-y-1 right-1 px-4 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 shadow-xs ${currentStyle.searchBtn}`}
           >
             Buscar
           </button>
@@ -286,24 +365,24 @@ const categoriasMenu = [
           type="button"
           id="header-open-region-btn"
           onclick="if(window.openRegionModal) window.openRegionModal();"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stone-200 hover:border-stone-300 bg-stone-50 hover:bg-stone-100 text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+          class={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.regionBtn}`}
           title="Escoger región y comuna de despacho"
         >
           <span class="text-base text-brand-primary">📍</span>
           <div class="flex flex-col">
             <span
-              class="text-[10px] uppercase font-bold text-stone-400 leading-none"
+              class={`text-[10px] uppercase font-bold leading-none ${currentStyle.regionLabel}`}
               >Enviar a</span
             >
             <span
               id="selected-region-text"
-              class="text-xs font-bold text-stone-800 truncate max-w-[120px] sm:max-w-[150px]"
+              class="text-xs font-bold truncate max-w-[120px] sm:max-w-[150px]"
             >
               Providencia
             </span>
           </div>
           <svg
-            class="w-3.5 h-3.5 text-stone-400 transition-colors"
+            class="w-3.5 h-3.5 opacity-70 transition-colors"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -319,10 +398,10 @@ const categoriasMenu = [
         <!-- 4. Iniciar sesión / Mi cuenta -->
         <a
           href="/#login"
-          class="flex items-center gap-2 px-3 py-2 rounded-xl text-stone-700 hover:bg-stone-100 text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+          class={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.loginBtn}`}
         >
           <svg
-            class="w-5 h-5 text-stone-500"
+            class={`w-5 h-5 ${currentStyle.loginIcon}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -342,7 +421,7 @@ const categoriasMenu = [
           id="cart-button"
           type="button"
           aria-label="Ver carrito de compras"
-          class="relative flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-brand-primary text-white font-bold text-xs sm:text-sm shadow-md shadow-black/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+          class={`relative flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.cartBtn}`}
         >
           <svg
             class="w-5 h-5"
@@ -376,10 +455,10 @@ const categoriasMenu = [
           type="search"
           id="site-search-mobile"
           placeholder="Buscar alimento, juguetes, accesorios..."
-          class="w-full pl-10 pr-20 py-2 rounded-xl bg-stone-100 text-stone-800 text-xs focus:outline-none focus:ring-2 focus:ring-stone-300"
+          class={`w-full pl-10 pr-20 py-2 rounded-xl text-xs focus:outline-none transition-all ${currentStyle.searchWrapper}`}
         />
         <div
-          class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400"
+          class={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none ${currentStyle.searchIcon}`}
         >
           <svg
             class="w-4 h-4"
@@ -397,7 +476,7 @@ const categoriasMenu = [
         </div>
         <button
           type="submit"
-          class="absolute inset-y-1 right-1 px-3 rounded-lg bg-brand-primary text-white text-[11px] font-semibold"
+          class={`absolute inset-y-1 right-1 px-3 rounded-lg text-[11px] font-semibold ${currentStyle.searchBtn}`}
         >
           Buscar
         </button>
@@ -407,7 +486,7 @@ const categoriasMenu = [
 
   <!-- NIVEL 2: Fila inferior (Categorías principales con Mega-Menú desplegable al hover) -->
   <nav
-    class="bg-stone-50 border-t border-stone-200 transition-colors"
+    class={`transition-colors ${currentStyle.nav}`}
     aria-label="Categorías de productos"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -421,14 +500,14 @@ const categoriasMenu = [
                 href={cat.href}
                 class={`flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${
                   cat.isOffer
-                    ? 'text-rose-600 hover:bg-rose-50'
-                    : 'text-stone-700 hover:text-brand-primary hover:bg-white'
+                    ? currentStyle.navOffer
+                    : currentStyle.navLink
                 }`}
               >
                 <span>{cat.icon}</span>
                 <span>{cat.name}</span>
                 <svg
-                  class="w-3 h-3 text-stone-400 group-hover/menu:text-brand-primary group-hover/menu:rotate-180 transition-transform duration-200"
+                  class={`w-3 h-3 transition-transform duration-200 group-hover/menu:rotate-180 ${currentStyle.navArrow}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

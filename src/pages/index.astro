@@ -287,9 +287,28 @@ const productosNovedades = [
     imageAlt: 'Alimento seco anti bolas de pelo para felinos',
   },
 ];
+
+const navbarVariant = Astro.url.searchParams.get('navbar') || 'default';
 ---
 
-<BaseLayout>
+<BaseLayout navbarVariant={navbarVariant}>
+  {navbarVariant !== 'default' && (
+    <aside class="bg-stone-900 text-white text-xs py-2 px-4 flex flex-wrap items-center justify-between gap-2 border-b border-stone-800 shadow-inner">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>
+          Estás previsualizando la Home con el Navbar: <strong class="text-white capitalize">{navbarVariant.replace('-', ' ')}</strong>
+        </span>
+      </div>
+      <a
+        href="/preview-navbars"
+        class="inline-flex items-center gap-1 text-xs font-bold text-rose-400 hover:text-rose-300 underline"
+      >
+        <span>← Volver al comparador de Navbars</span>
+      </a>
+    </aside>
+  )}
+
   <!-- 1. Hero Carousel estilo Bootstrap 5.3 adaptado a retail moderno de mascotas (Made in Germany, Catit, Packs) -->
   <Carousel />
 
