@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const allProducts = await getCollection('productos');
+
+  const categoriesMap = {
+    perros: {
+      title: 'Productos para Perros',
+      subtitle: 'Nutrición, camas ortopédicas, arneses y snacks para el mejor amigo del hogar',
+      icon: '🐶',
+      filter: (p) => p.data.petType === 'perros' || p.data.petType === 'todas',
+    },
+    gatos: {
+      title: 'Productos para Gatos',
+      subtitle: 'Alimento gourmet, rascadores, snacks cremosos y bienestar para tu felino',
+      icon: '🐱',
+      filter: (p) => p.data.petType === 'gatos' || p.data.petType === 'todas',
+    },
+    'alimentos-perro': {
+      title: 'Alimentos para Perro',
+      subtitle: 'Nutrición premium equilibrada con proteínas de alto valor biológico',
+      icon: '🍖',
+      filter: (p) => p.data.categorySlug === 'alimentos-perro',
+    },
+    'alimentos-gato': {
+      title: 'Alimentos para Gato',
+      subtitle: 'Fórmulas para esterilizados, control de peso y salud urinaria',
+      icon: '🐟',
+      filter: (p) => p.data.categorySlug === 'alimentos-gato',
+    },
+    'camas-confort': {
+      title: 'Camas & Confort',
+      subtitle: 'Camas viscoelásticas, mantas y descanso reparador para mascotas',
+      icon: '🛏️',
+      filter: (p) => p.data.categorySlug === 'camas-confort',
+    },
+    'rascadores-camas': {
+      title: 'Rascadores & Torres',
+      subtitle: 'Postes de sisal natural y torres de juego para proteger tus muebles',
+      icon: '🪵',
+      filter: (p) => p.data.categorySlug === 'rascadores-camas',
+    },
+    'snacks-premios': {
+      title: 'Snacks & Premios',
+      subtitle: 'Golosinas dentales, Churus cremosos y bocados 100% naturales',
+      icon: '🦴',
+      filter: (p) => p.data.categorySlug === 'snacks-premios',
+    },
+    'paseo-seguridad': {
+      title: 'Paseo & Seguridad',
+      subtitle: 'Arneses reflectantes, correas ergonómicas y accesorios de paseo',
+      icon: '🦮',
+      filter: (p) => p.data.categorySlug === 'paseo-seguridad',
+    },
+    'smart-pet': {
+      title: 'Smart Pet & Tecnología',
+      subtitle: 'Comederos automáticos WiFi, fuentes inteligentes y dispositivos modernos',
+      icon: '📱',
+      filter: (p) => p.data.categorySlug === 'smart-pet',
+    },
+    'viajes-paseo': {
+      title: 'Viajes & Transporte',
+      subtitle: 'Mochilas panorámicas, transportadoras y seguridad para salir de viaje',
+      icon: '🎒',
+      filter: (p) => p.data.categorySlug === 'viajes-paseo',
+    },
+    hidratacion: {
+      title: 'Fuentes & Hidratación',
+      subtitle: 'Bebederos automáticos recirculantes y filtros purificadores',
+      icon: '💧',
+      filter: (p) => p.data.categorySlug === 'hidratacion',
+    },
+  };
+
+  return Object.entries(categoriesMap).map(([slug, meta]) => ({
+    params: { categoria: slug },
+    props: {
+      slug,
+      meta,
+      products: allProducts.filter(meta.filter),
+    },
+  }));
+}
+
+const { slug, meta, products } = Astro.props;
+
+function formatPrice(amount) {
+  if (!amount) return '';
+  return new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+---
+
+<BaseLayout
+  title={`${meta.title} | Market-Pet Chile`}
+  description={meta.subtitle}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-stone-500 mb-6 overflow-x-auto whitespace-nowrap">
+      <a href="/" class="hover:text-rose-600 transition-colors">Inicio</a>
+      <span>/</span>
+      <a href="/catalogo" class="hover:text-rose-600 transition-colors">Catálogo</a>
+      <span>/</span>
+      <span class="text-stone-900 font-bold">{meta.title}</span>
+    </nav>
+
+    <!-- Banner Encabezado de la Categoría -->
+    <div class="mb-8 p-6 sm:p-8 rounded-3xl bg-white border border-stone-200/80 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-200">
+          <span>{meta.icon}</span>
+          <span>CATEGORÍA DESTACADA</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight">
+          {meta.title}
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-xl leading-relaxed">
+          {meta.subtitle}
+        </p>
+      </div>
+
+      <div class="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8E2D9] text-center shrink-0 self-start md:self-auto min-w-[140px]">
+        <span class="block text-3xl font-black text-stone-900 leading-none">{products.length}</span>
+        <span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider mt-1 block">
+          Productos disponibles
+        </span>
+      </div>
+    </div>
+
+    <!-- Grilla de Productos de la Categoría -->
+    {
+      products.length > 0 ? (
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {products.map((prod) => (
+            <article class="flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden">
+              <a
+                href={`/producto/${prod.data.slug}`}
+                class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+              >
+                {prod.data.badge && (
+                  <span
+                    class={`absolute top-2 left-2 z-10 px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider shadow-xs ${prod.data.badgeColor || 'bg-rose-600 text-white'}`}
+                  >
+                    {prod.data.badge}
+                  </span>
+                )}
+
+                <Image
+                  src={prod.data.image}
+                  alt={prod.data.imageAlt || prod.data.name}
+                  width={320}
+                  height={320}
+                  format="webp"
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+
+              <div class="p-3.5 sm:p-4 flex flex-col flex-1">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
+                  {prod.data.category}
+                </span>
+
+                <h2 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
+                  <a
+                    href={`/producto/${prod.data.slug}`}
+                    class="hover:text-rose-600 transition-colors"
+                  >
+                    {prod.data.name}
+                  </a>
+                </h2>
+
+                <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
+                  <span>★</span>
+                  <span class="font-bold text-stone-700">{prod.data.rating}</span>
+                  <span class="text-stone-400 text-[10px]">({prod.data.reviewsCount})</span>
+                </div>
+
+                <div class="pt-2.5 border-t border-stone-100 flex items-center justify-between gap-1 mt-auto">
+                  <div class="flex flex-col">
+                    <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
+                      {formatPrice(prod.data.price)}
+                    </span>
+                    {prod.data.originalPrice && (
+                      <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
+                        {formatPrice(prod.data.originalPrice)}
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    data-add-to-cart
+                    data-product-id={prod.data.id}
+                    data-product-name={prod.data.name}
+                    data-product-price={prod.data.price}
+                    class="add-to-cart-btn p-2 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+                    aria-label={`Añadir ${prod.data.name} al carrito`}
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16 bg-white rounded-3xl border border-stone-200/80 p-8 shadow-xs">
+          <span class="text-4xl">🐾</span>
+          <h3 class="text-lg font-bold text-stone-900 mt-3">Pronto tendremos más productos aquí</h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-1">Estamos renovando el stock de esta categoría.</p>
+          <a
+            href="/catalogo"
+            class="mt-4 inline-block px-6 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition-colors"
+          >
+            Ver catálogo completo
+          </a>
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script>
+  // Manejo de botones de carrito en categoría (JavaScript nativo)
+  document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const button = e.currentTarget;
+      button.classList.add('scale-95', '!bg-emerald-600', '!text-white');
+      setTimeout(() => {
+        button.classList.remove('scale-95', '!bg-emerald-600', '!text-white');
+      }, 350);
+
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) {
+        const currentCount = parseInt(badge.textContent || '0', 10);
+        badge.textContent = String(currentCount + 1);
+        badge.classList.add('scale-125', '!bg-rose-600', '!text-white', 'transition-transform');
+        setTimeout(() => {
+          badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
+        }, 400);
+      }
+    });
+  });
+</script>

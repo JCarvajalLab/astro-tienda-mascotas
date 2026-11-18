@@ -265,15 +265,19 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Reglas de accesibilidad: `@media (prefers-reduced-motion: reduce)` en animaciones.
   - [x] Modelo de datos (productos, categorías, órdenes), arquitectura de rutas y wireframes responsive.
 - [/] **Fase 2: Catálogo & Contenido** (`phase/02-catalog`): 
-  - [ ] Modelado de Content Collections con validación de esquemas Zod en `src/content.config.js`.
-  - [ ] Colección inicial de productos en formato JSON (`src/content/productos/`) estructurados por mascota (Perros, Gatos, Pequeñas Mascotas) y categorías.
-  - [ ] Integración de imágenes optimizadas en `src/assets/` con `astro:assets` (WebP/AVIF, dimensiones explícitas, lazy loading).
-  - [ ] Página de catálogo general (`/catalogo`) y vistas dinámicas por categoría (`/categoria/[slug]`) con breadcrumbs y filtrado.
-  - [ ] Página de detalle de producto (`/producto/[slug]`) con galería/imagen principal, selector de cantidad, especificaciones y botón de carrito.
-  - [ ] Conexión de enlaces de la Home (categorías circulares y sliders) hacia las rutas reales de catálogo y producto.
-- [ ] **Fase 3: Carrito Interactivo** (`phase/03-cart`): 
-  - Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).
-  - Renderizado seguro en el DOM con `.textContent` para prevenir DOM XSS.
+  - [x] Modelado de Content Collections con validación de esquemas Zod en `src/content.config.js`.
+  - [x] Colección inicial de productos en formato JSON (`src/content/productos/`) estructurados por mascota (Perros, Gatos, Pequeñas Mascotas) y categorías.
+  - [x] Integración de imágenes optimizadas en `src/assets/` con `astro:assets` (WebP/AVIF, dimensiones explícitas, lazy loading).
+  - [x] Página de detalle de producto (`/producto/[slug]`) con galería/imagen principal, selector de cantidad, especificaciones y botón de carrito.
+  - [x] Conexión de enlaces de la Home (sliders de ofertas y novedades) hacia las rutas reales de producto.
+  - [x] Incorporación de página 404 animada (`src/pages/404.astro`) adaptada a la temática de mascotas.
+  - [ ] Página de catálogo general (`/catalogo`) con selector de filtros (categorías, precio, tipo de mascota), ordenamiento y breadcrumbs.
+  - [ ] Vistas dinámicas por categoría (`/categoria/[slug]`) con listado de productos y conteo.
+  - [ ] Conexión de categorías circulares y subcategorías del megamenú del Header hacia las rutas reales `/categoria/[slug]`.
+- [ ] **Fase 3: Carrito Interactivo & Modo Nocturno** (`phase/03-cart`): 
+  - [ ] Activación y calibración visual del modo nocturno (botón toggle sol/luna en Header) sobre el catálogo, fichas de producto y componentes globales.
+  - [ ] Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).
+  - [ ] Renderizado seguro en el DOM con `.textContent` para prevenir DOM XSS.
 - [ ] **Fase 4: Servidor y Base de Datos (SSR)** (`phase/04-server-db`): 
   - Configuración de Astro en modo SSR (adaptador Cloudflare / Node / Vercel).
   - Conexión a PostgreSQL (Neon / Supabase) con consultas 100% parametrizadas (sin inyección SQL).
