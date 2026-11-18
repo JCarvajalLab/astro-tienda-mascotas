@@ -86,22 +86,65 @@ export async function getStaticPaths() {
       filter: (p) => p.data.categorySlug === 'higiene-cuidados',
     },
     cachorros: {
-      title: 'Especial Cachorritos & Gatitos',
-      subtitle: 'Alimentos puppy/kitten, juguetes de apego, mantas térmicas y combos de bienvenida para sus primeros pasos',
+      title: 'Especial Cachorros & Gatitos',
+      subtitle: 'Nutrición para primeras etapas, juguetes de apego, mantas térmicas y combos de bienvenida para sus primeros pasos',
       icon: '🍼',
-      filter: (p) => p.data.lifeStage === 'cachorros' || p.data.lifeStage === 'todas',
+      filter: (p) => {
+        const stage = p.data.lifeStage || '';
+        const name = (p.data.name || '').toLowerCase();
+        const slug = (p.data.slug || '').toLowerCase();
+        return (
+          stage === 'cachorros' ||
+          name.includes('cachorro') ||
+          name.includes('gatito') ||
+          slug.includes('cachorro') ||
+          slug.includes('manta-termica') ||
+          slug.includes('pelota-interactiva') ||
+          slug.includes('pack-bienvenida') ||
+          slug.includes('pack-gato-confort') ||
+          slug.includes('churu') ||
+          slug.includes('shampoo')
+        );
+      },
     },
     adultos: {
       title: 'Especial Compañeros Adultos',
       subtitle: 'Nutrición balanceada premium, arneses ergonómicos, rascadores y accesorios para su mejor momento',
       icon: '🐕',
-      filter: (p) => p.data.lifeStage === 'adultos' || p.data.lifeStage === 'todas',
+      filter: (p) => {
+        const stage = p.data.lifeStage || '';
+        const name = (p.data.name || '').toLowerCase();
+        const catSlug = p.data.categorySlug || '';
+        return (
+          stage === 'adultos' ||
+          name.includes('adulto') ||
+          name.includes('esterilizado') ||
+          catSlug === 'paseo-seguridad' ||
+          catSlug === 'alimentos-perro' ||
+          catSlug === 'alimentos-gato' ||
+          catSlug === 'rascadores-camas'
+        );
+      },
     },
     seniors: {
       title: 'Especial Fiel Amigo Senior (7+)',
-      subtitle: 'Suplementos articulares, camas ortopédicas y nutrición adaptada para su máximo confort en su edad dorada',
-      icon: '🧓',
-      filter: (p) => p.data.lifeStage === 'seniors' || p.data.lifeStage === 'todas',
+      subtitle: 'Suplementos articulares con glucosamina, camas ortopédicas memory foam y nutrición adaptada para su máxima comodidad',
+      icon: '🤍',
+      filter: (p) => {
+        const stage = p.data.lifeStage || '';
+        const name = (p.data.name || '').toLowerCase();
+        const slug = (p.data.slug || '').toLowerCase();
+        return (
+          stage === 'seniors' ||
+          name.includes('senior') ||
+          name.includes('articular') ||
+          name.includes('ortopédica') ||
+          slug.includes('senior') ||
+          slug.includes('cama-ortopedica') ||
+          slug.includes('suplemento-articular') ||
+          slug.includes('pack-descanso')
+        );
+      },
     },
     accesorios: {
       title: 'Accesorios para Mascotas',
@@ -328,6 +371,32 @@ function formatPrice(amount) {
             </div>
           </div>
 
+          <!-- Fila 2: Píldoras de Filtro Rápido por Mascota -->
+          <div class="mt-3 pt-3 border-t border-stone-100 flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span class="text-stone-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1">Filtrar:</span>
+            <button
+              type="button"
+              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-rose-600 text-white shadow-xs"
+              data-pet-filter="todos"
+            >
+              Todos
+            </button>
+            <button
+              type="button"
+              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 text-stone-700 hover:bg-stone-200"
+              data-pet-filter="perros"
+            >
+              🐶 Perros
+            </button>
+            <button
+              type="button"
+              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 text-stone-700 hover:bg-stone-200"
+              data-pet-filter="gatos"
+            >
+              🐱 Gatos
+            </button>
+          </div>
+
           <!-- Contador reactivo -->
           <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
             <span>
@@ -352,6 +421,7 @@ function formatPrice(amount) {
                 data-name={prod.data.name}
                 data-price={prod.data.price}
                 data-rating={prod.data.rating}
+                data-pet={prod.data.petType}
               >
                 <a
                   href={`/producto/${prod.data.slug}`}
@@ -484,10 +554,11 @@ function formatPrice(amount) {
 </BaseLayout>
 
 <script>
-  // Barra de búsqueda y ordenamiento reactiva en categorías (JavaScript nativo)
+  // Barra de búsqueda, filtros rápidos por mascota y ordenamiento reactivo (JavaScript nativo)
   const searchInput = document.getElementById('category-search-input');
   const clearBtn = document.getElementById('clear-category-search-btn');
   const sortSelect = document.getElementById('category-sort-select');
+  const petFilterButtons = document.querySelectorAll('.category-pet-filter-btn');
   const cards = Array.from(document.querySelectorAll('.category-product-card'));
   const grid = document.getElementById('category-products-grid');
   const noResults = document.getElementById('category-no-results');
@@ -496,6 +567,7 @@ function formatPrice(amount) {
   const resetBtn = document.getElementById('btn-category-reset');
 
   let searchQuery = '';
+  let currentPetFilter = 'todos';
 
   function normalize(str) {
     if (!str) return '';
@@ -510,9 +582,21 @@ function formatPrice(amount) {
     const cleanQuery = normalize(searchQuery);
 
     let visibleCards = cards.filter((card) => {
-      if (!cleanQuery) return true;
-      const name = normalize(card.getAttribute('data-name') || '');
-      return name.includes(cleanQuery);
+      // 1. Filtrado por tipo de mascota (perros / gatos / todos)
+      const cardPet = card.getAttribute('data-pet') || '';
+      let matchesPet = true;
+      if (currentPetFilter !== 'todos') {
+        matchesPet = cardPet === currentPetFilter || cardPet === 'todas';
+      }
+
+      // 2. Filtrado por barra de búsqueda (nombre)
+      let matchesSearch = true;
+      if (cleanQuery) {
+        const name = normalize(card.getAttribute('data-name') || '');
+        matchesSearch = name.includes(cleanQuery);
+      }
+
+      return matchesPet && matchesSearch;
     });
 
     // Ordenamiento
@@ -549,6 +633,21 @@ function formatPrice(amount) {
     }
   }
 
+  // Eventos de botones de filtro por tipo de mascota
+  petFilterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      petFilterButtons.forEach((b) => {
+        b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
+        b.classList.add('bg-stone-100', 'text-stone-700');
+      });
+      btn.classList.remove('bg-stone-100', 'text-stone-700');
+      btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
+
+      currentPetFilter = btn.getAttribute('data-pet-filter') || 'todos';
+      applyCategoryFilter();
+    });
+  });
+
   searchInput?.addEventListener('input', (e) => {
     searchQuery = e.target.value;
     if (clearBtn) {
@@ -577,12 +676,32 @@ function formatPrice(amount) {
       searchQuery = '';
     }
     clearBtn?.classList.add('hidden');
-    applyCategoryFilter();
+    const todosBtn = document.querySelector('[data-pet-filter="todos"]');
+    if (todosBtn) {
+      todosBtn.click();
+    } else {
+      currentPetFilter = 'todos';
+      applyCategoryFilter();
+    }
   });
 
   sortSelect?.addEventListener('change', () => {
     applyCategoryFilter();
   });
+
+  // Inicializar filtro de mascota desde parámetros URL si existen (ej. ?pet=perros o ?pet=gatos)
+  const urlParams = new URLSearchParams(window.location.search);
+  const petParam = urlParams.get('pet') || urlParams.get('mascota') || urlParams.get('filtro');
+  if (petParam) {
+    const targetPetBtn = document.querySelector(`[data-pet-filter="${petParam}"]`);
+    if (targetPetBtn) {
+      targetPetBtn.click();
+    } else {
+      applyCategoryFilter();
+    }
+  } else {
+    applyCategoryFilter();
+  }
 
   // Manejo accesible y claro al agregar al carrito en categorías (JavaScript nativo)
   document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
