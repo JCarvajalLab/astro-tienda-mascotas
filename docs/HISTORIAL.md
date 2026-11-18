@@ -13,14 +13,14 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
 - **Última actualización:** 2026-11-18
-- **Fase activa:** `phase/02-catalog`
-- **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil
+- **Fase activa:** `phase/03-cart`
+- **Rama de trabajo:** `phase/03-cart`
+- **Último commit relevante:** merge: integra Fase 2 (Catálogo & Contenido) en main
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
 - **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
-- **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.19s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Validar con el usuario la fluidez del carrusel en móviles y proceder con la siguiente tarea del plan.
+- **Qué está en progreso:** Inicio de Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) y calibración visual del modo nocturno.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.25s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo en JavaScript nativo puro sincronizado con localStorage.
 
 ## 2. Decisiones importantes
 
@@ -86,10 +86,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
 | 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
 | 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
+| 2026-11-18 | Cierre de Fase 2 e inicio de Fase 3 (Carrito Interactivo & Modo Nocturno) | Consolidación de catálogo completo (Content Collections Zod, 22 productos, rutas dinámicas, búsqueda reactiva, drawer móvil y carruseles adaptados); merge a develop y main; apertura de rama phase/03-cart | Acumular cambios de carrito en la rama de catálogo |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · cierre de fase 2 y apertura de fase 3
+- **Qué:** Cierre formal de la **Fase 2: Catálogo & Contenido** y apertura de la **Fase 3: Carrito Interactivo & Modo Nocturno**:
+  1. Verificación completa de suite de calidad (`npm run lint` y `npm run build` con 50 páginas estáticas y 0 errores).
+  2. Integración de la rama `phase/02-catalog` en `develop` y posteriormente en `main` mediante merges no fast-forward (`--no-ff`).
+  3. Creación y checkout de la rama de trabajo `phase/03-cart`.
+- **Por qué:** Cumplimiento estricto del flujo de ramas y control de versiones definido en `docs/PLAN.md` (secciones 5.1 y 5.3), manteniendo la estabilidad de `main` y aislando el desarrollo del carrito interactivo y modo nocturno en su rama de fase propia.
+- **Especialistas activados:**
+  - `qa`: Ejecución de linters, verificación de compilación limpia y ausencia de secretos en el repositorio.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md` y `docs/PLAN.md`.
+  - `desarrollo`: Gestión de ramas git (`develop`, `main`, `phase/03-cart`).
+- **Commit asociado:** Merges a `develop` y `main`, y commit inicial de Fase 3 en `phase/03-cart`.
 
 ### 2026-11-18 · `phase/02-catalog` · blindaje de detencion unitaria con scroll-snap-stop y swipe tactil en moviles
 - **Qué:** Solución definitiva al comportamiento del carrusel de productos en dispositivos y emuladores móviles:
