@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(header): implementa mega-menu desplegable hover y focus con subcategorias activas
+- **Último commit relevante:** feat(preview): crea laboratorio comparativo de mega-menus para evaluar subcategorias
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
-- **Qué está en progreso:** Cierre de Fase 2 (Catálogo & Contenido) y preparación de la Fase 3 (Carrito Interactivo & Modo Nocturno).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 41 páginas estáticas en 2.80s con 76 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Confirmar con el usuario en `http://localhost:4321/` el correcto despliegue visual del hover en el Header y la navegación por subcategorías, cerrar formalmente la Fase 2 y comenzar la Fase 3 con la instalación y calibración del botón de modo nocturno.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú desplegable interactivo al hacer hover y accesible por teclado (:focus-within) en todas las pestañas de categorías del Header con subcategorías activas enlazadas a sus rutas reales**, **Página de Laboratorio Comparativo (`/preview-megamenu`) con 2 opciones de composición para subcategorías (Vitrina Híbrida Split vs Grilla Modular de Píldoras)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva tolerante a tildes/acentos y mayúsculas/minúsculas**, **16 rutas dinámicas por categoría (`/categoria/[categoria]`) incluyendo `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`, `/categoria/packs-promocionales` e `/categoria/higiene-cuidados`**, nueva pestaña del Header **"🐾 Mascotas"** ubicada antes de Perros con subcategorías por Etapas de Vida, banners de etapas en la Home enlazados a sus rutas reales, y página 404 personalizada con ilustración SVG animada de fantasmas (`/404`).
+- **Qué está en progreso:** Evaluación con el usuario de las 2 opciones de composición de subcategorías en `/preview-megamenu`, definición de la opción definitiva, implementación del Menú Hamburguesa / Drawer para versión móvil y preparación de la Fase 3.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 42 páginas estáticas en 2.93s con 77 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Revisar con el usuario el laboratorio en `http://localhost:4321/preview-megamenu`, recibir su elección y aplicar la opción ganadora en `Header.astro`, para luego pasar de inmediato a la versión móvil.
 
 ## 2. Decisiones importantes
 
@@ -76,10 +76,23 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Búsqueda estricta por nombre de producto y anclas en Header | Aislar la búsqueda al nombre exacto del producto (sin mezclar categoría ni especie que se filtran en botones) y unificar Farmacia/Pequeñas Mascotas con anclas locales | Búsqueda difusa que traía toda la categoría al escribir una especie |
 | 2026-11-18 | Búsqueda tolerante a tildes y navegación por Etapas de Vida | Normalización NFD para buscar sin respetar tildes ('arnes' = 'Arnés'), reemplazo de Pequeñas Mascotas por Mascotas por etapas de vida (Cachorros, Adultos, Seniors) y ancla #ofertas en Ofertas Flash | Forzar escritura exacta con tildes y enlaces rotos sin productos |
 | 2026-11-18 | Mega-menú desplegable en Header con scoped CSS (hover & focus-within) | Resolver recorte de overflow-x-auto con md:overflow-visible y garantizar despliegue fluido con animación y teclado | Usar Tailwind group-hover arbitrario sin soporte en v4 o scripts complejos |
+| 2026-11-18 | Laboratorio comparativo de Mega-Menús (/preview-megamenu) | Evaluar dos composiciones modernas de subcategorías (Vitrina Split vs Grilla Modular) sin alterar la cabecera activa | Forzar una única composición sin test visual del usuario |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · laboratorio comparativo de mega-menus para evaluar subcategorias
+- **Qué:** Creación de una página de laboratorio de diseño (`src/pages/preview-megamenu.astro`) para evaluar dos composiciones modernas de subcategorías:
+  1. **Opción 1 · Vitrina Híbrida Split Showcase (Estilo Retail Moderno):** Divide el menú en 2/3 para navegación táctil con micro-iconos y descripciones cortas, y 1/3 para una tarjeta promocional destacada con imagen real optimizada de producto/pack (`astro:assets`), badge comercial (`🔥 Hasta 32% OFF`) y botón CTA directo.
+  2. **Opción 2 · Grilla Modular de Píldoras Visuales (Estilo Boutique Minimalista):** Grilla simétrica de 3 columnas de tarjetas individuales con iconos grandes de color suave, títulos en negrita y subtítulos explicativos.
+  3. **Demostración Interactiva y Vista Abierta:** La página incluye una barra de navegación funcional con hover activo y dos tarjetas gigantes de vista abierta estática para inspeccionar cada detalle tipográfico, espaciado y contraste cromático.
+- **Archivos clave:** `src/pages/preview-megamenu.astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `ux-ui`: Dirección de arte de las dos alternativas, micro-interacciones, armonía de color con la identidad cálida y tipografía con jerarquía.
+  - `desarrollo`: Creación de la página en Astro 5+ con imágenes optimizadas y diseño responsive sin dependencias de terceros.
+  - `qa`: Compilación de 42 páginas en 2.93s, ESLint pasando al 100% y validación de código HTTP 200 en `/preview-megamenu`.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro de cambios en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · mega-menu desplegable hover y focus con subcategorias activas
 - **Qué:** Solución integral del despliegue del Mega-Menú interactivo en la barra inferior del Header (`src/components/Header.astro`):
