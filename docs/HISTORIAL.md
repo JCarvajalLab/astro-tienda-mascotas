@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/02-catalog`
 - **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** feat(navigation): crea rutas dedicadas para accesorios, farmacia, ofertas y mascotas con filtros sincronizados
+- **Último commit relevante:** feat(catalog): agrega barras de busqueda reactivas a todas las categorias y refactoriza menu mascotas por etapas
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase (Opción 1B aprobada por el usuario)** con micro-SVGs lineales monocromáticos y tarjetas destacadas de producto, **Rutas dinámicas dedicadas para cada pestaña de cabecera (`/categoria/accesorios` con 12 productos de confort/paseo/smart, `/categoria/farmacia-salud` con 6 productos de suplementos/higiene, `/categoria/ofertas` con todos los productos rebajados/packs y `/categoria/mascotas` con selección completa)**, **Catálogo general completo (`/catalogo`) con barra de búsqueda reactiva y botones de filtro sincronizados para Accesorios y Farmacia & Salud**, y enlaces actualizados en el Footer.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON** (incluyendo 5 packs de ahorro reales, productos a precio regular y 2 nuevos productos especializados para etapa senior), **botones de compra inclusivos y accesibles ("Agregar al carrito" / "Agregar") con icono y texto claro para todas las edades**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales**, **Menú Mascotas optimizado exclusivamente por etapas de vida (Cachorros/Puppy, Adultos y Seniors tanto para perros como para gatos) eliminando la redundancia de Colecciones Especiales**, **Buscador en cabecera conectado a `/catalogo?q=...`**, **Barra de búsqueda reactiva y ordenamiento interactivo (menor/mayor precio, rating, destacados) presente en todas las páginas de categoría (`/categoria/[categoria]`) con filtrado en tiempo real insensible a tildes y mayúsculas/minúsculas**, **Rutas dinámicas dedicadas para cada pestaña de cabecera (`/categoria/accesorios` con 9 productos, `/categoria/farmacia-salud` con 5 productos, `/categoria/ofertas` con 16 productos rebajados y `/categoria/mascotas` con 8 productos de etapas de vida)**.
 - **Qué está en progreso:** Implementación de la versión móvil del Header con Menú Hamburguesa y Drawer lateral táctil (Offcanvas) para smartphones.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 3.34s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 48 páginas estáticas en 3.71s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Proceder con el Menú Hamburguesa y el Drawer lateral táctil con acordeones para la versión móvil en `src/components/Header.astro`.
 
 ## 2. Decisiones importantes
@@ -80,10 +80,32 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Eliminación total de emojis en subcategorías de navegación | Erradicar emojis infantiles que denotan aspecto genérico o IA, reemplazándolos por tipografía con jerarquía editorial o micro-SVGs monocromáticos | Mantener emojis coloridos en listas de enlaces |
 | 2026-11-18 | Aprobación e implementación de Opción 1B en Header oficial | Adopción de la Vitrina Híbrida Split Showcase con micro-SVGs monocromáticos, fotos de producto reales y eliminación de emojis en todas las categorías | Menús de lista plana o menús con emojis |
 | 2026-11-18 | Rutas dedicadas y filtros para Accesorios, Farmacia, Ofertas y Mascotas | Cada pestaña del Header y enlace 'Ver todo en...' redirige a su colección filtrada exacta en vez del catálogo genérico | Mandar todas las categorías secundarias a /catalogo sin filtrar |
+| 2026-11-18 | Barras de búsqueda en categorías y optimización de Mascotas por etapas | Integrar buscador reactivo en todas las categorías y enfocar Mascotas en Perros y Gatos por Etapas (Cachorros/Adultos/Seniors) eliminando Colecciones Especiales redundantes | Forzar al usuario a volver a /catalogo para buscar o sobrepoblar Mascotas duplicando el catálogo |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/02-catalog` · barras de busqueda reactivas en categorias y menu mascotas por etapas
+- **Qué:** Implementación de dos optimizaciones críticas de navegación y descubrimiento:
+  1. **Barras de Búsqueda y Ordenamiento en todas las Categorías (`src/pages/categoria/[categoria].astro`):**
+     - Integración de barra de búsqueda reactiva en tiempo real en cada página de categoría (`/categoria/perros`, `/categoria/gatos`, `/categoria/accesorios`, `/categoria/farmacia-salud`, `/categoria/ofertas`, `/categoria/mascotas`, `/categoria/cachorros`, `/categoria/adultos`, `/categoria/seniors`).
+     - Normalización completa de búsqueda: insensible a mayúsculas/minúsculas y a tildes/acentos (ej. "arnes" encuentra "Arnés", "salmon" encuentra "Salmón").
+     - Selector de ordenamiento dinámico en cliente (destacados, menor precio, mayor precio, mejor valorados).
+     - Contador de productos reactivo sincronizado con el banner y estado vacío accesible con botón "Limpiar búsqueda" cuando no hay coincidencias.
+     - Conexión del buscador central del Header (`#site-search`) para enviar el formulario a `/catalogo?q=...`.
+  2. **Refactorización de la pestaña Mascotas (`src/components/Header.astro` y `[categoria].astro`):**
+     - Se eliminó el grupo redundante "Colecciones Especiales" (packs, camas, smart-pet) que duplicaba innecesariamente el catálogo.
+     - La navegación de Mascotas se organizó estrictamente por etapas de vida:
+       - **Perros por Etapa:** Cachorros (Puppy), Perros Adultos, Perros Senior (7+).
+       - **Gatos por Etapa:** Gatitos (Kitten), Gatos Adultos, Gatos Senior (7+).
+     - La página `/categoria/mascotas` ahora filtra de forma focalizada los 8 productos especializados en etapas de vida de caninos y felinos.
+- **Archivos clave:** `src/components/Header.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`.
+- **Agente(s) / Skills:**
+  - `desarrollo`: Implementación de la barra de búsqueda y lógica de filtrado/ordenamiento en JS nativo sin dependencias en `[categoria].astro`, y ajuste de subcategorías en `Header.astro`.
+  - `ux-ui`: Claridad visual y editorial de la pestaña Mascotas orientada a etapas de edad, manteniendo consistencia y accesibilidad en el buscador y estado vacío.
+  - `qa`: Compilación de 48 páginas estáticas en 3.71s, 0 errores en ESLint y verificación de funcionamiento en servidor local.
+  - `docs-seo`: Actualización de la bitácora de decisiones y registro histórico en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/02-catalog` · rutas dedicadas para accesorios, farmacia, ofertas y mascotas con filtros sincronizados
 - **Qué:** Solución integral del enrutamiento por categoría para evitar redirecciones genéricas al catálogo completo:
