@@ -12,15 +12,15 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
-- **Última actualización:** 2026-11-18
+- **Última actualización:** 2026-11-19
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(auth-checkout): sustituye emojis por micro-SVGs, agrega validaciones robustas y confirmacion de contrasena, y prioriza login en checkout
+- **Último commit relevante:** feat(checkout): elimina compra como invitado, integra cupon en checkout y sesion demo con 1 clic
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo (Flyout Drawer) con doble botón de acción ("Ver Carrito" y "Finalizar Compra")**, **Página completa de bolsa de compras `/carrito` con desglose, cupones de descuento (MASCOTA10), cálculo de despacho y barra dinámica de Envío Gratis ($25.000 CLP)**, **Página neutra de autenticación `/auth/login` con validaciones de formulario, confirmación de contraseña, botones toggle con micro-SVGs sin emojis y botón "Crear Cuenta"**, **Flujo de Checkout (`/checkout`) priorizando inicio de sesión con opción de registro y compra como invitado, 4 fases secuenciales con panel de resumen del pedido SIEMPRE VISIBLE en columna lateral sticky (sin emojis, 100% micro-SVGs) y pantalla de confirmación exitosa con número de orden**.
-- **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 53 páginas estáticas en 4.52s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer y navegación móvil en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo (Flyout Drawer) con doble botón de acción ("Ver Carrito" y "Finalizar Compra")**, **Página completa de bolsa de compras `/carrito` con desglose, cupones de descuento (MASCOTA10), cálculo de despacho y barra dinámica de Envío Gratis ($25.000 CLP)**, **Página neutra de autenticación `/auth/login` con validaciones de formulario, confirmación de contraseña, botones toggle con micro-SVGs sin emojis y botón "Crear Cuenta"**, **Flujo de Checkout (`/checkout`) 100% autenticado/registrado (sin compra de invitado), botón de Sesión Demo rápida (1 clic con datos ficticios chilenos), cupón de descuento integrado en el resumen lateral persistente (disponible en todos los pasos y en el pago), 4 fases secuenciales (Identificación, Dirección, Despacho, Pago) con resumen sticky y pantalla de confirmación con orden MP-2026-XXXX**.
+- **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito y checkout en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 53 páginas estáticas en 8.17s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar la experiencia de usuario del flujo completo de compra (con sesión demo o login) y avanzar hacia el cierre de la Fase 3.
 
 ## 2. Decisiones importantes
 
@@ -99,10 +99,43 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Erradicación total de emojis en formularios y botones de checkout | Directriz estricta del usuario: sustituir todos los emojis en botones de visibilidad de contraseña, badges y opciones por micro-SVGs lineales profesionales | Mantener emojis coloridos en campos de formulario |
 | 2026-11-18 | Confirmación de contraseña, validaciones inline y botón "Crear Cuenta" | Asegurar integridad de credenciales de usuario mediante doble campo de contraseña con verificación de coincidencia y feedback de error inmediato | Formularios sin validación previa al envío o con alert() genéricos |
 | 2026-11-18 | Priorizar inicio de sesión en Checkout con bifurcación a registro e invitado | Guiar al comprador a identificarse con su cuenta existente primero, ofreciendo enlace directo a crear cuenta o compra rápida como invitado para evitar abandono de carrito | Forzar registro obligatorio o mostrar solo campos de invitado |
+| 2026-11-19 | Eliminación de compra como invitado, cupón en checkout y sesión demo | Exigir cuenta activa en checkout para fidelización, colocar formulario de cupón en la barra lateral persistente (disponible en todos los pasos y en el pago) y proveer botón demo de 1 clic con datos chilenos para agilizar pruebas de QA de Dirección, Despacho y Pago | Permitir compra anónima como invitado o exigir llenado manual repetitivo de formularios de prueba |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-19 · `phase/03-cart` · eliminacion de compra como invitado, cupon en checkout y sesion demo
+- **Qué:** Implementación integral de los requerimientos de refinamiento comercial en el flujo de compra y pruebas:
+  1. **Eliminación Total de Compra como Invitado:**
+     - En `src/pages/checkout.astro`, se eliminó completamente la opción *"Continuar como invitado sin registrarme"* y su formulario desplegable asociado.
+     - En `src/pages/auth/login.astro`, se retiró el bloque secundario de compra anónima.
+     - El checkout ahora canaliza exclusivamente a usuarios identificados (mediante inicio de sesión rápido, registro de cuenta nueva en 1 minuto o cuenta demo de prueba).
+  2. **Cupón de Descuento en Pantalla Actual y Paso de Pago:**
+     - Se integró el formulario de cupón de descuento (`#checkout-coupon-form`) directamente en la columna lateral sticky del resumen de compra (`lg:sticky lg:top-24`).
+     - Al estar ubicado en el panel persistente que acompaña al usuario durante todo el recorrido (Paso 1 Identificación, Paso 2 Dirección, Paso 3 Despacho y Paso 4 Pago), el cliente puede aplicar o modificar su cupón en cualquier momento del proceso sin perder el contexto.
+     - Admite códigos promocionales (`MASCOTA10` y `MARKET10` para 10% de descuento, `SUPERPET15` para 15%).
+     - Recalcula dinámicamente el subtotal con descuento, el desglose de transferencia (-5% sobre el valor con cupón) y el total final en CLP, con feedback inline en verde (éxito) o rojo (error) sin alertas intrusivas.
+  3. **Sesión de Prueba (Demo) con 1 Clic para Validación de Interfaces:**
+     - Se incorporó un banner amigable en el Paso 1 de `/checkout` y un acceso rápido en `/auth/login` para cargar una **sesión de prueba con datos ficticios chilenos realistas**:
+       - Nombre: *Constanza Silva Morales*
+       - Correo: *constanza.demo@marketpet.cl*
+       - RUT: *18.765.432-1*
+       - Teléfono: *+56 9 8765 4321*
+       - Región: *Metropolitana de Santiago*
+       - Comuna: *Providencia*
+       - Dirección: *Av. Providencia 1234, Depto 502*
+       - Notas: *Dejar en conserjería con don Carlos*
+     - Si el carrito está vacío, inyecta automáticamente 2 productos representativos para que el usuario pueda validar de inmediato las interfaces del **Paso 2 (Dirección & Comuna)**, **Paso 3 (Métodos de Despacho & cálculo de envío gratis)** y **Paso 4 (Medios de Pago: Webpay, Mercado Pago, Transferencia)**.
+  4. **Erradicación de Emojis Residuales en Hero Carousel (`Carousel.astro`):**
+     - Se sustituyeron emojis de banderas y animales (`🇩🇪`, `🐱`, `🔥`) por insignias textuales refinadas (*CALIDAD CERTIFICADA · MADE IN GERMANY*, *LANZAMIENTO · CATIT GO NATURAL*, *OFERTAS FLASH DE LA SEMANA*).
+- **Archivos clave:** `src/pages/checkout.astro`, `src/pages/auth/login.astro`, `src/components/Carousel.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Diagramación del formulario de cupón en la columna de resumen sticky, diseño del banner de sesión demo, micro-SVGs y depuración de badges en el Hero Carousel.
+  - `desarrollo`: Lógica en JavaScript nativo de validación de cupones, recálculo matemático de descuentos anidados, precarga reactiva de datos ficticios y avance automático de pasos en `/checkout`.
+  - `qa`: Verificación de consistencia del flujo sin compra de invitado, build estático limpio de 53 páginas en Astro 5+ y linter ESLint pasando al 100%.
+  - `docs-seo`: Actualización de estado y decisiones en `docs/HISTORIAL.md`.
+- **Notas:** Permite testear de punta a punta todo el checkout en menos de 5 segundos con 1 solo clic.
 
 ### 2026-11-18 · `phase/03-cart` · sustitucion de emojis por micro-SVGs, validaciones robustas y login prioritario en checkout
 - **Qué:** Ajustes y refinamiento de formularios y flujo de compra según solicitudes del usuario:
