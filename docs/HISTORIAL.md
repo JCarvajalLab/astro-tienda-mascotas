@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(cart): implementa drawer interactivo de compras y resuelve bug de suma doble al agregar productos
+- **Último commit relevante:** feat(cart): integra micro-SVGs profesionales en drawer movil y modal de confirmacion para eliminacion de productos
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con `localStorage`, barra dinámica de progreso para Envío Gratis ($25.000 CLP), controles de cantidad [+] [-], eliminación de ítems, totales en CLP, sellos de seguridad y corrección definitiva del bug de suma doble (+1 exacto por clic)**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con `localStorage`, barra dinámica de Envío Gratis ($25.000 CLP), selectores de cantidad [+] [-], modal de confirmación antes de eliminar productos (al presionar '-' en 1 unidad o clic en papelera), totales en CLP y sellos de seguridad**.
 - **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.11s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.82s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer y navegación móvil en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
 
 ## 2. Decisiones importantes
 
@@ -92,10 +92,30 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Paleta Warm Charcoal adoptada como modo nocturno oficial y metodología de laboratorio preservada | El usuario validó Warm Charcoal & Cacao (#141110 / #1d1816) en vivo con ThemeLabWidget; se calibra la navbar completa al 100% y se preserva el laboratorio interactivo como metodología estándar para futuros proyectos | Mantener Midnight Slate azulado frío o descartar el widget interactivo de testing |
 | 2026-11-18 | Delegación de eventos global en CartDrawer y eliminación de listeners redundantes | Resolver el bug de suma doble (+1 +1 = 2) al agregar productos al carrito centralizando la captura de clicks [data-add-to-cart] en CartDrawer con estado único en localStorage | Mantener scripts de click dispersos e independientes en cada página o componente |
 | 2026-11-18 | Carrito Drawer interactivo con meta dinámica de Envío Gratis ($25.000 CLP) | Proporcionar experiencia ecommerce moderna de alta conversión (slide-over drawer) sin recargar página, con barra de progreso de despacho gratis estándar en retail chileno | Redirigir a página pesada de /carrito o modal estático |
+| 2026-11-18 | Erradicación total de emojis en menú móvil y modal de confirmación en carrito | Reemplazar emojis en drawer lateral por micro-SVGs lineales profesionales e incorporar modal de confirmación antes de eliminar productos con cantidad 1 o clic en papelera | Permitir que el carrito borre productos sin confirmar o mantener emojis infantiles en móvil |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · integracion de micro-SVGs en drawer movil y modal de confirmacion de eliminacion
+- **Qué:** Refinamiento visual y de experiencia de usuario en la navegación móvil y el carrito de compras:
+  1. **Erradicación de Emojis en el Menú Móvil (Offcanvas Drawer):**
+     - Se reemplazaron todos los emojis (`🐾`, `🐶`, `🐱`, `🎾`, `🩺`, `🔥`) en las cabeceras de acordeones táctiles de categorías de [src/components/Header.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/Header.astro).
+     - Se integraron los mismos **micro-SVGs monocromáticos lineales profesionales** empleados en la vitrina desktop (patita, silueta canina, silueta felina, pelota interactiva, cruz médica y llama de oferta).
+  2. **Modal Reactivo de Confirmación de Eliminación (`CartDrawer.astro`):**
+     - Cuando un producto tiene cantidad 1 y el usuario presiona el botón `-` (menos), o cuando presiona directamente el icono de papelera (`data-cart-remove`), se despliega un **modal de confirmación nativo `<dialog>`** estilizado con la identidad Warm Biscuit / Warm Charcoal.
+     - Muestra la miniatura de la foto, título y precio del producto a eliminar, con advertencia amigable y dos botones:
+       - *"Cancelar"*: mantiene el producto en el carrito sin alteraciones.
+       - *"Sí, eliminar"*: remueve el producto del carrito, recalcula los totales y la barra de envío gratis, y actualiza el badge en el Header.
+     - Soporta cierre con tecla `Escape` y accesibilidad ARIA.
+- **Por qué:** Solicitud del usuario para eliminar emojis en el menú móvil manteniendo el estándar profesional de diseño y evitar eliminaciones accidentales de productos en el carrito.
+- **Especialistas activados:**
+  - `ux-ui`: Diseño del modal de confirmación con miniatura del ítem e integración de los micro-SVGs en el Drawer móvil.
+  - `desarrollo`: Implementación de `<dialog id="cart-delete-confirm-modal">`, interceptor de decremento a 1 unidad y confirmación de eliminación en JS nativo.
+  - `qa`: Comprobación con `npm run lint` (0 errores) y compilación estática limpia de las 50 páginas en 3.82s.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md`.
+- **Commit asociado:** `013991a` (`feat(cart): integra micro-SVGs profesionales en drawer movil y modal de confirmacion para eliminacion de productos`).
 
 ### 2026-11-18 · `phase/03-cart` · implementacion de carrito drawer reactivo y correccion de suma doble
 - **Qué:** Implementación del **Carrito de Compras Reactivo (Drawer Lateral / Flyout)** y resolución definitiva del problema de suma doble al presionar "Agregar":
