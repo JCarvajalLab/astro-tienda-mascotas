@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(theme): implementa DESIGN.md y widget interactivo de laboratorio de paletas nocturnas
+- **Último commit relevante:** feat(theme): calibra navbar completa al 100% y establece Warm Charcoal como modo nocturno oficial
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Laboratorio interactivo de paletas nocturnas (`ThemeLabWidget`) con 4 variantes cromáticas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) con persistencia en localStorage y anti-FOUC**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100% (Nivel 1, Nivel 2, Mega-Menú y Drawer)**, **Laboratorio interactivo de paletas nocturnas (`ThemeLabWidget`) con 4 variantes cromáticas preservado como metodología estándar para futuros proyectos**.
 - **Qué está en progreso:** Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.04s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.96s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage y badges reactivos.
 
 ## 2. Decisiones importantes
@@ -89,10 +89,31 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Cierre de Fase 2 e inicio de Fase 3 (Carrito Interactivo & Modo Nocturno) | Consolidación de catálogo completo (Content Collections Zod, 22 productos, rutas dinámicas, búsqueda reactiva, drawer móvil y carruseles adaptados); merge a develop y main; apertura de rama phase/03-cart | Acumular cambios de carrito en la rama de catálogo |
 | 2026-11-18 | Modo nocturno integral con toggle interactivo y calibración visual completa | Alternancia fluida Sol/Luna en desktop y móvil con persistencia en localStorage, anti-FOUC síncrono y soporte de contraste alto en todo el catálogo y fichas de producto | Posponer modo oscuro hasta después del checkout o forzar modo oscuro por CSS del SO |
 | 2026-11-18 | Adopción de Awesome Design MD y laboratorio de paletas nocturnas | Establecer contrato formal de diseño en DESIGN.md y dotar al ecommerce de un widget interactivo con 4 paletas nocturnas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) para evaluación directa del usuario | Imponer una sola paleta oscura sin opción de comparar o usar código disperso sin tokens |
+| 2026-11-18 | Paleta Warm Charcoal adoptada como modo nocturno oficial y metodología de laboratorio preservada | El usuario validó Warm Charcoal & Cacao (#141110 / #1d1816) en vivo con ThemeLabWidget; se calibra la navbar completa al 100% y se preserva el laboratorio interactivo como metodología estándar para futuros proyectos | Mantener Midnight Slate azulado frío o descartar el widget interactivo de testing |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · adopcion oficial de Warm Charcoal y calibracion integral de navbar
+- **Qué:** Establecimiento de **Warm Charcoal & Cacao** (`#141110` / `#1d1816`) como el Modo Nocturno Oficial definitivo del ecommerce y calibración cromática integral de la Navbar y componentes al 100%:
+  1. **Calibración Completa de la Navbar (Desktop y Móvil):**
+     - Nivel 1 del Header: adaptado a `#141110` con bordes cálidos `#2d2521`, buscador `#1d1816`, textos marfil `#fbf6f0` y subtítulos `#b0a297`.
+     - Nivel 2 (`<nav>` de categorías desktop): reemplazado el anterior azul pizarra `#0f172a` por la superficie cálida cacao `#1d1816` con borde `#2d2521` y hover en `#27201c`, logrando coherencia visual absoluta.
+     - Mega-Menú Split Showcase: contenedores, divisores, micro-SVGs y tarjeta promocional adaptados al esquema Warm Charcoal.
+     - Menú Drawer móvil (Offcanvas): fondo `#141110`, cabecera y selector de despacho `#1d1816`, y acordeones táctiles `#1d1816` / `#27201c`.
+  2. **Tokens Oficiales en `src/styles/global.css` y `DESIGN.md`:**
+     - La raíz nocturna oficial (`html.dark`) adopta por defecto los valores de Warm Charcoal, con variables armonizadas `--color-60-bg: #141110;` y `--color-60-surface: #1d1816;`.
+     - Las 4 paletas alternativas (`midnight-slate`, `forest-pine`, `onyx-oled`) ahora cuentan con cobertura completa de `<header nav>` y dropdowns.
+  3. **Preservación de la Metodología de Laboratorio de Colores:**
+     - Se mantiene activo el widget interactivo `ThemeLabWidget.astro` como buena práctica arquitectónica y metodología estándar documentada para este y futuros proyectos, permitiendo auditar cambios en vivo sobre cualquier categoría o producto.
+- **Por qué:** Validación y elección explícita del usuario por la paleta recomendada Warm Charcoal (en perfecta sintonía con Warm Biscuit), atendiendo el reporte visual de que la barra de navegación requería calibración completa al 100%.
+- **Especialistas activados:**
+  - `ux-ui`: Armonización cromática de la Navbar en 2 niveles, mega-menú y drawer móvil en Warm Charcoal; actualización de `DESIGN.md`.
+  - `desarrollo`: Refactorización de estilos en `Header.astro`, `Footer.astro`, `TrustBar.astro` y reglas en cascada en `global.css`.
+  - `qa`: Comprobación exhaustiva con `npm run lint` (0 errores) y `npm run build` (50 páginas compiladas en 3.96s).
+  - `docs-seo`: Documentación formal en `docs/HISTORIAL.md` de la paleta oficial y de la metodología de evaluación cromática para futuros proyectos.
+- **Commit asociado:** `268308e` (`feat(theme): calibra navbar completa al 100% y establece Warm Charcoal como modo nocturno oficial`).
 
 ### 2026-11-18 · `phase/03-cart` · implementacion de DESIGN.md y laboratorio interactivo de paletas nocturnas
 - **Qué:** Integración de la especificación **Awesome Design MD** y creación de un laboratorio interactivo de evaluación de paletas oscuras:
