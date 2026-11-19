@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** merge: integra Fase 2 (Catálogo & Contenido) en main
+- **Último commit relevante:** feat(theme): implementa modo nocturno completo con toggle interactivo y calibracion visual en todo el ecommerce
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
-- **Qué está en progreso:** Inicio de Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) y calibración visual del modo nocturno.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.25s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo en JavaScript nativo puro sincronizado con localStorage.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Modo Nocturno (Dark Mode) completo y calibrado en todo el sitio con alternancia interactiva Sol/Luna en Header (Desktop) y Drawer (Móvil), persistencia en localStorage, cero parpadeo (anti-FOUC) y contraste WCAG AA**.
+- **Qué está en progreso:** Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.85s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage y badges reactivos.
 
 ## 2. Decisiones importantes
 
@@ -87,10 +87,38 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
 | 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
 | 2026-11-18 | Cierre de Fase 2 e inicio de Fase 3 (Carrito Interactivo & Modo Nocturno) | Consolidación de catálogo completo (Content Collections Zod, 22 productos, rutas dinámicas, búsqueda reactiva, drawer móvil y carruseles adaptados); merge a develop y main; apertura de rama phase/03-cart | Acumular cambios de carrito en la rama de catálogo |
+| 2026-11-18 | Modo nocturno integral con toggle interactivo y calibración visual completa | Alternancia fluida Sol/Luna en desktop y móvil con persistencia en localStorage, anti-FOUC síncrono y soporte de contraste alto en todo el catálogo y fichas de producto | Posponer modo oscuro hasta después del checkout o forzar modo oscuro por CSS del SO |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · implementacion de modo nocturno completo y calibracion visual en todo el ecommerce
+- **Qué:** Implementación y calibración visual integral del **Modo Nocturno (Dark Mode)** en todo el ecommerce:
+  1. **Botón Toggle Interactivo Sol / Luna:**
+     - Integrado en el Header desktop al lado de 'Mi cuenta' y 'Carrito de compras' con focus accesible y micro-animación.
+     - Integrado en la cabecera del Menú Drawer móvil junto al botón de cierre para máxima conveniencia en smartphones.
+     - Script JS nativo puro (`initThemeToggles()`) sincronizado con `localStorage.getItem('theme')` y `document.documentElement.classList.toggle('dark')`.
+     - Reglas CSS puras en `src/styles/global.css` para alternancia instantánea de SVGs `.theme-icon-sun` y `.theme-icon-moon` sin FOUC ni demoras.
+  2. **Calibración Visual Completa en Componentes:**
+     - `Header.astro`: Mega-Menú Split Showcase en modo oscuro (`bg-slate-900`, `border-slate-800`, textos nítidos y tarjeta promocional adaptada), y Menú Drawer móvil completo (acordeones táctiles, selector de despacho y enlaces).
+     - `RegionModal.astro`: Fondo oscuro `dark:bg-slate-900`, selects en cascada contrastados `dark:bg-slate-800` y botones accesibles.
+     - `TrustBar.astro`: Superficie `dark:bg-[#0c121e]`, iconos con fondo carmín sutil y tipografía luminosa `dark:text-slate-100`.
+     - `CircularCategories.astro`: Título blanco puro, bordes oscuros en anillos y nombres legibles.
+     - `ProductSlider.astro`: Fondos de tarjeta `dark:bg-slate-900`, bordes oscuros, flechas de navegación y precios en blanco de alto contraste.
+     - `LifeStageBanners.astro` y `CatalogCtaBanner.astro`: Arcos y marcos con bordes `dark:border-slate-800` y descripciones en slate suave.
+     - `Footer.astro`: Variante Warm Biscuit adaptada a superficie nocturna profunda (`dark:bg-[#070b12]`), redes sociales y sellos de pago chilenos.
+  3. **Calibración en Páginas de Catálogo y Detalle:**
+     - `/catalogo`: Barra de búsqueda, píldoras de filtro rápido activas/inactivas, grilla de 22 productos y caja de estado vacío.
+     - `/categoria/[categoria]`: Banner de categoría, buscador contextual, píldoras de especie (Perros / Gatos) y grillas.
+     - `/producto/[slug]`: Ficha técnica, bloque de precios, selector de cantidad `+ / -`, puntos clave y tabla de especificaciones.
+- **Por qué:** Cumplimiento de la opción preferida por el usuario para contar con el modo nocturno completamente calibrado y operativo antes de pasar a la construcción del drawer interactivo del carrito.
+- **Especialistas activados:**
+  - `ux-ui`: Dirección de arte en modo oscuro (paleta Slate profunda `#090d16`/`#0f172a`, acentos de contraste, tipografía WCAG AA y micro-interacciones de Sol/Luna).
+  - `desarrollo`: Componentes Astro, utilidades Tailwind v4 con `@custom-variant dark`, y script vanilla JS de persistencia en localStorage.
+  - `qa`: Validación de `npm run lint` (0 errores) y compilación estática de las 50 páginas en 3.85s con `npm run build`.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md`.
+- **Commit asociado:** `9df6fec` (`feat(theme): implementa modo nocturno completo con toggle interactivo y calibracion visual en todo el ecommerce`).
 
 ### 2026-11-18 · `phase/03-cart` · cierre de fase 2 y apertura de fase 3
 - **Qué:** Cierre formal de la **Fase 2: Catálogo & Contenido** y apertura de la **Fase 3: Carrito Interactivo & Modo Nocturno**:
