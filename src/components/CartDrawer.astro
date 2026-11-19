@@ -158,6 +158,62 @@
   </footer>
 </aside>
 
+<!-- Modal de Confirmación de Eliminación de Producto -->
+<dialog
+  id="cart-delete-confirm-modal"
+  class="rounded-3xl p-0 bg-transparent backdrop:bg-stone-950/75 backdrop:backdrop-blur-xs select-none max-w-sm w-[90%] mx-auto my-auto z-[60]"
+  aria-labelledby="cart-delete-modal-title"
+  aria-describedby="cart-delete-modal-desc"
+>
+  <div class="bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white rounded-3xl p-5 sm:p-6 shadow-2xl border border-stone-200 dark:border-[#2d2521] text-center space-y-4">
+    <div class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-[#4c111a]/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center text-2xl border border-rose-100 dark:border-[#4c111a]/60">
+      🗑️
+    </div>
+
+    <div class="space-y-1">
+      <h3 id="cart-delete-modal-title" class="text-base font-black leading-tight text-stone-900 dark:text-white">
+        ¿Eliminar producto del carrito?
+      </h3>
+      <p id="cart-delete-modal-desc" class="text-xs text-stone-500 dark:text-[#b0a297] leading-relaxed">
+        Vas a quitar este artículo de tu compra actual:
+      </p>
+    </div>
+
+    <!-- Preview del producto a eliminar -->
+    <div class="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] text-left">
+      <div class="w-12 h-12 rounded-xl bg-white dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center">
+        <img id="cart-delete-item-img" src="/favicon.svg" alt="" class="w-full h-full object-cover rounded-lg" />
+      </div>
+      <div class="min-w-0 flex-1">
+        <h4 id="cart-delete-item-name" class="text-xs font-bold text-stone-900 dark:text-white leading-tight line-clamp-1 truncate">
+          Nombre de producto
+        </h4>
+        <span id="cart-delete-item-price" class="text-xs font-black text-rose-600 dark:text-rose-400 block mt-0.5">
+          $0
+        </span>
+      </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="grid grid-cols-2 gap-2.5 pt-1">
+      <button
+        type="button"
+        id="cart-delete-cancel-btn"
+        class="w-full py-2.5 px-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-stone-100 hover:bg-stone-200/80 dark:bg-[#27201c] dark:hover:bg-[#382d27] text-stone-700 dark:text-[#fbf6f0] font-bold text-xs transition-colors cursor-pointer"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        id="cart-delete-confirm-btn"
+        class="w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer"
+      >
+        Sí, eliminar
+      </button>
+    </div>
+  </div>
+</dialog>
+
 <!-- Modal de Checkout / Notificación Sandbox -->
 <dialog
   id="checkout-sandbox-modal"
@@ -220,6 +276,28 @@
     const checkoutModal = document.getElementById('checkout-sandbox-modal');
     const checkoutModalClose = document.getElementById('checkout-sandbox-close');
     const checkoutModalTotal = document.getElementById('checkout-modal-total');
+
+    // Modal de Confirmación de Eliminación
+    const deleteModal = document.getElementById('cart-delete-confirm-modal');
+    const deleteModalImg = document.getElementById('cart-delete-item-img');
+    const deleteModalName = document.getElementById('cart-delete-item-name');
+    const deleteModalPrice = document.getElementById('cart-delete-item-price');
+    let pendingDeleteId = null;
+
+    function promptDeleteItem(productId) {
+      const cart = getCart();
+      const item = cart.find((it) => String(it.id) === String(productId));
+      if (!item) return;
+
+      pendingDeleteId = productId;
+      if (deleteModalImg) deleteModalImg.src = item.image || '/favicon.svg';
+      if (deleteModalName) deleteModalName.textContent = item.name;
+      if (deleteModalPrice) deleteModalPrice.textContent = formatCLP(item.price);
+
+      if (deleteModal && typeof deleteModal.showModal === 'function') {
+        deleteModal.showModal();
+      }
+    }
 
     // 1. Obtener y Guardar en LocalStorage
     function getCart() {
@@ -496,15 +574,21 @@
       const minusBtn = e.target.closest('[data-cart-qty-minus]');
       if (minusBtn) {
         const id = minusBtn.getAttribute('data-cart-qty-minus');
-        updateQuantity(id, -1);
+        const cart = getCart();
+        const item = cart.find((it) => String(it.id) === String(id));
+        if (item && item.quantity <= 1) {
+          promptDeleteItem(id);
+        } else {
+          updateQuantity(id, -1);
+        }
         return;
       }
 
-      // D. Eliminar producto individual
+      // D. Eliminar producto individual (Papelera)
       const removeBtn = e.target.closest('[data-cart-remove]');
       if (removeBtn) {
         const id = removeBtn.getAttribute('data-cart-remove');
-        removeFromCart(id);
+        promptDeleteItem(id);
         return;
       }
 
@@ -560,11 +644,37 @@
         closeDrawer();
         return;
       }
+
+      // K. Confirmar eliminación en el modal
+      if (e.target.closest('#cart-delete-confirm-btn')) {
+        if (pendingDeleteId) {
+          removeFromCart(pendingDeleteId);
+          pendingDeleteId = null;
+        }
+        if (deleteModal && typeof deleteModal.close === 'function') {
+          deleteModal.close();
+        }
+        return;
+      }
+
+      // L. Cancelar eliminación en el modal
+      if (e.target.closest('#cart-delete-cancel-btn')) {
+        pendingDeleteId = null;
+        if (deleteModal && typeof deleteModal.close === 'function') {
+          deleteModal.close();
+        }
+        return;
+      }
     });
 
     // Cerrar con tecla Escape
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        if (deleteModal && deleteModal.open) {
+          deleteModal.close();
+          pendingDeleteId = null;
+          return;
+        }
         closeDrawer();
         if (checkoutModal && typeof checkoutModal.close === 'function') {
           checkoutModal.close();
