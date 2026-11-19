@@ -147,8 +147,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   Identifícate para continuar tu compra
                 </h2>
                 <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
-                  Inicia sesión con tu cuenta de Market-Pet o regístrate para guardar tus pedidos y direcciones.
+                  Inicia sesión con tu cuenta de Market-Pet o regístrate para continuar tu pedido.
                 </p>
+              </div>
+
+              <!-- Banner Especial: Sesión de Prueba / Demo Ficticia -->
+              <div class="p-4 rounded-2xl bg-amber-50/80 dark:bg-[#141110] border border-amber-200/80 dark:border-[#382d27] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693l-1.57-.393m15.6 0l1.106 4.423A1.5 1.5 0 0119.48 21.5H4.52a1.5 1.5 0 01-1.456-1.777l1.106-4.423" />
+                  </svg>
+                  <span class="text-stone-700 dark:text-stone-300">
+                    ¿Quieres probar la tienda? Inicia sesión con 1 clic usando una <strong>cuenta de prueba con datos ficticios</strong>.
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  id="btn-load-demo-session"
+                  class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-extrabold text-xs shadow-xs transition-all shrink-0 cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span>Cargar Sesión Demo</span>
+                  <svg class="w-3.5 h-3.5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
               </div>
 
               <!-- Bloque Prioritario: Iniciar Sesión Rápido -->
@@ -225,7 +247,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   ¿Aún no tienes una cuenta en Market-Pet?
                 </span>
                 <p class="text-xs text-stone-500 dark:text-[#b0a297] max-w-sm mx-auto">
-                  Crea tu cuenta en 1 minuto para acumular puntos, recibir ofertas especiales y rastrear tus pedidos en vivo.
+                  Crea tu cuenta en 1 minuto para guardar tus direcciones, acumular puntos y continuar tu compra.
                 </p>
                 <a
                   href="/auth/login?tab=register&redirect=/checkout"
@@ -236,87 +258,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </a>
-              </div>
-
-              <!-- Opción C: Comprar como Invitado (Sin crear cuenta) -->
-              <div class="pt-2">
-                <button
-                  type="button"
-                  id="btn-toggle-guest-form"
-                  class="w-full py-2.5 text-center text-xs font-bold text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white underline cursor-pointer flex items-center justify-center gap-1.5"
-                >
-                  <span>O continuar como invitado sin registrarme</span>
-                  <span id="guest-arrow">↓</span>
-                </button>
-
-                <!-- Formulario Desplegable de Invitado -->
-                <form id="form-step-1-guest" novalidate class="space-y-4 pt-4 hidden">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label for="step1-guest-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                        Nombre completo *
-                      </label>
-                      <input
-                        type="text"
-                        id="step1-guest-name"
-                        placeholder="Ej. Constanza Silva"
-                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                      />
-                      <p id="err-step1-guest-name" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
-                    </div>
-                    <div>
-                      <label for="step1-guest-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                        RUT o DNI *
-                      </label>
-                      <input
-                        type="text"
-                        id="step1-guest-rut"
-                        placeholder="12.345.678-9"
-                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                      />
-                      <p id="err-step1-guest-rut" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label for="step1-guest-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                        Correo Electrónico (para confirmación) *
-                      </label>
-                      <input
-                        type="email"
-                        id="step1-guest-email"
-                        placeholder="constanza@correo.cl"
-                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                      />
-                      <p id="err-step1-guest-email" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
-                    </div>
-                    <div>
-                      <label for="step1-guest-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                        Teléfono móvil (+56) *
-                      </label>
-                      <input
-                        type="tel"
-                        id="step1-guest-phone"
-                        placeholder="+56 9 8765 4321"
-                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                      />
-                      <p id="err-step1-guest-phone" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
-                    </div>
-                  </div>
-
-                  <div class="pt-2 flex justify-end">
-                    <button
-                      type="submit"
-                      class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-rose-600 dark:hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
-                    >
-                      <span>Continuar como invitado</span>
-                      <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </button>
-                  </div>
-                </form>
               </div>
             </div>
           </section>
@@ -737,11 +678,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <!-- Inyectado por JS -->
           </ul>
 
+          <!-- Formulario de Cupón de Descuento (En Pantalla Actual de Checkout y Pago) -->
+          <div class="pt-3 border-t border-stone-100 dark:border-[#2d2521]">
+            <form id="checkout-coupon-form" class="space-y-1.5">
+              <label for="checkout-coupon-input" class="flex items-center gap-1.5 text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0]">
+                <svg class="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                </svg>
+                <span>¿Tienes un cupón de descuento?</span>
+              </label>
+              <div class="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  id="checkout-coupon-input"
+                  placeholder="Ej. MASCOTA10"
+                  class="uppercase px-3 py-1.5 rounded-xl text-xs font-bold border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 w-full"
+                />
+                <button
+                  type="submit"
+                  class="px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 font-extrabold text-xs transition-colors shrink-0 cursor-pointer"
+                >
+                  Aplicar
+                </button>
+              </div>
+              <p id="checkout-coupon-feedback" class="text-[11px] font-bold mt-1 hidden"></p>
+            </form>
+          </div>
+
           <!-- Desglose de Precios -->
           <div class="space-y-2.5 pt-3 border-t border-stone-100 dark:border-[#2d2521] text-xs text-stone-600 dark:text-[#b0a297]">
             <div class="flex items-center justify-between">
               <span>Subtotal productos</span>
               <span id="checkout-subtotal-val" class="font-bold text-stone-900 dark:text-white">$0</span>
+            </div>
+
+            <!-- Fila Cupón de Descuento -->
+            <div id="checkout-coupon-row" class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold">
+              <span id="checkout-coupon-label">Cupón MASCOTA10 (-10%)</span>
+              <span id="checkout-coupon-val">-$0</span>
             </div>
 
             <div id="checkout-discount-row" class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold">
@@ -796,6 +770,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   let currentStep = 1;
   let selectedShippingMethod = 'standard';
   let selectedPaymentMethod = 'webpay';
+  let appliedCoupon = null;
   let orderData = {
     nombre: '',
     rut: '',
@@ -870,12 +845,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
     const shippingCost = calculateShippingCost(subtotal);
 
-    let discount = 0;
-    if (selectedPaymentMethod === 'transfer') {
-      discount = Math.round(subtotal * 0.05);
+    let couponDiscount = 0;
+    const couponRow = document.getElementById('checkout-coupon-row');
+    const couponLabel = document.getElementById('checkout-coupon-label');
+    const couponVal = document.getElementById('checkout-coupon-val');
+    if (appliedCoupon) {
+      couponDiscount = Math.round(subtotal * (appliedCoupon.percent / 100));
+      if (couponRow && couponVal && couponLabel) {
+        couponRow.classList.remove('hidden');
+        couponLabel.textContent = `Cupón ${appliedCoupon.code} (-${appliedCoupon.percent}%)`;
+        couponVal.textContent = `-${formatCLP(couponDiscount)}`;
+      }
+    } else if (couponRow) {
+      couponRow.classList.add('hidden');
     }
 
-    const total = Math.max(0, subtotal - discount + (cart.length > 0 ? shippingCost : 0));
+    let discount = 0;
+    if (selectedPaymentMethod === 'transfer') {
+      discount = Math.round((subtotal - couponDiscount) * 0.05);
+    }
+
+    const total = Math.max(0, subtotal - couponDiscount - discount + (cart.length > 0 ? shippingCost : 0));
 
     if (badgeEl) badgeEl.textContent = `${totalQty} artículos`;
     if (subtotalEl) subtotalEl.textContent = formatCLP(subtotal);
@@ -1133,69 +1123,113 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       setStep(2);
     });
 
-    // 1C. Toggle de formulario de invitado
-    const toggleGuestBtn = document.getElementById('btn-toggle-guest-form');
-    const guestForm = document.getElementById('form-step-1-guest');
-    const guestArrow = document.getElementById('guest-arrow');
+    // 1C. Cargar Sesión Demo con Datos Ficticios (1 Clic)
+    const demoBtn = document.getElementById('btn-load-demo-session');
+    demoBtn?.addEventListener('click', () => {
+      const demoUser = {
+        nombre: 'Constanza Silva Morales',
+        email: 'constanza.demo@marketpet.cl',
+        rut: '18.765.432-1',
+        telefono: '+56 9 8765 4321',
+        region: 'metropolitana',
+        comuna: 'Providencia',
+        direccion: 'Av. Providencia 1234',
+        depto: 'Depto 502',
+        notas: 'Dejar en conserjería con don Carlos',
+        logueado: true,
+      };
 
-    toggleGuestBtn?.addEventListener('click', () => {
-      const isHidden = guestForm?.classList.contains('hidden');
-      if (isHidden) {
-        guestForm?.classList.remove('hidden');
-        if (guestArrow) guestArrow.textContent = '↑';
-      } else {
-        guestForm?.classList.add('hidden');
-        if (guestArrow) guestArrow.textContent = '↓';
-      }
-    });
+      localStorage.setItem('market_pet_user', JSON.stringify(demoUser));
 
-    // 1D. Submit de invitado
-    guestForm?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      let hasError = false;
-
-      const name = document.getElementById('step1-guest-name')?.value.trim();
-      const rut = document.getElementById('step1-guest-rut')?.value.trim();
-      const email = document.getElementById('step1-guest-email')?.value.trim();
-      const phone = document.getElementById('step1-guest-phone')?.value.trim();
-
-      if (!name || name.length < 3) {
-        setCheckoutError('step1-guest-name', 'err-step1-guest-name', 'Ingresa tu nombre completo');
-        hasError = true;
-      } else {
-        setCheckoutError('step1-guest-name', 'err-step1-guest-name', '');
-      }
-
-      if (!rut || rut.length < 7) {
-        setCheckoutError('step1-guest-rut', 'err-step1-guest-rut', 'Ingresa un RUT o DNI válido');
-        hasError = true;
-      } else {
-        setCheckoutError('step1-guest-rut', 'err-step1-guest-rut', '');
-      }
-
-      if (!email || !EMAIL_REGEX.test(email)) {
-        setCheckoutError('step1-guest-email', 'err-step1-guest-email', 'Ingresa un correo electrónico válido');
-        hasError = true;
-      } else {
-        setCheckoutError('step1-guest-email', 'err-step1-guest-email', '');
+      if (getCart().length === 0) {
+        const demoItems = [
+          {
+            id: 'alimento-premium-adulto-salmon-3kg',
+            name: 'Alimento Premium Perro Adulto Salmón 3kg',
+            price: 24990,
+            quantity: 1,
+            image: '/favicon.svg',
+          },
+          {
+            id: 'arnes-ergonomico-reflectante',
+            name: 'Arnés Ergonómico Reflectante',
+            price: 14990,
+            quantity: 1,
+            image: '/favicon.svg',
+          },
+        ];
+        localStorage.setItem(CART_KEY, JSON.stringify(demoItems));
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart: demoItems } }));
       }
 
-      const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
-      if (!phone || cleanPhone.length < 8) {
-        setCheckoutError('step1-guest-phone', 'err-step1-guest-phone', 'Ingresa un teléfono válido');
-        hasError = true;
-      } else {
-        setCheckoutError('step1-guest-phone', 'err-step1-guest-phone', '');
-      }
+      orderData = { ...orderData, ...demoUser };
 
-      if (hasError) return;
+      const rutInput = document.getElementById('step1-logged-rut');
+      const phoneInput = document.getElementById('step1-logged-phone');
+      if (rutInput) rutInput.value = demoUser.rut;
+      if (phoneInput) phoneInput.value = demoUser.telefono;
 
-      orderData.nombre = name;
-      orderData.rut = rut;
-      orderData.email = email;
-      orderData.telefono = phone;
+      const addrInput = document.getElementById('step2-address');
+      const deptInput = document.getElementById('step2-dept');
+      const notesInput = document.getElementById('step2-notes');
+      const comunaSelect = document.getElementById('step2-comuna');
+      if (addrInput) addrInput.value = demoUser.direccion;
+      if (deptInput) deptInput.value = demoUser.depto;
+      if (notesInput) notesInput.value = demoUser.notas;
+      if (comunaSelect) comunaSelect.value = demoUser.comuna;
+
+      const nameDisplay = document.getElementById('step1-logged-user-name');
+      const nameText = document.getElementById('step1-logged-name-text');
+      const emailText = document.getElementById('step1-logged-email-text');
+      step1LoggedView?.classList.remove('hidden');
+      step1GuestView?.classList.add('hidden');
+      if (nameDisplay) nameDisplay.textContent = demoUser.nombre;
+      if (nameText) nameText.textContent = demoUser.nombre;
+      if (emailText) emailText.textContent = demoUser.email;
 
       setStep(2);
+    });
+
+    // 1D. Formulario de Cupón de Descuento (En Pantalla Actual de Checkout y Pago)
+    const couponForm = document.getElementById('checkout-coupon-form');
+    const couponInput = document.getElementById('checkout-coupon-input');
+    const couponFeedback = document.getElementById('checkout-coupon-feedback');
+
+    couponForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const code = (couponInput?.value || '').trim().toUpperCase();
+      if (!code) {
+        if (couponFeedback) {
+          couponFeedback.textContent = 'Ingresa un código de cupón';
+          couponFeedback.className = 'text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (code === 'MASCOTA10' || code === 'MARKET10') {
+        appliedCoupon = { code, percent: 10 };
+        if (couponFeedback) {
+          couponFeedback.textContent = `✓ ¡Cupón ${code} aplicado (-10%)!`;
+          couponFeedback.className = 'text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      } else if (code === 'SUPERPET15') {
+        appliedCoupon = { code, percent: 15 };
+        if (couponFeedback) {
+          couponFeedback.textContent = `✓ ¡Cupón ${code} aplicado (-15%)!`;
+          couponFeedback.className = 'text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      } else {
+        appliedCoupon = null;
+        if (couponFeedback) {
+          couponFeedback.textContent = '✕ Código de descuento no válido o expirado';
+          couponFeedback.className = 'text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      }
+      renderCheckoutSummary();
     });
 
     // Paso 2: Dirección y Comuna

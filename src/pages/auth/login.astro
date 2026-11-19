@@ -299,18 +299,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <!-- Feedback de Mensajes Global -->
           <div id="auth-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-bold text-center"></div>
 
-          <!-- Continuar como Invitado (Visible si venía de checkout) -->
-          <div id="guest-checkout-wrap" class="hidden mt-6 pt-5 border-t border-stone-200/70 dark:border-[#2d2521] text-center">
+          <!-- Botón de Sesión Demo Ficticia para Pruebas -->
+          <div class="mt-6 pt-5 border-t border-stone-200/70 dark:border-[#2d2521] text-center">
             <span class="text-xs text-stone-500 dark:text-[#b0a297] block mb-2">
-              ¿Tienes prisa y prefieres no registrarte ahora?
+              ¿Estás evaluando la tienda? Inicia sesión con 1 clic usando datos ficticios:
             </span>
-            <a
-              href="/checkout"
-              class="text-xs font-bold text-stone-700 dark:text-stone-300 hover:text-rose-600 dark:hover:text-rose-400 underline inline-flex items-center gap-1.5"
+            <button
+              type="button"
+              id="login-demo-session-btn"
+              class="w-full py-2.5 px-4 rounded-xl border border-amber-300 dark:border-amber-900/50 bg-amber-50/70 hover:bg-amber-100/70 dark:bg-amber-950/30 dark:hover:bg-amber-950/50 text-amber-800 dark:text-amber-300 font-extrabold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>Continuar compra como invitado</span>
-              <span>→</span>
-            </a>
+              <svg class="w-4 h-4 stroke-current stroke-2 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693l-1.57-.393m15.6 0l1.106 4.423A1.5 1.5 0 0119.48 21.5H4.52a1.5 1.5 0 01-1.456-1.777l1.106-4.423" />
+              </svg>
+              <span>Iniciar con Sesión de Prueba (Demo)</span>
+            </button>
           </div>
         </div>
       </div>
@@ -608,6 +611,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     setTimeout(() => {
       window.location.href = redirectUrl;
     }, 900);
+  });
+
+  // Iniciar Sesión con Datos Ficticios de Prueba
+  const demoBtn = document.getElementById('login-demo-session-btn');
+  demoBtn?.addEventListener('click', () => {
+    const demoUser = {
+      nombre: 'Constanza Silva Morales',
+      email: 'constanza.demo@marketpet.cl',
+      telefono: '+56 9 8765 4321',
+      rut: '18.765.432-1',
+      region: 'metropolitana',
+      comuna: 'Providencia',
+      direccion: 'Av. Providencia 1234',
+      depto: 'Depto 502',
+      notas: 'Dejar en conserjería con don Carlos',
+      logueado: true,
+      fecha: new Date().toISOString(),
+    };
+    localStorage.setItem('market_pet_user', JSON.stringify(demoUser));
+    showFeedback('¡Sesión de prueba cargada con éxito! Redirigiendo...');
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 700);
   });
 
   // Logout
