@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(checkout): incorpora autenticacion neutra en navbar, doble boton en carrito, vista /carrito y checkout de 4 pasos con resumen persistente
+- **Último commit relevante:** feat(auth-checkout): sustituye emojis por micro-SVGs, agrega validaciones robustas y confirmacion de contrasena, y prioriza login en checkout
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo (Flyout Drawer) con doble botón de acción ("Ver Carrito" y "Finalizar Compra")**, **Página completa de bolsa de compras `/carrito` con desglose, cupones de descuento (MASCOTA10), cálculo de despacho y barra dinámica de Envío Gratis ($25.000 CLP)**, **Página neutra y accesible de autenticación `/auth/login` con pestañas para Iniciar Sesión y Crear Cuenta, soporte para continuar como invitado y persistencia de sesión**, **Flujo de Checkout multi-fase en 4 pasos secuenciales (`/checkout`): 1. Identificación, 2. Dirección de despacho (Chile), 3. Método de entrega y 4. Medio de pago (Webpay, Transferencia 5% DCTO, Mercado Pago), con panel de resumen del pedido SIEMPRE VISIBLE de manera persistente (columna lateral sticky en desktop y móvil) y pantalla de confirmación exitosa con número de orden**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo (Flyout Drawer) con doble botón de acción ("Ver Carrito" y "Finalizar Compra")**, **Página completa de bolsa de compras `/carrito` con desglose, cupones de descuento (MASCOTA10), cálculo de despacho y barra dinámica de Envío Gratis ($25.000 CLP)**, **Página neutra de autenticación `/auth/login` con validaciones de formulario, confirmación de contraseña, botones toggle con micro-SVGs sin emojis y botón "Crear Cuenta"**, **Flujo de Checkout (`/checkout`) priorizando inicio de sesión con opción de registro y compra como invitado, 4 fases secuenciales con panel de resumen del pedido SIEMPRE VISIBLE en columna lateral sticky (sin emojis, 100% micro-SVGs) y pantalla de confirmación exitosa con número de orden**.
 - **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 53 páginas estáticas en 3.75s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 53 páginas estáticas en 4.52s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer y navegación móvil en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
 
 ## 2. Decisiones importantes
@@ -96,10 +96,44 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Doble botón de acción en CartDrawer ("Ver Carrito" y "Finalizar Compra") | Dar al usuario la opción de revisar su bolsa completa en página dedicada (/carrito) o saltar directo al checkout (/checkout) | Mantener un único botón rígido en el flyout |
 | 2026-11-18 | Checkout de 4 fases con resumen sticky siempre visible | Flujo estándar de alta conversión en ecommerce (1. Identificación, 2. Dirección, 3. Envío, 4. Pago) manteniendo el desglose de productos y total visible en todo momento | Flujo en acordeones donde el total desaparece al hacer scroll o checkout de 1 sola página saturada |
 | 2026-11-18 | Vista neutra de autenticación /auth/login con tabs y redirección contextual | Permitir inicio de sesión o creación de cuenta con diseño neutro e integrado, redirigiendo automáticamente de vuelta a /checkout si venía del proceso de compra | Dejar el botón de login como ancla muerta /#login o forzar registro obligatorio para comprar |
+| 2026-11-18 | Erradicación total de emojis en formularios y botones de checkout | Directriz estricta del usuario: sustituir todos los emojis en botones de visibilidad de contraseña, badges y opciones por micro-SVGs lineales profesionales | Mantener emojis coloridos en campos de formulario |
+| 2026-11-18 | Confirmación de contraseña, validaciones inline y botón "Crear Cuenta" | Asegurar integridad de credenciales de usuario mediante doble campo de contraseña con verificación de coincidencia y feedback de error inmediato | Formularios sin validación previa al envío o con alert() genéricos |
+| 2026-11-18 | Priorizar inicio de sesión en Checkout con bifurcación a registro e invitado | Guiar al comprador a identificarse con su cuenta existente primero, ofreciendo enlace directo a crear cuenta o compra rápida como invitado para evitar abandono de carrito | Forzar registro obligatorio o mostrar solo campos de invitado |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · sustitucion de emojis por micro-SVGs, validaciones robustas y login prioritario en checkout
+- **Qué:** Ajustes y refinamiento de formularios y flujo de compra según solicitudes del usuario:
+  1. **Sustitución de Emojis por Micro-SVGs en Login (`src/pages/auth/login.astro`):**
+     - Se eliminó el emoji `👁️` en los botones de visibilidad de contraseña.
+     - Se integraron **micro-SVGs lineales limpios** para alternar entre "ojo visible" y "ojo oculto tachado" en todos los campos de contraseña.
+     - Se reemplazaron emojis en los beneficios al pie (`⚡`, `🎁`, `📦`) por micro-SVGs monocromáticos de rayo, club y seguimiento.
+  2. **Depuración del Formulario de Registro:**
+     - Se removió el campo innecesario *"¿Qué mascota tienes en casa?"*.
+     - Se incorporó el campo obligatorio de **Confirmación de Contraseña** (`reg-password-confirm`) con su respectivo botón toggle SVG.
+     - Se renombró el botón de envío a exactamente **"Crear Cuenta"** (eliminando emojis y textos informales).
+  3. **Validaciones Robustas en Cliente con Feedback Inline:**
+     - Validación de correo con regex RFC 5322.
+     - Validación de nombre completo (mínimo 3 caracteres).
+     - Validación de teléfono chileno (mínimo 8 dígitos).
+     - Validación de longitud mínima de contraseña (6 caracteres).
+     - Validación de coincidencia idéntica entre contraseña y confirmación.
+     - Mensajes de error específicos bajo cada campo con borde sutil en color de alerta y accesibilidad.
+  4. **Priorización de Inicio de Sesión en Checkout (`src/pages/checkout.astro`):**
+     - El Paso 1 ahora prioriza el acceso con cuenta existente mediante mini-formulario de inicio de sesión rápido (con toggle SVG de contraseña).
+     - Si el usuario no tiene cuenta, se le presenta un bloque destacado con el botón *"Crear Cuenta"* que redirige a `/auth/login?tab=register&redirect=/checkout`.
+     - Si prefiere no registrarse en ese momento, dispone de la opción *"O continuar como invitado sin registrarme"*, que despliega los campos para comprar de inmediato sin contraseña.
+     - Si el usuario ya está autenticado en `localStorage`, se muestra la tarjeta de bienvenida con su cuenta activa y solo se le solicita el RUT para la boleta.
+  5. **Erradicación de Emojis en `CartDrawer.astro` y `carrito.astro`:**
+     - Sustitución de emojis de camión (`🚚`), bolsa (`🛍️`/`🛒`), candado (`🔒`), caja (`📦`), ticket (`🎟️`) y papelera (`🗑️`) por micro-SVGs lineales acordes al sistema de diseño.
+- **Por qué:** Solicitud detallada del usuario para garantizar consistencia visual profesional (cero emojis no justificados), validar que las contraseñas coincidan, simplificar el registro y priorizar el inicio de sesión en el checkout.
+- **Especialistas activados:**
+  - `ux-ui`: Rediseño de los toggles de contraseña con SVGs lineales, maquetación de la confirmación de contraseña y arquitectura de flujo priorizado en el Paso 1 de checkout.
+  - `desarrollo`: Implementación de lógica de validación inline en JS nativo, cálculo de coincidencia de contraseñas, toggles reactivos y bifurcación entre usuario logueado, login rápido e invitado.
+  - `qa`: Validación de `npm run lint` (0 errores) y `npm run build` (53 páginas estáticas generadas limpiamente en 4.52s).
+  - `docs-seo`: Registro de trazabilidad y decisiones en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/03-cart` · vistas /carrito, /auth/login y checkout de 4 pasos con resumen persistente
 - **Qué:** Implementación del flujo comercial completo solicitado por el usuario para la Fase 3 y preparación para Fase 4/5:
