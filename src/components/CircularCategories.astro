@@ -71,7 +71,7 @@ const categoriasCirculares = [
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-8 sm:mb-10">
-      <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+      <h2 class="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
         Categorías Populares
       </h2>
     </div>
@@ -86,7 +86,7 @@ const categoriasCirculares = [
             class="flex flex-col items-center group text-center cursor-pointer"
           >
             <div
-              class={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-stone-50 border-3 border-stone-200 shadow-md group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:ring-4 ${item.bgBorder}`}
+              class={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-stone-50 dark:bg-slate-800 border-3 border-stone-200 dark:border-slate-700 shadow-md group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:ring-4 ${item.bgBorder}`}
             >
               <Image
                 src={item.image}
@@ -104,7 +104,7 @@ const categoriasCirculares = [
               </span>
             </div>
 
-            <h3 class="text-xs sm:text-sm font-black text-stone-800 mt-3 group-hover:text-brand-primary transition-colors leading-snug max-w-[140px]">
+            <h3 class="text-xs sm:text-sm font-black text-stone-800 dark:text-slate-200 mt-3 group-hover:text-brand-primary dark:group-hover:text-rose-400 transition-colors leading-snug max-w-[140px]">
               {item.title}
             </h3>
           </a>

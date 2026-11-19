@@ -21,36 +21,36 @@ function formatPrice(amount) {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 mb-6 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 transition-colors">Inicio</a>
+    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap">
+      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
       <span>/</span>
-      <span class="text-stone-900 font-bold">Catálogo Completo</span>
+      <span class="text-stone-900 dark:text-white font-bold">Catálogo Completo</span>
     </nav>
 
     <!-- Encabezado de Catálogo -->
-    <div class="mb-8 pb-6 border-b border-stone-200/80 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <div class="mb-8 pb-6 border-b border-stone-200/80 dark:border-slate-800 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-200 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 mb-3">
           🐾 TIENDA ONLINE
         </div>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
           Catálogo de Productos para Mascotas
         </h1>
-        <p class="text-xs sm:text-sm text-stone-600 mt-1 max-w-2xl">
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 mt-1 max-w-2xl">
           Nutrición de alta gama, accesorios de confort, higiene y juguetes seleccionados para cuidar a tus peluditos en todo Chile.
         </p>
       </div>
 
-      <div class="text-xs font-bold text-stone-500 bg-white/80 px-4 py-2 rounded-xl border border-stone-200/80 self-start md:self-auto shadow-2xs">
-        <span id="product-count" class="text-stone-900 font-black">{allProducts.length}</span> productos encontrados
+      <div class="text-xs font-bold text-stone-500 dark:text-slate-400 bg-white/80 dark:bg-slate-800/80 px-4 py-2 rounded-xl border border-stone-200/80 dark:border-slate-700 self-start md:self-auto shadow-2xs">
+        <span id="product-count" class="text-stone-900 dark:text-white font-black">{allProducts.length}</span> productos encontrados
       </div>
     </div>
 
     <!-- Barra de Búsqueda y Filtros Rápidos -->
-    <div class="mb-8 space-y-4 bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-2xs">
+    <div class="mb-8 space-y-4 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-stone-200/80 dark:border-slate-800 shadow-2xs">
       <!-- Input de Búsqueda Principal -->
       <div class="relative w-full">
-        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 dark:text-slate-500">
           <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -59,12 +59,12 @@ function formatPrice(amount) {
           type="text"
           id="search-input"
           placeholder="Buscar producto por nombre (ej. Salmón, Churu, Arnés, Cama)..."
-          class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-800 text-xs sm:text-sm font-medium placeholder-stone-400 focus:bg-white focus:border-rose-500 focus:outline-none transition-all shadow-2xs"
+          class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-800 dark:text-slate-100 text-xs sm:text-sm font-medium placeholder-stone-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:border-rose-500 focus:outline-none transition-all shadow-2xs"
         />
         <button
           type="button"
           id="btn-clear-search"
-          class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600 cursor-pointer font-bold"
+          class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 dark:text-slate-400 hover:text-stone-600 dark:hover:text-white cursor-pointer font-bold"
           aria-label="Limpiar búsqueda"
         >
           ✕
@@ -72,7 +72,7 @@ function formatPrice(amount) {
       </div>
 
       <!-- Filtros Rápidos y Ordenamiento -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100 dark:border-slate-800">
         <!-- Píldoras de filtro -->
         <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0" id="filter-pet-buttons">
           <button
@@ -85,42 +85,42 @@ function formatPrice(amount) {
           <button
             type="button"
             data-filter="packs"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🎁 Packs Ahorro
           </button>
           <button
             type="button"
             data-filter="perros"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🐶 Perros
           </button>
           <button
             type="button"
             data-filter="gatos"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🐱 Gatos
           </button>
           <button
             type="button"
             data-filter="accesorios"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🎾 Accesorios
           </button>
           <button
             type="button"
             data-filter="farmacia"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🩺 Farmacia & Salud
           </button>
           <button
             type="button"
             data-filter="ofertas"
-            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-700 whitespace-nowrap"
+            class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 whitespace-nowrap"
           >
             🔥 Ofertas
           </button>
@@ -128,10 +128,10 @@ function formatPrice(amount) {
 
         <!-- Selector de Ordenamiento -->
         <div class="flex items-center gap-2 text-xs shrink-0">
-          <label for="sort-select" class="font-bold text-stone-600 whitespace-nowrap">Ordenar por:</label>
+          <label for="sort-select" class="font-bold text-stone-600 dark:text-slate-400 whitespace-nowrap">Ordenar por:</label>
           <select
             id="sort-select"
-            class="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-800 font-semibold focus:bg-white focus:border-rose-500 focus:outline-none cursor-pointer"
+            class="px-3 py-1.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-800 dark:text-slate-100 font-semibold focus:bg-white dark:focus:bg-slate-900 focus:border-rose-500 focus:outline-none cursor-pointer"
           >
             <option value="featured">Destacados</option>
             <option value="price-asc">Menor precio</option>
@@ -150,7 +150,7 @@ function formatPrice(amount) {
       {
         allProducts.map((prod) => (
           <article
-            class="product-card flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+            class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-stone-200/90 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-500 hover:shadow-lg transition-all duration-200 group overflow-hidden"
             data-pet={prod.data.petType}
             data-offer={prod.data.isOffer ? 'true' : 'false'}
             data-is-pack={prod.data.categorySlug === 'packs-promocionales' || prod.data.name.toLowerCase().includes('pack') ? 'true' : 'false'}
@@ -163,7 +163,7 @@ function formatPrice(amount) {
             <!-- Imagen con enlace al detalle -->
             <a
               href={`/producto/${prod.data.slug}`}
-              class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+              class="relative aspect-square w-full bg-stone-50 dark:bg-slate-800 overflow-hidden flex items-center justify-center block cursor-pointer"
             >
               {prod.data.badge && (
                 <span
@@ -186,14 +186,14 @@ function formatPrice(amount) {
 
             <!-- Contenido del Producto -->
             <div class="p-3.5 sm:p-4 flex flex-col flex-1">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 mb-1 truncate">
                 {prod.data.category}
               </span>
 
-              <h2 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
+              <h2 class="text-xs sm:text-sm font-bold text-stone-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
                 <a
                   href={`/producto/${prod.data.slug}`}
-                  class="hover:text-rose-600 transition-colors"
+                  class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   {prod.data.name}
                 </a>
@@ -201,24 +201,24 @@ function formatPrice(amount) {
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                 <span>★</span>
-                <span class="font-bold text-stone-700">{prod.data.rating}</span>
-                <span class="text-stone-400 text-[10px]">({prod.data.reviewsCount})</span>
+                <span class="font-bold text-stone-700 dark:text-slate-300">{prod.data.rating}</span>
+                <span class="text-stone-400 dark:text-slate-500 text-[10px]">({prod.data.reviewsCount})</span>
               </div>
 
-              <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+              <div class="pt-2.5 border-t border-stone-100 dark:border-slate-800 flex flex-col gap-2 mt-auto">
                 <div class="flex items-baseline justify-between gap-1">
                   <div class="flex flex-col">
-                    <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
+                    <span class="text-sm sm:text-base font-black text-stone-900 dark:text-white leading-none">
                       {formatPrice(prod.data.price)}
                     </span>
                     {prod.data.originalPrice && (
-                      <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
+                      <span class="text-[11px] text-stone-400 dark:text-slate-500 line-through mt-0.5 leading-none">
                         {formatPrice(prod.data.originalPrice)}
                       </span>
                     )}
                   </div>
                   {prod.data.discount && (
-                    <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                    <span class="text-[10px] font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-1.5 py-0.5 rounded">
                       {prod.data.discount}
                     </span>
                   )}
@@ -246,10 +246,10 @@ function formatPrice(amount) {
     </div>
 
     <!-- Mensaje cuando no hay resultados tras un filtro -->
-    <div id="no-results" class="hidden text-center py-16 bg-white rounded-3xl border border-stone-200/80 p-8 shadow-xs">
+    <div id="no-results" class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-8 shadow-xs">
       <span class="text-4xl">🔍</span>
-      <h3 class="text-lg font-bold text-stone-900 mt-3">No encontramos productos en esta selección</h3>
-      <p class="text-xs sm:text-sm text-stone-500 mt-1">Prueba seleccionando otro filtro o revisa todo el catálogo.</p>
+      <h3 class="text-lg font-bold text-stone-900 dark:text-white mt-3">No encontramos productos en esta selección</h3>
+      <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-1">Prueba seleccionando otro filtro o revisa todo el catálogo.</p>
       <button
         type="button"
         id="btn-reset-filters"
@@ -409,9 +409,9 @@ function formatPrice(amount) {
     btn.addEventListener('click', () => {
       filterButtons.forEach((b) => {
         b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
-        b.classList.add('bg-stone-100', 'text-stone-700');
+        b.classList.add('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
       });
-      btn.classList.remove('bg-stone-100', 'text-stone-700');
+      btn.classList.remove('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
       btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
 
       currentFilter = btn.getAttribute('data-filter') || 'todos';

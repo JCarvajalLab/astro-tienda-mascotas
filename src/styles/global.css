@@ -3,6 +3,20 @@
 /* Desacoplar dark: de las preferencias del sistema operativo */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Alternancia de iconos Sol/Luna según tema activo */
+html.dark .theme-icon-sun {
+  display: block !important;
+}
+html.dark .theme-icon-moon {
+  display: none !important;
+}
+html:not(.dark) .theme-icon-sun {
+  display: none !important;
+}
+html:not(.dark) .theme-icon-moon {
+  display: block !important;
+}
+
 /* ========================================================
    PALETA OFICIAL (REGLA 60 - 30 - 10): "RETAIL CARMÍN"
    ======================================================== */

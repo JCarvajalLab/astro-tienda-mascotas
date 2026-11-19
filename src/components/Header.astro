@@ -240,22 +240,22 @@ const styles = {
     navArrow: 'text-slate-400 group-hover/menu:text-rose-400',
   },
   'warm-biscuit': {
-    header: 'bg-[#FAF7F2] border-b border-[#E8E2D9] text-stone-800 shadow-2xs',
-    brandName: 'text-stone-900',
-    brandTag: 'text-stone-500',
+    header: 'bg-[#FAF7F2] dark:bg-[#090d16] border-b border-[#E8E2D9] dark:border-slate-800 text-stone-800 dark:text-slate-100 shadow-2xs',
+    brandName: 'text-stone-900 dark:text-white',
+    brandTag: 'text-stone-500 dark:text-slate-400',
     brandLogo: 'bg-brand-primary text-white',
-    searchWrapper: 'bg-white border border-[#E0D9CE] text-stone-800 placeholder-stone-400 focus:border-stone-400',
-    searchIcon: 'text-stone-400',
+    searchWrapper: 'bg-white dark:bg-slate-900 border border-[#E0D9CE] dark:border-slate-700 text-stone-800 dark:text-slate-100 placeholder-stone-400 dark:placeholder-slate-500 focus:border-stone-400 dark:focus:border-rose-500',
+    searchIcon: 'text-stone-400 dark:text-slate-500',
     searchBtn: 'bg-brand-primary text-white hover:bg-rose-700',
-    regionBtn: 'border-[#E0D9CE] bg-white/90 text-stone-800 hover:bg-white hover:border-[#D0C7B8]',
-    regionLabel: 'text-stone-400',
-    loginBtn: 'text-stone-700 hover:bg-[#EFE9DF]',
-    loginIcon: 'text-stone-500',
+    regionBtn: 'border-[#E0D9CE] dark:border-slate-700 bg-white/90 dark:bg-slate-800 text-stone-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 hover:border-[#D0C7B8] dark:hover:border-slate-600',
+    regionLabel: 'text-stone-400 dark:text-slate-400',
+    loginBtn: 'text-stone-700 dark:text-slate-200 hover:bg-[#EFE9DF] dark:hover:bg-slate-800',
+    loginIcon: 'text-stone-500 dark:text-slate-400',
     cartBtn: 'bg-brand-primary text-white hover:bg-rose-700',
-    nav: 'bg-[#F1ECE3] border-t border-[#E5DEC7]/80',
-    navLink: 'text-stone-700 hover:text-brand-primary hover:bg-white/80',
-    navOffer: 'text-rose-600 hover:bg-rose-100/70 font-bold',
-    navArrow: 'text-stone-400 group-hover/menu:text-brand-primary',
+    nav: 'bg-[#F1ECE3] dark:bg-[#0f172a] border-t border-[#E5DEC7]/80 dark:border-slate-800',
+    navLink: 'text-stone-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-rose-400 hover:bg-white/80 dark:hover:bg-slate-800',
+    navOffer: 'text-rose-600 dark:text-rose-400 hover:bg-rose-100/70 dark:hover:bg-rose-950/40 font-bold',
+    navArrow: 'text-stone-400 dark:text-slate-500 group-hover/menu:text-brand-primary dark:group-hover/menu:text-rose-400',
   },
   'brand-carmin': {
     header: 'bg-rose-600 border-b border-rose-700 text-white shadow-md',
@@ -431,6 +431,23 @@ const currentStyle = styles[variant] || styles.default;
           <span class="hidden xl:inline">Iniciar sesión</span>
         </a>
 
+        <!-- Botón Toggle Modo Nocturno (Desktop) -->
+        <button
+          type="button"
+          class="theme-toggle-btn hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-stone-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800 text-stone-700 dark:text-amber-400 hover:bg-stone-100 dark:hover:bg-slate-700 items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary shrink-0 shadow-2xs"
+          aria-label="Cambiar tema de color"
+          title="Alternar entre modo claro y nocturno"
+        >
+          <!-- Icono Sol (visible en modo oscuro) -->
+          <svg class="theme-icon-sun hidden w-5 h-5 text-amber-400 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z" />
+          </svg>
+          <!-- Icono Luna (visible en modo claro) -->
+          <svg class="theme-icon-moon w-5 h-5 text-stone-600 dark:text-stone-300 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998z" />
+          </svg>
+        </button>
+
         <!-- 5. Carrito de compras -->
         <button
           id="cart-button"
@@ -574,20 +591,20 @@ const currentStyle = styles[variant] || styles.default;
                   idx >= 3 ? 'right-0' : 'left-0'
                 } pt-2 w-[620px] sm:w-[660px] md:w-[680px] z-50`}
               >
-                <div class="bg-white rounded-3xl shadow-2xl border border-stone-200/90 p-5 text-stone-900">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-stone-200/90 dark:border-slate-800 p-5 text-stone-900 dark:text-slate-100">
                   {/* Encabezado del Dropdown */}
-                  <div class="flex items-center justify-between pb-3 mb-4 border-b border-stone-100">
+                  <div class="flex items-center justify-between pb-3 mb-4 border-b border-stone-100 dark:border-slate-800">
                     <div>
-                      <h4 class="text-sm font-black text-stone-900 leading-tight">
+                      <h4 class="text-sm font-black text-stone-900 dark:text-white leading-tight">
                         {cat.name}
                       </h4>
-                      <p class="text-[11px] text-stone-400 font-medium">
+                      <p class="text-[11px] text-stone-400 dark:text-slate-400 font-medium">
                         {cat.tagline}
                       </p>
                     </div>
                     <a
                       href={cat.href}
-                      class="text-xs font-bold text-rose-600 hover:text-rose-700 hover:underline flex items-center gap-1 group"
+                      class="text-xs font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:underline flex items-center gap-1 group"
                     >
                       Ver todo en {cat.name} <span class="group-hover:translate-x-0.5 transition-transform">→</span>
                     </a>
@@ -599,7 +616,7 @@ const currentStyle = styles[variant] || styles.default;
                     <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {cat.subcategorias.map((sub) => (
                         <div class="space-y-2">
-                          <div class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-rose-600 pl-1">
+                          <div class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 pl-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
                             {sub.grupo}
                           </div>
@@ -607,9 +624,9 @@ const currentStyle = styles[variant] || styles.default;
                             {sub.items.map((it) => (
                               <a
                                 href={it.href}
-                                class="p-2 rounded-xl hover:bg-rose-50/90 border border-transparent hover:border-rose-100 transition-all group flex items-start gap-2.5"
+                                class="p-2 rounded-xl hover:bg-rose-50/90 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-100 dark:hover:border-rose-900/50 transition-all group flex items-start gap-2.5"
                               >
-                                <div class="w-7 h-7 rounded-lg bg-stone-100 group-hover:bg-rose-100 text-stone-600 group-hover:text-rose-600 flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                                <div class="w-7 h-7 rounded-lg bg-stone-100 dark:bg-slate-800 group-hover:bg-rose-100 dark:group-hover:bg-rose-900/60 text-stone-600 dark:text-slate-300 group-hover:text-rose-600 dark:group-hover:text-rose-300 flex items-center justify-center shrink-0 transition-colors mt-0.5">
                                   {it.icon === 'bowl' && (
                                     <svg class="w-3.5 h-3.5 stroke-current stroke-[1.75]" fill="none" viewBox="0 0 24 24">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -668,10 +685,10 @@ const currentStyle = styles[variant] || styles.default;
                                   )}
                                 </div>
                                 <div class="min-w-0">
-                                  <span class="block text-xs font-bold text-stone-900 group-hover:text-rose-600 transition-colors leading-tight truncate">
+                                  <span class="block text-xs font-bold text-stone-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-tight truncate">
                                     {it.label}
                                   </span>
-                                  <span class="block text-[10px] text-stone-400 group-hover:text-stone-600 transition-colors leading-tight truncate mt-0.5">
+                                  <span class="block text-[10px] text-stone-400 dark:text-slate-400 group-hover:text-stone-600 dark:group-hover:text-slate-300 transition-colors leading-tight truncate mt-0.5">
                                     {it.desc}
                                   </span>
                                 </div>
@@ -683,9 +700,9 @@ const currentStyle = styles[variant] || styles.default;
                     </div>
 
                     {/* Columna Derecha: Tarjeta Promocional / Colección Estrella */}
-                    <aside class="rounded-2xl bg-gradient-to-br from-rose-50 via-white to-amber-50/50 p-4 border border-rose-100 flex flex-col justify-between shadow-xs">
+                    <aside class="rounded-2xl bg-gradient-to-br from-rose-50 via-white to-amber-50/50 dark:from-slate-900 dark:via-slate-800/80 dark:to-rose-950/30 p-4 border border-rose-100 dark:border-slate-800 flex flex-col justify-between shadow-xs">
                       <div class="space-y-2.5">
-                        <div class="relative overflow-hidden rounded-xl h-24 w-full bg-stone-100 shadow-inner">
+                        <div class="relative overflow-hidden rounded-xl h-24 w-full bg-stone-100 dark:bg-slate-800 shadow-inner">
                           <Image
                             src={cat.destacado.image}
                             alt={cat.destacado.title}
@@ -699,16 +716,16 @@ const currentStyle = styles[variant] || styles.default;
                           </span>
                         </div>
                         <div>
-                          <h5 class="text-xs font-black text-stone-900 leading-tight">
+                          <h5 class="text-xs font-black text-stone-900 dark:text-white leading-tight">
                             {cat.destacado.title}
                           </h5>
-                          <p class="text-[11px] text-stone-600 leading-snug mt-1">
+                          <p class="text-[11px] text-stone-600 dark:text-slate-300 leading-snug mt-1">
                             {cat.destacado.desc}
                           </p>
                         </div>
                       </div>
 
-                      <div class="pt-3 border-t border-rose-100/80 mt-2">
+                      <div class="pt-3 border-t border-rose-100/80 dark:border-slate-800 mt-2">
                         <a
                           href={cat.destacado.href}
                           class="w-full py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
@@ -742,12 +759,12 @@ const currentStyle = styles[variant] || styles.default;
 <!-- Drawer lateral deslizante -->
 <aside
   id="mobile-nav-drawer"
-  class="fixed inset-y-0 left-0 w-[85%] max-w-sm bg-[#FAF7F2] z-50 shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-[#E8E2D9] md:hidden"
+  class="fixed inset-y-0 left-0 w-[85%] max-w-sm bg-[#FAF7F2] dark:bg-[#090d16] z-50 shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-[#E8E2D9] dark:border-slate-800 md:hidden"
   aria-label="Menú de navegación móvil"
   aria-hidden="true"
 >
   <!-- Cabecera del Drawer -->
-  <div class="p-4 bg-white border-b border-[#E8E2D9] flex items-center justify-between shrink-0">
+  <div class="p-4 bg-white dark:bg-slate-900 border-b border-[#E8E2D9] dark:border-slate-800 flex items-center justify-between shrink-0">
     <div class="flex items-center gap-2.5">
       <span class="w-9 h-9 rounded-xl flex items-center justify-center bg-brand-primary text-white shadow-xs">
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -755,46 +772,65 @@ const currentStyle = styles[variant] || styles.default;
         </svg>
       </span>
       <div class="flex flex-col">
-        <span class="font-extrabold text-lg text-stone-900 tracking-tight leading-none">
+        <span class="font-extrabold text-lg text-stone-900 dark:text-white tracking-tight leading-none">
           Market<span class="text-brand-primary">-Pet</span>
         </span>
-        <span class="text-[9px] uppercase font-bold tracking-widest text-stone-400 mt-0.5">
+        <span class="text-[9px] uppercase font-bold tracking-widest text-stone-400 dark:text-slate-400 mt-0.5">
           Tu Tienda de Mascotas
         </span>
       </div>
     </div>
 
-    <!-- Botón Cerrar Drawer -->
-    <button
-      type="button"
-      id="mobile-drawer-close"
-      aria-label="Cerrar menú móvil"
-      class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors cursor-pointer"
-    >
-      <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+    <div class="flex items-center gap-2">
+      <!-- Botón Toggle Modo Nocturno (Móvil) -->
+      <button
+        type="button"
+        class="theme-toggle-btn w-9 h-9 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-700 dark:text-amber-400 hover:bg-stone-100 dark:hover:bg-slate-700 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary shrink-0"
+        aria-label="Cambiar tema de color"
+        title="Alternar entre modo claro y nocturno"
+      >
+        <!-- Icono Sol (visible en modo oscuro) -->
+        <svg class="theme-icon-sun hidden w-5 h-5 text-amber-400 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z" />
+        </svg>
+        <!-- Icono Luna (visible en modo claro) -->
+        <svg class="theme-icon-moon w-5 h-5 text-stone-600 dark:text-stone-300 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998z" />
+        </svg>
+      </button>
+
+      <!-- Botón Cerrar Drawer -->
+      <button
+        type="button"
+        id="mobile-drawer-close"
+        aria-label="Cerrar menú móvil"
+        class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+      >
+        <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Selector de Comuna de Despacho en Móvil -->
-  <div class="p-3 bg-white/70 border-b border-[#E8E2D9] shrink-0">
+  <div class="p-3 bg-white/70 dark:bg-slate-900/80 border-b border-[#E8E2D9] dark:border-slate-800 shrink-0">
     <button
       type="button"
       id="mobile-drawer-region-btn"
       onclick="if(window.openRegionModal) window.openRegionModal();"
-      class="w-full flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#E0D9CE] text-left shadow-2xs hover:border-stone-400 transition-colors cursor-pointer"
+      class="w-full flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-[#E0D9CE] dark:border-slate-700 text-left shadow-2xs hover:border-stone-400 dark:hover:border-slate-600 transition-colors cursor-pointer"
     >
       <div class="flex items-center gap-2">
         <span class="text-base text-brand-primary">📍</span>
         <div class="flex flex-col">
-          <span class="text-[10px] uppercase font-bold text-stone-400 leading-none">Despacho a</span>
-          <span id="mobile-drawer-region-text" class="text-xs font-bold text-stone-900 mt-0.5 truncate max-w-[170px]">
+          <span class="text-[10px] uppercase font-bold text-stone-400 dark:text-slate-400 leading-none">Despacho a</span>
+          <span id="mobile-drawer-region-text" class="text-xs font-bold text-stone-900 dark:text-white mt-0.5 truncate max-w-[170px]">
             Providencia
           </span>
         </div>
       </div>
-      <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">Cambiar</span>
+      <span class="text-[11px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2 py-0.5 rounded-md">Cambiar</span>
     </button>
   </div>
 
@@ -816,21 +852,21 @@ const currentStyle = styles[variant] || styles.default;
 
     <!-- Lista de Categorías con Acordeones Táctiles -->
     <div class="space-y-2">
-      <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 px-1">
+      <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 px-1">
         Categorías de la Tienda
       </span>
       {
         categoriasMenu.map((cat, idx) => (
-          <div class="mobile-accordion-item rounded-2xl bg-white border border-[#E8E2D9] overflow-hidden shadow-2xs transition-colors">
+          <div class="mobile-accordion-item rounded-2xl bg-white dark:bg-slate-900 border border-[#E8E2D9] dark:border-slate-800 overflow-hidden shadow-2xs transition-colors">
             <!-- Botón Cabecera del Acordeón -->
             <button
               type="button"
-              class="mobile-accordion-trigger w-full flex items-center justify-between p-3.5 text-left font-bold text-sm text-stone-800 hover:text-rose-600 transition-colors cursor-pointer"
+              class="mobile-accordion-trigger w-full flex items-center justify-between p-3.5 text-left font-bold text-sm text-stone-800 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
               aria-expanded="false"
               data-accordion-target={`mobile-acc-${idx}`}
             >
               <div class="flex items-center gap-2.5">
-                <span class={`w-7 h-7 rounded-lg flex items-center justify-center text-xs ${cat.isOffer ? 'bg-rose-50 text-rose-600' : 'bg-stone-100 text-stone-700'}`}>
+                <span class={`w-7 h-7 rounded-lg flex items-center justify-center text-xs ${cat.isOffer ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400' : 'bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300'}`}>
                   {cat.iconName === 'paw' && '🐾'}
                   {cat.iconName === 'dog' && '🐶'}
                   {cat.iconName === 'cat' && '🐱'}
@@ -838,10 +874,10 @@ const currentStyle = styles[variant] || styles.default;
                   {cat.iconName === 'health' && '🩺'}
                   {cat.iconName === 'flame' && '🔥'}
                 </span>
-                <span class={cat.isOffer ? 'text-rose-600 font-extrabold' : ''}>{cat.name}</span>
+                <span class={cat.isOffer ? 'text-rose-600 dark:text-rose-400 font-extrabold' : ''}>{cat.name}</span>
               </div>
               <svg
-                class="mobile-accordion-icon w-4 h-4 text-stone-400 transition-transform duration-200 stroke-current stroke-2"
+                class="mobile-accordion-icon w-4 h-4 text-stone-400 dark:text-slate-500 transition-transform duration-200 stroke-current stroke-2"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -850,11 +886,11 @@ const currentStyle = styles[variant] || styles.default;
             </button>
 
             <!-- Panel desplegable con subcategorías -->
-            <div id={`mobile-acc-${idx}`} class="mobile-accordion-panel hidden px-3.5 pb-3 pt-1 border-t border-stone-100 bg-[#FAF7F2]/50 space-y-3">
+            <div id={`mobile-acc-${idx}`} class="mobile-accordion-panel hidden px-3.5 pb-3 pt-1 border-t border-stone-100 dark:border-slate-800 bg-[#FAF7F2]/50 dark:bg-slate-950/60 space-y-3">
               <!-- Enlace directo a toda la categoría -->
               <a
                 href={cat.href}
-                class="flex items-center justify-between py-2 px-3 rounded-xl bg-white border border-stone-200/80 text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors"
+                class="flex items-center justify-between py-2 px-3 rounded-xl bg-white dark:bg-slate-800 border border-stone-200/80 dark:border-slate-700 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-slate-700 transition-colors"
               >
                 <span>Ver todo en {cat.name}</span>
                 <span>→</span>
@@ -863,14 +899,14 @@ const currentStyle = styles[variant] || styles.default;
               <!-- Subgrupos e items -->
               {cat.subcategorias?.map((sub) => (
                 <div class="space-y-1">
-                  <span class="text-[10px] uppercase font-bold tracking-wider text-rose-600 block px-1">
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-rose-600 dark:text-rose-400 block px-1">
                     • {sub.grupo}
                   </span>
                   <div class="space-y-0.5">
                     {sub.items.map((it) => (
                       <a
                         href={it.href}
-                        class="flex items-center gap-2 py-2 px-2.5 rounded-lg text-xs font-semibold text-stone-700 hover:bg-white hover:text-stone-900 transition-colors"
+                        class="flex items-center gap-2 py-2 px-2.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-stone-900 dark:hover:text-white transition-colors"
                       >
                         <span class="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0"></span>
                         <span class="truncate">{it.label}</span>
@@ -886,13 +922,13 @@ const currentStyle = styles[variant] || styles.default;
     </div>
 
     <!-- Ayuda y Atención al Cliente -->
-    <div class="p-3 bg-white rounded-2xl border border-[#E8E2D9] space-y-2 text-xs">
-      <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 block px-1">
+    <div class="p-3 bg-white dark:bg-slate-900 rounded-2xl border border-[#E8E2D9] dark:border-slate-800 space-y-2 text-xs">
+      <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 block px-1">
         Atención & Ayuda
       </span>
       <a
         href="/#login"
-        class="flex items-center gap-2.5 p-2 rounded-xl text-stone-700 hover:bg-stone-50 font-semibold transition-colors"
+        class="flex items-center gap-2.5 p-2 rounded-xl text-stone-700 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-slate-800 font-semibold transition-colors"
       >
         <span>👤</span>
         <span>Iniciar sesión / Mi cuenta</span>
@@ -901,7 +937,7 @@ const currentStyle = styles[variant] || styles.default;
         href="https://wa.me/56912345678"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2.5 p-2 rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 font-bold transition-colors"
+        class="flex items-center gap-2.5 p-2 rounded-xl text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 font-bold transition-colors"
       >
         <span>💬</span>
         <span>Asesoría veterinaria por WhatsApp</span>
@@ -972,6 +1008,27 @@ const currentStyle = styles[variant] || styles.default;
       closeMobileDrawer();
     });
   });
+
+  // Alternador de Modo Nocturno / Modo Claro (Sincronizado con localStorage)
+  function initThemeToggles() {
+    const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+    toggleButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        try {
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        } catch {
+          // Ignorar si hay restricciones de sandbox o cuota
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggles);
+  } else {
+    initThemeToggles();
+  }
 </script>
 
 <style>

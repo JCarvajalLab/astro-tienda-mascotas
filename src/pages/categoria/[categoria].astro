@@ -326,32 +326,32 @@ function formatPrice(amount) {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 mb-6 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 transition-colors">Inicio</a>
+    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap">
+      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
       <span>/</span>
-      <a href="/catalogo" class="hover:text-rose-600 transition-colors">Catálogo</a>
+      <a href="/catalogo" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Catálogo</a>
       <span>/</span>
-      <span class="text-stone-900 font-bold">{meta.title}</span>
+      <span class="text-stone-900 dark:text-white font-bold">{meta.title}</span>
     </nav>
 
     <!-- Banner Encabezado de la Categoría -->
-    <div class="mb-8 p-6 sm:p-8 rounded-3xl bg-white border border-stone-200/80 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div class="mb-8 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
       <div class="space-y-2">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-200">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50">
           <span>{meta.icon}</span>
           <span>CATEGORÍA DESTACADA</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
           {meta.title}
         </h1>
-        <p class="text-xs sm:text-sm text-stone-600 max-w-xl leading-relaxed">
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 max-w-xl leading-relaxed">
           {meta.subtitle}
         </p>
       </div>
 
-      <div class="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8E2D9] text-center shrink-0 self-start md:self-auto min-w-[140px]">
-        <span id="category-banner-count" class="block text-3xl font-black text-stone-900 leading-none">{products.length}</span>
-        <span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider mt-1 block">
+      <div class="bg-[#FAF7F2] dark:bg-slate-800 p-4 rounded-2xl border border-[#E8E2D9] dark:border-slate-700 text-center shrink-0 self-start md:self-auto min-w-[140px]">
+        <span id="category-banner-count" class="block text-3xl font-black text-stone-900 dark:text-white leading-none">{products.length}</span>
+        <span class="text-[11px] font-bold text-stone-500 dark:text-slate-400 uppercase tracking-wider mt-1 block">
           Productos disponibles
         </span>
       </div>
@@ -359,11 +359,11 @@ function formatPrice(amount) {
 
     {
       products.length > 0 && (
-        <div class="mb-8 bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-xs">
+        <div class="mb-8 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-stone-200/80 dark:border-slate-800 shadow-xs">
           <div class="flex flex-col sm:flex-row items-center gap-3">
             <div class="relative w-full flex-1">
               <label for="category-search-input" class="sr-only">Buscar en {meta.title}</label>
-              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 dark:text-slate-500">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
                 </svg>
@@ -372,22 +372,22 @@ function formatPrice(amount) {
                 type="search"
                 id="category-search-input"
                 placeholder={`Buscar por nombre en ${meta.title} (ej. Salmón, Pack, Arnés)...`}
-                class="w-full pl-10 pr-24 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-100 transition-all"
+                class="w-full pl-10 pr-24 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50/50 dark:bg-slate-800 text-sm text-stone-800 dark:text-slate-100 placeholder-stone-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-rose-100 dark:focus:ring-rose-900/40 transition-all"
               />
               <button
                 type="button"
                 id="clear-category-search-btn"
-                class="hidden absolute inset-y-1.5 right-2 px-2.5 rounded-lg text-xs font-semibold text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-all cursor-pointer items-center"
+                class="hidden absolute inset-y-1.5 right-2 px-2.5 rounded-lg text-xs font-semibold text-stone-400 dark:text-slate-400 hover:text-stone-700 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800 transition-all cursor-pointer items-center"
               >
                 ✕ Limpiar
               </button>
             </div>
 
             <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 shrink-0">
-              <label for="category-sort-select" class="text-xs font-semibold text-stone-500 whitespace-nowrap">Ordenar por:</label>
+              <label for="category-sort-select" class="text-xs font-semibold text-stone-500 dark:text-slate-400 whitespace-nowrap">Ordenar por:</label>
               <select
                 id="category-sort-select"
-                class="px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-700 focus:outline-none focus:border-rose-400 cursor-pointer"
+                class="px-3 py-2 bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-xl text-xs font-bold text-stone-700 dark:text-slate-200 focus:outline-none focus:border-rose-400 cursor-pointer"
               >
                 <option value="featured">Destacados</option>
                 <option value="price-asc">Menor precio</option>
@@ -398,8 +398,8 @@ function formatPrice(amount) {
           </div>
 
           <!-- Fila 2: Píldoras de Filtro Rápido por Mascota -->
-          <div class="mt-3 pt-3 border-t border-stone-100 flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-            <span class="text-stone-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1">Filtrar:</span>
+          <div class="mt-3 pt-3 border-t border-stone-100 dark:border-slate-800 flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span class="text-stone-400 dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1">Filtrar:</span>
             <button
               type="button"
               class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-rose-600 text-white shadow-xs"
@@ -409,14 +409,14 @@ function formatPrice(amount) {
             </button>
             <button
               type="button"
-              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 text-stone-700 hover:bg-stone-200"
+              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-200 hover:bg-stone-200 dark:hover:bg-slate-700"
               data-pet-filter="perros"
             >
               🐶 Perros
             </button>
             <button
               type="button"
-              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 text-stone-700 hover:bg-stone-200"
+              class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-200 hover:bg-stone-200 dark:hover:bg-slate-700"
               data-pet-filter="gatos"
             >
               🐱 Gatos
@@ -424,11 +424,11 @@ function formatPrice(amount) {
           </div>
 
           <!-- Contador reactivo -->
-          <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+          <div class="mt-3 pt-3 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between text-xs text-stone-500 dark:text-slate-400">
             <span>
-              Mostrando <strong id="category-visible-count" class="text-stone-900 font-bold">{products.length}</strong> de <strong class="text-stone-900 font-bold">{products.length}</strong> productos
+              Mostrando <strong id="category-visible-count" class="text-stone-900 dark:text-white font-bold">{products.length}</strong> de <strong class="text-stone-900 dark:text-white font-bold">{products.length}</strong> productos
             </span>
-            <a href="/catalogo" class="text-rose-600 hover:text-rose-700 font-bold hover:underline">
+            <a href="/catalogo" class="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-bold hover:underline">
               Ver todo el catálogo →
             </a>
           </div>
@@ -443,7 +443,7 @@ function formatPrice(amount) {
           <div id="category-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((prod) => (
               <article
-                class="category-product-card flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+                class="category-product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-stone-200/90 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-500 hover:shadow-lg transition-all duration-200 group overflow-hidden"
                 data-name={prod.data.name}
                 data-price={prod.data.price}
                 data-rating={prod.data.rating}
@@ -451,7 +451,7 @@ function formatPrice(amount) {
               >
                 <a
                   href={`/producto/${prod.data.slug}`}
-                  class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+                  class="relative aspect-square w-full bg-stone-50 dark:bg-slate-800 overflow-hidden flex items-center justify-center block cursor-pointer"
                 >
                   {prod.data.badge && (
                     <span
@@ -473,14 +473,14 @@ function formatPrice(amount) {
                 </a>
 
                 <div class="p-3.5 sm:p-4 flex flex-col flex-1">
-                  <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 mb-1 truncate">
                     {prod.data.category}
                   </span>
 
-                  <h2 class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
+                  <h2 class="text-xs sm:text-sm font-bold text-stone-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-2 leading-snug mb-2 flex-1">
                     <a
                       href={`/producto/${prod.data.slug}`}
-                      class="hover:text-rose-600 transition-colors"
+                      class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     >
                       {prod.data.name}
                     </a>
@@ -488,24 +488,24 @@ function formatPrice(amount) {
 
                   <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                     <span>★</span>
-                    <span class="font-bold text-stone-700">{prod.data.rating}</span>
-                    <span class="text-stone-400 text-[10px]">({prod.data.reviewsCount})</span>
+                    <span class="font-bold text-stone-700 dark:text-slate-300">{prod.data.rating}</span>
+                    <span class="text-stone-400 dark:text-slate-500 text-[10px]">({prod.data.reviewsCount})</span>
                   </div>
 
-                  <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+                  <div class="pt-2.5 border-t border-stone-100 dark:border-slate-800 flex flex-col gap-2 mt-auto">
                     <div class="flex items-baseline justify-between gap-1">
                       <div class="flex flex-col">
-                        <span class="text-sm sm:text-base font-black text-stone-900 leading-none">
+                        <span class="text-sm sm:text-base font-black text-stone-900 dark:text-white leading-none">
                           {formatPrice(prod.data.price)}
                         </span>
                         {prod.data.originalPrice && (
-                          <span class="text-[11px] text-stone-400 line-through mt-0.5 leading-none">
+                          <span class="text-[11px] text-stone-400 dark:text-slate-500 line-through mt-0.5 leading-none">
                             {formatPrice(prod.data.originalPrice)}
                           </span>
                         )}
                       </div>
                       {prod.data.discount && (
-                        <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                        <span class="text-[10px] font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-1.5 py-0.5 rounded">
                           {prod.data.discount}
                         </span>
                       )}
@@ -534,15 +534,15 @@ function formatPrice(amount) {
           <!-- Estado Vacío cuando la búsqueda no arroja resultados en esta categoría -->
           <div
             id="category-no-results"
-            class="hidden text-center py-16 bg-white rounded-3xl border border-stone-200/80 p-8 shadow-xs"
+            class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-8 shadow-xs"
           >
-            <div class="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <div class="w-16 h-16 bg-rose-50 dark:bg-rose-950/40 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
               🔍
             </div>
-            <h3 class="text-lg font-black text-stone-900 mb-1">
+            <h3 class="text-lg font-black text-stone-900 dark:text-white mb-1">
               No encontramos productos coincidentes
             </h3>
-            <p class="text-xs sm:text-sm text-stone-500 max-w-md mx-auto mb-6">
+            <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 max-w-md mx-auto mb-6">
               No hay productos en esta categoría que coincidan con tu búsqueda. Prueba con otro término o explora el catálogo completo.
             </p>
             <div class="flex items-center justify-center gap-3">
@@ -664,9 +664,9 @@ function formatPrice(amount) {
     btn.addEventListener('click', () => {
       petFilterButtons.forEach((b) => {
         b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
-        b.classList.add('bg-stone-100', 'text-stone-700');
+        b.classList.add('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
       });
-      btn.classList.remove('bg-stone-100', 'text-stone-700');
+      btn.classList.remove('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
       btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
 
       currentPetFilter = btn.getAttribute('data-pet-filter') || 'todos';
