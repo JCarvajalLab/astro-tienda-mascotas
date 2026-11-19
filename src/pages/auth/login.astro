@@ -33,8 +33,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <div class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-xl">
         <!-- Estado si ya inició sesión -->
         <div id="already-logged-box" class="hidden text-center space-y-4 py-4">
-          <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-3xl border border-emerald-100 dark:border-emerald-900/40">
-            🐾
+          <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40">
+            <svg class="w-8 h-8 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
           </div>
           <div>
             <h2 class="text-lg font-black text-stone-900 dark:text-white">
@@ -51,12 +53,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>Ir a comprar productos</span>
-              <span>→</span>
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
             </a>
             <button
               type="button"
               id="logout-btn"
-              class="w-full py-2.5 px-4 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+              class="w-full py-2.5 px-4 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-[#27201c] font-bold text-xs transition-colors cursor-pointer"
             >
               Cerrar sesión
             </button>
@@ -84,7 +88,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           </div>
 
           <!-- 1. Formulario de Iniciar Sesión -->
-          <form id="login-form" class="space-y-4">
+          <form id="login-form" novalidate class="space-y-4">
             <div>
               <label for="login-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
                 Correo Electrónico
@@ -92,10 +96,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               <input
                 type="email"
                 id="login-email"
-                required
+                autocomplete="email"
                 placeholder="ejemplo@correo.cl"
                 class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
               />
+              <p id="err-login-email" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
             <div>
@@ -115,18 +120,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
                 <input
                   type="password"
                   id="login-password"
-                  required
+                  autocomplete="current-password"
                   placeholder="Tu contraseña"
                   class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all pr-10"
                 />
                 <button
                   type="button"
                   id="toggle-login-password"
-                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 cursor-pointer text-xs"
+                  aria-label="Alternar visibilidad de contraseña"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
                 >
-                  👁️
+                  <!-- SVG Ojo Abierto -->
+                  <svg id="icon-login-eye" class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <!-- SVG Ojo Cerrado -->
+                  <svg id="icon-login-eye-off" class="w-4 h-4 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
                 </button>
               </div>
+              <p id="err-login-password" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
             <div class="flex items-center">
@@ -144,103 +159,144 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               type="submit"
               class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>Ingresar a mi cuenta</span>
-              <span>→</span>
+              <span>Iniciar Sesión</span>
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
             </button>
           </form>
 
           <!-- 2. Formulario de Crear Cuenta -->
-          <form id="register-form" class="space-y-4 hidden">
+          <form id="register-form" novalidate class="space-y-4 hidden">
             <div>
               <label for="reg-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                Nombre y Apellido
+                Nombre y Apellido *
               </label>
               <input
                 type="text"
                 id="reg-name"
-                required
+                autocomplete="name"
                 placeholder="Ej. Constanza Silva"
                 class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
               />
+              <p id="err-reg-name" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
             <div>
               <label for="reg-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                Correo Electrónico
+                Correo Electrónico *
               </label>
               <input
                 type="email"
                 id="reg-email"
-                required
+                autocomplete="email"
                 placeholder="constanza@correo.cl"
                 class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
               />
+              <p id="err-reg-email" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
             <div>
               <label for="reg-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                Teléfono móvil (+56)
+                Teléfono móvil (+56) *
               </label>
               <input
                 type="tel"
                 id="reg-phone"
-                required
+                autocomplete="tel"
                 placeholder="+56 9 8765 4321"
                 class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
               />
+              <p id="err-reg-phone" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
-            <div>
-              <label for="reg-pet" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                ¿Qué mascota tienes en casa?
-              </label>
-              <select
-                id="reg-pet"
-                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
-              >
-                <option value="perro">Tengo perro(s) 🐕</option>
-                <option value="gato">Tengo gato(s) 🐈</option>
-                <option value="ambos">Tengo perros y gatos 🐾</option>
-                <option value="otro">Otras pequeñas mascotas 🐹</option>
-              </select>
-            </div>
-
+            <!-- Contraseña -->
             <div>
               <label for="reg-password" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                Crear Contraseña (mínimo 6 caracteres)
+                Crear Contraseña (mínimo 6 caracteres) *
               </label>
-              <input
-                type="password"
-                id="reg-password"
-                required
-                minlength="6"
-                placeholder="••••••••"
-                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
-              />
+              <div class="relative">
+                <input
+                  type="password"
+                  id="reg-password"
+                  autocomplete="new-password"
+                  placeholder="••••••••"
+                  class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all pr-10"
+                />
+                <button
+                  type="button"
+                  id="toggle-reg-password"
+                  aria-label="Alternar visibilidad de contraseña"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
+                >
+                  <svg id="icon-reg-eye" class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <svg id="icon-reg-eye-off" class="w-4 h-4 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </button>
+              </div>
+              <p id="err-reg-password" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+            </div>
+
+            <!-- Confirmación de Contraseña requerida por el usuario -->
+            <div>
+              <label for="reg-password-confirm" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Confirmar Contraseña *
+              </label>
+              <div class="relative">
+                <input
+                  type="password"
+                  id="reg-password-confirm"
+                  autocomplete="new-password"
+                  placeholder="Repite tu contraseña"
+                  class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all pr-10"
+                />
+                <button
+                  type="button"
+                  id="toggle-reg-confirm-password"
+                  aria-label="Alternar visibilidad de confirmación"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
+                >
+                  <svg id="icon-reg-confirm-eye" class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <svg id="icon-reg-confirm-eye-off" class="w-4 h-4 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </button>
+              </div>
+              <p id="err-reg-confirm" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
             </div>
 
             <div class="flex items-start">
               <input
                 id="reg-terms"
                 type="checkbox"
-                required
                 class="h-4 w-4 mt-0.5 rounded border-stone-300 text-rose-600 focus:ring-rose-500 dark:bg-[#141110] dark:border-[#382d27]"
               />
-              <label for="reg-terms" class="ml-2 block text-xs text-stone-500 dark:text-[#b0a297] leading-tight">
-                Acepto los términos de servicio, política de privacidad y recibir novedades de Market-Pet.
+              <label for="reg-terms" class="ml-2 block text-xs text-stone-500 dark:text-[#b0a297] leading-tight cursor-pointer">
+                Acepto los términos de servicio y la política de privacidad de Market-Pet.
               </label>
             </div>
+            <p id="err-reg-terms" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
 
+            <!-- Botón oficial solicitado: "Crear Cuenta" -->
             <button
               type="submit"
               class="w-full py-3 px-4 rounded-xl bg-stone-900 hover:bg-black dark:bg-rose-600 dark:hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>Crear mi cuenta gratis</span>
-              <span>🐾</span>
+              <span>Crear Cuenta</span>
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
             </button>
           </form>
 
-          <!-- Feedback de Mensajes -->
+          <!-- Feedback de Mensajes Global -->
           <div id="auth-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-bold text-center"></div>
 
           <!-- Continuar como Invitado (Visible si venía de checkout) -->
@@ -250,30 +306,43 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             </span>
             <a
               href="/checkout"
-              class="text-xs font-bold text-stone-700 dark:text-stone-300 hover:text-rose-600 dark:hover:text-rose-400 underline"
+              class="text-xs font-bold text-stone-700 dark:text-stone-300 hover:text-rose-600 dark:hover:text-rose-400 underline inline-flex items-center gap-1.5"
             >
-              Continuar compra como invitado →
+              <span>Continuar compra como invitado</span>
+              <span>→</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Beneficios de Registro -->
+      <!-- Beneficios de Registro (con micro-SVGs limpios, sin emojis) -->
       <div class="grid grid-cols-3 gap-3 text-center text-stone-500 dark:text-[#b0a297] text-[11px]">
         <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
-          <span class="block text-base mb-1">⚡</span>
-          <span class="font-bold text-stone-800 dark:text-stone-200">Despacho Veloz</span>
+          <div class="w-6 h-6 mx-auto mb-1 text-amber-500 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            </svg>
+          </div>
+          <span class="font-bold text-stone-800 dark:text-stone-200 block">Despacho Veloz</span>
           <p class="text-[10px] mt-0.5">Direcciones guardadas</p>
         </div>
         <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
-          <span class="block text-base mb-1">🎁</span>
-          <span class="font-bold text-stone-800 dark:text-stone-200">Club Puntos</span>
-          <p class="text-[10px] mt-0.5">Descuentos en comida</p>
+          <div class="w-6 h-6 mx-auto mb-1 text-rose-500 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h17.25" />
+            </svg>
+          </div>
+          <span class="font-bold text-stone-800 dark:text-stone-200 block">Club Puntos</span>
+          <p class="text-[10px] mt-0.5">Descuentos exclusivos</p>
         </div>
         <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
-          <span class="block text-base mb-1">📦</span>
-          <span class="font-bold text-stone-800 dark:text-stone-200">Seguimiento</span>
-          <p class="text-[10px] mt-0.5">En vivo de tu pedido</p>
+          <div class="w-6 h-6 mx-auto mb-1 text-emerald-500 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5" />
+            </svg>
+          </div>
+          <span class="font-bold text-stone-800 dark:text-stone-200 block">Seguimiento</span>
+          <p class="text-[10px] mt-0.5">En vivo de tu compra</p>
         </div>
       </div>
     </div>
@@ -281,7 +350,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  // Control de Tabs y Autenticación Ligera en Cliente (JavaScript Nativo Puro)
+  // Control de Tabs, Autenticación y Validaciones Robustas (JavaScript Nativo Puro)
   const tabLogin = document.getElementById('tab-login-btn');
   const tabRegister = document.getElementById('tab-register-btn');
   const loginForm = document.getElementById('login-form');
@@ -294,9 +363,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   const guestWrap = document.getElementById('guest-checkout-wrap');
   const continueRedirectBtn = document.getElementById('continue-redirect-btn');
 
-  // Parámetro de redirección
+  // Parámetros de URL
   const urlParams = new URLSearchParams(window.location.search);
   const redirectUrl = urlParams.get('redirect') || '/catalogo';
+  const initialTab = urlParams.get('tab');
 
   if (redirectUrl.includes('checkout') && guestWrap) {
     guestWrap.classList.remove('hidden');
@@ -304,6 +374,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   if (continueRedirectBtn) {
     continueRedirectBtn.setAttribute('href', redirectUrl);
+  }
+
+  function setFieldError(fieldId, errId, message) {
+    const input = document.getElementById(fieldId);
+    const err = document.getElementById(errId);
+    if (input) {
+      if (message) {
+        input.classList.add('border-rose-500', 'focus:ring-rose-500');
+        input.classList.remove('border-stone-300', 'dark:border-[#382d27]');
+      } else {
+        input.classList.remove('border-rose-500');
+        input.classList.add('border-stone-300', 'dark:border-[#382d27]');
+      }
+    }
+    if (err) {
+      if (message) {
+        err.textContent = message;
+        err.classList.remove('hidden');
+      } else {
+        err.textContent = '';
+        err.classList.add('hidden');
+      }
+    }
   }
 
   function showFeedback(text, isError = false) {
@@ -334,33 +427,82 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   }
 
   // Switch de Tabs
-  tabLogin?.addEventListener('click', () => {
+  function showLoginTab() {
     loginForm?.classList.remove('hidden');
     registerForm?.classList.add('hidden');
     tabLogin.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#27201c] text-stone-900 dark:text-white shadow-xs cursor-pointer';
     tabRegister.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white cursor-pointer';
-  });
+    if (authFeedback) authFeedback.classList.add('hidden');
+  }
 
-  tabRegister?.addEventListener('click', () => {
+  function showRegisterTab() {
     registerForm?.classList.remove('hidden');
     loginForm?.classList.add('hidden');
     tabRegister.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#27201c] text-stone-900 dark:text-white shadow-xs cursor-pointer';
     tabLogin.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white cursor-pointer';
-  });
+    if (authFeedback) authFeedback.classList.add('hidden');
+  }
 
-  // Toggle Password
-  const togglePass = document.getElementById('toggle-login-password');
-  const passInput = document.getElementById('login-password');
-  togglePass?.addEventListener('click', () => {
-    if (passInput) {
-      passInput.type = passInput.type === 'password' ? 'text' : 'password';
-    }
-  });
+  tabLogin?.addEventListener('click', showLoginTab);
+  tabRegister?.addEventListener('click', showRegisterTab);
 
-  // Login Submit
+  if (initialTab === 'register') {
+    showRegisterTab();
+  }
+
+  // Helper para toggles de contraseña con micro-SVG
+  function setupPasswordToggle(toggleBtnId, inputId, eyeOpenId, eyeClosedId) {
+    const btn = document.getElementById(toggleBtnId);
+    const input = document.getElementById(inputId);
+    const eyeOpen = document.getElementById(eyeOpenId);
+    const eyeClosed = document.getElementById(eyeClosedId);
+
+    btn?.addEventListener('click', () => {
+      if (!input) return;
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      if (isPassword) {
+        eyeOpen?.classList.add('hidden');
+        eyeClosed?.classList.remove('hidden');
+      } else {
+        eyeOpen?.classList.remove('hidden');
+        eyeClosed?.classList.add('hidden');
+      }
+    });
+  }
+
+  setupPasswordToggle('toggle-login-password', 'login-password', 'icon-login-eye', 'icon-login-eye-off');
+  setupPasswordToggle('toggle-reg-password', 'reg-password', 'icon-reg-eye', 'icon-reg-eye-off');
+  setupPasswordToggle('toggle-reg-confirm-password', 'reg-password-confirm', 'icon-reg-confirm-eye', 'icon-reg-confirm-eye-off');
+
+  // Regex para validación
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // 1. Submit Iniciar Sesión con Validación
   loginForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    let hasError = false;
+
     const email = document.getElementById('login-email')?.value.trim();
+    const password = document.getElementById('login-password')?.value;
+
+    if (!email || !EMAIL_REGEX.test(email)) {
+      setFieldError('login-email', 'err-login-email', 'Ingresa un correo electrónico válido (ej. nombre@correo.cl)');
+      hasError = true;
+    } else {
+      setFieldError('login-email', 'err-login-email', '');
+    }
+
+    if (!password || password.length < 6) {
+      setFieldError('login-password', 'err-login-password', 'La contraseña debe tener al menos 6 caracteres');
+      hasError = true;
+    } else {
+      setFieldError('login-password', 'err-login-password', '');
+    }
+
+    if (hasError) return;
+
     const name = email.split('@')[0] || 'Cliente';
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -376,22 +518,86 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 900);
+    }, 800);
   });
 
-  // Register Submit
+  // 2. Submit Crear Cuenta con Validación Robusta
   registerForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    let hasError = false;
+
     const name = document.getElementById('reg-name')?.value.trim();
     const email = document.getElementById('reg-email')?.value.trim();
     const phone = document.getElementById('reg-phone')?.value.trim();
-    const pet = document.getElementById('reg-pet')?.value;
+    const password = document.getElementById('reg-password')?.value;
+    const passwordConfirm = document.getElementById('reg-password-confirm')?.value;
+    const terms = document.getElementById('reg-terms')?.checked;
+
+    // Validación Nombre
+    if (!name || name.length < 3) {
+      setFieldError('reg-name', 'err-reg-name', 'Por favor ingresa tu nombre y apellido (mínimo 3 caracteres)');
+      hasError = true;
+    } else {
+      setFieldError('reg-name', 'err-reg-name', '');
+    }
+
+    // Validación Email
+    if (!email || !EMAIL_REGEX.test(email)) {
+      setFieldError('reg-email', 'err-reg-email', 'Ingresa un correo electrónico válido');
+      hasError = true;
+    } else {
+      setFieldError('reg-email', 'err-reg-email', '');
+    }
+
+    // Validación Teléfono
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    if (!phone || cleanPhone.length < 8) {
+      setFieldError('reg-phone', 'err-reg-phone', 'Ingresa un número telefónico válido (ej. +56 9 8765 4321)');
+      hasError = true;
+    } else {
+      setFieldError('reg-phone', 'err-reg-phone', '');
+    }
+
+    // Validación Contraseña
+    if (!password || password.length < 6) {
+      setFieldError('reg-password', 'err-reg-password', 'La contraseña debe contener al menos 6 caracteres');
+      hasError = true;
+    } else {
+      setFieldError('reg-password', 'err-reg-password', '');
+    }
+
+    // Validación Confirmación de Contraseña
+    if (!passwordConfirm) {
+      setFieldError('reg-password-confirm', 'err-reg-confirm', 'Por favor confirma tu contraseña');
+      hasError = true;
+    } else if (password !== passwordConfirm) {
+      setFieldError('reg-password-confirm', 'err-reg-confirm', 'Las contraseñas no coinciden');
+      hasError = true;
+    } else {
+      setFieldError('reg-password-confirm', 'err-reg-confirm', '');
+    }
+
+    // Términos
+    const errTerms = document.getElementById('err-reg-terms');
+    if (!terms) {
+      if (errTerms) {
+        errTerms.textContent = 'Debes aceptar los términos y condiciones para continuar';
+        errTerms.classList.remove('hidden');
+      }
+      hasError = true;
+    } else {
+      if (errTerms) {
+        errTerms.textContent = '';
+        errTerms.classList.add('hidden');
+      }
+    }
+
+    if (hasError) return;
 
     const userObj = {
       nombre: name,
       email: email,
       telefono: phone,
-      mascota: pet,
       logueado: true,
       fecha: new Date().toISOString(),
     };
@@ -401,7 +607,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 1000);
+    }, 900);
   });
 
   // Logout
@@ -415,7 +621,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   const forgotLink = document.getElementById('forgot-password-link');
   forgotLink?.addEventListener('click', (e) => {
     e.preventDefault();
-    alert('Hemos enviado un enlace de recuperación a tu correo electrónico.');
+    alert('Hemos enviado las instrucciones para restablecer tu contraseña a tu correo electrónico.');
   });
 
   document.addEventListener('DOMContentLoaded', checkUserSession);

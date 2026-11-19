@@ -61,115 +61,264 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="lg:col-span-7 space-y-6">
         <!-- Contenedor de Pasos -->
         <div id="checkout-steps-container" class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs">
-          <!-- PASO 1: Identificación y Datos Personales -->
+          <!-- PASO 1: Identificación Priorizando Iniciar Sesión -->
           <section id="step-1" class="space-y-6">
-            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
-              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
-                Paso 1 de 4
-              </span>
-              <h2 class="text-xl font-black text-stone-900 dark:text-white">
-                Datos Personales de Contacto
-              </h2>
-              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
-                Utilizaremos estos datos para enviarte la confirmación del pedido y las notificaciones de entrega.
-              </p>
-            </div>
-
-            <!-- Banner Iniciar Sesión / Usuario Detectado -->
-            <div id="checkout-user-banner" class="p-3.5 rounded-2xl bg-amber-50/80 dark:bg-[#141110] border border-amber-200/80 dark:border-[#382d27] flex items-center justify-between text-xs">
-              <div class="flex items-center gap-2">
-                <span>👤</span>
-                <span id="checkout-banner-text" class="text-stone-700 dark:text-stone-300">
-                  ¿Ya tienes cuenta? Inicia sesión para autocompletar tus datos.
+            <!-- CASO A: Usuario ya autenticado -->
+            <div id="step1-logged-view" class="hidden space-y-5">
+              <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">
+                  Paso 1 de 4 · Sesión Activa
                 </span>
+                <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                  ¡Hola de nuevo, <span id="step1-logged-user-name">Cliente</span>!
+                </h2>
+                <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                  Confirmamos tus datos personales antes de ingresar la dirección de despacho.
+                </p>
               </div>
-              <a
-                id="checkout-login-redirect"
-                href="/auth/login?redirect=/checkout"
-                class="font-black text-rose-600 dark:text-rose-400 hover:underline shrink-0"
-              >
-                Iniciar sesión →
-              </a>
+
+              <div class="p-4 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/70 dark:border-[#2d2521] space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-stone-500 dark:text-[#b0a297]">Cuenta activa:</span>
+                  <strong id="step1-logged-email-text" class="text-stone-900 dark:text-white font-bold">usuario@correo.cl</strong>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-stone-500 dark:text-[#b0a297]">Nombre de contacto:</span>
+                  <span id="step1-logged-name-text" class="text-stone-900 dark:text-white font-bold">Nombre</span>
+                </div>
+              </div>
+
+              <!-- RUT o DNI para emisión de boleta -->
+              <form id="form-step-1-logged" novalidate class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="step1-logged-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                      RUT o DNI (para boleta electrónica) *
+                    </label>
+                    <input
+                      type="text"
+                      id="step1-logged-rut"
+                      placeholder="12.345.678-9"
+                      class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    />
+                    <p id="err-step1-logged-rut" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                  </div>
+                  <div>
+                    <label for="step1-logged-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                      Teléfono móvil de contacto *
+                    </label>
+                    <input
+                      type="tel"
+                      id="step1-logged-phone"
+                      placeholder="+56 9 8765 4321"
+                      class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    />
+                    <p id="err-step1-logged-phone" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                  </div>
+                </div>
+
+                <div class="pt-2 flex items-center justify-between">
+                  <a
+                    href="/auth/login?redirect=/checkout"
+                    class="text-xs font-bold text-stone-500 hover:text-stone-900 dark:hover:text-white underline"
+                  >
+                    ¿No eres tú? Cambiar de cuenta
+                  </a>
+                  <button
+                    type="submit"
+                    class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                  >
+                    <span>Continuar a Dirección de Envío</span>
+                    <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
             </div>
 
-            <form id="form-step-1" class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="step1-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                    Nombre completo *
-                  </label>
-                  <input
-                    type="text"
-                    id="step1-name"
-                    required
-                    placeholder="Ej. Constanza Silva"
-                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  />
-                </div>
-                <div>
-                  <label for="step1-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                    RUT o DNI *
-                  </label>
-                  <input
-                    type="text"
-                    id="step1-rut"
-                    required
-                    placeholder="12.345.678-9"
-                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  />
-                </div>
+            <!-- CASO B: Usuario NO autenticado (Prioriza Iniciar Sesión y Redirigir a Crear Cuenta) -->
+            <div id="step1-guest-view" class="space-y-6">
+              <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
+                  Paso 1 de 4
+                </span>
+                <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                  Identifícate para continuar tu compra
+                </h2>
+                <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                  Inicia sesión con tu cuenta de Market-Pet o regístrate para guardar tus pedidos y direcciones.
+                </p>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="step1-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                    Correo Electrónico *
-                  </label>
-                  <input
-                    type="email"
-                    id="step1-email"
-                    required
-                    placeholder="constanza@correo.cl"
-                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  />
+              <!-- Bloque Prioritario: Iniciar Sesión Rápido -->
+              <div class="p-5 rounded-2xl bg-stone-50/70 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] space-y-4">
+                <div class="flex items-center gap-2 text-xs font-extrabold text-stone-900 dark:text-white">
+                  <svg class="w-4 h-4 text-rose-600 dark:text-rose-400 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                  <span>Iniciar Sesión en Market-Pet</span>
                 </div>
-                <div>
-                  <label for="step1-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                    Teléfono móvil (+56) *
-                  </label>
-                  <input
-                    type="tel"
-                    id="step1-phone"
-                    required
-                    placeholder="+56 9 8765 4321"
-                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  />
-                </div>
+
+                <form id="form-step1-fast-login" novalidate class="space-y-3">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label for="step1-login-email" class="block text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        Correo Electrónico *
+                      </label>
+                      <input
+                        type="email"
+                        id="step1-login-email"
+                        placeholder="ejemplo@correo.cl"
+                        class="w-full px-3.5 py-2 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p id="err-step1-login-email" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+
+                    <div>
+                      <label for="step1-login-pass" class="block text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        Contraseña *
+                      </label>
+                      <div class="relative">
+                        <input
+                          type="password"
+                          id="step1-login-pass"
+                          placeholder="Tu contraseña"
+                          class="w-full px-3.5 py-2 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 pr-9"
+                        />
+                        <button
+                          type="button"
+                          id="toggle-step1-pass"
+                          aria-label="Ver contraseña"
+                          class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
+                        >
+                          <svg id="icon-step1-eye" class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <svg id="icon-step1-eye-off" class="w-4 h-4 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                          </svg>
+                        </button>
+                      </div>
+                      <p id="err-step1-login-pass" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+                  </div>
+
+                  <div class="pt-1 flex items-center justify-between">
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297]">
+                      Ingresa para continuar de inmediato.
+                    </span>
+                    <button
+                      type="submit"
+                      class="px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 font-extrabold text-xs transition-colors cursor-pointer"
+                    >
+                      Iniciar Sesión
+                    </button>
+                  </div>
+                </form>
               </div>
 
-              <div class="pt-2">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    id="step1-create-account"
-                    class="h-4 w-4 rounded border-stone-300 text-rose-600 focus:ring-rose-500 dark:bg-[#141110] dark:border-[#382d27]"
-                  />
-                  <span class="text-xs text-stone-600 dark:text-[#b0a297]">
-                    Crear una cuenta con estos datos para rastrear mis pedidos futuros
-                  </span>
-                </label>
-              </div>
-
-              <div class="pt-4 flex justify-end">
-                <button
-                  type="submit"
-                  class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+              <!-- Bloque: ¿No tienes cuenta? -> Redirige a Crear Cuenta -->
+              <div class="p-5 rounded-2xl border-2 border-dashed border-stone-200 dark:border-[#382d27] text-center space-y-2.5">
+                <span class="text-xs font-bold text-stone-700 dark:text-[#fbf6f0] block">
+                  ¿Aún no tienes una cuenta en Market-Pet?
+                </span>
+                <p class="text-xs text-stone-500 dark:text-[#b0a297] max-w-sm mx-auto">
+                  Crea tu cuenta en 1 minuto para acumular puntos, recibir ofertas especiales y rastrear tus pedidos en vivo.
+                </p>
+                <a
+                  href="/auth/login?tab=register&redirect=/checkout"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-xs shadow-md transition-all cursor-pointer"
                 >
-                  <span>Continuar a Dirección de Envío</span>
-                  <span>→</span>
-                </button>
+                  <span>Crear Cuenta</span>
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </a>
               </div>
-            </form>
+
+              <!-- Opción C: Comprar como Invitado (Sin crear cuenta) -->
+              <div class="pt-2">
+                <button
+                  type="button"
+                  id="btn-toggle-guest-form"
+                  class="w-full py-2.5 text-center text-xs font-bold text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white underline cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span>O continuar como invitado sin registrarme</span>
+                  <span id="guest-arrow">↓</span>
+                </button>
+
+                <!-- Formulario Desplegable de Invitado -->
+                <form id="form-step-1-guest" novalidate class="space-y-4 pt-4 hidden">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="step1-guest-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        Nombre completo *
+                      </label>
+                      <input
+                        type="text"
+                        id="step1-guest-name"
+                        placeholder="Ej. Constanza Silva"
+                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p id="err-step1-guest-name" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+                    <div>
+                      <label for="step1-guest-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        RUT o DNI *
+                      </label>
+                      <input
+                        type="text"
+                        id="step1-guest-rut"
+                        placeholder="12.345.678-9"
+                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p id="err-step1-guest-rut" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="step1-guest-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        Correo Electrónico (para confirmación) *
+                      </label>
+                      <input
+                        type="email"
+                        id="step1-guest-email"
+                        placeholder="constanza@correo.cl"
+                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p id="err-step1-guest-email" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+                    <div>
+                      <label for="step1-guest-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                        Teléfono móvil (+56) *
+                      </label>
+                      <input
+                        type="tel"
+                        id="step1-guest-phone"
+                        placeholder="+56 9 8765 4321"
+                        class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p id="err-step1-guest-phone" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 flex justify-end">
+                    <button
+                      type="submit"
+                      class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-rose-600 dark:hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <span>Continuar como invitado</span>
+                      <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </section>
 
           <!-- PASO 2: Dirección y Comuna de Despacho -->
@@ -182,11 +331,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 Dirección de Despacho
               </h2>
               <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
-                Ingresa la ubicación exacta donde recibirás los productos para tus mascotas.
+                Ingresa la ubicación exacta donde recibirás los artículos para tus mascotas en Chile.
               </p>
             </div>
 
-            <form id="form-step-2" class="space-y-4">
+            <form id="form-step-2" novalidate class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label for="step2-region" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
@@ -194,7 +343,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   </label>
                   <select
                     id="step2-region"
-                    required
                     class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
                   >
                     <option value="metropolitana">Región Metropolitana de Santiago</option>
@@ -210,7 +358,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   </label>
                   <select
                     id="step2-comuna"
-                    required
                     class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
                   >
                     <option value="Providencia">Providencia</option>
@@ -235,10 +382,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   <input
                     type="text"
                     id="step2-address"
-                    required
                     placeholder="Ej. Av. Pedro de Valdivia 1234"
                     class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
                   />
+                  <p id="err-step2-address" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
                 </div>
                 <div>
                   <label for="step2-dept" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
@@ -278,7 +425,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
                 >
                   <span>Continuar a Despacho</span>
-                  <span>→</span>
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
                 </button>
               </div>
             </form>
@@ -310,11 +459,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     class="h-4 w-4 text-rose-600 focus:ring-rose-500"
                   />
                   <div>
-                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      🚚 Despacho Estándar a Domicilio
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5">
+                      <svg class="w-4 h-4 text-stone-700 dark:text-stone-300 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5" />
+                      </svg>
+                      <span>Despacho Estándar a Domicilio</span>
                     </span>
-                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
-                      Entrega en 2 a 4 días hábiles (Gratis en compras sobre $25.000)
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5">
+                      Entrega en 2 a 4 días hábiles (Gratis sobre $25.000)
                     </span>
                   </div>
                 </div>
@@ -333,11 +485,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     class="h-4 w-4 text-rose-600 focus:ring-rose-500"
                   />
                   <div>
-                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      ⚡ Despacho Express Mismo Día
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5">
+                      <svg class="w-4 h-4 text-amber-500 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                      </svg>
+                      <span>Despacho Express Mismo Día</span>
                     </span>
-                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
-                      Entregas en menos de 24 horas hábiles (Válido en Santiago Urbano)
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5">
+                      Entregas en menos de 24 horas (Santiago Urbano)
                     </span>
                   </div>
                 </div>
@@ -356,11 +511,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     class="h-4 w-4 text-rose-600 focus:ring-rose-500"
                   />
                   <div>
-                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      🏬 Retiro en Tienda (Providencia / Las Condes)
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5">
+                      <svg class="w-4 h-4 text-emerald-500 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.25a.75.75 0 01-.75-.75V10.5a.75.75 0 01.22-.53l8.25-8.25a.75.75 0 011.06 0l8.25 8.25a.75.75 0 01.22.53V20.25a.75.75 0 01-.75.75H13.5z" />
+                      </svg>
+                      <span>Retiro en Tienda (Providencia / Las Condes)</span>
                     </span>
-                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
-                      Listo para retirar en 2 horas tras confirmar tu orden
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5">
+                      Listo en 2 horas tras confirmar tu orden
                     </span>
                   </div>
                 </div>
@@ -382,7 +540,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
                 >
                   <span>Continuar al Pago</span>
-                  <span>→</span>
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
                 </button>
               </div>
             </form>
@@ -415,10 +575,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   />
                   <div>
                     <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      💳 Webpay Plus (Tarjetas de Débito, Crédito o Prepago)
+                      Webpay Plus (Débito, Crédito o Redcompra)
                     </span>
                     <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
-                      Transbank Redcompra, Visa, Mastercard, AMEX hasta en 3 cuotas sin interés
+                      Transbank Redcompra, Visa, Mastercard hasta en 3 cuotas sin interés
                     </span>
                   </div>
                 </div>
@@ -438,10 +598,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   />
                   <div>
                     <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      🏦 Transferencia Bancaria Electrónica (5% DCTO Extra)
+                      Transferencia Bancaria Electrónica (5% DCTO Extra)
                     </span>
                     <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
-                      Recibe los datos bancarios al confirmar y obtén un 5% de descuento adicional
+                      Recibe los datos bancarios y obtén un 5% de descuento adicional
                     </span>
                   </div>
                 </div>
@@ -461,7 +621,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   />
                   <div>
                     <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
-                      🤝 Mercado Pago
+                      Mercado Pago
                     </span>
                     <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
                       Paga con saldo de tu cuenta Mercado Pago o tarjetas registradas
@@ -471,7 +631,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </label>
 
               <div class="p-3 bg-stone-50 dark:bg-[#141110] rounded-xl text-[11px] text-stone-500 dark:text-[#b0a297] mt-3">
-                🔒 Al hacer clic en <strong>"Pagar Pedido"</strong>, declaras aceptar las políticas de despacho, términos y condiciones y garantía de satisfacción de Market-Pet.
+                Al hacer clic en <strong>"Pagar Pedido"</strong>, aceptas los términos de servicio, políticas de despacho y garantía de satisfacción de Market-Pet.
               </div>
 
               <div class="pt-4 flex items-center justify-between">
@@ -488,7 +648,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   class="px-7 py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
                 >
                   <span>Pagar Pedido con Webpay</span>
-                  <span class="text-xs">🔒</span>
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
                 </button>
               </div>
             </form>
@@ -497,8 +659,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <!-- Pantalla de Éxito / Confirmación de Pedido -->
         <div id="checkout-success-view" class="hidden bg-white dark:bg-[#1d1816] rounded-3xl p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs text-center space-y-5">
-          <div class="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-4xl border border-emerald-100 dark:border-emerald-900/40 animate-bounce">
-            🎉
+          <div class="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40">
+            <svg class="w-10 h-10 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
           <div>
             <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">
@@ -538,9 +702,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
             <a
               href="/catalogo"
-              class="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all"
+              class="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all flex items-center gap-1.5"
             >
-              Seguir explorando el catálogo →
+              <span>Seguir explorando el catálogo</span>
+              <span>→</span>
             </a>
             <a
               href="/"
@@ -557,7 +722,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 border border-stone-200/80 dark:border-[#2d2521] shadow-md space-y-5">
           <div class="flex items-center justify-between border-b border-stone-100 dark:border-[#2d2521] pb-3">
             <h3 class="text-base font-extrabold text-stone-900 dark:text-white flex items-center gap-2">
-              <span>🛒</span>
+              <svg class="w-5 h-5 text-rose-600 dark:text-rose-400 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
               <span>Detalle de tu Compra</span>
             </h3>
             <span id="checkout-summary-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-stone-100 dark:bg-[#27201c] text-stone-700 dark:text-stone-300">
@@ -593,18 +760,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
 
-          <!-- Sellos de Seguridad y Despacho -->
+          <!-- Sellos de Seguridad y Despacho (micro-SVGs limpios, sin emojis) -->
           <div class="pt-3 border-t border-stone-100 dark:border-[#2d2521] space-y-2 text-[11px] text-stone-500 dark:text-[#b0a297]">
             <div class="flex items-center gap-2">
-              <span class="text-emerald-600 dark:text-emerald-400">🛡️</span>
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
               <span>Cifrado SSL de 256 bits para pagos seguros</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-emerald-600 dark:text-emerald-400">📦</span>
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h17.25" />
+              </svg>
               <span>Embalaje cuidadoso para alimentos y accesorios</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-emerald-600 dark:text-emerald-400">💬</span>
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+              </svg>
               <span>Soporte post-venta por WhatsApp y correo</span>
             </div>
           </div>
@@ -615,9 +788,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  // Control del Flujo Multi-Paso de Checkout (JavaScript Nativo Puro)
+  // Control del Flujo Multi-Paso de Checkout con Prioridad de Inicio de Sesión (JavaScript Nativo Puro)
   const CART_KEY = 'market_pet_cart';
   const FREE_SHIPPING_THRESHOLD = 25000;
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   let currentStep = 1;
   let selectedShippingMethod = 'standard';
@@ -651,10 +825,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
   }
 
+  function setCheckoutError(fieldId, errId, message) {
+    const input = document.getElementById(fieldId);
+    const err = document.getElementById(errId);
+    if (input) {
+      if (message) {
+        input.classList.add('border-rose-500', 'focus:ring-rose-500');
+        input.classList.remove('border-stone-300', 'dark:border-[#382d27]');
+      } else {
+        input.classList.remove('border-rose-500');
+        input.classList.add('border-stone-300', 'dark:border-[#382d27]');
+      }
+    }
+    if (err) {
+      if (message) {
+        err.textContent = message;
+        err.classList.remove('hidden');
+      } else {
+        err.textContent = '';
+        err.classList.add('hidden');
+      }
+    }
+  }
+
   function calculateShippingCost(subtotal) {
     if (selectedShippingMethod === 'pickup') return 0;
     if (selectedShippingMethod === 'express') return 5990;
-    // standard
     return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 3990;
   }
 
@@ -674,7 +870,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
     const shippingCost = calculateShippingCost(subtotal);
 
-    // Descuento adicional por transferencia (5%)
     let discount = 0;
     if (selectedPaymentMethod === 'transfer') {
       discount = Math.round(subtotal * 0.05);
@@ -685,7 +880,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     if (badgeEl) badgeEl.textContent = `${totalQty} artículos`;
     if (subtotalEl) subtotalEl.textContent = formatCLP(subtotal);
 
-    // Precio en la opción de radio estándar
     if (standardPriceEl) {
       standardPriceEl.textContent = subtotal >= FREE_SHIPPING_THRESHOLD ? '¡GRATIS!' : '$3.990';
     }
@@ -713,10 +907,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     if (confirmBtn) {
       const paymentName = selectedPaymentMethod === 'transfer' ? 'Transferencia' : selectedPaymentMethod === 'mercadopago' ? 'Mercado Pago' : 'Webpay';
-      confirmBtn.innerHTML = `<span>Pagar ${formatCLP(total)} con ${paymentName}</span><span class="text-xs">🔒</span>`;
+      confirmBtn.innerHTML = `<span>Pagar ${formatCLP(total)} con ${paymentName}</span><svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>`;
     }
 
-    // Renderizar productos en la lista
     if (itemsList) {
       itemsList.replaceChildren();
 
@@ -776,7 +969,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   function setStep(step) {
     currentStep = step;
 
-    // Secciones
     ['step-1', 'step-2', 'step-3', 'step-4'].forEach((id, idx) => {
       const el = document.getElementById(id);
       if (idx + 1 === step) {
@@ -786,24 +978,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     });
 
-    // Indicadores del Stepper
     for (let i = 1; i <= 4; i++) {
       const navItem = document.getElementById(`step-nav-${i}`);
       const circle = navItem?.querySelector('div');
       if (!navItem || !circle) continue;
 
       if (i < step) {
-        // Completado
         navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-emerald-600 dark:text-emerald-400 font-bold cursor-pointer';
         circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-emerald-500 text-white shadow-xs';
         circle.textContent = '✓';
       } else if (i === step) {
-        // Activo
         navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-rose-600 dark:text-rose-400 font-extrabold';
         circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-rose-600 text-white shadow-xs';
         circle.textContent = String(i);
       } else {
-        // Pendiente
         navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium';
         circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400';
         circle.textContent = String(i);
@@ -817,71 +1005,227 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   document.addEventListener('DOMContentLoaded', () => {
     renderCheckoutSummary();
 
-    // Precargar datos si el usuario ya inició sesión
+    // Detección de sesión activa
+    let loggedUser = null;
     try {
       const storedUser = localStorage.getItem('market_pet_user');
       if (storedUser) {
-        const user = JSON.parse(storedUser);
-        if (user && user.nombre) {
-          const nameInput = document.getElementById('step1-name');
-          const emailInput = document.getElementById('step1-email');
-          const phoneInput = document.getElementById('step1-phone');
-          const bannerText = document.getElementById('checkout-banner-text');
-          const loginRedirect = document.getElementById('checkout-login-redirect');
-
-          if (nameInput && !nameInput.value) nameInput.value = user.nombre;
-          if (emailInput && !emailInput.value) emailInput.value = user.email || '';
-          if (phoneInput && !phoneInput.value && user.telefono) phoneInput.value = user.telefono;
-
-          if (bannerText) bannerText.textContent = `Sesión iniciada como ${user.nombre} (${user.email || ''}).`;
-          if (loginRedirect) loginRedirect.textContent = 'Cambiar cuenta →';
-        }
+        loggedUser = JSON.parse(storedUser);
       }
     } catch {
-      // Ignorar
+      loggedUser = null;
     }
 
-    // Paso 1 Submit -> Paso 2
-    const form1 = document.getElementById('form-step-1');
-    form1?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      orderData.nombre = document.getElementById('step1-name')?.value.trim();
-      orderData.rut = document.getElementById('step1-rut')?.value.trim();
-      orderData.email = document.getElementById('step1-email')?.value.trim();
-      orderData.telefono = document.getElementById('step1-phone')?.value.trim();
+    const step1LoggedView = document.getElementById('step1-logged-view');
+    const step1GuestView = document.getElementById('step1-guest-view');
 
-      const createAcc = document.getElementById('step1-create-account')?.checked;
-      if (createAcc && !localStorage.getItem('market_pet_user')) {
-        localStorage.setItem(
-          'market_pet_user',
-          JSON.stringify({
-            nombre: orderData.nombre,
-            email: orderData.email,
-            telefono: orderData.telefono,
-            logueado: true,
-          })
-        );
+    if (loggedUser && loggedUser.nombre) {
+      step1LoggedView?.classList.remove('hidden');
+      step1GuestView?.classList.add('hidden');
+
+      const nameDisplay = document.getElementById('step1-logged-user-name');
+      const nameText = document.getElementById('step1-logged-name-text');
+      const emailText = document.getElementById('step1-logged-email-text');
+      const phoneInput = document.getElementById('step1-logged-phone');
+
+      if (nameDisplay) nameDisplay.textContent = loggedUser.nombre;
+      if (nameText) nameText.textContent = loggedUser.nombre;
+      if (emailText) emailText.textContent = loggedUser.email || '';
+      if (phoneInput && loggedUser.telefono) phoneInput.value = loggedUser.telefono;
+
+      orderData.nombre = loggedUser.nombre;
+      orderData.email = loggedUser.email || '';
+      orderData.telefono = loggedUser.telefono || '';
+    } else {
+      step1LoggedView?.classList.add('hidden');
+      step1GuestView?.classList.remove('hidden');
+    }
+
+    // Toggle de contraseña en login rápido
+    const togglePassBtn = document.getElementById('toggle-step1-pass');
+    const passInput = document.getElementById('step1-login-pass');
+    const eyeOpen = document.getElementById('icon-step1-eye');
+    const eyeOff = document.getElementById('icon-step1-eye-off');
+
+    togglePassBtn?.addEventListener('click', () => {
+      if (!passInput) return;
+      const isPass = passInput.type === 'password';
+      passInput.type = isPass ? 'text' : 'password';
+      if (isPass) {
+        eyeOpen?.classList.add('hidden');
+        eyeOff?.classList.remove('hidden');
+      } else {
+        eyeOpen?.classList.remove('hidden');
+        eyeOff?.classList.add('hidden');
       }
+    });
+
+    // 1A. Iniciar Sesión Rápido en Checkout
+    const fastLoginForm = document.getElementById('form-step1-fast-login');
+    fastLoginForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const email = document.getElementById('step1-login-email')?.value.trim();
+      const pass = document.getElementById('step1-login-pass')?.value;
+
+      if (!email || !EMAIL_REGEX.test(email)) {
+        setCheckoutError('step1-login-email', 'err-step1-login-email', 'Ingresa un correo electrónico válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-login-email', 'err-step1-login-email', '');
+      }
+
+      if (!pass || pass.length < 6) {
+        setCheckoutError('step1-login-pass', 'err-step1-login-pass', 'Ingresa tu contraseña (mínimo 6 caracteres)');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-login-pass', 'err-step1-login-pass', '');
+      }
+
+      if (hasError) return;
+
+      const name = email.split('@')[0] || 'Cliente';
+      const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+      const userObj = {
+        nombre: capitalized,
+        email: email,
+        logueado: true,
+        fecha: new Date().toISOString(),
+      };
+
+      localStorage.setItem('market_pet_user', JSON.stringify(userObj));
+      orderData.nombre = capitalized;
+      orderData.email = email;
 
       setStep(2);
     });
 
-    // Paso 2 Submit -> Paso 3
+    // 1B. Continuar desde usuario logueado
+    const loggedForm = document.getElementById('form-step-1-logged');
+    loggedForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const rut = document.getElementById('step1-logged-rut')?.value.trim();
+      const phone = document.getElementById('step1-logged-phone')?.value.trim();
+
+      if (!rut || rut.length < 7) {
+        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', 'Ingresa un RUT o DNI válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+      }
+
+      const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
+      if (!phone || cleanPhone.length < 8) {
+        setCheckoutError('step1-logged-phone', 'err-step1-logged-phone', 'Ingresa un teléfono válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-logged-phone', 'err-step1-logged-phone', '');
+      }
+
+      if (hasError) return;
+
+      orderData.rut = rut;
+      orderData.telefono = phone;
+      setStep(2);
+    });
+
+    // 1C. Toggle de formulario de invitado
+    const toggleGuestBtn = document.getElementById('btn-toggle-guest-form');
+    const guestForm = document.getElementById('form-step-1-guest');
+    const guestArrow = document.getElementById('guest-arrow');
+
+    toggleGuestBtn?.addEventListener('click', () => {
+      const isHidden = guestForm?.classList.contains('hidden');
+      if (isHidden) {
+        guestForm?.classList.remove('hidden');
+        if (guestArrow) guestArrow.textContent = '↑';
+      } else {
+        guestForm?.classList.add('hidden');
+        if (guestArrow) guestArrow.textContent = '↓';
+      }
+    });
+
+    // 1D. Submit de invitado
+    guestForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const name = document.getElementById('step1-guest-name')?.value.trim();
+      const rut = document.getElementById('step1-guest-rut')?.value.trim();
+      const email = document.getElementById('step1-guest-email')?.value.trim();
+      const phone = document.getElementById('step1-guest-phone')?.value.trim();
+
+      if (!name || name.length < 3) {
+        setCheckoutError('step1-guest-name', 'err-step1-guest-name', 'Ingresa tu nombre completo');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-guest-name', 'err-step1-guest-name', '');
+      }
+
+      if (!rut || rut.length < 7) {
+        setCheckoutError('step1-guest-rut', 'err-step1-guest-rut', 'Ingresa un RUT o DNI válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-guest-rut', 'err-step1-guest-rut', '');
+      }
+
+      if (!email || !EMAIL_REGEX.test(email)) {
+        setCheckoutError('step1-guest-email', 'err-step1-guest-email', 'Ingresa un correo electrónico válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-guest-email', 'err-step1-guest-email', '');
+      }
+
+      const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
+      if (!phone || cleanPhone.length < 8) {
+        setCheckoutError('step1-guest-phone', 'err-step1-guest-phone', 'Ingresa un teléfono válido');
+        hasError = true;
+      } else {
+        setCheckoutError('step1-guest-phone', 'err-step1-guest-phone', '');
+      }
+
+      if (hasError) return;
+
+      orderData.nombre = name;
+      orderData.rut = rut;
+      orderData.email = email;
+      orderData.telefono = phone;
+
+      setStep(2);
+    });
+
+    // Paso 2: Dirección y Comuna
     const form2 = document.getElementById('form-step-2');
     form2?.addEventListener('submit', (e) => {
       e.preventDefault();
+      let hasError = false;
+
+      const address = document.getElementById('step2-address')?.value.trim();
+      if (!address || address.length < 5) {
+        setCheckoutError('step2-address', 'err-step2-address', 'Ingresa la calle y numeración de entrega');
+        hasError = true;
+      } else {
+        setCheckoutError('step2-address', 'err-step2-address', '');
+      }
+
+      if (hasError) return;
+
       orderData.region = document.getElementById('step2-region')?.value;
       orderData.comuna = document.getElementById('step2-comuna')?.value;
-      orderData.direccion = document.getElementById('step2-address')?.value.trim();
+      orderData.direccion = address;
       orderData.depto = document.getElementById('step2-dept')?.value.trim();
       orderData.notas = document.getElementById('step2-notes')?.value.trim();
+
       setStep(3);
     });
 
-    // Volver a Paso 1
     document.getElementById('btn-back-to-step-1')?.addEventListener('click', () => setStep(1));
 
-    // Paso 3 Submit -> Paso 4
+    // Paso 3: Método de Entrega
     const form3 = document.getElementById('form-step-3');
     form3?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -892,14 +1236,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       setStep(4);
     });
 
-    // Volver a Paso 2
     document.getElementById('btn-back-to-step-2')?.addEventListener('click', () => setStep(2));
 
-    // Cambios dinámicos en método de despacho (Paso 3)
     document.querySelectorAll('input[name="shipping-method"]').forEach((radio) => {
       radio.addEventListener('change', (e) => {
         selectedShippingMethod = e.target.value;
-        // Estilos de tarjetas
         document.querySelectorAll('.shipping-option').forEach((lbl) => {
           lbl.className = 'shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] cursor-pointer transition-all';
         });
@@ -911,11 +1252,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
     });
 
-    // Cambios dinámicos en medio de pago (Paso 4)
+    // Paso 4: Medio de Pago
     document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
       radio.addEventListener('change', (e) => {
         selectedPaymentMethod = e.target.value;
-        // Estilos de tarjetas
         document.querySelectorAll('.payment-option').forEach((lbl) => {
           lbl.className = 'payment-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] cursor-pointer transition-all';
         });
@@ -927,10 +1267,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
     });
 
-    // Volver a Paso 3
     document.getElementById('btn-back-to-step-3')?.addEventListener('click', () => setStep(3));
 
-    // Permitir clic en pasos previos del Stepper
+    // Stepper navegable
     document.getElementById('step-nav-1')?.addEventListener('click', () => {
       if (currentStep > 1) setStep(1);
     });
@@ -941,7 +1280,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if (currentStep > 3) setStep(3);
     });
 
-    // Paso 4: Confirmación Final de Pago
+    // Confirmación y Pago
     const form4 = document.getElementById('form-step-4');
     form4?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -954,7 +1293,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       const confirmBtn = document.getElementById('btn-confirm-payment');
       if (confirmBtn) {
-        confirmBtn.innerHTML = '<span>Procesando pago seguro... ⏳</span>';
+        confirmBtn.innerHTML = '<span>Procesando pago seguro...</span>';
         confirmBtn.setAttribute('disabled', 'true');
       }
 
@@ -980,7 +1319,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         }
         if (successTotal) successTotal.textContent = totalText;
 
-        // Vaciar carrito
         try {
           localStorage.removeItem(CART_KEY);
           window.dispatchEvent(new Event('storage'));
@@ -991,7 +1329,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         renderCheckoutSummary();
         window.scrollTo({ top: 80, behavior: 'smooth' });
-      }, 1200);
+      }, 1100);
     });
   });
 </script>
