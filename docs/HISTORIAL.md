@@ -15,12 +15,12 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(theme): calibra navbar completa al 100% y establece Warm Charcoal como modo nocturno oficial
+- **Último commit relevante:** feat(cart): implementa drawer interactivo de compras y resuelve bug de suma doble al agregar productos
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100% (Nivel 1, Nivel 2, Mega-Menú y Drawer)**, **Laboratorio interactivo de paletas nocturnas (`ThemeLabWidget`) con 4 variantes cromáticas preservado como metodología estándar para futuros proyectos**.
-- **Qué está en progreso:** Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.96s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage y badges reactivos.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con `localStorage`, barra dinámica de progreso para Envío Gratis ($25.000 CLP), controles de cantidad [+] [-], eliminación de ítems, totales en CLP, sellos de seguridad y corrección definitiva del bug de suma doble (+1 exacto por clic)**.
+- **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.11s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
 
 ## 2. Decisiones importantes
 
@@ -90,10 +90,35 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Modo nocturno integral con toggle interactivo y calibración visual completa | Alternancia fluida Sol/Luna en desktop y móvil con persistencia en localStorage, anti-FOUC síncrono y soporte de contraste alto en todo el catálogo y fichas de producto | Posponer modo oscuro hasta después del checkout o forzar modo oscuro por CSS del SO |
 | 2026-11-18 | Adopción de Awesome Design MD y laboratorio de paletas nocturnas | Establecer contrato formal de diseño en DESIGN.md y dotar al ecommerce de un widget interactivo con 4 paletas nocturnas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) para evaluación directa del usuario | Imponer una sola paleta oscura sin opción de comparar o usar código disperso sin tokens |
 | 2026-11-18 | Paleta Warm Charcoal adoptada como modo nocturno oficial y metodología de laboratorio preservada | El usuario validó Warm Charcoal & Cacao (#141110 / #1d1816) en vivo con ThemeLabWidget; se calibra la navbar completa al 100% y se preserva el laboratorio interactivo como metodología estándar para futuros proyectos | Mantener Midnight Slate azulado frío o descartar el widget interactivo de testing |
+| 2026-11-18 | Delegación de eventos global en CartDrawer y eliminación de listeners redundantes | Resolver el bug de suma doble (+1 +1 = 2) al agregar productos al carrito centralizando la captura de clicks [data-add-to-cart] en CartDrawer con estado único en localStorage | Mantener scripts de click dispersos e independientes en cada página o componente |
+| 2026-11-18 | Carrito Drawer interactivo con meta dinámica de Envío Gratis ($25.000 CLP) | Proporcionar experiencia ecommerce moderna de alta conversión (slide-over drawer) sin recargar página, con barra de progreso de despacho gratis estándar en retail chileno | Redirigir a página pesada de /carrito o modal estático |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · implementacion de carrito drawer reactivo y correccion de suma doble
+- **Qué:** Implementación del **Carrito de Compras Reactivo (Drawer Lateral / Flyout)** y resolución definitiva del problema de suma doble al presionar "Agregar":
+  1. **Diagnóstico y Corrección del Bug de Suma Doble (+1 +1 = 2):**
+     - Se identificó que existían `addEventListener('click')` duplicados tanto a nivel de componente (`ProductSlider.astro`) como a nivel de página (`index.astro`, `catalogo/index.astro`, `categoria/[categoria].astro`), lo que provocaba que un único clic disparara dos listeners simultáneos incrementando el contador en 2.
+     - Se eliminaron todos los listeners dispersos y se centralizó el control en una única **delegación de eventos global** (`document.addEventListener('click')`) dentro de [src/components/CartDrawer.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/CartDrawer.astro), garantizando que cada clic en cualquier botón `[data-add-to-cart]` añada exactamente **1 producto** (o la cantidad elegida en la ficha de producto).
+  2. **Arquitectura del Carrito Drawer (`CartDrawer.astro`):**
+     - Drawer deslizante suave desde la derecha (`translate-x-full` a `translate-x-0`) con backdrop difuminado y cierre con botón `✕`, backdrop o tecla `Escape`.
+     - Barra de progreso dinámica para **Envío Gratis**: meta estándar de \$25.000 CLP con indicador porcentual en tiempo real ("Te faltan \$X para Envío Gratis" o "🎉 ¡Felicidades! Tienes Envío Gratis a todo Chile").
+     - Lista reactiva de productos con miniatura, nombre, precio unitario, botones de cantidad `[-] Qty [+]` y botón de papelera para eliminar.
+     - Estado vacío amigable (*Empty State*) con botón de retorno al catálogo cuando no hay ítems.
+     - Resumen inferior con subtotal, cálculo de despacho (\$3.990 o GRATIS), total en CLP, botón de vaciar carrito y botón de pago "Ir a Pagar" (con modal sandbox informativo).
+  3. **Persistencia e Integración:**
+     - Sincronización automática en `localStorage` (`market_pet_cart`) y escucha de eventos `storage` para coherencia entre pestañas.
+     - Conexión con el botón de carrito del Header (`#cart-button`) y actualización instantánea del badge de cantidad (`#cart-count-badge`).
+     - Retiro del widget `ThemeLabWidget` de `BaseLayout.astro` tras haber cumplido su función de validación de paletas.
+- **Por qué:** Cumplimiento de los requerimientos clave de la Fase 3 del ecommerce y atención inmediata a la observación del usuario sobre el incremento erróneo de 2 productos por clic.
+- **Especialistas activados:**
+  - `ux-ui`: Diseño del flyout drawer, micro-interacciones de cantidad, barra de progreso de envío gratis y estado vacío accesible con modo nocturno Warm Charcoal.
+  - `desarrollo`: Creación de `CartDrawer.astro`, unificación de la delegación de eventos en JS nativo y limpieza de listeners redundantes en 5 archivos.
+  - `qa`: Auditoría con `npm run lint` (0 errores) y compilación estática limpia de las 50 páginas con `npm run build`.
+  - `docs-seo`: Actualización de estado y decisiones en `docs/HISTORIAL.md`.
+- **Commit asociado:** `f68e785` (`feat(cart): implementa drawer interactivo de compras y resuelve bug de suma doble al agregar productos`).
 
 ### 2026-11-18 · `phase/03-cart` · adopcion oficial de Warm Charcoal y calibracion integral de navbar
 - **Qué:** Establecimiento de **Warm Charcoal & Cacao** (`#141110` / `#1d1816`) como el Modo Nocturno Oficial definitivo del ecommerce y calibración cromática integral de la Navbar y componentes al 100%:
