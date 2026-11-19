@@ -175,6 +175,7 @@ function formatPrice(amount) {
                   data-product-id={prod.id}
                   data-product-name={prod.name}
                   data-product-price={prod.price}
+                  data-product-image={prod.image?.src || prod.image}
                   class="add-to-cart-btn w-full py-2 px-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                   aria-label={`Agregar ${prod.name} al carrito`}
                 >
@@ -285,32 +286,5 @@ function formatPrice(amount) {
     window.addEventListener('resize', updateArrowStates, { passive: true });
     // Estado inicial de las flechas
     updateArrowStates();
-
-    // Interacción clara al presionar 'Agregar' en las tarjetas de producto
-    document.querySelectorAll(`#${id} .add-to-cart-btn`).forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const button = e.currentTarget;
-        const textSpan = button.querySelector('.btn-text');
-        const originalText = textSpan ? textSpan.textContent : 'Agregar';
-
-        button.classList.add('!bg-emerald-600', 'scale-98');
-        if (textSpan) textSpan.textContent = '¡Agregado!';
-
-        setTimeout(() => {
-          button.classList.remove('!bg-emerald-600', 'scale-98');
-          if (textSpan) textSpan.textContent = originalText;
-        }, 700);
-
-        const badge = document.getElementById('cart-count-badge');
-        if (badge) {
-          const currentCount = parseInt(badge.textContent || '0', 10);
-          badge.textContent = String(currentCount + 1);
-          badge.classList.add('scale-125', '!bg-rose-600', '!text-white', 'transition-transform');
-          setTimeout(() => {
-            badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
-          }, 400);
-        }
-      });
-    });
   })();
 </script>
