@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(theme): implementa modo nocturno completo con toggle interactivo y calibracion visual en todo el ecommerce
+- **Último commit relevante:** feat(theme): implementa DESIGN.md y widget interactivo de laboratorio de paletas nocturnas
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Modo Nocturno (Dark Mode) completo y calibrado en todo el sitio con alternancia interactiva Sol/Luna en Header (Desktop) y Drawer (Móvil), persistencia en localStorage, cero parpadeo (anti-FOUC) y contraste WCAG AA**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Laboratorio interactivo de paletas nocturnas (`ThemeLabWidget`) con 4 variantes cromáticas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) con persistencia en localStorage y anti-FOUC**.
 - **Qué está en progreso:** Fase 3: Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.85s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.04s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Diseñar e implementar el Carrito reactivo interactivo (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con localStorage y badges reactivos.
 
 ## 2. Decisiones importantes
@@ -88,10 +88,33 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
 | 2026-11-18 | Cierre de Fase 2 e inicio de Fase 3 (Carrito Interactivo & Modo Nocturno) | Consolidación de catálogo completo (Content Collections Zod, 22 productos, rutas dinámicas, búsqueda reactiva, drawer móvil y carruseles adaptados); merge a develop y main; apertura de rama phase/03-cart | Acumular cambios de carrito en la rama de catálogo |
 | 2026-11-18 | Modo nocturno integral con toggle interactivo y calibración visual completa | Alternancia fluida Sol/Luna en desktop y móvil con persistencia en localStorage, anti-FOUC síncrono y soporte de contraste alto en todo el catálogo y fichas de producto | Posponer modo oscuro hasta después del checkout o forzar modo oscuro por CSS del SO |
+| 2026-11-18 | Adopción de Awesome Design MD y laboratorio de paletas nocturnas | Establecer contrato formal de diseño en DESIGN.md y dotar al ecommerce de un widget interactivo con 4 paletas nocturnas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) para evaluación directa del usuario | Imponer una sola paleta oscura sin opción de comparar o usar código disperso sin tokens |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · implementacion de DESIGN.md y laboratorio interactivo de paletas nocturnas
+- **Qué:** Integración de la especificación **Awesome Design MD** y creación de un laboratorio interactivo de evaluación de paletas oscuras:
+  1. **Contrato de Sistema de Diseño (`DESIGN.md`):**
+     - Especificación formal en la raíz del proyecto cubriendo tokens semánticos 60-30-10 para modo claro y 4 variantes nocturnas.
+     - Escala tipográfica sistemática, grilla base de espaciado (4px/8px), estándares de componentes y accesibilidad WCAG AA.
+  2. **4 Paletas de Modo Nocturno de Grado Profesional:**
+     - `1. Midnight Slate` (`#090D16` / `#0F172A`): Pizarra azulada tecnológica de alto contraste (actual por defecto).
+     - `2. Warm Charcoal` (`#141110` / `#1D1816`): Carbón cacao orgánico, afinado para la identidad Warm Biscuit.
+     - `3. Forest Pine` (`#09120E` / `#111D16`): Verde botánico profundo inspirado en naturaleza y bienestar animal.
+     - `4. Onyx OLED` (`#000000` / `#111111`): Negro puro absoluto minimalista para pantallas OLED y máximo ahorro energético.
+  3. **Widget Interactivo de Laboratorio (`ThemeLabWidget.astro`):**
+     - Widget flotante tipo píldora (`🎨 Probar Modo Nocturno`) en la esquina inferior derecha de todas las páginas (incluyendo `http://localhost:4321/categoria/cachorros?pet=perros`).
+     - Permite alternar en tiempo real entre las 4 paletas y entre Modo Claro/Oscuro con un solo clic.
+     - Persistencia síncrona en `localStorage` (`dark-theme-variant`) y blindaje anti-FOUC en `<head>` de `BaseLayout.astro`.
+- **Por qué:** Permitir al usuario explorar, comparar y validar interactivamente en vivo sobre cualquier categoría o producto las alternativas de paleta nocturna antes de consolidar la definitiva.
+- **Especialistas activados:**
+  - `ux-ui`: Dirección de arte, formulación de tokens cromáticos 60-30-10 en `DESIGN.md`, contraste WCAG AA en 4 paletas y diseño del widget flotante.
+  - `desarrollo`: Implementación de `ThemeLabWidget.astro`, reglas CSS en `src/styles/global.css` y sincronización anti-FOUC en `BaseLayout.astro`.
+  - `qa`: Verificación de `npm run lint` (0 errores) y `npm run build` (50 páginas compiladas limpias).
+  - `docs-seo`: Registro en `docs/HISTORIAL.md` y formalización de `DESIGN.md`.
+- **Commit asociado:** `250d92e` (`feat(theme): implementa DESIGN.md y widget interactivo de laboratorio de paletas nocturnas`).
 
 ### 2026-11-18 · `phase/03-cart` · implementacion de modo nocturno completo y calibracion visual en todo el ecommerce
 - **Qué:** Implementación y calibración visual integral del **Modo Nocturno (Dark Mode)** en todo el ecommerce:
