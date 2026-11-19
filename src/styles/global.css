@@ -38,8 +38,9 @@ html:not(.dark) .theme-icon-moon {
   --color-10-accent-light: #ffe4e6;
 }
 
-/* Modo Nocturno (Solo se activa si el usuario pulsa el botón del sol/luna) */
-html.dark {
+/* Modo Nocturno Oficial (Default: Midnight Slate) */
+html.dark,
+html.dark[data-dark-theme='midnight-slate'] {
   --color-60-bg: #090d16; /* Fondo nocturno profundo */
   --color-60-surface: #0f172a; /* Tarjetas y contenedores oscuros */
   --color-30-text: #f8fafc; /* Texto blanco cálido */
@@ -49,6 +50,112 @@ html.dark {
   --color-10-accent: #f43f5e; /* Rojo frambuesa brillante para alto contraste en oscuro */
   --color-10-accent-hover: #e11d48;
   --color-10-accent-light: #4c0519;
+}
+
+/* ========================================================
+   LABORATORIO DE TEMAS NOCTURNOS (Awesome Design System)
+   ======================================================== */
+
+/* Variante 2: Warm Charcoal & Cacao (Cálido y orgánico) */
+html.dark[data-dark-theme='warm-charcoal'] {
+  --color-60-bg: #141110;
+  --color-60-surface: #1d1816;
+  --color-30-text: #fbf6f0;
+  --color-30-muted: #b0a297;
+  --color-30-border: #2d2521;
+  --color-30-subtle: #241e1b;
+  --color-10-accent: #fb7185;
+  --color-10-accent-hover: #f43f5e;
+  --color-10-accent-light: #4c111a;
+}
+html.dark[data-dark-theme='warm-charcoal'] header,
+html.dark[data-dark-theme='warm-charcoal'] aside#mobile-nav-drawer,
+html.dark[data-dark-theme='warm-charcoal'] .bg-canvas {
+  background-color: #141110 !important;
+}
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-900,
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#070b12\],
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#0c121e\],
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-950\/60 {
+  background-color: #1d1816 !important;
+}
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800,
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800\/80,
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800\/50 {
+  background-color: #27201c !important;
+}
+html.dark[data-dark-theme='warm-charcoal'] .dark\:border-slate-800,
+html.dark[data-dark-theme='warm-charcoal'] .dark\:border-slate-700 {
+  border-color: #382d27 !important;
+}
+
+/* Variante 3: Forest Pine (Verde botánico de noche) */
+html.dark[data-dark-theme='forest-pine'] {
+  --color-60-bg: #09120e;
+  --color-60-surface: #111d16;
+  --color-30-text: #f0f7f2;
+  --color-30-muted: #95ac9c;
+  --color-30-border: #1c3024;
+  --color-30-subtle: #16261d;
+  --color-10-accent: #f43f5e;
+  --color-10-accent-hover: #e11d48;
+  --color-10-accent-light: #4c0519;
+}
+html.dark[data-dark-theme='forest-pine'] header,
+html.dark[data-dark-theme='forest-pine'] aside#mobile-nav-drawer,
+html.dark[data-dark-theme='forest-pine'] .bg-canvas {
+  background-color: #09120e !important;
+}
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-900,
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#070b12\],
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#0c121e\],
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-950\/60 {
+  background-color: #111d16 !important;
+}
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-800,
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-800\/80,
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-800\/50 {
+  background-color: #1a2a21 !important;
+}
+html.dark[data-dark-theme='forest-pine'] .dark\:border-slate-800,
+html.dark[data-dark-theme='forest-pine'] .dark\:border-slate-700 {
+  border-color: #263e30 !important;
+}
+
+/* Variante 4: Pure Onyx / OLED (Negro puro minimalista) */
+html.dark[data-dark-theme='onyx-oled'] {
+  --color-60-bg: #000000;
+  --color-60-surface: #111111;
+  --color-30-text: #ffffff;
+  --color-30-muted: #a3a3a3;
+  --color-30-border: #262626;
+  --color-30-subtle: #1c1c1c;
+  --color-10-accent: #f43f5e;
+  --color-10-accent-hover: #e11d48;
+  --color-10-accent-light: #4c0519;
+}
+html.dark[data-dark-theme='onyx-oled'] header,
+html.dark[data-dark-theme='onyx-oled'] aside#mobile-nav-drawer,
+html.dark[data-dark-theme='onyx-oled'] .bg-canvas {
+  background-color: #000000 !important;
+}
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-900,
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#070b12\],
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#0c121e\],
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-950\/60 {
+  background-color: #111111 !important;
+}
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-800,
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-800\/80,
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-800\/50 {
+  background-color: #1c1c1c !important;
+}
+html.dark[data-dark-theme='onyx-oled'] .dark\:border-slate-800,
+html.dark[data-dark-theme='onyx-oled'] .dark\:border-slate-700 {
+  border-color: #2b2b2b !important;
 }
 
 /* Clases utilitarias directas de la regla 60-30-10 */
