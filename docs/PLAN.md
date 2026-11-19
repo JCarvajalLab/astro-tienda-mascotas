@@ -274,18 +274,25 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Página de catálogo general (`/catalogo`) con selector de filtros (categorías, precio, tipo de mascota), ordenamiento y breadcrumbs.
   - [x] Vistas dinámicas por categoría (`/categoria/[slug]`) con listado de productos y conteo.
   - [x] Conexión de categorías circulares y subcategorías del megamenú del Header hacia las rutas reales `/categoria/[slug]`.
-- [ ] **Fase 3: Carrito Interactivo & Modo Nocturno** (`phase/03-cart`): 
-  - [ ] Activación y calibración visual del modo nocturno (botón toggle sol/luna en Header) sobre el catálogo, fichas de producto y componentes globales.
-  - [ ] Carrito reactivo con JavaScript nativo, eventos personalizados y sincronización en `localStorage` (sin frameworks pesados).
-  - [ ] Renderizado seguro en el DOM con `.textContent` para prevenir DOM XSS.
-- [ ] **Fase 4: Servidor y Base de Datos (SSR)** (`phase/04-server-db`): 
+- [ ] **Fase 3: Carrito Interactivo, Vistas Dedicadas & Modo Nocturno** (`phase/03-cart`): 
+  - [x] Activación y calibración visual del modo nocturno definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con botón toggle sol/luna en Header y Navbar al 100%.
+  - [x] Carrito reactivo con JavaScript nativo, eventos personalizados, sincronización en `localStorage` y renderizado seguro en DOM con `.textContent`.
+  - [x] Drawer lateral de carrito (`CartDrawer.astro`) con barra de Envío Gratis ($25.000 CLP), selectores `+`/`-`, y modal accesible de confirmación antes de eliminar productos.
+  - [ ] Doble botón de acción en carrito: botón secundario "Ver Carrito" (`/carrito`) y botón primario "Finalizar Compra" (`/checkout`).
+  - [ ] Página dedicada `/carrito` con desglose completo de productos, código de cupón de descuento, cálculo de despacho y botón para proceder al pago.
+  - [ ] Página de autenticación neutra `/auth/login` con tabs de "Iniciar Sesión" y "Crear Cuenta", redirección inteligente (`?redirect=...`) y persistencia local para demo.
+  - [ ] Flujo de Checkout multi-fase (`/checkout`) estructurado en 4 pasos (1: Identificación y login, 2: Dirección y comuna, 3: Método de envío, 4: Método de pago) con **panel de resumen del pedido siempre visible**.
+- [ ] **Fase 4: Servidor, Base de Datos & Autenticación SSR** (`phase/04-server-db`): 
   - Configuración de Astro en modo SSR (adaptador Cloudflare / Node / Vercel).
   - Conexión a PostgreSQL (Neon / Supabase) con consultas 100% parametrizadas (sin inyección SQL).
-  - Variables secretas (`DATABASE_URL`, claves de servidor) estrictamente en `.env` sin prefijo `PUBLIC_`.
-  - Astro Actions / Endpoints para verificar stock y recalcular precios en servidor.
-- [ ] **Fase 5: Checkout y Pagos** (`phase/05-checkout`): 
-  - Integración de pasarela de pago en modo sandbox (Flow, Webpay o Mercado Pago).
-  - Flujo de creación de orden, comprobante y confirmación.
+  - Modelo de base de datos relacional: tablas de `usuarios`, `direcciones`, `productos`, `ordenes` y `items_orden`.
+  - Módulo de autenticación en servidor: registro de usuarios, login con credenciales seguras (hashing con Argon2/Bcrypt), sesiones con cookies HTTP-only `SameSite=Lax`.
+  - Variables secretas (`DATABASE_URL`, claves de sesión y servidor) estrictamente en `.env` sin prefijo `PUBLIC_`.
+  - Astro Actions / Endpoints para verificar stock en tiempo real y recalcular precios en servidor.
+- [ ] **Fase 5: Checkout Transaccional, Pasarelas de Pago & Perfil de Usuario** (`phase/05-checkout`): 
+  - Integración de pasarela de pago en modo sandbox (Transbank Webpay Plus / Mercado Pago / Flow).
+  - Flujo transaccional completo: creación de token de pago, redirección a pasarela, webhook de retorno, confirmación y comprobante PDF / email.
+  - Panel de Mi Cuenta (`/cuenta` / `/mi-cuenta`): historial de compras con estado de despacho, direcciones frecuentes guardadas y datos de perfil.
 - [ ] **Fase 6: Seguridad y Pruebas** (`phase/06-hardening`): 
   - Auditoría de seguridad completa con subagente (`invoke_subagent`).
   - Pruebas E2E de flujos críticos (carrito, checkout, validaciones de stock) con subagente `browser`.

@@ -410,9 +410,11 @@ const currentStyle = styles[variant] || styles.default;
           </svg>
         </button>
 
-        <!-- 4. Iniciar sesión / Mi cuenta -->
+        <!-- 4. Mi cuenta / Iniciar sesión (Neutro y accesible) -->
         <a
-          href="/#login"
+          id="header-user-btn"
+          href="/auth/login"
+          aria-label="Acceder a mi cuenta o iniciar sesión"
           class={`hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${currentStyle.loginBtn}`}
         >
           <svg
@@ -428,7 +430,7 @@ const currentStyle = styles[variant] || styles.default;
               d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
             ></path>
           </svg>
-          <span class="hidden xl:inline">Iniciar sesión</span>
+          <span id="header-user-text" class="hidden xl:inline">Iniciar sesión</span>
         </a>
 
         <!-- Botón Toggle Modo Nocturno (Desktop) -->
@@ -952,11 +954,14 @@ const currentStyle = styles[variant] || styles.default;
         Atención & Ayuda
       </span>
       <a
-        href="/#login"
+        id="mobile-user-link"
+        href="/auth/login"
         class="flex items-center gap-2.5 p-2 rounded-xl text-stone-700 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-slate-800 font-semibold transition-colors"
       >
-        <span>👤</span>
-        <span>Iniciar sesión / Mi cuenta</span>
+        <svg class="w-4 h-4 text-stone-500 dark:text-stone-400 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+        <span id="mobile-user-text">Mi cuenta / Iniciar sesión</span>
       </a>
       <a
         href="https://wa.me/56912345678"
@@ -1034,6 +1039,25 @@ const currentStyle = styles[variant] || styles.default;
     });
   });
 
+  // Sincronizar estado de usuario (Sesión iniciada / Cuenta)
+  function initUserState() {
+    try {
+      const stored = localStorage.getItem('market_pet_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user && user.nombre) {
+          const firstName = user.nombre.split(' ')[0];
+          const desktopText = document.getElementById('header-user-text');
+          const mobileText = document.getElementById('mobile-user-text');
+          if (desktopText) desktopText.textContent = `Hola, ${firstName}`;
+          if (mobileText) mobileText.textContent = `Mi Cuenta (${firstName})`;
+        }
+      }
+    } catch {
+      // Ignorar errores de parsing
+    }
+  }
+
   // Alternador de Modo Nocturno / Modo Claro (Sincronizado con localStorage)
   function initThemeToggles() {
     const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
@@ -1049,10 +1073,15 @@ const currentStyle = styles[variant] || styles.default;
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggles);
-  } else {
+  function initHeader() {
     initThemeToggles();
+    initUserState();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
   }
 </script>
 

@@ -1,0 +1,997 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Finalizar Compra Segura | Market-Pet Chile"
+  description="Completa tu pedido de forma rápida y segura en Market-Pet. Despacho a todo Chile y múltiples medios de pago."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-6 overflow-x-auto whitespace-nowrap">
+      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
+      <span>/</span>
+      <a href="/carrito" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Carrito</a>
+      <span>/</span>
+      <span class="text-stone-900 dark:text-white font-bold">Checkout Seguro</span>
+    </nav>
+
+    <!-- Stepper de 4 Pasos -->
+    <div class="mb-8">
+      <div class="bg-white dark:bg-[#1d1816] rounded-2xl p-4 sm:p-5 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs">
+        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+          <!-- Paso 1 -->
+          <div id="step-nav-1" class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-rose-600 dark:text-rose-400 font-extrabold cursor-pointer">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-rose-600 text-white shadow-xs">
+              1
+            </div>
+            <span class="text-[11px] sm:text-xs">Identificación</span>
+          </div>
+
+          <!-- Paso 2 -->
+          <div id="step-nav-2" class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400">
+              2
+            </div>
+            <span class="text-[11px] sm:text-xs">Dirección</span>
+          </div>
+
+          <!-- Paso 3 -->
+          <div id="step-nav-3" class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400">
+              3
+            </div>
+            <span class="text-[11px] sm:text-xs">Despacho</span>
+          </div>
+
+          <!-- Paso 4 -->
+          <div id="step-nav-4" class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400">
+              4
+            </div>
+            <span class="text-[11px] sm:text-xs">Pago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor Principal: 2 Columnas (Formularios y Resumen Siempre Visible) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Columna Izquierda: Pasos del Checkout (lg:col-span-7) -->
+      <div class="lg:col-span-7 space-y-6">
+        <!-- Contenedor de Pasos -->
+        <div id="checkout-steps-container" class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs">
+          <!-- PASO 1: Identificación y Datos Personales -->
+          <section id="step-1" class="space-y-6">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
+                Paso 1 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Datos Personales de Contacto
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Utilizaremos estos datos para enviarte la confirmación del pedido y las notificaciones de entrega.
+              </p>
+            </div>
+
+            <!-- Banner Iniciar Sesión / Usuario Detectado -->
+            <div id="checkout-user-banner" class="p-3.5 rounded-2xl bg-amber-50/80 dark:bg-[#141110] border border-amber-200/80 dark:border-[#382d27] flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span>👤</span>
+                <span id="checkout-banner-text" class="text-stone-700 dark:text-stone-300">
+                  ¿Ya tienes cuenta? Inicia sesión para autocompletar tus datos.
+                </span>
+              </div>
+              <a
+                id="checkout-login-redirect"
+                href="/auth/login?redirect=/checkout"
+                class="font-black text-rose-600 dark:text-rose-400 hover:underline shrink-0"
+              >
+                Iniciar sesión →
+              </a>
+            </div>
+
+            <form id="form-step-1" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="step1-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Nombre completo *
+                  </label>
+                  <input
+                    type="text"
+                    id="step1-name"
+                    required
+                    placeholder="Ej. Constanza Silva"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+                <div>
+                  <label for="step1-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    RUT o DNI *
+                  </label>
+                  <input
+                    type="text"
+                    id="step1-rut"
+                    required
+                    placeholder="12.345.678-9"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="step1-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Correo Electrónico *
+                  </label>
+                  <input
+                    type="email"
+                    id="step1-email"
+                    required
+                    placeholder="constanza@correo.cl"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+                <div>
+                  <label for="step1-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Teléfono móvil (+56) *
+                  </label>
+                  <input
+                    type="tel"
+                    id="step1-phone"
+                    required
+                    placeholder="+56 9 8765 4321"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    id="step1-create-account"
+                    class="h-4 w-4 rounded border-stone-300 text-rose-600 focus:ring-rose-500 dark:bg-[#141110] dark:border-[#382d27]"
+                  />
+                  <span class="text-xs text-stone-600 dark:text-[#b0a297]">
+                    Crear una cuenta con estos datos para rastrear mis pedidos futuros
+                  </span>
+                </label>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>Continuar a Dirección de Envío</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PASO 2: Dirección y Comuna de Despacho -->
+          <section id="step-2" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
+                Paso 2 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Dirección de Despacho
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Ingresa la ubicación exacta donde recibirás los productos para tus mascotas.
+              </p>
+            </div>
+
+            <form id="form-step-2" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="step2-region" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Región *
+                  </label>
+                  <select
+                    id="step2-region"
+                    required
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  >
+                    <option value="metropolitana">Región Metropolitana de Santiago</option>
+                    <option value="valparaiso">Región de Valparaíso</option>
+                    <option value="biobio">Región del Biobío</option>
+                    <option value="coquimbo">Región de Coquimbo</option>
+                    <option value="otra">Otra Región de Chile</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="step2-comuna" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Comuna de Entrega *
+                  </label>
+                  <select
+                    id="step2-comuna"
+                    required
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  >
+                    <option value="Providencia">Providencia</option>
+                    <option value="Las Condes">Las Condes</option>
+                    <option value="Santiago Centro">Santiago Centro</option>
+                    <option value="Ñuñoa">Ñuñoa</option>
+                    <option value="Vitacura">Vitacura</option>
+                    <option value="La Reina">La Reina</option>
+                    <option value="Maipú">Maipú</option>
+                    <option value="La Florida">La Florida</option>
+                    <option value="Viña del Mar">Viña del Mar</option>
+                    <option value="Concepción">Concepción</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                  <label for="step2-address" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Calle y Número *
+                  </label>
+                  <input
+                    type="text"
+                    id="step2-address"
+                    required
+                    placeholder="Ej. Av. Pedro de Valdivia 1234"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+                <div>
+                  <label for="step2-dept" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                    Depto / Casa (Opcional)
+                  </label>
+                  <input
+                    type="text"
+                    id="step2-dept"
+                    placeholder="Ej. Depto 402"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="step2-notes" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                  Instrucciones o Referencias para el Repartidor
+                </label>
+                <input
+                  type="text"
+                  id="step2-notes"
+                  placeholder="Ej. Dejar con conserje, portón verde, llamar al llegar..."
+                  class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                />
+              </div>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-1"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Datos
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span>Continuar a Despacho</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PASO 3: Método de Envío -->
+          <section id="step-3" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
+                Paso 3 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Elige tu Método de Entrega
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Selecciona la velocidad de despacho que mejor se adapte a tus necesidades.
+              </p>
+            </div>
+
+            <form id="form-step-3" class="space-y-3">
+              <!-- Opción 1: Estándar -->
+              <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="standard"
+                    checked
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      🚚 Despacho Estándar a Domicilio
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Entrega en 2 a 4 días hábiles (Gratis en compras sobre $25.000)
+                    </span>
+                  </div>
+                </div>
+                <span id="shipping-opt-standard-price" class="text-xs sm:text-sm font-black text-stone-900 dark:text-white">
+                  $3.990
+                </span>
+              </label>
+
+              <!-- Opción 2: Express -->
+              <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 dark:hover:border-stone-500 bg-white dark:bg-[#141110] cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="express"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      ⚡ Despacho Express Mismo Día
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Entregas en menos de 24 horas hábiles (Válido en Santiago Urbano)
+                    </span>
+                  </div>
+                </div>
+                <span class="text-xs sm:text-sm font-black text-rose-600 dark:text-rose-400">
+                  $5.990
+                </span>
+              </label>
+
+              <!-- Opción 3: Retiro en Tienda -->
+              <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 dark:hover:border-stone-500 bg-white dark:bg-[#141110] cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="pickup"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      🏬 Retiro en Tienda (Providencia / Las Condes)
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Listo para retirar en 2 horas tras confirmar tu orden
+                    </span>
+                  </div>
+                </div>
+                <span class="text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400">
+                  ¡GRATIS!
+                </span>
+              </label>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-2"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Dirección
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span>Continuar al Pago</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PASO 4: Método de Pago -->
+          <section id="step-4" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1">
+                Paso 4 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Medio de Pago Seguro
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Transacción cifrada y protegida por pasarelas chilenas autorizadas.
+              </p>
+            </div>
+
+            <form id="form-step-4" class="space-y-3">
+              <!-- Webpay Plus -->
+              <label class="payment-option flex items-center justify-between p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="webpay"
+                    checked
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      💳 Webpay Plus (Tarjetas de Débito, Crédito o Prepago)
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Transbank Redcompra, Visa, Mastercard, AMEX hasta en 3 cuotas sin interés
+                    </span>
+                  </div>
+                </div>
+                <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c] text-[10px] font-black uppercase text-stone-600 dark:text-stone-300">
+                  Recomendado
+                </span>
+              </label>
+
+              <!-- Transferencia Bancaria Directa -->
+              <label class="payment-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 bg-white dark:bg-[#141110] cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="transfer"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      🏦 Transferencia Bancaria Electrónica (5% DCTO Extra)
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Recibe los datos bancarios al confirmar y obtén un 5% de descuento adicional
+                    </span>
+                  </div>
+                </div>
+                <span class="px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-950/50 text-[10px] font-black uppercase text-emerald-700 dark:text-emerald-400">
+                  -5% OFF
+                </span>
+              </label>
+
+              <!-- Mercado Pago -->
+              <label class="payment-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 bg-white dark:bg-[#141110] cursor-pointer transition-all">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="mercadopago"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white block">
+                      🤝 Mercado Pago
+                    </span>
+                    <span class="text-[11px] text-stone-500 dark:text-[#b0a297] block">
+                      Paga con saldo de tu cuenta Mercado Pago o tarjetas registradas
+                    </span>
+                  </div>
+                </div>
+              </label>
+
+              <div class="p-3 bg-stone-50 dark:bg-[#141110] rounded-xl text-[11px] text-stone-500 dark:text-[#b0a297] mt-3">
+                🔒 Al hacer clic en <strong>"Pagar Pedido"</strong>, declaras aceptar las políticas de despacho, términos y condiciones y garantía de satisfacción de Market-Pet.
+              </div>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-3"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Despacho
+                </button>
+                <button
+                  type="submit"
+                  id="btn-confirm-payment"
+                  class="px-7 py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span>Pagar Pedido con Webpay</span>
+                  <span class="text-xs">🔒</span>
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <!-- Pantalla de Éxito / Confirmación de Pedido -->
+        <div id="checkout-success-view" class="hidden bg-white dark:bg-[#1d1816] rounded-3xl p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs text-center space-y-5">
+          <div class="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-4xl border border-emerald-100 dark:border-emerald-900/40 animate-bounce">
+            🎉
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">
+              ¡Pago Exitoso!
+            </span>
+            <h2 class="text-2xl font-black text-stone-900 dark:text-white">
+              ¡Muchas gracias por tu compra en Market-Pet!
+            </h2>
+            <p class="text-xs sm:text-sm text-stone-500 dark:text-[#b0a297] mt-1 max-w-md mx-auto">
+              Tu pedido ha sido confirmado y ya estamos preparando los artículos para consentir a tu mascota.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/70 dark:border-[#2d2521] max-w-md mx-auto text-left text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-stone-500">Número de Orden:</span>
+              <strong id="success-order-id" class="text-stone-900 dark:text-white font-black">#MP-2026-8942</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Destinatario:</span>
+              <strong id="success-name" class="text-stone-900 dark:text-white">Constanza Silva</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Comuna de Entrega:</span>
+              <strong id="success-comuna" class="text-stone-900 dark:text-white">Providencia</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Método de Envío:</span>
+              <strong id="success-shipping" class="text-stone-900 dark:text-white">Despacho Estándar</strong>
+            </div>
+            <div class="flex justify-between pt-2 border-t border-stone-200/60 dark:border-[#2d2521] text-sm">
+              <span class="font-bold text-stone-700 dark:text-stone-300">Total Pagado:</span>
+              <strong id="success-total" class="font-black text-rose-600 dark:text-rose-400">$0</strong>
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="/catalogo"
+              class="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all"
+            >
+              Seguir explorando el catálogo →
+            </a>
+            <a
+              href="/"
+              class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors"
+            >
+              Volver al Inicio
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Panel de Resumen SIEMPRE VISIBLE (lg:col-span-5) -->
+      <aside class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+        <div class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 border border-stone-200/80 dark:border-[#2d2521] shadow-md space-y-5">
+          <div class="flex items-center justify-between border-b border-stone-100 dark:border-[#2d2521] pb-3">
+            <h3 class="text-base font-extrabold text-stone-900 dark:text-white flex items-center gap-2">
+              <span>🛒</span>
+              <span>Detalle de tu Compra</span>
+            </h3>
+            <span id="checkout-summary-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-stone-100 dark:bg-[#27201c] text-stone-700 dark:text-stone-300">
+              0 artículos
+            </span>
+          </div>
+
+          <!-- Lista de Productos en Resumen -->
+          <ul id="checkout-items-list" class="divide-y divide-stone-100 dark:divide-[#2d2521] max-h-72 overflow-y-auto space-y-2 pr-1">
+            <!-- Inyectado por JS -->
+          </ul>
+
+          <!-- Desglose de Precios -->
+          <div class="space-y-2.5 pt-3 border-t border-stone-100 dark:border-[#2d2521] text-xs text-stone-600 dark:text-[#b0a297]">
+            <div class="flex items-center justify-between">
+              <span>Subtotal productos</span>
+              <span id="checkout-subtotal-val" class="font-bold text-stone-900 dark:text-white">$0</span>
+            </div>
+
+            <div id="checkout-discount-row" class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold">
+              <span id="checkout-discount-label">Descuento Transferencia (-5%)</span>
+              <span id="checkout-discount-val">-$0</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span>Costo de Despacho</span>
+              <span id="checkout-shipping-val" class="font-bold text-stone-900 dark:text-white">$3.990</span>
+            </div>
+
+            <div class="pt-3 border-t border-stone-200/80 dark:border-[#2d2521] flex items-center justify-between text-base font-black text-stone-900 dark:text-white">
+              <span>Total a Pagar</span>
+              <span id="checkout-total-val" class="text-xl text-rose-600 dark:text-rose-400">$0</span>
+            </div>
+          </div>
+
+          <!-- Sellos de Seguridad y Despacho -->
+          <div class="pt-3 border-t border-stone-100 dark:border-[#2d2521] space-y-2 text-[11px] text-stone-500 dark:text-[#b0a297]">
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-600 dark:text-emerald-400">🛡️</span>
+              <span>Cifrado SSL de 256 bits para pagos seguros</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-600 dark:text-emerald-400">📦</span>
+              <span>Embalaje cuidadoso para alimentos y accesorios</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-600 dark:text-emerald-400">💬</span>
+              <span>Soporte post-venta por WhatsApp y correo</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Control del Flujo Multi-Paso de Checkout (JavaScript Nativo Puro)
+  const CART_KEY = 'market_pet_cart';
+  const FREE_SHIPPING_THRESHOLD = 25000;
+
+  let currentStep = 1;
+  let selectedShippingMethod = 'standard';
+  let selectedPaymentMethod = 'webpay';
+  let orderData = {
+    nombre: '',
+    rut: '',
+    email: '',
+    telefono: '',
+    region: 'metropolitana',
+    comuna: 'Providencia',
+    direccion: '',
+    depto: '',
+    notas: '',
+  };
+
+  function formatCLP(amount) {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
+
+  function getCart() {
+    try {
+      const stored = localStorage.getItem(CART_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function calculateShippingCost(subtotal) {
+    if (selectedShippingMethod === 'pickup') return 0;
+    if (selectedShippingMethod === 'express') return 5990;
+    // standard
+    return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 3990;
+  }
+
+  function renderCheckoutSummary() {
+    const cart = getCart();
+    const itemsList = document.getElementById('checkout-items-list');
+    const badgeEl = document.getElementById('checkout-summary-badge');
+    const subtotalEl = document.getElementById('checkout-subtotal-val');
+    const shippingEl = document.getElementById('checkout-shipping-val');
+    const discountRow = document.getElementById('checkout-discount-row');
+    const discountVal = document.getElementById('checkout-discount-val');
+    const totalEl = document.getElementById('checkout-total-val');
+    const standardPriceEl = document.getElementById('shipping-opt-standard-price');
+    const confirmBtn = document.getElementById('btn-confirm-payment');
+
+    const totalQty = cart.reduce((acc, it) => acc + it.quantity, 0);
+    const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
+    const shippingCost = calculateShippingCost(subtotal);
+
+    // Descuento adicional por transferencia (5%)
+    let discount = 0;
+    if (selectedPaymentMethod === 'transfer') {
+      discount = Math.round(subtotal * 0.05);
+    }
+
+    const total = Math.max(0, subtotal - discount + (cart.length > 0 ? shippingCost : 0));
+
+    if (badgeEl) badgeEl.textContent = `${totalQty} artículos`;
+    if (subtotalEl) subtotalEl.textContent = formatCLP(subtotal);
+
+    // Precio en la opción de radio estándar
+    if (standardPriceEl) {
+      standardPriceEl.textContent = subtotal >= FREE_SHIPPING_THRESHOLD ? '¡GRATIS!' : '$3.990';
+    }
+
+    if (discountRow && discountVal) {
+      if (discount > 0) {
+        discountRow.classList.remove('hidden');
+        discountVal.textContent = `-${formatCLP(discount)}`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+    }
+
+    if (shippingEl) {
+      if (shippingCost === 0) {
+        shippingEl.textContent = '¡GRATIS!';
+        shippingEl.className = 'font-black text-emerald-600 dark:text-emerald-400';
+      } else {
+        shippingEl.textContent = formatCLP(shippingCost);
+        shippingEl.className = 'font-bold text-stone-900 dark:text-white';
+      }
+    }
+
+    if (totalEl) totalEl.textContent = formatCLP(total);
+
+    if (confirmBtn) {
+      const paymentName = selectedPaymentMethod === 'transfer' ? 'Transferencia' : selectedPaymentMethod === 'mercadopago' ? 'Mercado Pago' : 'Webpay';
+      confirmBtn.innerHTML = `<span>Pagar ${formatCLP(total)} con ${paymentName}</span><span class="text-xs">🔒</span>`;
+    }
+
+    // Renderizar productos en la lista
+    if (itemsList) {
+      itemsList.replaceChildren();
+
+      if (cart.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'py-4 text-center text-xs text-stone-400';
+        li.textContent = 'No hay productos en el carrito. ';
+        const link = document.createElement('a');
+        link.href = '/catalogo';
+        link.className = 'text-rose-600 dark:text-rose-400 font-bold underline';
+        link.textContent = 'Ir a comprar';
+        li.appendChild(link);
+        itemsList.appendChild(li);
+        return;
+      }
+
+      cart.forEach((it) => {
+        const li = document.createElement('li');
+        li.className = 'py-3 flex items-center justify-between gap-3';
+
+        const left = document.createElement('div');
+        left.className = 'flex items-center gap-3 min-w-0';
+
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'w-12 h-12 rounded-xl bg-stone-100 dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden';
+        const img = document.createElement('img');
+        img.src = it.image || '/favicon.svg';
+        img.alt = it.name;
+        img.className = 'w-full h-full object-cover rounded-lg';
+        imgWrap.appendChild(img);
+
+        const info = document.createElement('div');
+        info.className = 'min-w-0';
+        const name = document.createElement('h4');
+        name.className = 'text-xs font-bold text-stone-900 dark:text-white line-clamp-1 truncate';
+        name.textContent = it.name;
+        const qty = document.createElement('span');
+        qty.className = 'text-[11px] text-stone-500 dark:text-[#b0a297]';
+        qty.textContent = `Cant: ${it.quantity} × ${formatCLP(it.price)}`;
+
+        info.appendChild(name);
+        info.appendChild(qty);
+        left.appendChild(imgWrap);
+        left.appendChild(info);
+
+        const right = document.createElement('span');
+        right.className = 'text-xs font-black text-stone-900 dark:text-white shrink-0';
+        right.textContent = formatCLP(it.price * it.quantity);
+
+        li.appendChild(left);
+        li.appendChild(right);
+        itemsList.appendChild(li);
+      });
+    }
+  }
+
+  function setStep(step) {
+    currentStep = step;
+
+    // Secciones
+    ['step-1', 'step-2', 'step-3', 'step-4'].forEach((id, idx) => {
+      const el = document.getElementById(id);
+      if (idx + 1 === step) {
+        el?.classList.remove('hidden');
+      } else {
+        el?.classList.add('hidden');
+      }
+    });
+
+    // Indicadores del Stepper
+    for (let i = 1; i <= 4; i++) {
+      const navItem = document.getElementById(`step-nav-${i}`);
+      const circle = navItem?.querySelector('div');
+      if (!navItem || !circle) continue;
+
+      if (i < step) {
+        // Completado
+        navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-emerald-600 dark:text-emerald-400 font-bold cursor-pointer';
+        circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-emerald-500 text-white shadow-xs';
+        circle.textContent = '✓';
+      } else if (i === step) {
+        // Activo
+        navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-rose-600 dark:text-rose-400 font-extrabold';
+        circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-rose-600 text-white shadow-xs';
+        circle.textContent = String(i);
+      } else {
+        // Pendiente
+        navItem.className = 'step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium';
+        circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400';
+        circle.textContent = String(i);
+      }
+    }
+
+    renderCheckoutSummary();
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCheckoutSummary();
+
+    // Precargar datos si el usuario ya inició sesión
+    try {
+      const storedUser = localStorage.getItem('market_pet_user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        if (user && user.nombre) {
+          const nameInput = document.getElementById('step1-name');
+          const emailInput = document.getElementById('step1-email');
+          const phoneInput = document.getElementById('step1-phone');
+          const bannerText = document.getElementById('checkout-banner-text');
+          const loginRedirect = document.getElementById('checkout-login-redirect');
+
+          if (nameInput && !nameInput.value) nameInput.value = user.nombre;
+          if (emailInput && !emailInput.value) emailInput.value = user.email || '';
+          if (phoneInput && !phoneInput.value && user.telefono) phoneInput.value = user.telefono;
+
+          if (bannerText) bannerText.textContent = `Sesión iniciada como ${user.nombre} (${user.email || ''}).`;
+          if (loginRedirect) loginRedirect.textContent = 'Cambiar cuenta →';
+        }
+      }
+    } catch {
+      // Ignorar
+    }
+
+    // Paso 1 Submit -> Paso 2
+    const form1 = document.getElementById('form-step-1');
+    form1?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      orderData.nombre = document.getElementById('step1-name')?.value.trim();
+      orderData.rut = document.getElementById('step1-rut')?.value.trim();
+      orderData.email = document.getElementById('step1-email')?.value.trim();
+      orderData.telefono = document.getElementById('step1-phone')?.value.trim();
+
+      const createAcc = document.getElementById('step1-create-account')?.checked;
+      if (createAcc && !localStorage.getItem('market_pet_user')) {
+        localStorage.setItem(
+          'market_pet_user',
+          JSON.stringify({
+            nombre: orderData.nombre,
+            email: orderData.email,
+            telefono: orderData.telefono,
+            logueado: true,
+          })
+        );
+      }
+
+      setStep(2);
+    });
+
+    // Paso 2 Submit -> Paso 3
+    const form2 = document.getElementById('form-step-2');
+    form2?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      orderData.region = document.getElementById('step2-region')?.value;
+      orderData.comuna = document.getElementById('step2-comuna')?.value;
+      orderData.direccion = document.getElementById('step2-address')?.value.trim();
+      orderData.depto = document.getElementById('step2-dept')?.value.trim();
+      orderData.notas = document.getElementById('step2-notes')?.value.trim();
+      setStep(3);
+    });
+
+    // Volver a Paso 1
+    document.getElementById('btn-back-to-step-1')?.addEventListener('click', () => setStep(1));
+
+    // Paso 3 Submit -> Paso 4
+    const form3 = document.getElementById('form-step-3');
+    form3?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selected = document.querySelector('input[name="shipping-method"]:checked');
+      if (selected) {
+        selectedShippingMethod = selected.value;
+      }
+      setStep(4);
+    });
+
+    // Volver a Paso 2
+    document.getElementById('btn-back-to-step-2')?.addEventListener('click', () => setStep(2));
+
+    // Cambios dinámicos en método de despacho (Paso 3)
+    document.querySelectorAll('input[name="shipping-method"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        selectedShippingMethod = e.target.value;
+        // Estilos de tarjetas
+        document.querySelectorAll('.shipping-option').forEach((lbl) => {
+          lbl.className = 'shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] cursor-pointer transition-all';
+        });
+        const parent = e.target.closest('label');
+        if (parent) {
+          parent.className = 'shipping-option flex items-center justify-between p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all';
+        }
+        renderCheckoutSummary();
+      });
+    });
+
+    // Cambios dinámicos en medio de pago (Paso 4)
+    document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        selectedPaymentMethod = e.target.value;
+        // Estilos de tarjetas
+        document.querySelectorAll('.payment-option').forEach((lbl) => {
+          lbl.className = 'payment-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] cursor-pointer transition-all';
+        });
+        const parent = e.target.closest('label');
+        if (parent) {
+          parent.className = 'payment-option flex items-center justify-between p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all';
+        }
+        renderCheckoutSummary();
+      });
+    });
+
+    // Volver a Paso 3
+    document.getElementById('btn-back-to-step-3')?.addEventListener('click', () => setStep(3));
+
+    // Permitir clic en pasos previos del Stepper
+    document.getElementById('step-nav-1')?.addEventListener('click', () => {
+      if (currentStep > 1) setStep(1);
+    });
+    document.getElementById('step-nav-2')?.addEventListener('click', () => {
+      if (currentStep > 2) setStep(2);
+    });
+    document.getElementById('step-nav-3')?.addEventListener('click', () => {
+      if (currentStep > 3) setStep(3);
+    });
+
+    // Paso 4: Confirmación Final de Pago
+    const form4 = document.getElementById('form-step-4');
+    form4?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert('Tu carrito está vacío. Agrega productos antes de confirmar el pago.');
+        window.location.href = '/catalogo';
+        return;
+      }
+
+      const confirmBtn = document.getElementById('btn-confirm-payment');
+      if (confirmBtn) {
+        confirmBtn.innerHTML = '<span>Procesando pago seguro... ⏳</span>';
+        confirmBtn.setAttribute('disabled', 'true');
+      }
+
+      setTimeout(() => {
+        const orderId = `#MP-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+        const totalText = document.getElementById('checkout-total-val')?.textContent || '$0';
+
+        document.getElementById('checkout-steps-container')?.classList.add('hidden');
+        const successView = document.getElementById('checkout-success-view');
+        successView?.classList.remove('hidden');
+
+        const successOrderId = document.getElementById('success-order-id');
+        const successName = document.getElementById('success-name');
+        const successComuna = document.getElementById('success-comuna');
+        const successShipping = document.getElementById('success-shipping');
+        const successTotal = document.getElementById('success-total');
+
+        if (successOrderId) successOrderId.textContent = orderId;
+        if (successName) successName.textContent = orderData.nombre || 'Cliente';
+        if (successComuna) successComuna.textContent = orderData.comuna || 'Providencia';
+        if (successShipping) {
+          successShipping.textContent = selectedShippingMethod === 'express' ? 'Despacho Express Mismo Día' : selectedShippingMethod === 'pickup' ? 'Retiro en Tienda' : 'Despacho Estándar';
+        }
+        if (successTotal) successTotal.textContent = totalText;
+
+        // Vaciar carrito
+        try {
+          localStorage.removeItem(CART_KEY);
+          window.dispatchEvent(new Event('storage'));
+          window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart: [] } }));
+        } catch {
+          // Ignorar
+        }
+
+        renderCheckoutSummary();
+        window.scrollTo({ top: 80, behavior: 'smooth' });
+      }, 1200);
+    });
+  });
+</script>

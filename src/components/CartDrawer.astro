@@ -131,16 +131,26 @@
       </div>
     </div>
 
-    <!-- Botón Principal de Checkout -->
-    <button
-      type="button"
-      id="cart-checkout-btn"
-      class="w-full py-3.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
-    >
-      <span>Ir a Pagar</span>
-      <span class="text-xs">🔒</span>
-      <span>→</span>
-    </button>
+    <!-- Doble Botón de Acción: Ver Carrito y Finalizar Compra -->
+    <div class="grid grid-cols-2 gap-2.5 pt-1">
+      <a
+        href="/carrito"
+        id="cart-view-page-btn"
+        class="w-full py-3 px-3 rounded-xl border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-800 dark:text-[#fbf6f0] hover:bg-stone-100 dark:hover:bg-[#27201c] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all active:scale-98 text-center"
+      >
+        <span>Ver Carrito</span>
+      </a>
+      <a
+        href="/checkout"
+        id="cart-checkout-btn"
+        class="w-full py-3 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+      >
+        <span>Finalizar Compra</span>
+        <svg class="w-3.5 h-3.5 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
 
     <!-- Acciones secundarias y sellos chilenos -->
     <div class="flex items-center justify-between pt-1">
@@ -620,19 +630,19 @@
         return;
       }
 
-      // I. Botón Ir a Pagar (Abre modal Sandbox)
+      // I. Botones de Acción (Ver Carrito / Finalizar Compra)
+      if (e.target.closest('#cart-view-page-btn')) {
+        closeDrawer();
+        return;
+      }
+
       if (e.target.closest('#cart-checkout-btn')) {
         const cart = getCart();
-        if (cart.length === 0) return;
-
-        const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
-        const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
-        const total = subtotal + shipping;
-
-        if (checkoutModalTotal) checkoutModalTotal.textContent = formatCLP(total);
-        if (checkoutModal && typeof checkoutModal.showModal === 'function') {
-          checkoutModal.showModal();
+        if (cart.length === 0) {
+          e.preventDefault();
+          return;
         }
+        closeDrawer();
         return;
       }
 

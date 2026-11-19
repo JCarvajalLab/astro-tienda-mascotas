@@ -1,0 +1,422 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Iniciar Sesión o Crear Cuenta | Market-Pet Chile"
+  description="Accede a tu cuenta de Market-Pet o regístrate para gestionar tus pedidos, direcciones de despacho y promociones exclusivas para tus mascotas."
+>
+  <div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-6">
+      <!-- Encabezado de Marca -->
+      <div class="text-center space-y-2">
+        <a href="/" class="inline-flex items-center gap-2 group mb-2">
+          <div class="w-10 h-10 rounded-2xl bg-rose-600 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <span class="text-2xl font-black tracking-tight text-stone-900 dark:text-white">
+            Market<span class="text-rose-600">-Pet</span>
+          </span>
+        </a>
+        <h1 class="text-2xl font-black text-stone-900 dark:text-white tracking-tight">
+          Bienvenido a tu tienda de mascotas
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-500 dark:text-[#b0a297]">
+          Accede para gestionar tus compras, direcciones y beneficios para tus regalones.
+        </p>
+      </div>
+
+      <!-- Tarjeta Principal con Tabs -->
+      <div class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-xl">
+        <!-- Estado si ya inició sesión -->
+        <div id="already-logged-box" class="hidden text-center space-y-4 py-4">
+          <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-3xl border border-emerald-100 dark:border-emerald-900/40">
+            🐾
+          </div>
+          <div>
+            <h2 class="text-lg font-black text-stone-900 dark:text-white">
+              ¡Hola de nuevo, <span id="logged-user-name">Amigo</span>!
+            </h2>
+            <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-1">
+              Tu sesión se encuentra activa en este navegador.
+            </p>
+          </div>
+          <div class="pt-2 space-y-2.5">
+            <a
+              id="continue-redirect-btn"
+              href="/catalogo"
+              class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all flex items-center justify-center gap-2"
+            >
+              <span>Ir a comprar productos</span>
+              <span>→</span>
+            </a>
+            <button
+              type="button"
+              id="logout-btn"
+              class="w-full py-2.5 px-4 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+
+        <!-- Contenedor con Tabs cuando no hay sesión -->
+        <div id="auth-forms-container">
+          <!-- Selector de Tabs Neutro -->
+          <div class="flex rounded-2xl bg-stone-100 dark:bg-[#141110] p-1 mb-6 border border-stone-200/60 dark:border-[#2d2521]">
+            <button
+              type="button"
+              id="tab-login-btn"
+              class="flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#27201c] text-stone-900 dark:text-white shadow-xs cursor-pointer"
+            >
+              Iniciar Sesión
+            </button>
+            <button
+              type="button"
+              id="tab-register-btn"
+              class="flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white cursor-pointer"
+            >
+              Crear Cuenta
+            </button>
+          </div>
+
+          <!-- 1. Formulario de Iniciar Sesión -->
+          <form id="login-form" class="space-y-4">
+            <div>
+              <label for="login-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                id="login-email"
+                required
+                placeholder="ejemplo@correo.cl"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="login-password" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0]">
+                  Contraseña
+                </label>
+                <a
+                  href="#recuperar"
+                  id="forgot-password-link"
+                  class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 hover:underline"
+                >
+                  ¿La olvidaste?
+                </a>
+              </div>
+              <div class="relative">
+                <input
+                  type="password"
+                  id="login-password"
+                  required
+                  placeholder="Tu contraseña"
+                  class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all pr-10"
+                />
+                <button
+                  type="button"
+                  id="toggle-login-password"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 cursor-pointer text-xs"
+                >
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <input
+                id="remember-me"
+                type="checkbox"
+                class="h-4 w-4 rounded border-stone-300 text-rose-600 focus:ring-rose-500 dark:bg-[#141110] dark:border-[#382d27]"
+              />
+              <label for="remember-me" class="ml-2 block text-xs text-stone-600 dark:text-[#b0a297] cursor-pointer">
+                Recordar mis datos en este equipo
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>Ingresar a mi cuenta</span>
+              <span>→</span>
+            </button>
+          </form>
+
+          <!-- 2. Formulario de Crear Cuenta -->
+          <form id="register-form" class="space-y-4 hidden">
+            <div>
+              <label for="reg-name" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Nombre y Apellido
+              </label>
+              <input
+                type="text"
+                id="reg-name"
+                required
+                placeholder="Ej. Constanza Silva"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              />
+            </div>
+
+            <div>
+              <label for="reg-email" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                id="reg-email"
+                required
+                placeholder="constanza@correo.cl"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              />
+            </div>
+
+            <div>
+              <label for="reg-phone" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Teléfono móvil (+56)
+              </label>
+              <input
+                type="tel"
+                id="reg-phone"
+                required
+                placeholder="+56 9 8765 4321"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              />
+            </div>
+
+            <div>
+              <label for="reg-pet" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                ¿Qué mascota tienes en casa?
+              </label>
+              <select
+                id="reg-pet"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              >
+                <option value="perro">Tengo perro(s) 🐕</option>
+                <option value="gato">Tengo gato(s) 🐈</option>
+                <option value="ambos">Tengo perros y gatos 🐾</option>
+                <option value="otro">Otras pequeñas mascotas 🐹</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="reg-password" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
+                Crear Contraseña (mínimo 6 caracteres)
+              </label>
+              <input
+                type="password"
+                id="reg-password"
+                required
+                minlength="6"
+                placeholder="••••••••"
+                class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all"
+              />
+            </div>
+
+            <div class="flex items-start">
+              <input
+                id="reg-terms"
+                type="checkbox"
+                required
+                class="h-4 w-4 mt-0.5 rounded border-stone-300 text-rose-600 focus:ring-rose-500 dark:bg-[#141110] dark:border-[#382d27]"
+              />
+              <label for="reg-terms" class="ml-2 block text-xs text-stone-500 dark:text-[#b0a297] leading-tight">
+                Acepto los términos de servicio, política de privacidad y recibir novedades de Market-Pet.
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 px-4 rounded-xl bg-stone-900 hover:bg-black dark:bg-rose-600 dark:hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>Crear mi cuenta gratis</span>
+              <span>🐾</span>
+            </button>
+          </form>
+
+          <!-- Feedback de Mensajes -->
+          <div id="auth-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-bold text-center"></div>
+
+          <!-- Continuar como Invitado (Visible si venía de checkout) -->
+          <div id="guest-checkout-wrap" class="hidden mt-6 pt-5 border-t border-stone-200/70 dark:border-[#2d2521] text-center">
+            <span class="text-xs text-stone-500 dark:text-[#b0a297] block mb-2">
+              ¿Tienes prisa y prefieres no registrarte ahora?
+            </span>
+            <a
+              href="/checkout"
+              class="text-xs font-bold text-stone-700 dark:text-stone-300 hover:text-rose-600 dark:hover:text-rose-400 underline"
+            >
+              Continuar compra como invitado →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beneficios de Registro -->
+      <div class="grid grid-cols-3 gap-3 text-center text-stone-500 dark:text-[#b0a297] text-[11px]">
+        <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
+          <span class="block text-base mb-1">⚡</span>
+          <span class="font-bold text-stone-800 dark:text-stone-200">Despacho Veloz</span>
+          <p class="text-[10px] mt-0.5">Direcciones guardadas</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
+          <span class="block text-base mb-1">🎁</span>
+          <span class="font-bold text-stone-800 dark:text-stone-200">Club Puntos</span>
+          <p class="text-[10px] mt-0.5">Descuentos en comida</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-stone-50 dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]">
+          <span class="block text-base mb-1">📦</span>
+          <span class="font-bold text-stone-800 dark:text-stone-200">Seguimiento</span>
+          <p class="text-[10px] mt-0.5">En vivo de tu pedido</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Control de Tabs y Autenticación Ligera en Cliente (JavaScript Nativo Puro)
+  const tabLogin = document.getElementById('tab-login-btn');
+  const tabRegister = document.getElementById('tab-register-btn');
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const authFeedback = document.getElementById('auth-feedback');
+  const alreadyLoggedBox = document.getElementById('already-logged-box');
+  const authFormsContainer = document.getElementById('auth-forms-container');
+  const loggedUserName = document.getElementById('logged-user-name');
+  const logoutBtn = document.getElementById('logout-btn');
+  const guestWrap = document.getElementById('guest-checkout-wrap');
+  const continueRedirectBtn = document.getElementById('continue-redirect-btn');
+
+  // Parámetro de redirección
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirectUrl = urlParams.get('redirect') || '/catalogo';
+
+  if (redirectUrl.includes('checkout') && guestWrap) {
+    guestWrap.classList.remove('hidden');
+  }
+
+  if (continueRedirectBtn) {
+    continueRedirectBtn.setAttribute('href', redirectUrl);
+  }
+
+  function showFeedback(text, isError = false) {
+    if (!authFeedback) return;
+    authFeedback.textContent = text;
+    authFeedback.className = isError
+      ? 'mt-4 p-3 rounded-xl text-xs font-bold text-center bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50 block'
+      : 'mt-4 p-3 rounded-xl text-xs font-bold text-center bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50 block';
+  }
+
+  function checkUserSession() {
+    try {
+      const stored = localStorage.getItem('market_pet_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user && user.nombre) {
+          alreadyLoggedBox?.classList.remove('hidden');
+          authFormsContainer?.classList.add('hidden');
+          if (loggedUserName) loggedUserName.textContent = user.nombre;
+          return;
+        }
+      }
+    } catch {
+      // Ignorar
+    }
+    alreadyLoggedBox?.classList.add('hidden');
+    authFormsContainer?.classList.remove('hidden');
+  }
+
+  // Switch de Tabs
+  tabLogin?.addEventListener('click', () => {
+    loginForm?.classList.remove('hidden');
+    registerForm?.classList.add('hidden');
+    tabLogin.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#27201c] text-stone-900 dark:text-white shadow-xs cursor-pointer';
+    tabRegister.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white cursor-pointer';
+  });
+
+  tabRegister?.addEventListener('click', () => {
+    registerForm?.classList.remove('hidden');
+    loginForm?.classList.add('hidden');
+    tabRegister.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#27201c] text-stone-900 dark:text-white shadow-xs cursor-pointer';
+    tabLogin.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white cursor-pointer';
+  });
+
+  // Toggle Password
+  const togglePass = document.getElementById('toggle-login-password');
+  const passInput = document.getElementById('login-password');
+  togglePass?.addEventListener('click', () => {
+    if (passInput) {
+      passInput.type = passInput.type === 'password' ? 'text' : 'password';
+    }
+  });
+
+  // Login Submit
+  loginForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email')?.value.trim();
+    const name = email.split('@')[0] || 'Cliente';
+    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+    const userObj = {
+      nombre: capitalized,
+      email: email,
+      logueado: true,
+      fecha: new Date().toISOString(),
+    };
+
+    localStorage.setItem('market_pet_user', JSON.stringify(userObj));
+    showFeedback(`¡Bienvenido de vuelta, ${capitalized}! Redirigiendo...`);
+
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 900);
+  });
+
+  // Register Submit
+  registerForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reg-name')?.value.trim();
+    const email = document.getElementById('reg-email')?.value.trim();
+    const phone = document.getElementById('reg-phone')?.value.trim();
+    const pet = document.getElementById('reg-pet')?.value;
+
+    const userObj = {
+      nombre: name,
+      email: email,
+      telefono: phone,
+      mascota: pet,
+      logueado: true,
+      fecha: new Date().toISOString(),
+    };
+
+    localStorage.setItem('market_pet_user', JSON.stringify(userObj));
+    showFeedback(`¡Cuenta creada con éxito para ${name}! Redirigiendo a tu compra...`);
+
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 1000);
+  });
+
+  // Logout
+  logoutBtn?.addEventListener('click', () => {
+    localStorage.removeItem('market_pet_user');
+    checkUserSession();
+    window.location.reload();
+  });
+
+  // Olvidó contraseña demo
+  const forgotLink = document.getElementById('forgot-password-link');
+  forgotLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Hemos enviado un enlace de recuperación a tu correo electrónico.');
+  });
+
+  document.addEventListener('DOMContentLoaded', checkUserSession);
+</script>
