@@ -31,19 +31,22 @@ Este documento define la única fuente de verdad (*Source of Truth*) para **colo
 
 ---
 
-### 2.2. Modo Nocturno (Dark Mode) y Variantes Cromáticas
+### 2.2. Modo Nocturno Oficial (Warm Charcoal & Cacao) y Variantes Cromáticas
 
-Todas las variantes nocturnas mantienen contraste WCAG AA superior a 4.5:1.
+La paleta oficial definitiva adoptada para Market-Pet es **Warm Charcoal & Cacao** (`#141110` / `#1D1816`), complementando armónicamente la identidad *Warm Biscuit* con calidez orgánica y cero fatiga visual. Todas las variantes nocturnas mantienen contraste WCAG AA superior a 4.5:1.
 
-| Token / Rol | 1. Midnight Slate *(Default)* | 2. Warm Charcoal *(Cacao)* | 3. Forest Pine *(Botánico)* | 4. Pure Onyx *(OLED)* |
+| Token / Rol | 1. Warm Charcoal *(Oficial Brand)* | 2. Midnight Slate *(Tecnológico)* | 3. Forest Pine *(Botánico)* | 4. Pure Onyx *(OLED)* |
 |---|---|---|---|---|
-| **Lienzo 60% (`--color-60-bg`)** | `#090D16` | `#141110` | `#09120E` | `#000000` |
-| **Superficie 30% (`--color-60-surface`)** | `#0F172A` | `#1D1816` | `#111D16` | `#111111` |
-| **Contenedores Elevados** | `#1E293B` | `#27201C` | `#1A2A21` | `#1E1E1E` |
-| **Texto Principal (`--color-30-text`)** | `#F8FAFC` | `#FBF6F0` | `#F0F7F2` | `#FFFFFF` |
-| **Texto Secundario (`--color-30-muted`)** | `#94A3B8` | `#B0A297` | `#95AC9C` | `#A3A3A3` |
-| **Bordes (`--color-30-border`)** | `#1E293B` | `#2D2521` | `#1C3024` | `#262626` |
-| **Acento de Conversión (10%)** | `#F43F5E` (Frambuesa) | `#FB7185` (Coral Carmín) | `#F43F5E` (Frambuesa) | `#E11D48` (Carmín Puro) |
+| **Lienzo 60% (`--color-60-bg`)** | `#141110` | `#090D16` | `#09120E` | `#000000` |
+| **Superficie 30% (`--color-60-surface`)** | `#1D1816` | `#0F172A` | `#111D16` | `#111111` |
+| **Contenedores Elevados** | `#27201C` | `#1E293B` | `#1A2A21` | `#1E1E1E` |
+| **Texto Principal (`--color-30-text`)** | `#FBF6F0` | `#F8FAFC` | `#F0F7F2` | `#FFFFFF` |
+| **Texto Secundario (`--color-30-muted`)** | `#B0A297` | `#94A3B8` | `#95AC9C` | `#A3A3A3` |
+| **Bordes (`--color-30-border`)** | `#2D2521` | `#1E293B` | `#1C3024` | `#262626` |
+| **Acento de Conversión (10%)** | `#FB7185` (Coral Carmín) | `#F43F5E` (Frambuesa) | `#F43F5E` (Frambuesa) | `#E11D48` (Carmín Puro) |
+
+> **Metodología de Evaluación Cromática (Theme Lab Widget):**
+> Para proyectos de ecommerce y aplicaciones web, se establece como estándar no imponer una única paleta a ciegas. Se implementa un widget flotante en vivo (`ThemeLabWidget.astro`) que inyecta tokens mediante atributos HTML (`data-dark-theme="..."`) y variables CSS en tiempo de ejecución. Esto permite al cliente o equipo de producto auditar en tiempo real el comportamiento visual de cabeceras, tarjetas, menús y botones antes de cerrar la elección definitiva.
 
 ---
 

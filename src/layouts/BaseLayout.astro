@@ -65,7 +65,7 @@ const ogImageURL = new URL(
       (() => {
         try {
           const storedTheme = localStorage.getItem('theme');
-          const storedVariant = localStorage.getItem('dark-theme-variant');
+          const storedVariant = localStorage.getItem('dark-theme-variant') || 'warm-charcoal';
           if (storedTheme === 'dark') {
             document.documentElement.classList.add('dark');
           } else {

@@ -38,56 +38,111 @@ html:not(.dark) .theme-icon-moon {
   --color-10-accent-light: #ffe4e6;
 }
 
-/* Modo Nocturno Oficial (Default: Midnight Slate) */
+/* Modo Nocturno Oficial (Default: Warm Charcoal & Cacao - Recomendado) */
 html.dark,
-html.dark[data-dark-theme='midnight-slate'] {
-  --color-60-bg: #090d16; /* Fondo nocturno profundo */
-  --color-60-surface: #0f172a; /* Tarjetas y contenedores oscuros */
-  --color-30-text: #f8fafc; /* Texto blanco cálido */
-  --color-30-muted: #94a3b8; /* Texto secundario gris claro */
-  --color-30-border: #1e293b; /* Bordes oscuros suaves */
-  --color-30-subtle: #1e293b; /* Fila de categorías oscura */
-  --color-10-accent: #f43f5e; /* Rojo frambuesa brillante para alto contraste en oscuro */
-  --color-10-accent-hover: #e11d48;
-  --color-10-accent-light: #4c0519;
+html.dark[data-dark-theme='warm-charcoal'] {
+  --color-60-bg: #141110; /* Fondo nocturno cálido orgánico */
+  --color-60-surface: #1d1816; /* Tarjetas, dropdowns y barra nivel 2 */
+  --color-30-text: #fbf6f0; /* Marfil suave para lectura sin fatiga */
+  --color-30-muted: #b0a297; /* Tono biscuit cálido para textos secundarios */
+  --color-30-border: #2d2521; /* Bordes cálidos suaves */
+  --color-30-subtle: #241e1b; /* Elevaciones secundarias */
+  --color-10-accent: #fb7185; /* Coral frambuesa cálido */
+  --color-10-accent-hover: #f43f5e;
+  --color-10-accent-light: #4c111a;
 }
 
 /* ========================================================
    LABORATORIO DE TEMAS NOCTURNOS (Awesome Design System)
    ======================================================== */
 
-/* Variante 2: Warm Charcoal & Cacao (Cálido y orgánico) */
-html.dark[data-dark-theme='warm-charcoal'] {
-  --color-60-bg: #141110;
-  --color-60-surface: #1d1816;
-  --color-30-text: #fbf6f0;
-  --color-30-muted: #b0a297;
-  --color-30-border: #2d2521;
-  --color-30-subtle: #241e1b;
-  --color-10-accent: #fb7185;
-  --color-10-accent-hover: #f43f5e;
-  --color-10-accent-light: #4c111a;
-}
+/* Reglas de Warm Charcoal aplicadas por defecto a Modo Nocturno */
+html.dark header,
 html.dark[data-dark-theme='warm-charcoal'] header,
+html.dark aside#mobile-nav-drawer,
 html.dark[data-dark-theme='warm-charcoal'] aside#mobile-nav-drawer,
+html.dark .bg-canvas,
 html.dark[data-dark-theme='warm-charcoal'] .bg-canvas {
   background-color: #141110 !important;
 }
+html.dark header nav,
+html.dark[data-dark-theme='warm-charcoal'] header nav {
+  background-color: #1d1816 !important;
+  border-color: #2d2521 !important;
+}
+html.dark .nav-dropdown > div,
+html.dark[data-dark-theme='warm-charcoal'] .nav-dropdown > div,
+html.dark aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='warm-charcoal'] aside#mobile-nav-drawer > div:first-child,
+html.dark .mobile-accordion-item,
+html.dark[data-dark-theme='warm-charcoal'] .mobile-accordion-item {
+  background-color: #1d1816 !important;
+  border-color: #2d2521 !important;
+}
+html.dark .dark\:bg-slate-900,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-900,
+html.dark .dark\:bg-\[\#090d16\],
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#090d16\],
+html.dark .dark\:bg-\[\#0f172a\],
+html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#0f172a\],
+html.dark .dark\:bg-\[\#070b12\],
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#070b12\],
+html.dark .dark\:bg-\[\#0c121e\],
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-\[\#0c121e\],
+html.dark .dark\:bg-slate-950\/60,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-950\/60 {
   background-color: #1d1816 !important;
 }
+html.dark .dark\:bg-slate-800,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800,
+html.dark .dark\:bg-slate-800\/80,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800\/80,
+html.dark .dark\:bg-slate-800\/50,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:bg-slate-800\/50 {
   background-color: #27201c !important;
 }
+html.dark .dark\:border-slate-800,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:border-slate-800,
+html.dark .dark\:border-slate-700,
 html.dark[data-dark-theme='warm-charcoal'] .dark\:border-slate-700 {
-  border-color: #382d27 !important;
+  border-color: #2d2521 !important;
+}
+
+/* Variante 1: Midnight Slate (Tecnológica / Pizarra azul) */
+html.dark[data-dark-theme='midnight-slate'] {
+  --color-60-bg: #090d16;
+  --color-60-surface: #0f172a;
+  --color-30-text: #f8fafc;
+  --color-30-muted: #94a3b8;
+  --color-30-border: #1e293b;
+  --color-30-subtle: #1e293b;
+  --color-10-accent: #f43f5e;
+  --color-10-accent-hover: #e11d48;
+  --color-10-accent-light: #4c0519;
+}
+html.dark[data-dark-theme='midnight-slate'] header,
+html.dark[data-dark-theme='midnight-slate'] aside#mobile-nav-drawer,
+html.dark[data-dark-theme='midnight-slate'] .bg-canvas {
+  background-color: #090d16 !important;
+}
+html.dark[data-dark-theme='midnight-slate'] header nav,
+html.dark[data-dark-theme='midnight-slate'] .nav-dropdown > div,
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-slate-900,
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-\[\#0f172a\],
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-\[\#070b12\],
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-\[\#0c121e\],
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-slate-950\/60 {
+  background-color: #0f172a !important;
+}
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-slate-800,
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-slate-800\/80,
+html.dark[data-dark-theme='midnight-slate'] .dark\:bg-slate-800\/50 {
+  background-color: #1e293b !important;
+}
+html.dark[data-dark-theme='midnight-slate'] .dark\:border-slate-800,
+html.dark[data-dark-theme='midnight-slate'] .dark\:border-slate-700 {
+  border-color: #1e293b !important;
 }
 
 /* Variante 3: Forest Pine (Verde botánico de noche) */
@@ -107,8 +162,16 @@ html.dark[data-dark-theme='forest-pine'] aside#mobile-nav-drawer,
 html.dark[data-dark-theme='forest-pine'] .bg-canvas {
   background-color: #09120e !important;
 }
+html.dark[data-dark-theme='forest-pine'] header nav,
+html.dark[data-dark-theme='forest-pine'] .nav-dropdown > div,
+html.dark[data-dark-theme='forest-pine'] aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='forest-pine'] .mobile-accordion-item {
+  background-color: #111d16 !important;
+  border-color: #1c3024 !important;
+}
 html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-900,
 html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#0f172a\],
 html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#070b12\],
 html.dark[data-dark-theme='forest-pine'] .dark\:bg-\[\#0c121e\],
 html.dark[data-dark-theme='forest-pine'] .dark\:bg-slate-950\/60 {
@@ -141,8 +204,16 @@ html.dark[data-dark-theme='onyx-oled'] aside#mobile-nav-drawer,
 html.dark[data-dark-theme='onyx-oled'] .bg-canvas {
   background-color: #000000 !important;
 }
+html.dark[data-dark-theme='onyx-oled'] header nav,
+html.dark[data-dark-theme='onyx-oled'] .nav-dropdown > div,
+html.dark[data-dark-theme='onyx-oled'] aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='onyx-oled'] .mobile-accordion-item {
+  background-color: #0d0d0d !important;
+  border-color: #262626 !important;
+}
 html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-900,
 html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#090d16\],
+html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#0f172a\],
 html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#070b12\],
 html.dark[data-dark-theme='onyx-oled'] .dark\:bg-\[\#0c121e\],
 html.dark[data-dark-theme='onyx-oled'] .dark\:bg-slate-950\/60 {

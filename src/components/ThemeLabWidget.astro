@@ -21,7 +21,7 @@
     <span
       id="theme-lab-current-badge"
       class="w-3.5 h-3.5 rounded-full border border-white/40 shadow-xs"
-      style="background-color: #090d16;"
+      style="background-color: #141110;"
     ></span>
   </button>
 
@@ -112,7 +112,7 @@
           <div class="min-w-0">
             <span class="block text-xs font-bold text-stone-900 dark:text-white leading-tight truncate flex items-center gap-1.5">
               <span>2. Warm Charcoal</span>
-              <span class="text-[9px] px-1.5 py-0.2 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-extrabold uppercase">Recomendado</span>
+              <span class="text-[9px] px-1.5 py-0.2 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-extrabold uppercase">Oficial Market-Pet</span>
             </span>
             <span class="block text-[10px] text-stone-500 dark:text-slate-400 leading-none mt-0.5 truncate">
               Cacao & Café tostado (Cálido mascota)
@@ -189,7 +189,7 @@
 
   function updateLabUI() {
     const isDark = document.documentElement.classList.contains('dark');
-    const currentVariant = document.documentElement.getAttribute('data-dark-theme') || 'midnight-slate';
+    const currentVariant = document.documentElement.getAttribute('data-dark-theme') || 'warm-charcoal';
 
     if (statusIcon && statusText) {
       if (isDark) {
@@ -204,7 +204,7 @@
     }
 
     if (currentBadge) {
-      currentBadge.style.backgroundColor = isDark ? (variantColors[currentVariant] || '#090d16') : '#FAF7F2';
+      currentBadge.style.backgroundColor = isDark ? (variantColors[currentVariant] || '#141110') : '#FAF7F2';
     }
 
     variantButtons.forEach((btn) => {
