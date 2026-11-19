@@ -15,11 +15,11 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Última actualización:** 2026-11-18
 - **Fase activa:** `phase/03-cart`
 - **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(cart): integra micro-SVGs profesionales en drawer movil y modal de confirmacion para eliminacion de productos
+- **Último commit relevante:** feat(checkout): incorpora autenticacion neutra en navbar, doble boton en carrito, vista /carrito y checkout de 4 pasos con resumen persistente
 - **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo de compras (Drawer lateral / Flyout) en JavaScript nativo puro sincronizado con `localStorage`, barra dinámica de Envío Gratis ($25.000 CLP), selectores de cantidad [+] [-], modal de confirmación antes de eliminar productos (al presionar '-' en 1 unidad o clic en papelera), totales en CLP y sellos de seguridad**.
+- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles y micro-SVGs monocromáticos profesionales en lugar de emojis)**, **Carruseles adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**, **Sistema de diseño formalizado en `DESIGN.md` (Awesome Design MD)**, **Modo Nocturno oficial definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con Navbar calibrada al 100%**, **Carrito reactivo (Flyout Drawer) con doble botón de acción ("Ver Carrito" y "Finalizar Compra")**, **Página completa de bolsa de compras `/carrito` con desglose, cupones de descuento (MASCOTA10), cálculo de despacho y barra dinámica de Envío Gratis ($25.000 CLP)**, **Página neutra y accesible de autenticación `/auth/login` con pestañas para Iniciar Sesión y Crear Cuenta, soporte para continuar como invitado y persistencia de sesión**, **Flujo de Checkout multi-fase en 4 pasos secuenciales (`/checkout`): 1. Identificación, 2. Dirección de despacho (Chile), 3. Método de entrega y 4. Medio de pago (Webpay, Transferencia 5% DCTO, Mercado Pago), con panel de resumen del pedido SIEMPRE VISIBLE de manera persistente (columna lateral sticky en desktop y móvil) y pantalla de confirmación exitosa con número de orden**.
 - **Qué está en progreso:** Fase 3: Pruebas de integración del flujo de carrito en móvil y desktop; persistencia y preparativos para pasarela de pago sandbox (Fase 4).
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 3.82s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
+- **Bloqueos o problemas conocidos:** ninguno; build limpio de 53 páginas estáticas en 3.75s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
 - **Siguiente paso concreto:** Validar la experiencia de usuario del Carrito Drawer y navegación móvil en diferentes tamaños de pantalla y avanzar hacia la preparación del checkout.
 
 ## 2. Decisiones importantes
@@ -93,10 +93,51 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Delegación de eventos global en CartDrawer y eliminación de listeners redundantes | Resolver el bug de suma doble (+1 +1 = 2) al agregar productos al carrito centralizando la captura de clicks [data-add-to-cart] en CartDrawer con estado único en localStorage | Mantener scripts de click dispersos e independientes en cada página o componente |
 | 2026-11-18 | Carrito Drawer interactivo con meta dinámica de Envío Gratis ($25.000 CLP) | Proporcionar experiencia ecommerce moderna de alta conversión (slide-over drawer) sin recargar página, con barra de progreso de despacho gratis estándar en retail chileno | Redirigir a página pesada de /carrito o modal estático |
 | 2026-11-18 | Erradicación total de emojis en menú móvil y modal de confirmación en carrito | Reemplazar emojis en drawer lateral por micro-SVGs lineales profesionales e incorporar modal de confirmación antes de eliminar productos con cantidad 1 o clic en papelera | Permitir que el carrito borre productos sin confirmar o mantener emojis infantiles en móvil |
+| 2026-11-18 | Doble botón de acción en CartDrawer ("Ver Carrito" y "Finalizar Compra") | Dar al usuario la opción de revisar su bolsa completa en página dedicada (/carrito) o saltar directo al checkout (/checkout) | Mantener un único botón rígido en el flyout |
+| 2026-11-18 | Checkout de 4 fases con resumen sticky siempre visible | Flujo estándar de alta conversión en ecommerce (1. Identificación, 2. Dirección, 3. Envío, 4. Pago) manteniendo el desglose de productos y total visible en todo momento | Flujo en acordeones donde el total desaparece al hacer scroll o checkout de 1 sola página saturada |
+| 2026-11-18 | Vista neutra de autenticación /auth/login con tabs y redirección contextual | Permitir inicio de sesión o creación de cuenta con diseño neutro e integrado, redirigiendo automáticamente de vuelta a /checkout si venía del proceso de compra | Dejar el botón de login como ancla muerta /#login o forzar registro obligatorio para comprar |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-18 · `phase/03-cart` · vistas /carrito, /auth/login y checkout de 4 pasos con resumen persistente
+- **Qué:** Implementación del flujo comercial completo solicitado por el usuario para la Fase 3 y preparación para Fase 4/5:
+  1. **Actualización del Plan Maestro (`docs/PLAN.md`):**
+     - Se incorporó formalmente el módulo de **Usuarios y Cuentas** en las fases del proyecto: arquitectura de sesiones seguras y tablas relacionales en servidor (Fase 4 SSR), pasarela de pago transaccional sandbox y panel de Mi Cuenta con historial de pedidos (Fase 5).
+  2. **Acceso Neutro a Cuentas en Header:**
+     - Se actualizó el botón *"Iniciar sesión"* en desktop y el drawer móvil de [src/components/Header.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/Header.astro) para dirigir a la ruta `/auth/login` con diseño neutro, accesible y micro-SVG lineal.
+     - Se incorporó script cliente que detecta la sesión activa en `localStorage` (`market_pet_user`) y actualiza el texto de forma dinámica a *"Hola, [Nombre]"* / *"Mi Cuenta ([Nombre])"*.
+  3. **Doble Botón de Acción en `CartDrawer.astro`:**
+     - Se reorganizó el footer del drawer lateral de carrito con dos botones de acción con jerarquía clara:
+       - **Botón secundario:** *"Ver Carrito"* (`href="/carrito"`), estilizado con borde sutil, fondo claro/oscuro y estado activo.
+       - **Botón primario:** *"Finalizar Compra"* (`href="/checkout"`), destacado con acento Carmín de alta conversión y micro-SVG de flecha.
+  4. **Página Completa de Bolsa de Compras (`/carrito`):**
+     - Creada en [src/pages/carrito.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/carrito.astro) con arquitectura en 2 columnas:
+       - Lista detallada de productos con fotos WebP, selector de cantidad `[-]` `[+]`, modal nativo de confirmación antes de eliminar productos y estado vacío ilustrado.
+       - Barra dinámica de Envío Gratis sobre $25.000 CLP.
+       - Formulario de cupón promocional interactivo (`MASCOTA10` aplica 10% de descuento).
+       - Panel lateral sticky con resumen de compra, desglose de costos, sellos de confianza y CTA hacia el checkout.
+  5. **Página Neutra de Autenticación (`/auth/login`):**
+     - Creada en [src/pages/auth/login.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/auth/login.astro) con interfaz limpia:
+       - Pestañas conmutables para *"Iniciar Sesión"* y *"Crear Cuenta"*.
+       - Campos de formulario: email, contraseña con visibilidad toggle, teléfono, tipo de mascota en el hogar y términos de servicio.
+       - Enlace para *"Continuar compra como invitado"* si proviene del checkout con parámetro `?redirect=/checkout`.
+       - Panel de estado si el usuario ya inició sesión con opción de cerrar sesión.
+  6. **Flujo de Checkout Multi-Paso (`/checkout`):**
+     - Creado en [src/pages/checkout.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/checkout.astro) con stepper secuencial interactivo:
+       - **Paso 1: Identificación y Contacto:** nombre, RUT/DNI, email, teléfono, banner con auto-completado si ya tiene sesión y checkbox para crear cuenta.
+       - **Paso 2: Dirección de Despacho:** región y comuna de Chile, calle y número, depto y notas para el repartidor.
+       - **Paso 3: Método de Entrega:** opciones dinámicas entre Despacho Estándar ($3.990 o Gratis sobre $25.000), Despacho Express Mismo Día ($5.990) y Retiro en Tienda (Gratis).
+       - **Paso 4: Medio de Pago:** Webpay Plus (Redcompra / Tarjetas), Transferencia Bancaria (con 5% de descuento adicional aplicado automáticamente al total) y Mercado Pago.
+       - **Requisito mandatorio cumplido:** **Panel de resumen del pedido SIEMPRE VISIBLE** en columna lateral sticky, detallando miniaturas, cantidades, subtotales, costo de envío y total final en CLP.
+       - Pantalla de confirmación y orden generada (`#MP-2026-XXXX`) con vaciado automático del carrito al finalizar.
+- **Por qué:** Solicitud explícita del usuario para integrar el flujo de autenticación, dotar al carrito de dos botones ("Ver Carrito" y "Finalizar Compra"), y estructurar el checkout en 3-4 fases secuenciales con el detalle de compra visible en todo momento.
+- **Especialistas activados:**
+  - `ux-ui`: Jerarquía visual de los 4 pasos del checkout, diseño del panel lateral sticky persistente, diseño neutro de `/auth/login`, layout de `/carrito` y doble botón en `CartDrawer`.
+  - `desarrollo`: Implementación de rutas `/carrito.astro`, `/auth/login.astro`, `/checkout.astro`, componentes accesibles, eventos nativos de sincronización de `localStorage` y cálculo dinámico de envío/descuentos.
+  - `qa`: Ejecución exitosa de `npm run lint` (0 errores) y `npm run build` (53 páginas estáticas construidas en 3.75s).
+  - `docs-seo`: Actualización de la planificación en `docs/PLAN.md` (Fases 3, 4 y 5) y registro de trazabilidad en `docs/HISTORIAL.md`.
 
 ### 2026-11-18 · `phase/03-cart` · integracion de micro-SVGs en drawer movil y modal de confirmacion de eliminacion
 - **Qué:** Refinamiento visual y de experiencia de usuario en la navegación móvil y el carrito de compras:
