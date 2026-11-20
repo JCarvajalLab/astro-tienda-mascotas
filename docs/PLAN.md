@@ -274,14 +274,14 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Página de catálogo general (`/catalogo`) con selector de filtros (categorías, precio, tipo de mascota), ordenamiento y breadcrumbs.
   - [x] Vistas dinámicas por categoría (`/categoria/[slug]`) con listado de productos y conteo.
   - [x] Conexión de categorías circulares y subcategorías del megamenú del Header hacia las rutas reales `/categoria/[slug]`.
-- [ ] **Fase 3: Carrito Interactivo, Vistas Dedicadas & Modo Nocturno** (`phase/03-cart`): 
+- [x] **Fase 3: Carrito Interactivo, Vistas Dedicadas & Modo Nocturno** (`phase/03-cart`): 
   - [x] Activación y calibración visual del modo nocturno definitivo en Warm Charcoal & Cacao (`#141110` / `#1d1816`) con botón toggle sol/luna en Header y Navbar al 100%.
   - [x] Carrito reactivo con JavaScript nativo, eventos personalizados, sincronización en `localStorage` y renderizado seguro en DOM con `.textContent`.
   - [x] Drawer lateral de carrito (`CartDrawer.astro`) con barra de Envío Gratis ($25.000 CLP), selectores `+`/`-`, y modal accesible de confirmación antes de eliminar productos.
-  - [ ] Doble botón de acción en carrito: botón secundario "Ver Carrito" (`/carrito`) y botón primario "Finalizar Compra" (`/checkout`).
-  - [ ] Página dedicada `/carrito` con desglose completo de productos, código de cupón de descuento, cálculo de despacho y botón para proceder al pago.
-  - [ ] Página de autenticación neutra `/auth/login` con tabs de "Iniciar Sesión" y "Crear Cuenta", redirección inteligente (`?redirect=...`) y persistencia local para demo.
-  - [ ] Flujo de Checkout multi-fase (`/checkout`) estructurado en 4 pasos (1: Identificación y login, 2: Dirección y comuna, 3: Método de envío, 4: Método de pago) con **panel de resumen del pedido siempre visible**.
+  - [x] Doble botón de acción en carrito: botón secundario "Ver Carrito" (`/carrito`) y botón primario "Finalizar Compra" (`/checkout`).
+  - [x] Página dedicada `/carrito` con desglose completo de productos, código de cupón de descuento (`MASCOTA10`), cálculo de despacho y botón para proceder al pago.
+  - [x] Página de autenticación neutra `/auth/login` con tabs de "Iniciar Sesión" y "Crear Cuenta" (con confirmación de contraseña, validaciones inline y botón "Crear Cuenta"), redirección inteligente (`?redirect=...`) y sesión demo con 1 clic.
+  - [x] Flujo de Checkout multi-fase (`/checkout`) estructurado en 4 pasos (1: Identificación y login prioritario con sesión demo de datos ficticios, 2: Dirección y comuna, 3: Método de envío, 4: Método de pago) con panel de resumen sticky siempre visible, desglose previo al pago y logos oficiales de pasarelas (Webpay, Redcompra, Visa, Mastercard, Bancos y Mercado Pago).
 - [ ] **Fase 4: Servidor, Base de Datos & Autenticación SSR** (`phase/04-server-db`): 
   - Configuración de Astro en modo SSR (adaptador Cloudflare / Node / Vercel).
   - Conexión a PostgreSQL (Neon / Supabase) con consultas 100% parametrizadas (sin inyección SQL).
