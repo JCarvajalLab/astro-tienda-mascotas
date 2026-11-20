@@ -88,19 +88,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </div>
               </div>
 
-              <!-- RUT o DNI para emisión de boleta -->
+              <!-- RUT chileno para emisión de boleta -->
               <form id="form-step-1-logged" novalidate class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label for="step1-logged-rut" class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1">
-                      RUT o DNI (para boleta electrónica) *
+                      RUT Chileno (para boleta electrónica) *
                     </label>
-                    <input
-                      type="text"
-                      id="step1-logged-rut"
-                      placeholder="12.345.678-9"
-                      class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
-                    />
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="step1-logged-rut"
+                        maxlength="12"
+                        inputmode="text"
+                        autocomplete="off"
+                        placeholder="12.345.678-5"
+                        aria-describedby="err-step1-logged-rut rut-live-status"
+                        aria-invalid="false"
+                        class="w-full px-3.5 py-2.5 pr-9 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <svg id="icon-rut-valid" class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <svg id="icon-rut-invalid" class="w-4 h-4 text-rose-600 dark:text-rose-400 stroke-current stroke-2 hidden" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                    </div>
+                    <p id="rut-live-status" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1 hidden" aria-live="polite"></p>
                     <p id="err-step1-logged-rut" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"></p>
                   </div>
                   <div>
@@ -539,7 +555,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   </div>
                   <div class="space-y-1 text-stone-600 dark:text-[#b0a297] text-[11px] leading-relaxed">
                     <p><strong class="text-stone-900 dark:text-white">Nombre:</strong> <span id="review-name">-</span></p>
-                    <p><strong class="text-stone-900 dark:text-white">RUT / DNI:</strong> <span id="review-rut">-</span></p>
+                    <p><strong class="text-stone-900 dark:text-white">RUT:</strong> <span id="review-rut">-</span></p>
                     <p><strong class="text-stone-900 dark:text-white">Email:</strong> <span id="review-email">-</span></p>
                     <p><strong class="text-stone-900 dark:text-white">Teléfono:</strong> <span id="review-phone">-</span></p>
                   </div>
@@ -718,8 +734,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   id="btn-confirm-payment"
                   class="px-7 py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
                 >
-                  <span>Pagar Pedido con Webpay</span>
-                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <span id="btn-confirm-payment-text">Pagar Pedido con Webpay</span>
+                  <svg id="btn-confirm-payment-icon" class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                   </svg>
                 </button>
@@ -892,6 +908,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
+  import { cleanRut, formatRut, validateRut } from '../utils/rut.js';
+
   // Control del Flujo Multi-Paso de Checkout con Prioridad de Inicio de Sesión (JavaScript Nativo Puro)
   const CART_KEY = 'market_pet_cart';
   const FREE_SHIPPING_THRESHOLD = 25000;
@@ -951,6 +969,93 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         err.classList.add('hidden');
       }
     }
+  }
+
+  function updateRutFeedback(rawValue, forceError = false) {
+    const input = document.getElementById('step1-logged-rut');
+    const iconValid = document.getElementById('icon-rut-valid');
+    const iconInvalid = document.getElementById('icon-rut-invalid');
+    const liveStatus = document.getElementById('rut-live-status');
+    const cleaned = cleanRut(rawValue);
+
+    const setNeutralInputBorder = () => {
+      if (!input) return;
+      input.classList.remove('border-emerald-500', 'focus:ring-emerald-500', 'border-rose-500');
+      input.classList.add('border-stone-300', 'dark:border-[#382d27]', 'focus:ring-rose-500');
+    };
+
+    if (!cleaned) {
+      iconValid?.classList.add('hidden');
+      if (liveStatus) {
+        liveStatus.textContent = '';
+        liveStatus.classList.add('hidden');
+      }
+
+      if (forceError) {
+        iconInvalid?.classList.remove('hidden');
+        setNeutralInputBorder();
+        setCheckoutError(
+          'step1-logged-rut',
+          'err-step1-logged-rut',
+          'Ingresa tu RUT chileno para emitir la boleta'
+        );
+        input?.setAttribute('aria-invalid', 'true');
+      } else {
+        iconInvalid?.classList.add('hidden');
+        setNeutralInputBorder();
+        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+        input?.setAttribute('aria-invalid', 'false');
+      }
+      return;
+    }
+
+    if (validateRut(rawValue)) {
+      iconValid?.classList.remove('hidden');
+      iconInvalid?.classList.add('hidden');
+      setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+      if (input) {
+        input.classList.remove(
+          'border-stone-300',
+          'dark:border-[#382d27]',
+          'border-rose-500',
+          'focus:ring-rose-500'
+        );
+        input.classList.add('border-emerald-500', 'focus:ring-emerald-500');
+        input.setAttribute('aria-invalid', 'false');
+      }
+      if (liveStatus) {
+        liveStatus.textContent = 'RUT chileno válido';
+        liveStatus.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (cleaned.length >= 8 || forceError) {
+      iconValid?.classList.add('hidden');
+      iconInvalid?.classList.remove('hidden');
+      if (liveStatus) {
+        liveStatus.textContent = '';
+        liveStatus.classList.add('hidden');
+      }
+      setNeutralInputBorder();
+      setCheckoutError(
+        'step1-logged-rut',
+        'err-step1-logged-rut',
+        'RUT chileno inválido. Verifica el número y dígito verificador'
+      );
+      input?.setAttribute('aria-invalid', 'true');
+      return;
+    }
+
+    iconValid?.classList.add('hidden');
+    iconInvalid?.classList.add('hidden');
+    if (liveStatus) {
+      liveStatus.textContent = '';
+      liveStatus.classList.add('hidden');
+    }
+    setNeutralInputBorder();
+    setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+    input?.setAttribute('aria-invalid', 'false');
   }
 
   function calculateShippingCost(subtotal) {
@@ -1027,7 +1132,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     if (confirmBtn) {
       const paymentName = selectedPaymentMethod === 'transfer' ? 'Transferencia' : selectedPaymentMethod === 'mercadopago' ? 'Mercado Pago' : 'Webpay';
-      confirmBtn.innerHTML = `<span>Pagar ${formatCLP(total)} con ${paymentName}</span><svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>`;
+      const confirmText = document.getElementById('btn-confirm-payment-text');
+      const confirmIcon = document.getElementById('btn-confirm-payment-icon');
+      if (confirmText) {
+        confirmText.textContent = `Pagar ${formatCLP(total)} con ${paymentName}`;
+      }
+      confirmIcon?.classList.remove('hidden');
     }
 
     if (itemsList) {
@@ -1190,28 +1300,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     const step1LoggedView = document.getElementById('step1-logged-view');
     const step1GuestView = document.getElementById('step1-guest-view');
+    const rutInputEl = document.getElementById('step1-logged-rut');
+    const phoneInputEl = document.getElementById('step1-logged-phone');
 
-    if (loggedUser && loggedUser.nombre) {
+    function applyUserProfileToCheckout(user) {
+      if (!user || !user.nombre) return;
+
       step1LoggedView?.classList.remove('hidden');
       step1GuestView?.classList.add('hidden');
 
       const nameDisplay = document.getElementById('step1-logged-user-name');
       const nameText = document.getElementById('step1-logged-name-text');
       const emailText = document.getElementById('step1-logged-email-text');
-      const phoneInput = document.getElementById('step1-logged-phone');
 
-      if (nameDisplay) nameDisplay.textContent = loggedUser.nombre;
-      if (nameText) nameText.textContent = loggedUser.nombre;
-      if (emailText) emailText.textContent = loggedUser.email || '';
-      if (phoneInput && loggedUser.telefono) phoneInput.value = loggedUser.telefono;
+      if (nameDisplay) nameDisplay.textContent = user.nombre;
+      if (nameText) nameText.textContent = user.nombre;
+      if (emailText) emailText.textContent = user.email || '';
 
-      orderData.nombre = loggedUser.nombre;
-      orderData.email = loggedUser.email || '';
-      orderData.telefono = loggedUser.telefono || '';
+      const formattedRut = user.rut ? formatRut(user.rut) : '';
+      if (rutInputEl && formattedRut) {
+        rutInputEl.value = formattedRut;
+        updateRutFeedback(formattedRut, false);
+      }
+      if (phoneInputEl && user.telefono) phoneInputEl.value = user.telefono;
+
+      orderData.nombre = user.nombre;
+      orderData.email = user.email || '';
+      orderData.rut = formattedRut || orderData.rut;
+      orderData.telefono = user.telefono || orderData.telefono;
+
+      if (user.region) {
+        orderData.region = user.region;
+        const regionSelect = document.getElementById('step2-region');
+        if (regionSelect) regionSelect.value = user.region;
+      }
+      if (user.comuna) {
+        orderData.comuna = user.comuna;
+        const comunaSelect = document.getElementById('step2-comuna');
+        if (comunaSelect) comunaSelect.value = user.comuna;
+      }
+      if (user.direccion) {
+        orderData.direccion = user.direccion;
+        const addrInput = document.getElementById('step2-address');
+        if (addrInput) addrInput.value = user.direccion;
+      }
+      if (user.depto) {
+        orderData.depto = user.depto;
+        const deptInput = document.getElementById('step2-dept');
+        if (deptInput) deptInput.value = user.depto;
+      }
+      if (user.notas) {
+        orderData.notas = user.notas;
+        const notesInput = document.getElementById('step2-notes');
+        if (notesInput) notesInput.value = user.notas;
+      }
+    }
+
+    if (loggedUser && loggedUser.nombre) {
+      // Auto-migrar sesión demo antigua si quedó guardada con el dígito verificador anterior inválido
+      if (loggedUser.email === 'constanza.demo@marketpet.cl' && loggedUser.rut === '18.765.432-1') {
+        loggedUser.rut = '18.765.432-7';
+        localStorage.setItem('market_pet_user', JSON.stringify(loggedUser));
+      }
+      applyUserProfileToCheckout(loggedUser);
     } else {
       step1LoggedView?.classList.add('hidden');
       step1GuestView?.classList.remove('hidden');
     }
+
+    rutInputEl?.addEventListener('input', () => {
+      rutInputEl.value = formatRut(rutInputEl.value);
+      updateRutFeedback(rutInputEl.value, false);
+    });
+
+    rutInputEl?.addEventListener('blur', () => {
+      if (rutInputEl.value.trim()) {
+        rutInputEl.value = formatRut(rutInputEl.value);
+        updateRutFeedback(rutInputEl.value, true);
+      }
+    });
 
     // Toggle de contraseña en login rápido
     const togglePassBtn = document.getElementById('toggle-step1-pass');
@@ -1268,10 +1435,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       };
 
       localStorage.setItem('market_pet_user', JSON.stringify(userObj));
-      orderData.nombre = capitalized;
-      orderData.email = email;
-
-      setStep(2);
+      applyUserProfileToCheckout(userObj);
+      rutInputEl?.focus();
     });
 
     // 1B. Continuar desde usuario logueado
@@ -1280,16 +1445,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       e.preventDefault();
       let hasError = false;
 
-      const rut = document.getElementById('step1-logged-rut')?.value.trim();
-      const phone = document.getElementById('step1-logged-phone')?.value.trim();
+      const rawRut = rutInputEl?.value.trim() || '';
+      const formattedRut = rawRut ? formatRut(rawRut) : '';
+      if (rutInputEl && formattedRut) rutInputEl.value = formattedRut;
 
-      if (!rut || rut.length < 7) {
-        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', 'Ingresa un RUT o DNI válido');
+      updateRutFeedback(formattedRut, true);
+      if (!validateRut(formattedRut)) {
         hasError = true;
-      } else {
-        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
       }
 
+      const phone = phoneInputEl?.value.trim();
       const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
       if (!phone || cleanPhone.length < 8) {
         setCheckoutError('step1-logged-phone', 'err-step1-logged-phone', 'Ingresa un teléfono válido');
@@ -1300,8 +1465,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       if (hasError) return;
 
-      orderData.rut = rut;
+      orderData.rut = formattedRut;
       orderData.telefono = phone;
+
+      try {
+        const storedUser = localStorage.getItem('market_pet_user');
+        const currentUser = storedUser ? JSON.parse(storedUser) : {};
+        localStorage.setItem(
+          'market_pet_user',
+          JSON.stringify({ ...currentUser, rut: formattedRut, telefono: phone })
+        );
+      } catch {
+        // Ignorar errores de almacenamiento
+      }
+
       setStep(2);
     });
 
@@ -1311,7 +1488,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const demoUser = {
         nombre: 'Constanza Silva Morales',
         email: 'constanza.demo@marketpet.cl',
-        rut: '18.765.432-1',
+        rut: '18.765.432-7',
         telefono: '+56 9 8765 4321',
         region: 'metropolitana',
         comuna: 'Providencia',
@@ -1344,31 +1521,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart: demoItems } }));
       }
 
-      orderData = { ...orderData, ...demoUser };
-
-      const rutInput = document.getElementById('step1-logged-rut');
-      const phoneInput = document.getElementById('step1-logged-phone');
-      if (rutInput) rutInput.value = demoUser.rut;
-      if (phoneInput) phoneInput.value = demoUser.telefono;
-
-      const addrInput = document.getElementById('step2-address');
-      const deptInput = document.getElementById('step2-dept');
-      const notesInput = document.getElementById('step2-notes');
-      const comunaSelect = document.getElementById('step2-comuna');
-      if (addrInput) addrInput.value = demoUser.direccion;
-      if (deptInput) deptInput.value = demoUser.depto;
-      if (notesInput) notesInput.value = demoUser.notas;
-      if (comunaSelect) comunaSelect.value = demoUser.comuna;
-
-      const nameDisplay = document.getElementById('step1-logged-user-name');
-      const nameText = document.getElementById('step1-logged-name-text');
-      const emailText = document.getElementById('step1-logged-email-text');
-      step1LoggedView?.classList.remove('hidden');
-      step1GuestView?.classList.add('hidden');
-      if (nameDisplay) nameDisplay.textContent = demoUser.nombre;
-      if (nameText) nameText.textContent = demoUser.nombre;
-      if (emailText) emailText.textContent = demoUser.email;
-
+      applyUserProfileToCheckout(demoUser);
       setStep(2);
     });
 
@@ -1516,8 +1669,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
 
       const confirmBtn = document.getElementById('btn-confirm-payment');
+      const confirmText = document.getElementById('btn-confirm-payment-text');
+      const confirmIcon = document.getElementById('btn-confirm-payment-icon');
       if (confirmBtn) {
-        confirmBtn.innerHTML = '<span>Procesando pago seguro...</span>';
+        if (confirmText) confirmText.textContent = 'Procesando pago seguro...';
+        confirmIcon?.classList.add('hidden');
         confirmBtn.setAttribute('disabled', 'true');
       }
 
