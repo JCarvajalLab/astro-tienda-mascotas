@@ -283,7 +283,9 @@ Temática: tienda de artículos para mascotas (comida, juguetes, accesorios, hig
   - [x] Página de autenticación neutra `/auth/login` con tabs de "Iniciar Sesión" y "Crear Cuenta" (con confirmación de contraseña, validaciones inline y botón "Crear Cuenta"), redirección inteligente (`?redirect=...`) y sesión demo con 1 clic.
   - [x] Flujo de Checkout multi-fase (`/checkout`) estructurado en 4 pasos (1: Identificación y login prioritario con sesión demo de datos ficticios, 2: Dirección y comuna, 3: Método de envío, 4: Método de pago) con panel de resumen sticky siempre visible, desglose previo al pago y logos oficiales de pasarelas (Webpay, Redcompra, Visa, Mastercard, Bancos y Mercado Pago).
   - [x] Validación matemática nativa de RUT chileno (Módulo 11) en `src/utils/rut.js` con formateo automático (`XX.XXX.XXX-Y`) e indicadores accesibles en `/checkout`.
+  - [x] Auditoría de seguridad pre-push con subagente independiente, eliminación total de `innerHTML` en `src/`, saneamiento de `localStorage` y `?redirect=`, CSP endurecida y `format:check`/`lint`/`build` en verde antes de respaldar en GitHub.
 - [ ] **Fase 4: Servidor, Base de Datos & Autenticación SSR** (`phase/04-server-db`): 
+  - Evaluar actualización segura a `astro@7.4.13` (resolviendo alertas `npm audit` de `astro`/`sharp`/`zod` antes de exponer SSR) y retirar `src/pages/preview-megamenu.astro`.
   - Configuración de Astro en modo SSR (adaptador Cloudflare / Node / Vercel).
   - Conexión a PostgreSQL (Neon / Supabase) con consultas 100% parametrizadas (sin inyección SQL).
   - Modelo de base de datos relacional: tablas de `usuarios`, `direcciones`, `productos`, `ordenes` y `items_orden`.

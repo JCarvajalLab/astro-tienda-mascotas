@@ -13,14 +13,14 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
 - **Última actualización:** 2026-11-20
-- **Fase activa:** `phase/03-cart`
-- **Rama de trabajo:** `phase/03-cart`
-- **Último commit relevante:** feat(checkout): agrega validacion matematica de RUT chileno (Modulo 11) y formateo automatico
-- **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad Warm Biscuit (60-30-10) y Modo Nocturno Warm Charcoal & Cacao (`#141110` / `#1d1816`), Content Collections Zod (**22 productos JSON** + imágenes WebP en `astro:assets`), Mega-Menú desktop + Drawer móvil con micro-SVGs, buscador reactivo y rutas por categoría/producto, carrito Drawer + `/carrito` con Envío Gratis ($25.000 CLP), `/auth/login` con validaciones y confirmación de contraseña, y `/checkout` de 4 pasos (100% autenticado o Sesión Demo `18.765.432-7`, validación matemática y formateo automático de **RUT chileno Módulo 11**, cupón sticky, desglose previo al pago y sellos de Webpay, Redcompra, Visa, Mastercard, Bancos y Mercado Pago).
-- **Qué está en progreso:** Fase 3: Revisión final del flujo completo por parte del usuario y auditoría pre-push previa al merge a `develop` / `main` y push a GitHub.
-- **Bloqueos o problemas conocidos:** ninguno en código funcional; build limpio de 53 páginas estáticas en 3.33s y ESLint al 100%. Antes del push final conviene alinear `format:check` y el uso de `innerHTML` restante en `CartDrawer.astro`.
-- **Siguiente paso concreto:** Recibir validación visual/interactiva del usuario en `/checkout`, ejecutar auditoría pre-push (QA + Seguridad), mergear `phase/03-cart` en `develop` y `main`, y subir ramas al repositorio remoto.
+- **Fase activa:** `phase/04-server-db` *(Fase 3 cerrada, integrada en `develop`/`main` y respaldada en GitHub)*
+- **Rama de trabajo:** `phase/04-server-db`
+- **Último commit relevante:** fix(security): corrige open redirect/XSS en login, elimina innerHTML, sanea localStorage y normaliza prettier
+- **Despliegue:** repositorio completo respaldado en GitHub (`origin`: `main`, `develop` y `phase/01..03`) + servidor local en http://localhost:4321/
+- **Qué funciona:** Marca **Market-Pet**, Warm Biscuit (60-30-10) + Modo Nocturno Warm Charcoal & Cacao (`#141110`), Content Collections Zod (**22 productos JSON** + WebP `astro:assets`), Mega-Menú + Drawer móvil con micro-SVGs, buscador reactivo y rutas dinámicas, carrito `/carrito` + Drawer sin `innerHTML` y saneamiento de `localStorage`, `/auth/login` protegido contra Open Redirect/XSS, y `/checkout` en 4 pasos con Sesión Demo (`18.765.432-7`), **RUT Módulo 11**, cupón sticky, verificación previa al pago y sellos de Webpay/Bancos/Mercado Pago.
+- **Qué está en progreso:** Apertura de Fase 4: diseño de arquitectura Astro SSR + PostgreSQL (tablas `usuarios`, `direcciones`, `productos`, `ordenes`, `items_orden`) y planificación de actualización de Astro antes de activar SSR.
+- **Bloqueos o problemas conocidos:** ningún bloqueo en Fase 3 estática (`lint`, `format:check` y `build` al 100%). Pendiente evaluar migración a `astro@7.4.13` (alertas `npm audit` en `astro`/`sharp`/`zod`) y endurecer CSP/retirar `preview-megamenu.astro` al activar SSR en Fase 4.
+- **Siguiente paso concreto:** Inicializar la arquitectura SSR + PostgreSQL en `phase/04-server-db`, evaluando actualización segura de `astro` y preparando tabla `ordenes` con soporte de boleta electrónica y seguimiento de despacho.
 
 ## 2. Decisiones importantes
 
@@ -102,10 +102,34 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-19 | Eliminación de compra como invitado, cupón en checkout y sesión demo | Exigir cuenta activa en checkout para fidelización, colocar formulario de cupón en la barra lateral persistente (disponible en todos los pasos y en el pago) y proveer botón demo de 1 clic con datos chilenos para agilizar pruebas de QA de Dirección, Despacho y Pago | Permitir compra anónima como invitado o exigir llenado manual repetitivo de formularios de prueba |
 | 2026-11-19 | Desglose previo al pago y sellos oficiales de pasarelas | Proporcionar tarjeta de verificación con datos de contacto, dirección y método de envío antes de pagar con opción de editar en 1 clic y mostrar logos auténticos de Webpay Plus, Redcompra, Visa, Mastercard, Bancos y Mercado Pago para máxima confianza | Ocultar datos de entrega en el paso de pago o usar nombres planos sin logotipos |
 | 2026-11-20 | Validación matemática de RUT chileno en local (Módulo 11) | Garantizar validación instantánea (0ms), costo cero, offline y privada sin exponer RUTs de clientes a APIs de terceros, rechazando repetidos triviales (`11.111.111-1`) y formateando `XX.XXX.XXX-Y` en vivo | Consultar APIs externas de RUT o validar solo longitud mínima de texto |
+| 2026-11-20 | Auditoría de seguridad pre-push con subagente independiente y cierre Fase 3 | Detectar y remediar Open Redirect/XSS (`?redirect=`), eliminar todo `innerHTML` residual, sanear `localStorage`, ajustar CSP/Prettier y posponer migración a `astro@7.4.13` para el inicio de Fase 4 SSR tras verificar bajo impacto en build estático | Subir ramas sin revisión cruzada o introducir actualización mayor sin probar SSR |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-20 · `phase/03-cart` · auditoria de seguridad pre-push, cierre de fase 3 y respaldo en GitHub
+- **Qué:** Endurecimiento completo de seguridad, normalización de formato para CI, cierre formal de Fase 3, respaldo integral en GitHub y apertura de Fase 4 (`phase/04-server-db`):
+  1. **Corrección de hallazgo Alto (DOM XSS + Open Redirect en `src/pages/auth/login.astro`):**
+     - Se implementó `getSafeRedirect(raw)` validando ruta relativa interna estricta iniciada con `/` (bloqueando `javascript:`, `//`, `/\` y dominios externos verificados contra `window.location.origin`) y se retiró la referencia muerta `#guest-checkout-wrap`.
+  2. **Eliminación total de `innerHTML` en `src/` (Prevención DOM XSS):**
+     - Reemplazo completo en `src/components/CartDrawer.astro`, `src/components/RegionModal.astro` y `src/pages/carrito.astro` mediante `replaceChildren()`, `createElement()`, `createElementNS()` y `.textContent` (0 ocurrencias en código en todo `src/`).
+  3. **Saneamiento defensivo, validaciones y endurecimiento CSP:**
+     - `getCart()` en `CartDrawer.astro`, `carrito.astro` y `checkout.astro` verifica `Array.isArray()`, valida `id`/`name`, acota `quantity` entre `1` y `99`, exige `price >= 0` finito y rutas de imagen locales seguras.
+     - `src/utils/rut.js` exige primer dígito `1-9` (`/^[1-9]\d{5,7}$/`) rechazando ceros iniciales; `checkout.astro` Paso 4 re-valida RUT y dirección antes de confirmar; `catalogo/index.astro` y `categoria/[categoria].astro` evitan inyección en `querySelector` buscando atributos de botones por comparación directa.
+     - `public/_headers` añade `object-src 'none'`, `base-uri 'self'`, `form-action 'self'` y restringe `img-src 'self' data: blob:`.
+  4. **Normalización Prettier para CI y evaluación `npm audit`:**
+     - Corrección de comentarios JSX `{/* ... */}` dentro de expresiones Astro en `Header.astro`, `catalogo/index.astro` y `categoria/[categoria].astro` y ejecución de `npm run format` (`prettier --check .` pasando al 100%).
+     - Se documenta evaluación pendiente para migrar `astro` hacia `7.4.13` (alertas `npm audit` en `astro`, `sharp`, `zod`, `esbuild`, con riesgo acotado en Fase 3 por `output: "static"`) y retirar `preview-megamenu.astro` al habilitar SSR en Fase 4.
+  5. **Cierre de Fase 3, Push a GitHub y Apertura de Fase 4:**
+     - Merges `--no-ff` en `develop` y `main`, `git push origin` de `phase/01-design`, `phase/02-catalog`, `phase/03-cart`, `develop` y `main`, y creación de `phase/04-server-db`.
+- **Archivos clave:** `src/pages/auth/login.astro`, `src/components/CartDrawer.astro`, `src/components/RegionModal.astro`, `src/pages/carrito.astro`, `src/pages/checkout.astro`, `src/utils/rut.js`, `public/_headers`, `src/components/Header.astro`, `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`, `docs/PLAN.md`
+- **Agente(s) / Skills:**
+  - `seguridad` (con subagente independiente `Auditor de Seguridad Pre-Push`): Revisión cruzada completa del repositorio, detección de Open Redirect/DOM XSS en `login.astro`, saneamiento `localStorage`, revisión `npm audit` y verificación de `public/_headers`.
+  - `desarrollo`: Eliminación de `innerHTML` restante, implementación de `getSafeRedirect`, saneamiento de `getCart()`, re-validación en Paso 4, búsqueda segura en filtros y comentarios JSX para Prettier.
+  - `qa`: Ejecución en verde de `npm run format:check`, `npm run lint`, `npm run build` (53 páginas en `3.20s`), pruebas Node de RUT y verificación `0 innerHTML` en `src/`.
+  - `docs-seo`: Cierre documental en `docs/HISTORIAL.md` y checklist en `docs/PLAN.md`.
+- **Notas:** Listo para iniciar Fase 4 (`phase/04-server-db`) con Astro SSR, actualización segura de dependencias y base de datos PostgreSQL.
 
 ### 2026-11-20 · `phase/03-cart` · validacion matematica de RUT chileno (Modulo 11) y formateo automatico
 - **Qué:** Implementación de validación matemática local y formateo en tiempo real del RUT chileno en el checkout:
