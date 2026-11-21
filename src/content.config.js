@@ -21,7 +21,9 @@ const productos = defineCollection({
       petType: z.enum(['perros', 'gatos', 'pequenas-mascotas', 'todas']),
       category: z.string(),
       categorySlug: z.string(),
-      lifeStage: z.enum(['cachorros', 'adultos', 'seniors', 'todas']).default('todas'),
+      lifeStage: z
+        .enum(['cachorros', 'adultos', 'seniors', 'todas'])
+        .default('todas'),
       rating: z.number().min(0).max(5).default(5),
       reviewsCount: z.number().int().min(0).default(0),
       stock: z.number().int().min(0).default(10),

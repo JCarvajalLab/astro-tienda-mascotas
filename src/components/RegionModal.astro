@@ -83,14 +83,14 @@ const regionesYComunas = [
 >
   <!-- Card del Modal -->
   <div
-    class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-stone-100 transform transition-all animate-in fade-in zoom-in-95 duration-150"
+    class="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 sm:p-8 border border-stone-100 dark:border-slate-800 transform transition-all animate-in fade-in zoom-in-95 duration-150"
   >
     <!-- Botón Cerrar (X) -->
     <button
       type="button"
       id="modal-close-btn"
       aria-label="Cerrar ventana"
-      class="absolute top-5 right-5 text-stone-400 hover:text-stone-700 transition-colors p-1 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+      class="absolute top-5 right-5 text-stone-400 dark:text-slate-400 hover:text-stone-700 dark:hover:text-white transition-colors p-1 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
     >
       <svg
         class="w-6 h-6"
@@ -110,11 +110,13 @@ const regionesYComunas = [
     <div class="pr-8 mb-6">
       <h3
         id="modal-title"
-        class="text-2xl font-black tracking-tight text-stone-900 leading-snug"
+        class="text-2xl font-black tracking-tight text-stone-900 dark:text-white leading-snug"
       >
         Escoge dónde recibir tus compras
       </h3>
-      <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+      <p
+        class="text-sm text-stone-600 dark:text-slate-300 mt-2 leading-relaxed"
+      >
         Así puedes ver el mejor precio y tiempo de envío, también promociones y
         novedades de tu tienda más cercana.
       </p>
@@ -126,7 +128,7 @@ const regionesYComunas = [
       <div>
         <label
           for="select-region"
-          class="block text-sm font-bold text-stone-900 mb-1.5"
+          class="block text-sm font-bold text-stone-900 dark:text-slate-200 mb-1.5"
         >
           Región <span class="text-red-500">*</span>
         </label>
@@ -134,17 +136,22 @@ const regionesYComunas = [
           <select
             id="select-region"
             required
-            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 bg-stone-50/60 text-stone-800 text-sm font-medium focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer"
+            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 dark:border-slate-700 bg-stone-50/60 dark:bg-slate-800 text-stone-800 dark:text-slate-100 text-sm font-medium focus:bg-white dark:focus:bg-slate-900 focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer"
           >
             <option value="" disabled selected>Selecciona una región</option>
             {
               regionesYComunas.map((item) => (
-                <option value={item.region}>{item.region}</option>
+                <option
+                  value={item.region}
+                  class="bg-white dark:bg-slate-900 text-stone-900 dark:text-slate-100"
+                >
+                  {item.region}
+                </option>
               ))
             }
           </select>
           <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400"
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400 dark:text-slate-400"
           >
             <svg
               class="w-4 h-4"
@@ -166,7 +173,7 @@ const regionesYComunas = [
       <div>
         <label
           for="select-comuna"
-          class="block text-sm font-bold text-stone-900 mb-1.5"
+          class="block text-sm font-bold text-stone-900 dark:text-slate-200 mb-1.5"
         >
           Comuna <span class="text-red-500">*</span>
         </label>
@@ -175,14 +182,14 @@ const regionesYComunas = [
             id="select-comuna"
             required
             disabled
-            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 bg-stone-50/60 text-stone-800 text-sm font-medium focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer disabled:bg-stone-100 disabled:text-stone-400 disabled:cursor-not-allowed"
+            class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl border border-stone-200 dark:border-slate-700 bg-stone-50/60 dark:bg-slate-800 text-stone-800 dark:text-slate-100 text-sm font-medium focus:bg-white dark:focus:bg-slate-900 focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/10 transition-all cursor-pointer disabled:bg-stone-100 dark:disabled:bg-slate-900/60 disabled:text-stone-400 dark:disabled:text-slate-600 disabled:cursor-not-allowed"
           >
             <option value="" disabled selected
               >Selecciona una región primero</option
             >
           </select>
           <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400"
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400 dark:text-slate-400"
           >
             <svg
               class="w-4 h-4"
@@ -202,12 +209,12 @@ const regionesYComunas = [
 
       <!-- Botones de Acción (Cancelar / Guardar) -->
       <div
-        class="pt-4 flex items-center justify-end gap-3 border-t border-stone-100"
+        class="pt-4 flex items-center justify-end gap-3 border-t border-stone-100 dark:border-slate-800"
       >
         <button
           type="button"
           id="modal-cancel-btn"
-          class="px-7 py-3 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-sm transition-colors cursor-pointer"
+          class="px-7 py-3 rounded-full bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-800 dark:text-slate-200 font-bold text-sm transition-colors cursor-pointer"
         >
           Cancelar
         </button>
@@ -270,9 +277,14 @@ const regionesYComunas = [
       const selectedRegName = selectRegion.value;
       const found = regionesYComunas.find((r) => r.region === selectedRegName);
 
-      // Limpiar opciones anteriores
-      selectComuna.innerHTML =
-        '<option value="" disabled selected>Selecciona tu comuna</option>';
+      // Limpiar opciones anteriores de forma segura sin innerHTML
+      selectComuna.replaceChildren();
+      const placeholderOpt = document.createElement('option');
+      placeholderOpt.value = '';
+      placeholderOpt.disabled = true;
+      placeholderOpt.selected = true;
+      placeholderOpt.textContent = 'Selecciona tu comuna';
+      selectComuna.appendChild(placeholderOpt);
 
       if (found && found.comunas.length > 0) {
         found.comunas.forEach((com) => {
@@ -316,7 +328,9 @@ const regionesYComunas = [
         if (headerRegionText) {
           headerRegionText.textContent = `${comuna}`;
         }
-        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
+        const mobileDrawerRegionText = document.getElementById(
+          'mobile-drawer-region-text'
+        );
         if (mobileDrawerRegionText) {
           mobileDrawerRegionText.textContent = `${comuna}`;
         }
@@ -336,8 +350,11 @@ const regionesYComunas = [
       const parsed = JSON.parse(saved);
       if (parsed.comuna) {
         if (headerRegionText) headerRegionText.textContent = `${parsed.comuna}`;
-        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
-        if (mobileDrawerRegionText) mobileDrawerRegionText.textContent = `${parsed.comuna}`;
+        const mobileDrawerRegionText = document.getElementById(
+          'mobile-drawer-region-text'
+        );
+        if (mobileDrawerRegionText)
+          mobileDrawerRegionText.textContent = `${parsed.comuna}`;
       }
     }
   } catch (e) {

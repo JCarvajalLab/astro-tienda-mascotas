@@ -1,0 +1,2472 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Finalizar Compra Segura | Market-Pet Chile"
+  description="Completa tu pedido de forma rápida y segura en Market-Pet. Despacho a todo Chile y múltiples medios de pago."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav
+      class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-6 overflow-x-auto whitespace-nowrap"
+    >
+      <a
+        href="/"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Inicio</a
+      >
+      <span>/</span>
+      <a
+        href="/carrito"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Carrito</a
+      >
+      <span>/</span>
+      <span class="text-stone-900 dark:text-white font-bold"
+        >Checkout Seguro</span
+      >
+    </nav>
+
+    <!-- Stepper de 4 Pasos -->
+    <div class="mb-8">
+      <div
+        class="bg-white dark:bg-[#1d1816] rounded-2xl p-4 sm:p-5 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs"
+      >
+        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+          <!-- Paso 1 -->
+          <div
+            id="step-nav-1"
+            class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-rose-600 dark:text-rose-400 font-extrabold cursor-pointer"
+          >
+            <div
+              class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-rose-600 text-white shadow-xs"
+            >
+              1
+            </div>
+            <span class="text-[11px] sm:text-xs">Identificación</span>
+          </div>
+
+          <!-- Paso 2 -->
+          <div
+            id="step-nav-2"
+            class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium"
+          >
+            <div
+              class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400"
+            >
+              2
+            </div>
+            <span class="text-[11px] sm:text-xs">Dirección</span>
+          </div>
+
+          <!-- Paso 3 -->
+          <div
+            id="step-nav-3"
+            class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium"
+          >
+            <div
+              class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400"
+            >
+              3
+            </div>
+            <span class="text-[11px] sm:text-xs">Despacho</span>
+          </div>
+
+          <!-- Paso 4 -->
+          <div
+            id="step-nav-4"
+            class="step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium"
+          >
+            <div
+              class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400"
+            >
+              4
+            </div>
+            <span class="text-[11px] sm:text-xs">Pago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor Principal: 2 Columnas (Formularios y Resumen Siempre Visible) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Columna Izquierda: Pasos del Checkout (lg:col-span-7) -->
+      <div class="lg:col-span-7 space-y-6">
+        <!-- Contenedor de Pasos -->
+        <div
+          id="checkout-steps-container"
+          class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs"
+        >
+          <!-- PASO 1: Identificación Priorizando Iniciar Sesión -->
+          <section id="step-1" class="space-y-6">
+            <!-- CASO A: Usuario ya autenticado -->
+            <div id="step1-logged-view" class="hidden space-y-5">
+              <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1"
+                >
+                  Paso 1 de 4 · Sesión Activa
+                </span>
+                <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                  ¡Hola de nuevo, <span id="step1-logged-user-name"
+                    >Cliente</span
+                  >!
+                </h2>
+                <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                  Confirmamos tus datos personales antes de ingresar la
+                  dirección de despacho.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/70 dark:border-[#2d2521] space-y-2 text-xs"
+              >
+                <div class="flex items-center justify-between">
+                  <span class="text-stone-500 dark:text-[#b0a297]"
+                    >Cuenta activa:</span
+                  >
+                  <strong
+                    id="step1-logged-email-text"
+                    class="text-stone-900 dark:text-white font-bold"
+                    >usuario@correo.cl</strong
+                  >
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-stone-500 dark:text-[#b0a297]"
+                    >Nombre de contacto:</span
+                  >
+                  <span
+                    id="step1-logged-name-text"
+                    class="text-stone-900 dark:text-white font-bold"
+                    >Nombre</span
+                  >
+                </div>
+              </div>
+
+              <!-- RUT chileno para emisión de boleta -->
+              <form id="form-step-1-logged" novalidate class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      for="step1-logged-rut"
+                      class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                    >
+                      RUT Chileno (para boleta electrónica) *
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="step1-logged-rut"
+                        maxlength="12"
+                        inputmode="text"
+                        autocomplete="off"
+                        placeholder="12.345.678-5"
+                        aria-describedby="err-step1-logged-rut rut-live-status"
+                        aria-invalid="false"
+                        class="w-full px-3.5 py-2.5 pr-9 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <span
+                        class="pointer-events-none absolute inset-y-0 right-3 flex items-center"
+                      >
+                        <svg
+                          id="icon-rut-valid"
+                          class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 hidden"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          ></path>
+                        </svg>
+                        <svg
+                          id="icon-rut-invalid"
+                          class="w-4 h-4 text-rose-600 dark:text-rose-400 stroke-current stroke-2 hidden"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                    <p
+                      id="rut-live-status"
+                      class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1 hidden"
+                      aria-live="polite"
+                    >
+                    </p>
+                    <p
+                      id="err-step1-logged-rut"
+                      class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"
+                    >
+                    </p>
+                  </div>
+                  <div>
+                    <label
+                      for="step1-logged-phone"
+                      class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                    >
+                      Teléfono móvil de contacto *
+                    </label>
+                    <input
+                      type="tel"
+                      id="step1-logged-phone"
+                      placeholder="+56 9 8765 4321"
+                      class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    />
+                    <p
+                      id="err-step1-logged-phone"
+                      class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"
+                    >
+                    </p>
+                  </div>
+                </div>
+
+                <div class="pt-2 flex items-center justify-between">
+                  <a
+                    href="/auth/login?redirect=/checkout"
+                    class="text-xs font-bold text-stone-500 hover:text-stone-900 dark:hover:text-white underline"
+                  >
+                    ¿No eres tú? Cambiar de cuenta
+                  </a>
+                  <button
+                    type="submit"
+                    class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                  >
+                    <span>Continuar a Dirección de Envío</span>
+                    <svg
+                      class="w-4 h-4 stroke-current stroke-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- CASO B: Usuario NO autenticado (Prioriza Iniciar Sesión y Redirigir a Crear Cuenta) -->
+            <div id="step1-guest-view" class="space-y-6">
+              <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1"
+                >
+                  Paso 1 de 4
+                </span>
+                <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                  Identifícate para continuar tu compra
+                </h2>
+                <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                  Inicia sesión con tu cuenta de Market-Pet o regístrate para
+                  continuar tu pedido.
+                </p>
+              </div>
+
+              <!-- Banner Especial: Sesión de Prueba / Demo Ficticia -->
+              <div
+                class="p-4 rounded-2xl bg-amber-50/80 dark:bg-[#141110] border border-amber-200/80 dark:border-[#382d27] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+              >
+                <div class="flex items-center gap-2">
+                  <svg
+                    class="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-current stroke-2 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693l-1.57-.393m15.6 0l1.106 4.423A1.5 1.5 0 0119.48 21.5H4.52a1.5 1.5 0 01-1.456-1.777l1.106-4.423"
+                    ></path>
+                  </svg>
+                  <span class="text-stone-700 dark:text-stone-300">
+                    ¿Quieres probar la tienda? Inicia sesión con 1 clic usando
+                    una <strong>cuenta de prueba con datos ficticios</strong>.
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  id="btn-load-demo-session"
+                  class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-extrabold text-xs shadow-xs transition-all shrink-0 cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span>Cargar Sesión Demo</span>
+                  <svg
+                    class="w-3.5 h-3.5 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Bloque Prioritario: Iniciar Sesión Rápido -->
+              <div
+                class="p-5 rounded-2xl bg-stone-50/70 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] space-y-4"
+              >
+                <div
+                  class="flex items-center gap-2 text-xs font-extrabold text-stone-900 dark:text-white"
+                >
+                  <svg
+                    class="w-4 h-4 text-rose-600 dark:text-rose-400 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                    ></path>
+                  </svg>
+                  <span>Iniciar Sesión en Market-Pet</span>
+                </div>
+
+                <form id="form-step1-fast-login" novalidate class="space-y-3">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label
+                        for="step1-login-email"
+                        class="block text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                      >
+                        Correo Electrónico *
+                      </label>
+                      <input
+                        type="email"
+                        id="step1-login-email"
+                        placeholder="ejemplo@correo.cl"
+                        class="w-full px-3.5 py-2 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                      <p
+                        id="err-step1-login-email"
+                        class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"
+                      >
+                      </p>
+                    </div>
+
+                    <div>
+                      <label
+                        for="step1-login-pass"
+                        class="block text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                      >
+                        Contraseña *
+                      </label>
+                      <div class="relative">
+                        <input
+                          type="password"
+                          id="step1-login-pass"
+                          placeholder="Tu contraseña"
+                          class="w-full px-3.5 py-2 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 pr-9"
+                        />
+                        <button
+                          type="button"
+                          id="toggle-step1-pass"
+                          aria-label="Ver contraseña"
+                          class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
+                        >
+                          <svg
+                            id="icon-step1-eye"
+                            class="w-4 h-4 stroke-current stroke-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                            ></path>
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          </svg>
+                          <svg
+                            id="icon-step1-eye-off"
+                            class="w-4 h-4 stroke-current stroke-2 hidden"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <p
+                        id="err-step1-login-pass"
+                        class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"
+                      >
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="pt-1 flex items-center justify-between">
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297]"
+                    >
+                      Ingresa para continuar de inmediato.
+                    </span>
+                    <button
+                      type="submit"
+                      class="px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 font-extrabold text-xs transition-colors cursor-pointer"
+                    >
+                      Iniciar Sesión
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Bloque: ¿No tienes cuenta? -> Redirige a Crear Cuenta -->
+              <div
+                class="p-5 rounded-2xl border-2 border-dashed border-stone-200 dark:border-[#382d27] text-center space-y-2.5"
+              >
+                <span
+                  class="text-xs font-bold text-stone-700 dark:text-[#fbf6f0] block"
+                >
+                  ¿Aún no tienes una cuenta en Market-Pet?
+                </span>
+                <p
+                  class="text-xs text-stone-500 dark:text-[#b0a297] max-w-sm mx-auto"
+                >
+                  Crea tu cuenta en 1 minuto para guardar tus direcciones,
+                  acumular puntos y continuar tu compra.
+                </p>
+                <a
+                  href="/auth/login?tab=register&redirect=/checkout"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-xs shadow-md transition-all cursor-pointer"
+                >
+                  <span>Crear Cuenta</span>
+                  <svg
+                    class="w-4 h-4 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- PASO 2: Dirección y Comuna de Despacho -->
+          <section id="step-2" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1"
+              >
+                Paso 2 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Dirección de Despacho
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Ingresa la ubicación exacta donde recibirás los artículos para
+                tus mascotas en Chile.
+              </p>
+            </div>
+
+            <form id="form-step-2" novalidate class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="step2-region"
+                    class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                  >
+                    Región *
+                  </label>
+                  <select
+                    id="step2-region"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  >
+                    <option value="metropolitana"
+                      >Región Metropolitana de Santiago</option
+                    >
+                    <option value="valparaiso">Región de Valparaíso</option>
+                    <option value="biobio">Región del Biobío</option>
+                    <option value="coquimbo">Región de Coquimbo</option>
+                    <option value="otra">Otra Región de Chile</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    for="step2-comuna"
+                    class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                  >
+                    Comuna de Entrega *
+                  </label>
+                  <select
+                    id="step2-comuna"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  >
+                    <option value="Providencia">Providencia</option>
+                    <option value="Las Condes">Las Condes</option>
+                    <option value="Santiago Centro">Santiago Centro</option>
+                    <option value="Ñuñoa">Ñuñoa</option>
+                    <option value="Vitacura">Vitacura</option>
+                    <option value="La Reina">La Reina</option>
+                    <option value="Maipú">Maipú</option>
+                    <option value="La Florida">La Florida</option>
+                    <option value="Viña del Mar">Viña del Mar</option>
+                    <option value="Concepción">Concepción</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                  <label
+                    for="step2-address"
+                    class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                  >
+                    Calle y Número *
+                  </label>
+                  <input
+                    type="text"
+                    id="step2-address"
+                    placeholder="Ej. Av. Pedro de Valdivia 1234"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                  <p
+                    id="err-step2-address"
+                    class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 mt-1 hidden"
+                  >
+                  </p>
+                </div>
+                <div>
+                  <label
+                    for="step2-dept"
+                    class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                  >
+                    Depto / Casa (Opcional)
+                  </label>
+                  <input
+                    type="text"
+                    id="step2-dept"
+                    placeholder="Ej. Depto 402"
+                    class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="step2-notes"
+                  class="block text-xs font-bold text-stone-700 dark:text-[#fbf6f0] mb-1"
+                >
+                  Instrucciones o Referencias para el Repartidor
+                </label>
+                <input
+                  type="text"
+                  id="step2-notes"
+                  placeholder="Ej. Dejar con conserje, portón verde, llamar al llegar..."
+                  class="w-full px-3.5 py-2.5 rounded-xl text-xs border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                />
+              </div>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-1"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Datos
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span>Continuar a Despacho</span>
+                  <svg
+                    class="w-4 h-4 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PASO 3: Método de Envío -->
+          <section id="step-3" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1"
+              >
+                Paso 3 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Elige tu Método de Entrega
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Selecciona la velocidad de despacho que mejor se adapte a tus
+                necesidades.
+              </p>
+            </div>
+
+            <form id="form-step-3" class="space-y-3">
+              <!-- Opción 1: Estándar -->
+              <label
+                class="shipping-option flex items-center justify-between p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all"
+              >
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="standard"
+                    checked
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span
+                      class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5"
+                    >
+                      <svg
+                        class="w-4 h-4 text-stone-700 dark:text-stone-300 stroke-current stroke-2 shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5"
+                        ></path>
+                      </svg>
+                      <span>Despacho Estándar a Domicilio</span>
+                    </span>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5"
+                    >
+                      Entrega en 2 a 4 días hábiles (Gratis sobre $25.000)
+                    </span>
+                  </div>
+                </div>
+                <span
+                  id="shipping-opt-standard-price"
+                  class="text-xs sm:text-sm font-black text-stone-900 dark:text-white"
+                >
+                  $3.990
+                </span>
+              </label>
+
+              <!-- Opción 2: Express -->
+              <label
+                class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 dark:hover:border-stone-500 bg-white dark:bg-[#141110] cursor-pointer transition-all"
+              >
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="express"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span
+                      class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5"
+                    >
+                      <svg
+                        class="w-4 h-4 text-amber-500 stroke-current stroke-2 shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                        ></path>
+                      </svg>
+                      <span>Despacho Express Mismo Día</span>
+                    </span>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5"
+                    >
+                      Entregas en menos de 24 horas (Santiago Urbano)
+                    </span>
+                  </div>
+                </div>
+                <span
+                  class="text-xs sm:text-sm font-black text-rose-600 dark:text-rose-400"
+                >
+                  $5.990
+                </span>
+              </label>
+
+              <!-- Opción 3: Retiro en Tienda -->
+              <label
+                class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 dark:hover:border-stone-500 bg-white dark:bg-[#141110] cursor-pointer transition-all"
+              >
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="shipping-method"
+                    value="pickup"
+                    class="h-4 w-4 text-rose-600 focus:ring-rose-500"
+                  />
+                  <div>
+                    <span
+                      class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white flex items-center gap-1.5"
+                    >
+                      <svg
+                        class="w-4 h-4 text-emerald-500 stroke-current stroke-2 shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.25a.75.75 0 01-.75-.75V10.5a.75.75 0 01.22-.53l8.25-8.25a.75.75 0 011.06 0l8.25 8.25a.75.75 0 01.22.53V20.25a.75.75 0 01-.75.75H13.5z"
+                        ></path>
+                      </svg>
+                      <span>Retiro en Tienda (Providencia / Las Condes)</span>
+                    </span>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block mt-0.5"
+                    >
+                      Listo en 2 horas tras confirmar tu orden
+                    </span>
+                  </div>
+                </div>
+                <span
+                  class="text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400"
+                >
+                  ¡GRATIS!
+                </span>
+              </label>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-2"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Dirección
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span>Continuar al Pago</span>
+                  <svg
+                    class="w-4 h-4 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PASO 4: Método de Pago -->
+          <section id="step-4" class="space-y-6 hidden">
+            <div class="border-b border-stone-100 dark:border-[#2d2521] pb-4">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-1"
+              >
+                Paso 4 de 4
+              </span>
+              <h2 class="text-xl font-black text-stone-900 dark:text-white">
+                Medio de Pago Seguro
+              </h2>
+              <p class="text-xs text-stone-500 dark:text-[#b0a297] mt-0.5">
+                Transacción cifrada y protegida por pasarelas chilenas
+                autorizadas.
+              </p>
+            </div>
+
+            <!-- Desglose de Verificación Previo al Pago (Datos de Entrega y Contacto) -->
+            <div
+              class="rounded-2xl border border-stone-200/90 dark:border-[#382d27] bg-stone-50/70 dark:bg-[#141110] p-4 sm:p-5 space-y-4"
+            >
+              <div
+                class="flex items-center justify-between border-b border-stone-200/70 dark:border-[#2d2521] pb-3"
+              >
+                <div class="flex items-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  <h3
+                    class="text-xs sm:text-sm font-extrabold text-stone-900 dark:text-white"
+                  >
+                    Verifica tus datos antes de pagar
+                  </h3>
+                </div>
+                <span
+                  class="text-[11px] font-semibold text-stone-400 dark:text-[#b0a297]"
+                >
+                  Revisión final
+                </span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <!-- Columna 1: Contacto y Facturación -->
+                <div
+                  class="space-y-2 p-3.5 rounded-xl bg-white dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]"
+                >
+                  <div
+                    class="flex items-center justify-between border-b border-stone-100 dark:border-[#27201c] pb-1.5"
+                  >
+                    <span
+                      class="font-extrabold text-stone-800 dark:text-white flex items-center gap-1.5 text-xs"
+                    >
+                      <svg
+                        class="w-3.5 h-3.5 text-stone-500 stroke-current stroke-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                        ></path>
+                      </svg>
+                      Destinatario & Contacto
+                    </span>
+                    <button
+                      type="button"
+                      id="btn-edit-contact"
+                      class="text-[11px] text-rose-600 dark:text-rose-400 hover:underline font-bold cursor-pointer"
+                    >
+                      Editar
+                    </button>
+                  </div>
+                  <div
+                    class="space-y-1 text-stone-600 dark:text-[#b0a297] text-[11px] leading-relaxed"
+                  >
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Nombre:</strong
+                      >
+                      <span id="review-name">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >RUT:</strong
+                      >
+                      <span id="review-rut">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Email:</strong
+                      >
+                      <span id="review-email">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Teléfono:</strong
+                      >
+                      <span id="review-phone">-</span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Columna 2: Dirección y Despacho -->
+                <div
+                  class="space-y-2 p-3.5 rounded-xl bg-white dark:bg-[#1d1816] border border-stone-200/60 dark:border-[#2d2521]"
+                >
+                  <div
+                    class="flex items-center justify-between border-b border-stone-100 dark:border-[#27201c] pb-1.5"
+                  >
+                    <span
+                      class="font-extrabold text-stone-800 dark:text-white flex items-center gap-1.5 text-xs"
+                    >
+                      <svg
+                        class="w-3.5 h-3.5 text-stone-500 stroke-current stroke-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                        ></path>
+                      </svg>
+                      Dirección & Despacho
+                    </span>
+                    <button
+                      type="button"
+                      id="btn-edit-address"
+                      class="text-[11px] text-rose-600 dark:text-rose-400 hover:underline font-bold cursor-pointer"
+                    >
+                      Editar
+                    </button>
+                  </div>
+                  <div
+                    class="space-y-1 text-stone-600 dark:text-[#b0a297] text-[11px] leading-relaxed"
+                  >
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Dirección:</strong
+                      >
+                      <span id="review-address">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Comuna:</strong
+                      >
+                      <span id="review-comuna-region">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Método:</strong
+                      >
+                      <span id="review-shipping-method">-</span>
+                    </p>
+                    <p>
+                      <strong class="text-stone-900 dark:text-white"
+                        >Instrucciones:</strong
+                      >
+                      <span id="review-notes">Sin notas adicionales</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form id="form-step-4" class="space-y-3">
+              <!-- Webpay Plus (Transbank) con Logos Oficiales -->
+              <label
+                class="payment-option flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border-2 border-rose-600 bg-rose-50/20 dark:bg-rose-950/20 cursor-pointer transition-all"
+              >
+                <div class="flex items-start gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="webpay"
+                    checked
+                    class="h-4 w-4 mt-0.5 text-rose-600 focus:ring-rose-500 shrink-0"
+                  />
+                  <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span
+                        class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white"
+                      >
+                        Webpay Plus
+                      </span>
+                      <span
+                        class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-400 text-[10px] font-black uppercase tracking-wider"
+                      >
+                        Recomendado
+                      </span>
+                    </div>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block leading-snug"
+                    >
+                      Tarjetas de débito, crédito o Redcompra por Transbank
+                      hasta en 3 cuotas sin interés
+                    </span>
+                    <!-- Logos de Medios de Pago Webpay -->
+                    <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                      <!-- Webpay Badge -->
+                      <span
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#e31b23] text-white text-[10px] font-black tracking-wider shadow-2xs"
+                      >
+                        <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                          <path
+                            d="M12 2L2 7l10 5 10-5-10-5zm0 8.5L4.5 7 12 3.5 19.5 7 12 10.5zm0 2.5l-8-4-2 1 10 5 10-5-2-1-8 4zm0 4.5l-8-4-2 1 10 5 10-5-2-1-8 4z"
+                          ></path>
+                        </svg>
+                        webpay
+                      </span>
+                      <!-- Redcompra Badge -->
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md bg-stone-900 text-cyan-400 text-[10px] font-black tracking-tight"
+                      >
+                        Redcompra
+                      </span>
+                      <!-- Visa Badge -->
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-stone-200 text-[#1a1f71] text-[10px] font-black italic tracking-wider"
+                      >
+                        VISA
+                      </span>
+                      <!-- Mastercard Badge -->
+                      <span
+                        class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md bg-stone-900 text-white text-[10px] font-bold"
+                      >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-[#eb001b] inline-block -mr-1 opacity-90"
+                        ></span>
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-[#f79e1b] inline-block opacity-90"
+                        ></span>
+                        <span class="ml-1 text-[9px] font-bold">Mastercard</span
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Transferencia Bancaria Directa con Logos de Bancos -->
+              <label
+                class="payment-option flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 bg-white dark:bg-[#141110] cursor-pointer transition-all"
+              >
+                <div class="flex items-start gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="transfer"
+                    class="h-4 w-4 mt-0.5 text-rose-600 focus:ring-rose-500 shrink-0"
+                  />
+                  <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span
+                        class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white"
+                      >
+                        Transferencia Bancaria Electrónica
+                      </span>
+                      <span
+                        class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/50 text-[10px] font-black uppercase text-emerald-700 dark:text-emerald-400"
+                      >
+                        -5% DCTO Extra
+                      </span>
+                    </div>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block leading-snug"
+                    >
+                      Recibe los datos bancarios al confirmar y obtén un 5% de
+                      descuento sobre tu compra
+                    </span>
+                    <!-- Logos de Bancos Chilenos -->
+                    <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                      <span
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-stone-100 dark:bg-[#27201c] border border-stone-200/80 dark:border-[#382d27] text-stone-700 dark:text-stone-300 text-[10px] font-bold"
+                      >
+                        <svg
+                          class="w-3 h-3 text-emerald-600 stroke-current stroke-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5"
+                          ></path>
+                        </svg>
+                        BancoEstado / CuentaRUT
+                      </span>
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[10px] font-bold border border-blue-200/60 dark:border-blue-900/40"
+                      >
+                        Banco de Chile
+                      </span>
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 text-[10px] font-bold border border-red-200/60 dark:border-red-900/40"
+                      >
+                        Santander
+                      </span>
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 text-[10px] font-bold border border-teal-200/60 dark:border-teal-900/40"
+                      >
+                        BCI
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Mercado Pago con Logo Oficial -->
+              <label
+                class="payment-option flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-stone-200 dark:border-[#382d27] hover:border-stone-400 bg-white dark:bg-[#141110] cursor-pointer transition-all"
+              >
+                <div class="flex items-start gap-3">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="mercadopago"
+                    class="h-4 w-4 mt-0.5 text-rose-600 focus:ring-rose-500 shrink-0"
+                  />
+                  <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span
+                        class="text-xs sm:text-sm font-bold text-stone-900 dark:text-white"
+                      >
+                        Mercado Pago
+                      </span>
+                    </div>
+                    <span
+                      class="text-[11px] text-stone-500 dark:text-[#b0a297] block leading-snug"
+                    >
+                      Paga con saldo de tu cuenta Mercado Pago o tarjetas
+                      bancarias guardadas
+                    </span>
+                    <!-- Mercado Pago Badge -->
+                    <div class="flex items-center gap-1.5 pt-1">
+                      <span
+                        class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#009ee3] text-white text-[10px] font-black tracking-tight shadow-2xs"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5 fill-current"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                          ></path>
+                        </svg>
+                        Mercado Pago
+                      </span>
+                      <span
+                        class="text-[10px] font-semibold text-stone-500 dark:text-stone-400"
+                      >
+                        Dinero en cuenta · Tarjetas guardadas
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              <div
+                class="p-3 bg-stone-50 dark:bg-[#141110] rounded-xl text-[11px] text-stone-500 dark:text-[#b0a297] mt-3"
+              >
+                Al hacer clic en <strong>"Pagar Pedido"</strong>, aceptas los
+                términos de servicio, políticas de despacho y garantía de
+                satisfacción de Market-Pet.
+              </div>
+
+              <div class="pt-4 flex items-center justify-between">
+                <button
+                  type="button"
+                  id="btn-back-to-step-3"
+                  class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors cursor-pointer"
+                >
+                  ← Volver a Despacho
+                </button>
+                <button
+                  type="submit"
+                  id="btn-confirm-payment"
+                  class="px-7 py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <span id="btn-confirm-payment-text"
+                    >Pagar Pedido con Webpay</span
+                  >
+                  <svg
+                    id="btn-confirm-payment-icon"
+                    class="w-4 h-4 stroke-current stroke-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <!-- Pantalla de Éxito / Confirmación de Pedido -->
+        <div
+          id="checkout-success-view"
+          class="hidden bg-white dark:bg-[#1d1816] rounded-3xl p-8 border border-stone-200/80 dark:border-[#2d2521] shadow-2xs text-center space-y-5"
+        >
+          <div
+            class="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40"
+          >
+            <svg
+              class="w-10 h-10 stroke-current stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <span
+              class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1"
+            >
+              ¡Pago Exitoso!
+            </span>
+            <h2 class="text-2xl font-black text-stone-900 dark:text-white">
+              ¡Muchas gracias por tu compra en Market-Pet!
+            </h2>
+            <p
+              class="text-xs sm:text-sm text-stone-500 dark:text-[#b0a297] mt-1 max-w-md mx-auto"
+            >
+              Tu pedido ha sido confirmado y ya estamos preparando los artículos
+              para consentir a tu mascota.
+            </p>
+          </div>
+
+          <div
+            class="p-5 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/70 dark:border-[#2d2521] max-w-md mx-auto text-left text-xs space-y-2"
+          >
+            <div class="flex justify-between">
+              <span class="text-stone-500">Número de Orden:</span>
+              <strong
+                id="success-order-id"
+                class="text-stone-900 dark:text-white font-black"
+                >#MP-2026-8942</strong
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Destinatario:</span>
+              <strong id="success-name" class="text-stone-900 dark:text-white"
+                >Constanza Silva</strong
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Comuna de Entrega:</span>
+              <strong id="success-comuna" class="text-stone-900 dark:text-white"
+                >Providencia</strong
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-500">Método de Envío:</span>
+              <strong
+                id="success-shipping"
+                class="text-stone-900 dark:text-white">Despacho Estándar</strong
+              >
+            </div>
+            <div
+              class="flex justify-between pt-2 border-t border-stone-200/60 dark:border-[#2d2521] text-sm"
+            >
+              <span class="font-bold text-stone-700 dark:text-stone-300"
+                >Total Pagado:</span
+              >
+              <strong
+                id="success-total"
+                class="font-black text-rose-600 dark:text-rose-400">$0</strong
+              >
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="/catalogo"
+              class="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all flex items-center gap-1.5"
+            >
+              <span>Seguir explorando el catálogo</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/"
+              class="px-5 py-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-700 dark:text-stone-300 hover:bg-stone-50 font-bold text-xs transition-colors"
+            >
+              Volver al Inicio
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Panel de Resumen SIEMPRE VISIBLE (lg:col-span-5) -->
+      <aside class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+        <div
+          class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 border border-stone-200/80 dark:border-[#2d2521] shadow-md space-y-5"
+        >
+          <div
+            class="flex items-center justify-between border-b border-stone-100 dark:border-[#2d2521] pb-3"
+          >
+            <h3
+              class="text-base font-extrabold text-stone-900 dark:text-white flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-rose-600 dark:text-rose-400 stroke-current stroke-2"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                ></path>
+              </svg>
+              <span>Detalle de tu Compra</span>
+            </h3>
+            <span
+              id="checkout-summary-badge"
+              class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-stone-100 dark:bg-[#27201c] text-stone-700 dark:text-stone-300"
+            >
+              0 artículos
+            </span>
+          </div>
+
+          <!-- Lista de Productos en Resumen -->
+          <ul
+            id="checkout-items-list"
+            class="divide-y divide-stone-100 dark:divide-[#2d2521] max-h-72 overflow-y-auto space-y-2 pr-1"
+          >
+            <!-- Inyectado por JS -->
+          </ul>
+
+          <!-- Formulario de Cupón de Descuento (En Pantalla Actual de Checkout y Pago) -->
+          <div class="pt-3 border-t border-stone-100 dark:border-[#2d2521]">
+            <form id="checkout-coupon-form" class="space-y-1.5">
+              <label
+                for="checkout-coupon-input"
+                class="flex items-center gap-1.5 text-[11px] font-bold text-stone-700 dark:text-[#fbf6f0]"
+              >
+                <svg
+                  class="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 stroke-current stroke-2 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                  ></path>
+                </svg>
+                <span>¿Tienes un cupón de descuento?</span>
+              </label>
+              <div class="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  id="checkout-coupon-input"
+                  placeholder="Ej. MASCOTA10"
+                  class="uppercase px-3 py-1.5 rounded-xl text-xs font-bold border border-stone-300 dark:border-[#382d27] bg-stone-50/50 dark:bg-[#141110] text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-500 w-full"
+                />
+                <button
+                  type="submit"
+                  class="px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-black dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 font-extrabold text-xs transition-colors shrink-0 cursor-pointer"
+                >
+                  Aplicar
+                </button>
+              </div>
+              <p
+                id="checkout-coupon-feedback"
+                class="text-[11px] font-bold mt-1 hidden"
+              >
+              </p>
+            </form>
+          </div>
+
+          <!-- Desglose de Precios -->
+          <div
+            class="space-y-2.5 pt-3 border-t border-stone-100 dark:border-[#2d2521] text-xs text-stone-600 dark:text-[#b0a297]"
+          >
+            <div class="flex items-center justify-between">
+              <span>Subtotal productos</span>
+              <span
+                id="checkout-subtotal-val"
+                class="font-bold text-stone-900 dark:text-white">$0</span
+              >
+            </div>
+
+            <!-- Fila Cupón de Descuento -->
+            <div
+              id="checkout-coupon-row"
+              class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold"
+            >
+              <span id="checkout-coupon-label">Cupón MASCOTA10 (-10%)</span>
+              <span id="checkout-coupon-val">-$0</span>
+            </div>
+
+            <div
+              id="checkout-discount-row"
+              class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold"
+            >
+              <span id="checkout-discount-label"
+                >Descuento Transferencia (-5%)</span
+              >
+              <span id="checkout-discount-val">-$0</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span>Costo de Despacho</span>
+              <span
+                id="checkout-shipping-val"
+                class="font-bold text-stone-900 dark:text-white">$3.990</span
+              >
+            </div>
+
+            <div
+              class="pt-3 border-t border-stone-200/80 dark:border-[#2d2521] flex items-center justify-between text-base font-black text-stone-900 dark:text-white"
+            >
+              <span>Total a Pagar</span>
+              <span
+                id="checkout-total-val"
+                class="text-xl text-rose-600 dark:text-rose-400">$0</span
+              >
+            </div>
+          </div>
+
+          <!-- Sellos de Seguridad y Despacho (micro-SVGs limpios, sin emojis) -->
+          <div
+            class="pt-3 border-t border-stone-100 dark:border-[#2d2521] space-y-2 text-[11px] text-stone-500 dark:text-[#b0a297]"
+          >
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                ></path>
+              </svg>
+              <span>Cifrado SSL de 256 bits para pagos seguros</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h17.25"
+                ></path>
+              </svg>
+              <span>Embalaje cuidadoso para alimentos y accesorios</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-4 h-4 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
+                ></path>
+              </svg>
+              <span>Soporte post-venta por WhatsApp y correo</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { cleanRut, formatRut, validateRut } from '../utils/rut.js';
+
+  // Control del Flujo Multi-Paso de Checkout con Prioridad de Inicio de Sesión (JavaScript Nativo Puro)
+  const CART_KEY = 'market_pet_cart';
+  const FREE_SHIPPING_THRESHOLD = 25000;
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  let currentStep = 1;
+  let selectedShippingMethod = 'standard';
+  let selectedPaymentMethod = 'webpay';
+  let appliedCoupon = null;
+  let orderData = {
+    nombre: '',
+    rut: '',
+    email: '',
+    telefono: '',
+    region: 'metropolitana',
+    comuna: 'Providencia',
+    direccion: '',
+    depto: '',
+    notas: '',
+  };
+
+  function formatCLP(amount) {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
+
+  function getCart() {
+    try {
+      const stored = localStorage.getItem(CART_KEY);
+      const parsed = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(parsed)) return [];
+      return parsed
+        .filter((it) => it && typeof it === 'object')
+        .map((it) => ({
+          id: typeof it.id === 'string' ? it.id.trim() : '',
+          name: typeof it.name === 'string' ? it.name.trim() : '',
+          price: Number(it.price),
+          quantity: Number(it.quantity),
+          image:
+            typeof it.image === 'string' &&
+            it.image.startsWith('/') &&
+            !it.image.startsWith('//')
+              ? it.image
+              : '/favicon.svg',
+        }))
+        .filter(
+          (it) =>
+            it.id.length > 0 &&
+            it.name.length > 0 &&
+            Number.isFinite(it.price) &&
+            it.price >= 0 &&
+            Number.isFinite(it.quantity)
+        )
+        .map((it) => ({
+          ...it,
+          quantity: Math.min(99, Math.max(1, Math.trunc(it.quantity))),
+        }));
+    } catch {
+      return [];
+    }
+  }
+
+  function setCheckoutError(fieldId, errId, message) {
+    const input = document.getElementById(fieldId);
+    const err = document.getElementById(errId);
+    if (input) {
+      if (message) {
+        input.classList.add('border-rose-500', 'focus:ring-rose-500');
+        input.classList.remove('border-stone-300', 'dark:border-[#382d27]');
+      } else {
+        input.classList.remove('border-rose-500');
+        input.classList.add('border-stone-300', 'dark:border-[#382d27]');
+      }
+    }
+    if (err) {
+      if (message) {
+        err.textContent = message;
+        err.classList.remove('hidden');
+      } else {
+        err.textContent = '';
+        err.classList.add('hidden');
+      }
+    }
+  }
+
+  function updateRutFeedback(rawValue, forceError = false) {
+    const input = document.getElementById('step1-logged-rut');
+    const iconValid = document.getElementById('icon-rut-valid');
+    const iconInvalid = document.getElementById('icon-rut-invalid');
+    const liveStatus = document.getElementById('rut-live-status');
+    const cleaned = cleanRut(rawValue);
+
+    const setNeutralInputBorder = () => {
+      if (!input) return;
+      input.classList.remove(
+        'border-emerald-500',
+        'focus:ring-emerald-500',
+        'border-rose-500'
+      );
+      input.classList.add(
+        'border-stone-300',
+        'dark:border-[#382d27]',
+        'focus:ring-rose-500'
+      );
+    };
+
+    if (!cleaned) {
+      iconValid?.classList.add('hidden');
+      if (liveStatus) {
+        liveStatus.textContent = '';
+        liveStatus.classList.add('hidden');
+      }
+
+      if (forceError) {
+        iconInvalid?.classList.remove('hidden');
+        setNeutralInputBorder();
+        setCheckoutError(
+          'step1-logged-rut',
+          'err-step1-logged-rut',
+          'Ingresa tu RUT chileno para emitir la boleta'
+        );
+        input?.setAttribute('aria-invalid', 'true');
+      } else {
+        iconInvalid?.classList.add('hidden');
+        setNeutralInputBorder();
+        setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+        input?.setAttribute('aria-invalid', 'false');
+      }
+      return;
+    }
+
+    if (validateRut(rawValue)) {
+      iconValid?.classList.remove('hidden');
+      iconInvalid?.classList.add('hidden');
+      setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+      if (input) {
+        input.classList.remove(
+          'border-stone-300',
+          'dark:border-[#382d27]',
+          'border-rose-500',
+          'focus:ring-rose-500'
+        );
+        input.classList.add('border-emerald-500', 'focus:ring-emerald-500');
+        input.setAttribute('aria-invalid', 'false');
+      }
+      if (liveStatus) {
+        liveStatus.textContent = 'RUT chileno válido';
+        liveStatus.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (cleaned.length >= 8 || forceError) {
+      iconValid?.classList.add('hidden');
+      iconInvalid?.classList.remove('hidden');
+      if (liveStatus) {
+        liveStatus.textContent = '';
+        liveStatus.classList.add('hidden');
+      }
+      setNeutralInputBorder();
+      setCheckoutError(
+        'step1-logged-rut',
+        'err-step1-logged-rut',
+        'RUT chileno inválido. Verifica el número y dígito verificador'
+      );
+      input?.setAttribute('aria-invalid', 'true');
+      return;
+    }
+
+    iconValid?.classList.add('hidden');
+    iconInvalid?.classList.add('hidden');
+    if (liveStatus) {
+      liveStatus.textContent = '';
+      liveStatus.classList.add('hidden');
+    }
+    setNeutralInputBorder();
+    setCheckoutError('step1-logged-rut', 'err-step1-logged-rut', '');
+    input?.setAttribute('aria-invalid', 'false');
+  }
+
+  function calculateShippingCost(subtotal) {
+    if (selectedShippingMethod === 'pickup') return 0;
+    if (selectedShippingMethod === 'express') return 5990;
+    return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 3990;
+  }
+
+  function renderCheckoutSummary() {
+    const cart = getCart();
+    const itemsList = document.getElementById('checkout-items-list');
+    const badgeEl = document.getElementById('checkout-summary-badge');
+    const subtotalEl = document.getElementById('checkout-subtotal-val');
+    const shippingEl = document.getElementById('checkout-shipping-val');
+    const discountRow = document.getElementById('checkout-discount-row');
+    const discountVal = document.getElementById('checkout-discount-val');
+    const totalEl = document.getElementById('checkout-total-val');
+    const standardPriceEl = document.getElementById(
+      'shipping-opt-standard-price'
+    );
+    const confirmBtn = document.getElementById('btn-confirm-payment');
+
+    const totalQty = cart.reduce((acc, it) => acc + it.quantity, 0);
+    const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
+    const shippingCost = calculateShippingCost(subtotal);
+
+    let couponDiscount = 0;
+    const couponRow = document.getElementById('checkout-coupon-row');
+    const couponLabel = document.getElementById('checkout-coupon-label');
+    const couponVal = document.getElementById('checkout-coupon-val');
+    if (appliedCoupon) {
+      couponDiscount = Math.round(subtotal * (appliedCoupon.percent / 100));
+      if (couponRow && couponVal && couponLabel) {
+        couponRow.classList.remove('hidden');
+        couponLabel.textContent = `Cupón ${appliedCoupon.code} (-${appliedCoupon.percent}%)`;
+        couponVal.textContent = `-${formatCLP(couponDiscount)}`;
+      }
+    } else if (couponRow) {
+      couponRow.classList.add('hidden');
+    }
+
+    let discount = 0;
+    if (selectedPaymentMethod === 'transfer') {
+      discount = Math.round((subtotal - couponDiscount) * 0.05);
+    }
+
+    const total = Math.max(
+      0,
+      subtotal -
+        couponDiscount -
+        discount +
+        (cart.length > 0 ? shippingCost : 0)
+    );
+
+    if (badgeEl) badgeEl.textContent = `${totalQty} artículos`;
+    if (subtotalEl) subtotalEl.textContent = formatCLP(subtotal);
+
+    if (standardPriceEl) {
+      standardPriceEl.textContent =
+        subtotal >= FREE_SHIPPING_THRESHOLD ? '¡GRATIS!' : '$3.990';
+    }
+
+    if (discountRow && discountVal) {
+      if (discount > 0) {
+        discountRow.classList.remove('hidden');
+        discountVal.textContent = `-${formatCLP(discount)}`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+    }
+
+    if (shippingEl) {
+      if (shippingCost === 0) {
+        shippingEl.textContent = '¡GRATIS!';
+        shippingEl.className =
+          'font-black text-emerald-600 dark:text-emerald-400';
+      } else {
+        shippingEl.textContent = formatCLP(shippingCost);
+        shippingEl.className = 'font-bold text-stone-900 dark:text-white';
+      }
+    }
+
+    if (totalEl) totalEl.textContent = formatCLP(total);
+
+    if (confirmBtn) {
+      const paymentName =
+        selectedPaymentMethod === 'transfer'
+          ? 'Transferencia'
+          : selectedPaymentMethod === 'mercadopago'
+            ? 'Mercado Pago'
+            : 'Webpay';
+      const confirmText = document.getElementById('btn-confirm-payment-text');
+      const confirmIcon = document.getElementById('btn-confirm-payment-icon');
+      if (confirmText) {
+        confirmText.textContent = `Pagar ${formatCLP(total)} con ${paymentName}`;
+      }
+      confirmIcon?.classList.remove('hidden');
+    }
+
+    if (itemsList) {
+      itemsList.replaceChildren();
+
+      if (cart.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'py-4 text-center text-xs text-stone-400';
+        li.textContent = 'No hay productos en el carrito. ';
+        const link = document.createElement('a');
+        link.href = '/catalogo';
+        link.className = 'text-rose-600 dark:text-rose-400 font-bold underline';
+        link.textContent = 'Ir a comprar';
+        li.appendChild(link);
+        itemsList.appendChild(li);
+        return;
+      }
+
+      cart.forEach((it) => {
+        const li = document.createElement('li');
+        li.className = 'py-3 flex items-center justify-between gap-3';
+
+        const left = document.createElement('div');
+        left.className = 'flex items-center gap-3 min-w-0';
+
+        const imgWrap = document.createElement('div');
+        imgWrap.className =
+          'w-12 h-12 rounded-xl bg-stone-100 dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden';
+        const img = document.createElement('img');
+        img.src = it.image || '/favicon.svg';
+        img.alt = it.name;
+        img.className = 'w-full h-full object-cover rounded-lg';
+        imgWrap.appendChild(img);
+
+        const info = document.createElement('div');
+        info.className = 'min-w-0';
+        const name = document.createElement('h4');
+        name.className =
+          'text-xs font-bold text-stone-900 dark:text-white line-clamp-1 truncate';
+        name.textContent = it.name;
+        const qty = document.createElement('span');
+        qty.className = 'text-[11px] text-stone-500 dark:text-[#b0a297]';
+        qty.textContent = `Cant: ${it.quantity} × ${formatCLP(it.price)}`;
+
+        info.appendChild(name);
+        info.appendChild(qty);
+        left.appendChild(imgWrap);
+        left.appendChild(info);
+
+        const right = document.createElement('span');
+        right.className =
+          'text-xs font-black text-stone-900 dark:text-white shrink-0';
+        right.textContent = formatCLP(it.price * it.quantity);
+
+        li.appendChild(left);
+        li.appendChild(right);
+        itemsList.appendChild(li);
+      });
+    }
+  }
+
+  function setStep(step) {
+    currentStep = step;
+
+    ['step-1', 'step-2', 'step-3', 'step-4'].forEach((id, idx) => {
+      const el = document.getElementById(id);
+      if (idx + 1 === step) {
+        el?.classList.remove('hidden');
+      } else {
+        el?.classList.add('hidden');
+      }
+    });
+
+    for (let i = 1; i <= 4; i++) {
+      const navItem = document.getElementById(`step-nav-${i}`);
+      const circle = navItem?.querySelector('div');
+      if (!navItem || !circle) continue;
+
+      if (i < step) {
+        navItem.className =
+          'step-nav-item flex flex-col items-center gap-1.5 transition-all text-emerald-600 dark:text-emerald-400 font-bold cursor-pointer';
+        circle.className =
+          'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-emerald-500 text-white shadow-xs';
+        circle.textContent = '✓';
+      } else if (i === step) {
+        navItem.className =
+          'step-nav-item flex flex-col items-center gap-1.5 transition-all text-rose-600 dark:text-rose-400 font-extrabold';
+        circle.className =
+          'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-rose-600 text-white shadow-xs';
+        circle.textContent = String(i);
+      } else {
+        navItem.className =
+          'step-nav-item flex flex-col items-center gap-1.5 transition-all text-stone-400 dark:text-stone-500 font-medium';
+        circle.className =
+          'w-8 h-8 rounded-full flex items-center justify-center text-xs font-black bg-stone-100 dark:bg-[#27201c] text-stone-500 dark:text-stone-400';
+        circle.textContent = String(i);
+      }
+    }
+
+    if (step === 4) {
+      updateReviewSummary();
+    }
+
+    renderCheckoutSummary();
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  }
+
+  function updateReviewSummary() {
+    const revName = document.getElementById('review-name');
+    const revRut = document.getElementById('review-rut');
+    const revEmail = document.getElementById('review-email');
+    const revPhone = document.getElementById('review-phone');
+    if (revName) revName.textContent = orderData.nombre || 'Cliente';
+    if (revRut) revRut.textContent = orderData.rut || 'No especificado';
+    if (revEmail) revEmail.textContent = orderData.email || 'No especificado';
+    if (revPhone)
+      revPhone.textContent = orderData.telefono || 'No especificado';
+
+    const revAddr = document.getElementById('review-address');
+    const revComuna = document.getElementById('review-comuna-region');
+    const revShipping = document.getElementById('review-shipping-method');
+    const revNotes = document.getElementById('review-notes');
+
+    const addrText = orderData.direccion
+      ? `${orderData.direccion}${orderData.depto ? ', ' + orderData.depto : ''}`
+      : 'No especificada';
+    if (revAddr) revAddr.textContent = addrText;
+
+    const regionMap = {
+      metropolitana: 'Región Metropolitana',
+      valparaiso: 'Región de Valparaíso',
+      biobio: 'Región del Biobío',
+      araucania: 'Región de La Araucanía',
+      antofagasta: 'Región de Antofagasta',
+      coquimbo: 'Región de Coquimbo',
+      los_lagos: 'Región de Los Lagos',
+    };
+    const regionText =
+      regionMap[orderData.region] || orderData.region || 'Región Metropolitana';
+    if (revComuna)
+      revComuna.textContent = `${orderData.comuna || 'Providencia'}, ${regionText}`;
+
+    if (revShipping) {
+      if (selectedShippingMethod === 'pickup') {
+        revShipping.textContent = 'Retiro en Tienda (Providencia - Gratis)';
+      } else if (selectedShippingMethod === 'express') {
+        revShipping.textContent = 'Despacho Express Mismo Día ($5.990)';
+      } else {
+        const cart = getCart();
+        const subtotal = cart.reduce(
+          (acc, it) => acc + it.price * it.quantity,
+          0
+        );
+        const isFree = subtotal >= FREE_SHIPPING_THRESHOLD;
+        revShipping.textContent = isFree
+          ? 'Despacho Estándar (¡GRATIS!)'
+          : 'Despacho Estándar ($3.990)';
+      }
+    }
+
+    if (revNotes) {
+      revNotes.textContent = orderData.notas || 'Sin instrucciones adicionales';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCheckoutSummary();
+
+    // Detección de sesión activa
+    let loggedUser = null;
+    try {
+      const storedUser = localStorage.getItem('market_pet_user');
+      if (storedUser) {
+        loggedUser = JSON.parse(storedUser);
+      }
+    } catch {
+      loggedUser = null;
+    }
+
+    const step1LoggedView = document.getElementById('step1-logged-view');
+    const step1GuestView = document.getElementById('step1-guest-view');
+    const rutInputEl = document.getElementById('step1-logged-rut');
+    const phoneInputEl = document.getElementById('step1-logged-phone');
+
+    function applyUserProfileToCheckout(user) {
+      if (!user || !user.nombre) return;
+
+      step1LoggedView?.classList.remove('hidden');
+      step1GuestView?.classList.add('hidden');
+
+      const nameDisplay = document.getElementById('step1-logged-user-name');
+      const nameText = document.getElementById('step1-logged-name-text');
+      const emailText = document.getElementById('step1-logged-email-text');
+
+      if (nameDisplay) nameDisplay.textContent = user.nombre;
+      if (nameText) nameText.textContent = user.nombre;
+      if (emailText) emailText.textContent = user.email || '';
+
+      const formattedRut = user.rut ? formatRut(user.rut) : '';
+      if (rutInputEl && formattedRut) {
+        rutInputEl.value = formattedRut;
+        updateRutFeedback(formattedRut, false);
+      }
+      if (phoneInputEl && user.telefono) phoneInputEl.value = user.telefono;
+
+      orderData.nombre = user.nombre;
+      orderData.email = user.email || '';
+      orderData.rut = formattedRut || orderData.rut;
+      orderData.telefono = user.telefono || orderData.telefono;
+
+      if (user.region) {
+        orderData.region = user.region;
+        const regionSelect = document.getElementById('step2-region');
+        if (regionSelect) regionSelect.value = user.region;
+      }
+      if (user.comuna) {
+        orderData.comuna = user.comuna;
+        const comunaSelect = document.getElementById('step2-comuna');
+        if (comunaSelect) comunaSelect.value = user.comuna;
+      }
+      if (user.direccion) {
+        orderData.direccion = user.direccion;
+        const addrInput = document.getElementById('step2-address');
+        if (addrInput) addrInput.value = user.direccion;
+      }
+      if (user.depto) {
+        orderData.depto = user.depto;
+        const deptInput = document.getElementById('step2-dept');
+        if (deptInput) deptInput.value = user.depto;
+      }
+      if (user.notas) {
+        orderData.notas = user.notas;
+        const notesInput = document.getElementById('step2-notes');
+        if (notesInput) notesInput.value = user.notas;
+      }
+    }
+
+    if (loggedUser && loggedUser.nombre) {
+      // Auto-migrar sesión demo antigua si quedó guardada con el dígito verificador anterior inválido
+      if (
+        loggedUser.email === 'constanza.demo@marketpet.cl' &&
+        loggedUser.rut === '18.765.432-1'
+      ) {
+        loggedUser.rut = '18.765.432-7';
+        localStorage.setItem('market_pet_user', JSON.stringify(loggedUser));
+      }
+      applyUserProfileToCheckout(loggedUser);
+    } else {
+      step1LoggedView?.classList.add('hidden');
+      step1GuestView?.classList.remove('hidden');
+    }
+
+    rutInputEl?.addEventListener('input', () => {
+      rutInputEl.value = formatRut(rutInputEl.value);
+      updateRutFeedback(rutInputEl.value, false);
+    });
+
+    rutInputEl?.addEventListener('blur', () => {
+      if (rutInputEl.value.trim()) {
+        rutInputEl.value = formatRut(rutInputEl.value);
+        updateRutFeedback(rutInputEl.value, true);
+      }
+    });
+
+    // Toggle de contraseña en login rápido
+    const togglePassBtn = document.getElementById('toggle-step1-pass');
+    const passInput = document.getElementById('step1-login-pass');
+    const eyeOpen = document.getElementById('icon-step1-eye');
+    const eyeOff = document.getElementById('icon-step1-eye-off');
+
+    togglePassBtn?.addEventListener('click', () => {
+      if (!passInput) return;
+      const isPass = passInput.type === 'password';
+      passInput.type = isPass ? 'text' : 'password';
+      if (isPass) {
+        eyeOpen?.classList.add('hidden');
+        eyeOff?.classList.remove('hidden');
+      } else {
+        eyeOpen?.classList.remove('hidden');
+        eyeOff?.classList.add('hidden');
+      }
+    });
+
+    // 1A. Iniciar Sesión Rápido en Checkout
+    const fastLoginForm = document.getElementById('form-step1-fast-login');
+    fastLoginForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const email = document.getElementById('step1-login-email')?.value.trim();
+      const pass = document.getElementById('step1-login-pass')?.value;
+
+      if (!email || !EMAIL_REGEX.test(email)) {
+        setCheckoutError(
+          'step1-login-email',
+          'err-step1-login-email',
+          'Ingresa un correo electrónico válido'
+        );
+        hasError = true;
+      } else {
+        setCheckoutError('step1-login-email', 'err-step1-login-email', '');
+      }
+
+      if (!pass || pass.length < 6) {
+        setCheckoutError(
+          'step1-login-pass',
+          'err-step1-login-pass',
+          'Ingresa tu contraseña (mínimo 6 caracteres)'
+        );
+        hasError = true;
+      } else {
+        setCheckoutError('step1-login-pass', 'err-step1-login-pass', '');
+      }
+
+      if (hasError) return;
+
+      const name = email.split('@')[0] || 'Cliente';
+      const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+      const userObj = {
+        nombre: capitalized,
+        email: email,
+        logueado: true,
+        fecha: new Date().toISOString(),
+      };
+
+      localStorage.setItem('market_pet_user', JSON.stringify(userObj));
+      applyUserProfileToCheckout(userObj);
+      rutInputEl?.focus();
+    });
+
+    // 1B. Continuar desde usuario logueado
+    const loggedForm = document.getElementById('form-step-1-logged');
+    loggedForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const rawRut = rutInputEl?.value.trim() || '';
+      const formattedRut = rawRut ? formatRut(rawRut) : '';
+      if (rutInputEl && formattedRut) rutInputEl.value = formattedRut;
+
+      updateRutFeedback(formattedRut, true);
+      if (!validateRut(formattedRut)) {
+        hasError = true;
+      }
+
+      const phone = phoneInputEl?.value.trim();
+      const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
+      if (!phone || cleanPhone.length < 8) {
+        setCheckoutError(
+          'step1-logged-phone',
+          'err-step1-logged-phone',
+          'Ingresa un teléfono válido'
+        );
+        hasError = true;
+      } else {
+        setCheckoutError('step1-logged-phone', 'err-step1-logged-phone', '');
+      }
+
+      if (hasError) return;
+
+      orderData.rut = formattedRut;
+      orderData.telefono = phone;
+
+      try {
+        const storedUser = localStorage.getItem('market_pet_user');
+        const currentUser = storedUser ? JSON.parse(storedUser) : {};
+        localStorage.setItem(
+          'market_pet_user',
+          JSON.stringify({ ...currentUser, rut: formattedRut, telefono: phone })
+        );
+      } catch {
+        // Ignorar errores de almacenamiento
+      }
+
+      setStep(2);
+    });
+
+    // 1C. Cargar Sesión Demo con Datos Ficticios (1 Clic)
+    const demoBtn = document.getElementById('btn-load-demo-session');
+    demoBtn?.addEventListener('click', () => {
+      const demoUser = {
+        nombre: 'Constanza Silva Morales',
+        email: 'constanza.demo@marketpet.cl',
+        rut: '18.765.432-7',
+        telefono: '+56 9 8765 4321',
+        region: 'metropolitana',
+        comuna: 'Providencia',
+        direccion: 'Av. Providencia 1234',
+        depto: 'Depto 502',
+        notas: 'Dejar en conserjería con don Carlos',
+        logueado: true,
+      };
+
+      localStorage.setItem('market_pet_user', JSON.stringify(demoUser));
+
+      if (getCart().length === 0) {
+        const demoItems = [
+          {
+            id: 'alimento-premium-adulto-salmon-3kg',
+            name: 'Alimento Premium Perro Adulto Salmón 3kg',
+            price: 24990,
+            quantity: 1,
+            image: '/favicon.svg',
+          },
+          {
+            id: 'arnes-ergonomico-reflectante',
+            name: 'Arnés Ergonómico Reflectante',
+            price: 14990,
+            quantity: 1,
+            image: '/favicon.svg',
+          },
+        ];
+        localStorage.setItem(CART_KEY, JSON.stringify(demoItems));
+        window.dispatchEvent(
+          new CustomEvent('cart-updated', { detail: { cart: demoItems } })
+        );
+      }
+
+      applyUserProfileToCheckout(demoUser);
+      setStep(2);
+    });
+
+    // 1D. Formulario de Cupón de Descuento (En Pantalla Actual de Checkout y Pago)
+    const couponForm = document.getElementById('checkout-coupon-form');
+    const couponInput = document.getElementById('checkout-coupon-input');
+    const couponFeedback = document.getElementById('checkout-coupon-feedback');
+
+    couponForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const code = (couponInput?.value || '').trim().toUpperCase();
+      if (!code) {
+        if (couponFeedback) {
+          couponFeedback.textContent = 'Ingresa un código de cupón';
+          couponFeedback.className =
+            'text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (code === 'MASCOTA10' || code === 'MARKET10') {
+        appliedCoupon = { code, percent: 10 };
+        if (couponFeedback) {
+          couponFeedback.textContent = `✓ ¡Cupón ${code} aplicado (-10%)!`;
+          couponFeedback.className =
+            'text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      } else if (code === 'SUPERPET15') {
+        appliedCoupon = { code, percent: 15 };
+        if (couponFeedback) {
+          couponFeedback.textContent = `✓ ¡Cupón ${code} aplicado (-15%)!`;
+          couponFeedback.className =
+            'text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      } else {
+        appliedCoupon = null;
+        if (couponFeedback) {
+          couponFeedback.textContent =
+            '✕ Código de descuento no válido o expirado';
+          couponFeedback.className =
+            'text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-1 block';
+          couponFeedback.classList.remove('hidden');
+        }
+      }
+      renderCheckoutSummary();
+    });
+
+    // Paso 2: Dirección y Comuna
+    const form2 = document.getElementById('form-step-2');
+    form2?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+
+      const address = document.getElementById('step2-address')?.value.trim();
+      if (!address || address.length < 5) {
+        setCheckoutError(
+          'step2-address',
+          'err-step2-address',
+          'Ingresa la calle y numeración de entrega'
+        );
+        hasError = true;
+      } else {
+        setCheckoutError('step2-address', 'err-step2-address', '');
+      }
+
+      if (hasError) return;
+
+      orderData.region = document.getElementById('step2-region')?.value;
+      orderData.comuna = document.getElementById('step2-comuna')?.value;
+      orderData.direccion = address;
+      orderData.depto = document.getElementById('step2-dept')?.value.trim();
+      orderData.notas = document.getElementById('step2-notes')?.value.trim();
+
+      setStep(3);
+    });
+
+    document
+      .getElementById('btn-back-to-step-1')
+      ?.addEventListener('click', () => setStep(1));
+
+    // Paso 3: Método de Entrega
+    const form3 = document.getElementById('form-step-3');
+    form3?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selected = document.querySelector(
+        'input[name="shipping-method"]:checked'
+      );
+      if (selected) {
+        selectedShippingMethod = selected.value;
+      }
+      setStep(4);
+    });
+
+    document
+      .getElementById('btn-back-to-step-2')
+      ?.addEventListener('click', () => setStep(2));
+
+    // Botones de edición rápida desde el Paso 4
+    document
+      .getElementById('btn-edit-contact')
+      ?.addEventListener('click', () => setStep(1));
+    document
+      .getElementById('btn-edit-address')
+      ?.addEventListener('click', () => setStep(2));
+
+    document
+      .querySelectorAll('input[name="shipping-method"]')
+      .forEach((radio) => {
+        radio.addEventListener('change', (e) => {
+          selectedShippingMethod = e.target.value;
+          document.querySelectorAll('.shipping-option').forEach((lbl) => {
+            lbl.classList.remove(
+              'border-2',
+              'border-rose-600',
+              'bg-rose-50/20',
+              'dark:bg-rose-950/20'
+            );
+            lbl.classList.add(
+              'border',
+              'border-stone-200',
+              'dark:border-[#382d27]',
+              'bg-white',
+              'dark:bg-[#141110]'
+            );
+          });
+          const parent = e.target.closest('label');
+          if (parent) {
+            parent.classList.remove(
+              'border',
+              'border-stone-200',
+              'dark:border-[#382d27]',
+              'bg-white',
+              'dark:bg-[#141110]'
+            );
+            parent.classList.add(
+              'border-2',
+              'border-rose-600',
+              'bg-rose-50/20',
+              'dark:bg-rose-950/20'
+            );
+          }
+          renderCheckoutSummary();
+        });
+      });
+
+    // Paso 4: Medio de Pago
+    document
+      .querySelectorAll('input[name="payment-method"]')
+      .forEach((radio) => {
+        radio.addEventListener('change', (e) => {
+          selectedPaymentMethod = e.target.value;
+          document.querySelectorAll('.payment-option').forEach((lbl) => {
+            lbl.classList.remove(
+              'border-2',
+              'border-rose-600',
+              'bg-rose-50/20',
+              'dark:bg-rose-950/20'
+            );
+            lbl.classList.add(
+              'border',
+              'border-stone-200',
+              'dark:border-[#382d27]',
+              'bg-white',
+              'dark:bg-[#141110]'
+            );
+          });
+          const parent = e.target.closest('label');
+          if (parent) {
+            parent.classList.remove(
+              'border',
+              'border-stone-200',
+              'dark:border-[#382d27]',
+              'bg-white',
+              'dark:bg-[#141110]'
+            );
+            parent.classList.add(
+              'border-2',
+              'border-rose-600',
+              'bg-rose-50/20',
+              'dark:bg-rose-950/20'
+            );
+          }
+          renderCheckoutSummary();
+        });
+      });
+
+    document
+      .getElementById('btn-back-to-step-3')
+      ?.addEventListener('click', () => setStep(3));
+
+    // Stepper navegable
+    document.getElementById('step-nav-1')?.addEventListener('click', () => {
+      if (currentStep > 1) setStep(1);
+    });
+    document.getElementById('step-nav-2')?.addEventListener('click', () => {
+      if (currentStep > 2) setStep(2);
+    });
+    document.getElementById('step-nav-3')?.addEventListener('click', () => {
+      if (currentStep > 3) setStep(3);
+    });
+
+    // Confirmación y Pago
+    const form4 = document.getElementById('form-step-4');
+    form4?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert(
+          'Tu carrito está vacío. Agrega productos antes de confirmar el pago.'
+        );
+        window.location.href = '/catalogo';
+        return;
+      }
+
+      if (!validateRut(orderData.rut)) {
+        setStep(1);
+        updateRutFeedback(orderData.rut, true);
+        return;
+      }
+
+      if (!orderData.direccion || orderData.direccion.trim().length < 5) {
+        setStep(2);
+        setCheckoutError(
+          'step2-address',
+          'err-step2-address',
+          'Ingresa la calle y numeración de entrega'
+        );
+        return;
+      }
+
+      const confirmBtn = document.getElementById('btn-confirm-payment');
+      const confirmText = document.getElementById('btn-confirm-payment-text');
+      const confirmIcon = document.getElementById('btn-confirm-payment-icon');
+      if (confirmBtn) {
+        if (confirmText) confirmText.textContent = 'Procesando pago seguro...';
+        confirmIcon?.classList.add('hidden');
+        confirmBtn.setAttribute('disabled', 'true');
+      }
+
+      setTimeout(() => {
+        const orderId = `#MP-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+        const totalText =
+          document.getElementById('checkout-total-val')?.textContent || '$0';
+
+        document
+          .getElementById('checkout-steps-container')
+          ?.classList.add('hidden');
+        const successView = document.getElementById('checkout-success-view');
+        successView?.classList.remove('hidden');
+
+        const successOrderId = document.getElementById('success-order-id');
+        const successName = document.getElementById('success-name');
+        const successComuna = document.getElementById('success-comuna');
+        const successShipping = document.getElementById('success-shipping');
+        const successTotal = document.getElementById('success-total');
+
+        if (successOrderId) successOrderId.textContent = orderId;
+        if (successName)
+          successName.textContent = orderData.nombre || 'Cliente';
+        if (successComuna)
+          successComuna.textContent = orderData.comuna || 'Providencia';
+        if (successShipping) {
+          successShipping.textContent =
+            selectedShippingMethod === 'express'
+              ? 'Despacho Express Mismo Día'
+              : selectedShippingMethod === 'pickup'
+                ? 'Retiro en Tienda'
+                : 'Despacho Estándar';
+        }
+        if (successTotal) successTotal.textContent = totalText;
+
+        try {
+          localStorage.removeItem(CART_KEY);
+          window.dispatchEvent(new Event('storage'));
+          window.dispatchEvent(
+            new CustomEvent('cart-updated', { detail: { cart: [] } })
+          );
+        } catch {
+          // Ignorar
+        }
+
+        renderCheckoutSummary();
+        window.scrollTo({ top: 80, behavior: 'smooth' });
+      }, 1100);
+    });
+  });
+</script>
