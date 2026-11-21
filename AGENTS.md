@@ -35,7 +35,7 @@ Proyecto Astro de aprendizaje y portafolio: **Tienda de artículos para mascotas
 - Trabajar siempre en la rama de la fase activa (`phase/NN-nombre`); **nunca commitear directo a `main`**.
 - Commits atómicos, un cambio lógico cada uno, formato Conventional Commits (`tipo(alcance): descripción`).
 - Al terminar una tarea o antes de abrir PR, actualizar `docs/HISTORIAL.md` (estado actual y registro de cambios) en un commit atómico propio: `docs(historial): registra <cambio>`.
-- Cambios por Pull Request hacia `develop`; `develop` hacia `main` al cerrar una fase.
+- Al cerrar cada fase, integrar la rama `phase/NN-nombre` únicamente hacia `develop`; la rama `main` se actualiza **solo al final del proyecto** en la fase de despliegue a producción (salvo parches críticos de seguridad de Dependabot).
 
 ## Seguridad (lo que se sube a GitHub es producción)
 - **Cabeceras HTTP desde el inicio:** Mantener `public/_headers` configurado con `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` y `Content-Security-Policy`.

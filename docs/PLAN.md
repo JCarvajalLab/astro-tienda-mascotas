@@ -126,7 +126,7 @@ main                 ← siempre estable y desplegable
     └── fix/navbar-mobile
 ```
 
-- `main`: solo recibe merges desde `develop` al cerrar una fase.
+- `main`: solo recibe el merge final desde `develop` en la etapa de lanzamiento/despliegue a producción (Fase 7).
 - `develop`: rama de integración.
 - `phase/NN-nombre`: una rama por fase del proyecto.
 - `feature/*`, `fix/*`, `docs/*`, `chore/*`: ramas cortas que salen de la rama de fase (o de `develop`) y vuelven por Pull Request.
@@ -158,7 +158,7 @@ Reglas:
 1. Todos los ítems del checklist de la fase marcados.
 2. Lighthouse y revisión de seguridad aprobados.
 3. PR de `phase/*` hacia `develop`, revisión y merge.
-4. Cuando `develop` está estable: PR hacia `main` y etiqueta de versión (`v0.1.0`, `v0.2.0`, …).
+4. La integración de `develop` hacia `main` se realiza únicamente al finalizar el proyecto en la Fase 7 (Lanzamiento a producción), salvo parches críticos de seguridad.
 
 ### 5.4 Pruebas antes de subir (push = producción)
 

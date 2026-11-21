@@ -31,10 +31,9 @@ jobs:
       - run: npm test --if-present
         if: hashFiles('package.json') != ''
 
-      # Informativo: no bloquea el PR. Quitar continue-on-error cuando el proyecto esté limpio.
+      # Bloquea el PR si aparecen vulnerabilidades altas o críticas.
       - run: npm audit --audit-level=high
         if: hashFiles('package-lock.json') != ''
-        continue-on-error: true
 
       - name: Escaneo de secretos
         uses: gitleaks/gitleaks-action@v3

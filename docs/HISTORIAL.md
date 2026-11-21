@@ -13,14 +13,14 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
 - **Última actualización:** 2026-11-20
-- **Fase activa:** `phase/04-server-db` *(Fase 3 cerrada, integrada en `develop`/`main` y respaldada en GitHub)*
+- **Fase activa:** `phase/04-server-db`
 - **Rama de trabajo:** `phase/04-server-db`
-- **Último commit relevante:** fix(security): corrige open redirect/XSS en login, elimina innerHTML, sanea localStorage y normaliza prettier
-- **Despliegue:** repositorio completo respaldado en GitHub (`origin`: `main`, `develop` y `phase/01..03`) + servidor local en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Warm Biscuit (60-30-10) + Modo Nocturno Warm Charcoal & Cacao (`#141110`), Content Collections Zod (**22 productos JSON** + WebP `astro:assets`), Mega-Menú + Drawer móvil con micro-SVGs, buscador reactivo y rutas dinámicas, carrito `/carrito` + Drawer sin `innerHTML` y saneamiento de `localStorage`, `/auth/login` protegido contra Open Redirect/XSS, y `/checkout` en 4 pasos con Sesión Demo (`18.765.432-7`), **RUT Módulo 11**, cupón sticky, verificación previa al pago y sellos de Webpay/Bancos/Mercado Pago.
-- **Qué está en progreso:** Apertura de Fase 4: diseño de arquitectura Astro SSR + PostgreSQL (tablas `usuarios`, `direcciones`, `productos`, `ordenes`, `items_orden`) y planificación de actualización de Astro antes de activar SSR.
-- **Bloqueos o problemas conocidos:** ningún bloqueo en Fase 3 estática (`lint`, `format:check` y `build` al 100%). Pendiente evaluar migración a `astro@7.4.13` (alertas `npm audit` en `astro`/`sharp`/`zod`) y endurecer CSP/retirar `preview-megamenu.astro` al activar SSR en Fase 4.
-- **Siguiente paso concreto:** Inicializar la arquitectura SSR + PostgreSQL en `phase/04-server-db`, evaluando actualización segura de `astro` y preparando tabla `ordenes` con soporte de boleta electrónica y seguimiento de despacho.
+- **Último commit relevante:** fix(deps): actualiza astro a 7.4.13 y tailwindcss a 4.3.5 resolviendo las 18 vulnerabilidades de Dependabot
+- **Despliegue:** respaldado en GitHub (`origin`: `main`, `develop` y `phase/01..04`) con 0 vulnerabilidades + dev server en http://localhost:4321/
+- **Qué funciona:** Marca **Market-Pet**, Astro **7.4.13** + Tailwind CSS **4.3.5**, Warm Biscuit (60-30-10) + Modo Nocturno Warm Charcoal & Cacao (`#141110`), Content Collections Zod (**22 productos JSON** + WebP `astro:assets`), Mega-Menú + Drawer móvil con micro-SVGs, buscador reactivo y rutas dinámicas, carrito `/carrito` + Drawer sin `innerHTML`, `/auth/login` protegido contra Open Redirect/XSS, y `/checkout` en 4 pasos con Sesión Demo (`18.765.432-7`), **RUT Módulo 11**, cupón sticky, verificación previa al pago y sellos de Webpay/Bancos/Mercado Pago.
+- **Qué está en progreso:** Fase 4: diseño de arquitectura Astro SSR + PostgreSQL (tablas `usuarios`, `direcciones`, `productos`, `ordenes`, `items_orden` preparadas para boleta electrónica y tracking) y retiro de `preview-megamenu.astro`.
+- **Bloqueos o problemas conocidos:** ninguno (`0` vulnerabilidades en `npm audit`, `lint`, `format:check` y `build` al 100%).
+- **Siguiente paso concreto:** Definir hosting SSR gratuito y proveedor PostgreSQL (Neon/Supabase) para implementar el esquema de base de datos, Auth SSR, boletas y seguimiento en `phase/04-server-db`.
 
 ## 2. Decisiones importantes
 
@@ -103,10 +103,31 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-19 | Desglose previo al pago y sellos oficiales de pasarelas | Proporcionar tarjeta de verificación con datos de contacto, dirección y método de envío antes de pagar con opción de editar en 1 clic y mostrar logos auténticos de Webpay Plus, Redcompra, Visa, Mastercard, Bancos y Mercado Pago para máxima confianza | Ocultar datos de entrega en el paso de pago o usar nombres planos sin logotipos |
 | 2026-11-20 | Validación matemática de RUT chileno en local (Módulo 11) | Garantizar validación instantánea (0ms), costo cero, offline y privada sin exponer RUTs de clientes a APIs de terceros, rechazando repetidos triviales (`11.111.111-1`) y formateando `XX.XXX.XXX-Y` en vivo | Consultar APIs externas de RUT o validar solo longitud mínima de texto |
 | 2026-11-20 | Auditoría de seguridad pre-push con subagente independiente y cierre Fase 3 | Detectar y remediar Open Redirect/XSS (`?redirect=`), eliminar todo `innerHTML` residual, sanear `localStorage`, ajustar CSP/Prettier y posponer migración a `astro@7.4.13` para el inicio de Fase 4 SSR tras verificar bajo impacto en build estático | Subir ramas sin revisión cruzada o introducir actualización mayor sin probar SSR |
+| 2026-11-20 | Regla GitFlow: merge a `develop` por fase y a `main` solo al final | Evitar tocar `main` en cierres intermedios reservándola para el despliegue final en Fase 7, salvo parches críticos de seguridad de Dependabot | Mergear `develop` a `main` en cada fase |
+| 2026-11-20 | Actualización a `astro@^7.4.13` y `@tailwindcss/vite@^4.3.5` | Resolver las 18 alertas abiertas de Dependabot (`astro`, `sharp`, `zod`, `esbuild`), activar `npm audit --audit-level=high` bloqueante en CI y preparar el entorno seguro previo a Astro SSR | Mantener `astro@5.18.2` con `continue-on-error: true` en CI |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-20 · `phase/04-server-db` · regla GitFlow hacia develop y remediacion de 18 vulnerabilidades Dependabot
+- **Qué:** Fijación de flujo de ramas definitivo y remediación integral de las 18 vulnerabilidades reportadas por Dependabot / `npm audit`:
+  1. **Regla GitFlow actualizada (`AGENTS.md`, `docs/PLAN.md`):**
+     - Cada cierre de fase (`phase/NN-nombre`) se integra únicamente en `develop`; `main` se reserva exclusivamente para la Fase 7 (Lanzamiento a producción), salvo parches críticos de seguridad requeridos para cerrar alertas en la rama por defecto de GitHub.
+  2. **Resolución de las 18 alertas de Dependabot (`package.json`, `package-lock.json`):**
+     - Actualización de `astro` (`^5.4.2` → `^7.4.13`), `tailwindcss` y `@tailwindcss/vite` (`^4.0.9` → `^4.3.5`, requerido por compatibilidad de `@tailwindcss/vite` con Vite 8 usado en Astro 7).
+     - Se eliminan los 18 advisories acumulados (13 en `astro`, 3 en `sharp`, 1 en `zod`, 1 en `esbuild`), logrando `found 0 vulnerabilities` en `npm audit`.
+  3. **Endurecimiento del CI (`.github/workflows/ci.yml`):**
+     - Se eliminó `continue-on-error: true` del paso `npm audit --audit-level=high` para bloquear automáticamente futuros PRs si aparecen vulnerabilidades altas o críticas.
+  4. **Sincronización de parche de seguridad en `develop` y `main`:**
+     - Fast-forward del parche a `develop` y `main` con push a `origin` para cerrar de inmediato las 18 alertas de Dependabot en GitHub.
+- **Archivos clave:** `package.json`, `package-lock.json`, `.github/workflows/ci.yml`, `AGENTS.md`, `docs/PLAN.md`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `seguridad`: Análisis de las 18 alertas de Dependabot / `npm audit`, verificación de compatibilidad de versiones seguras y endurecimiento bloqueante en `.github/workflows/ci.yml`.
+  - `desarrollo`: Actualización coordinada de `astro@7.4.13` y `@tailwindcss/vite@4.3.5` sin romper `src/content.config.js` ni los componentes `.astro`.
+  - `qa`: Validación de `npm audit` (`found 0 vulnerabilities`), `npm run build` (53 páginas en `2.55s`), `npm run lint` (0 errores), `npm run format:check` y respuesta `HTTP/1.1 200 OK` en `http://localhost:4321/`.
+  - `docs-seo`: Actualización de reglas GitFlow en `AGENTS.md` y `docs/PLAN.md`, y registro completo en `docs/HISTORIAL.md`.
+- **Notas:** A partir de aquí, todo el desarrollo y cierre de las Fases 4, 5 y 6 se integrará exclusivamente en `develop`, dejando `main` protegida para el lanzamiento final.
 
 ### 2026-11-20 · `phase/03-cart` · auditoria de seguridad pre-push, cierre de fase 3 y respaldo en GitHub
 - **Qué:** Endurecimiento completo de seguridad, normalización de formato para CI, cierre formal de Fase 3, respaldo integral en GitHub y apertura de Fase 4 (`phase/04-server-db`):
