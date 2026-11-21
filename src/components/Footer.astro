@@ -5,7 +5,8 @@ const socialLinks = [
     name: 'Instagram',
     href: '#',
     icon: 'instagram',
-    color: 'hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white',
+    color:
+      'hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white',
   },
   {
     name: 'Facebook',
@@ -49,19 +50,22 @@ const styles = {
     subfooter: 'text-stone-500',
   },
   'warm-biscuit': {
-    container: 'bg-[#FAF7F2] text-stone-700 border-t border-[#E8E2D9]',
-    borderCol: 'border-[#E5DEC7]',
-    brandName: 'text-stone-900',
-    brandBio: 'text-stone-600',
-    socialHeader: 'text-stone-500',
-    socialBtn: 'bg-white text-stone-700 border border-[#E0D9CE] shadow-2xs',
-    colTitle: 'text-stone-900',
-    link: 'text-stone-600 hover:text-rose-600',
-    contactTitle: 'text-stone-800',
-    contactSub: 'text-stone-500',
-    securityText: 'text-stone-600',
-    paymentBadge: 'bg-white text-stone-800 border-[#DCD5C8] shadow-2xs',
-    subfooter: 'text-stone-500',
+    container:
+      'bg-[#FAF7F2] dark:bg-[#141110] text-stone-700 dark:text-[#b0a297] border-t border-[#E8E2D9] dark:border-[#2d2521]',
+    borderCol: 'border-[#E5DEC7] dark:border-[#2d2521]',
+    brandName: 'text-stone-900 dark:text-white',
+    brandBio: 'text-stone-600 dark:text-[#b0a297]',
+    socialHeader: 'text-stone-500 dark:text-[#b0a297]',
+    socialBtn:
+      'bg-white dark:bg-[#1d1816] text-stone-700 dark:text-[#fbf6f0] border border-[#E0D9CE] dark:border-[#2d2521] shadow-2xs',
+    colTitle: 'text-stone-900 dark:text-white',
+    link: 'text-stone-600 dark:text-[#b0a297] hover:text-rose-600 dark:hover:text-rose-400',
+    contactTitle: 'text-stone-800 dark:text-[#fbf6f0]',
+    contactSub: 'text-stone-500 dark:text-[#b0a297]',
+    securityText: 'text-stone-600 dark:text-[#b0a297]',
+    paymentBadge:
+      'bg-white dark:bg-[#1d1816] text-stone-800 dark:text-[#fbf6f0] border-[#DCD5C8] dark:border-[#2d2521] shadow-2xs',
+    subfooter: 'text-stone-500 dark:text-[#b0a297]',
   },
   'deep-slate': {
     container: 'bg-slate-950 text-slate-300 border-t border-slate-900',
@@ -101,7 +105,9 @@ const currentStyle = styles[variant] || styles.default;
 <footer class={`pt-16 pb-12 transition-colors ${currentStyle.container}`}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {/* 1. Fila Principal: Branding, Redes Sociales y Columnas de Navegación */}
-    <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b ${currentStyle.borderCol}`}>
+    <div
+      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b ${currentStyle.borderCol}`}
+    >
       {/* Columna Marca + Redes Sociales (4 columnas en desktop) */}
       <div class="lg:col-span-4 space-y-5">
         <a href="/" class="inline-flex items-center gap-2.5 group">
@@ -118,16 +124,23 @@ const currentStyle = styles[variant] || styles.default;
               ></path>
             </svg>
           </span>
-          <span class={`font-black text-2xl tracking-tight ${currentStyle.brandName}`}>Market-Pet</span>
+          <span
+            class={`font-black text-2xl tracking-tight ${currentStyle.brandName}`}
+            >Market-Pet</span
+          >
         </a>
 
         <p class={`text-sm leading-relaxed pr-2 ${currentStyle.brandBio}`}>
-          Tu tienda online de confianza para consentir a tus mascotas en todo Chile. Nutrición premium, accesorios de confort, higiene y asesoría con despacho express a tu puerta.
+          Tu tienda online de confianza para consentir a tus mascotas en todo
+          Chile. Nutrición premium, accesorios de confort, higiene y asesoría
+          con despacho express a tu puerta.
         </p>
 
         {/* Redes Sociales Integradas */}
         <div class="space-y-2 pt-1">
-          <p class={`text-xs font-bold uppercase tracking-wider ${currentStyle.socialHeader}`}>
+          <p
+            class={`text-xs font-bold uppercase tracking-wider ${currentStyle.socialHeader}`}
+          >
             Síguenos en nuestras redes
           </p>
           <div class="flex items-center gap-2.5">
@@ -139,7 +152,10 @@ const currentStyle = styles[variant] || styles.default;
                   class={`w-10 h-10 rounded-xl flex items-center justify-center shadow-xs transition-all duration-300 hover:-translate-y-1 ${currentStyle.socialBtn} ${social.color}`}
                 >
                   {social.icon === 'instagram' && (
-                    <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <svg
+                      class="w-5 h-5 fill-none stroke-current stroke-2"
+                      viewBox="0 0 24 24"
+                    >
                       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                       <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -164,80 +180,126 @@ const currentStyle = styles[variant] || styles.default;
 
       {/* Columna Catálogo (2 columnas en desktop) */}
       <div class="lg:col-span-2 space-y-3">
-        <h3 class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}>
+        <h3
+          class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}
+        >
           Categorías
         </h3>
         <ul class="space-y-2.5 text-sm">
           <li>
-            <a href="/categoria/alimentos-perro" class={`transition-colors ${currentStyle.link}`}>Alimentos Perro</a>
+            <a
+              href="/categoria/alimentos-perro"
+              class={`transition-colors ${currentStyle.link}`}
+              >Alimentos Perro</a
+            >
           </li>
           <li>
-            <a href="/categoria/alimentos-gato" class={`transition-colors ${currentStyle.link}`}>Alimentos Gato</a>
+            <a
+              href="/categoria/alimentos-gato"
+              class={`transition-colors ${currentStyle.link}`}>Alimentos Gato</a
+            >
           </li>
           <li>
-            <a href="/categoria/accesorios" class={`transition-colors ${currentStyle.link}`}>Accesorios & Confort</a>
+            <a
+              href="/categoria/accesorios"
+              class={`transition-colors ${currentStyle.link}`}
+              >Accesorios & Confort</a
+            >
           </li>
           <li>
-            <a href="/categoria/farmacia-salud" class={`transition-colors ${currentStyle.link}`}>Farmacia & Salud</a>
+            <a
+              href="/categoria/farmacia-salud"
+              class={`transition-colors ${currentStyle.link}`}
+              >Farmacia & Salud</a
+            >
           </li>
           <li>
-            <a href="/categoria/ofertas" class={`transition-colors ${currentStyle.link}`}>Ofertas Flash</a>
+            <a
+              href="/categoria/ofertas"
+              class={`transition-colors ${currentStyle.link}`}>Ofertas Flash</a
+            >
           </li>
         </ul>
       </div>
 
       {/* Columna Servicio al Cliente (3 columnas en desktop) */}
       <div class="lg:col-span-3 space-y-3">
-        <h3 class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}>
+        <h3
+          class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}
+        >
           Servicio al Cliente
         </h3>
         <ul class="space-y-2.5 text-sm">
           <li>
-            <a href="#" class={`transition-colors ${currentStyle.link}`}>Seguimiento de Despacho</a>
+            <a href="#" class={`transition-colors ${currentStyle.link}`}
+              >Seguimiento de Despacho</a
+            >
           </li>
           <li>
-            <a href="#" class={`transition-colors ${currentStyle.link}`}>Políticas de Devolución</a>
+            <a href="#" class={`transition-colors ${currentStyle.link}`}
+              >Políticas de Devolución</a
+            >
           </li>
           <li>
-            <a href="#" class={`transition-colors ${currentStyle.link}`}>Preguntas Frecuentes</a>
+            <a href="#" class={`transition-colors ${currentStyle.link}`}
+              >Preguntas Frecuentes</a
+            >
           </li>
           <li>
-            <a href="#" class={`transition-colors ${currentStyle.link}`}>Términos y Condiciones</a>
+            <a href="#" class={`transition-colors ${currentStyle.link}`}
+              >Términos y Condiciones</a
+            >
           </li>
         </ul>
       </div>
 
       {/* Columna Contacto y Horarios (3 columnas en desktop) */}
       <div class="lg:col-span-3 space-y-3">
-        <h3 class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}>
+        <h3
+          class={`font-extrabold text-sm uppercase tracking-wider ${currentStyle.colTitle}`}
+        >
           Contacto & Despacho
         </h3>
         <div class="space-y-3 text-sm">
           <div class="flex items-start gap-2.5">
             <span class="text-rose-400 text-base">🕒</span>
             <div>
-              <p class={`font-semibold ${currentStyle.contactTitle}`}>Horario de Atención:</p>
-              <p class={`text-xs ${currentStyle.contactSub}`}>Lunes a Sábado: 09:00 a 19:00 hrs.</p>
+              <p class={`font-semibold ${currentStyle.contactTitle}`}>
+                Horario de Atención:
+              </p>
+              <p class={`text-xs ${currentStyle.contactSub}`}>
+                Lunes a Sábado: 09:00 a 19:00 hrs.
+              </p>
             </div>
           </div>
 
           <div class="flex items-start gap-2.5">
             <span class="text-emerald-500 mt-0.5">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12.031 2C6.51 2 2.016 6.484 2.016 11.995c0 1.83.498 3.55 1.365 5.029L2 22l5.127-1.341a9.92 9.92 0 0 0 4.904 1.287h.004c5.521 0 10.015-4.485 10.015-9.996C22.05 6.484 17.552 2 12.031 2zm0 18.293a8.27 8.27 0 0 1-4.223-1.155l-.303-.18-3.136.82.838-3.056-.198-.316a8.274 8.274 0 0 1-1.272-4.411c0-4.57 3.72-8.29 8.296-8.29 2.215 0 4.298.863 5.863 2.428a8.243 8.243 0 0 1 2.427 5.864c0 4.572-3.72 8.29-8.294 8.29zm4.545-6.208c-.249-.125-1.472-.727-1.7-.81-.228-.083-.394-.125-.56.125-.166.249-.643.81-.788.976-.145.166-.29.187-.539.062-.25-.125-1.053-.388-2.006-1.238-.741-.661-1.242-1.477-1.387-1.726-.145-.25-.015-.385.11-.509.112-.112.25-.29.374-.436.125-.145.166-.249.25-.415.083-.166.041-.311-.021-.436-.062-.125-.56-1.349-.768-1.847-.203-.484-.409-.418-.56-.426l-.478-.008c-.166 0-.436.062-.664.311-.228.25-.871.851-.871 2.075 0 1.224.892 2.407 1.016 2.573.125.166 1.756 2.682 4.254 3.76.594.257 1.058.41 1.42.525.597.19 1.14.163 1.57.099.479-.071 1.472-.602 1.68-1.183.208-.581.208-1.08.145-1.183-.062-.104-.228-.166-.477-.29z" />
+                <path
+                  d="M12.031 2C6.51 2 2.016 6.484 2.016 11.995c0 1.83.498 3.55 1.365 5.029L2 22l5.127-1.341a9.92 9.92 0 0 0 4.904 1.287h.004c5.521 0 10.015-4.485 10.015-9.996C22.05 6.484 17.552 2 12.031 2zm0 18.293a8.27 8.27 0 0 1-4.223-1.155l-.303-.18-3.136.82.838-3.056-.198-.316a8.274 8.274 0 0 1-1.272-4.411c0-4.57 3.72-8.29 8.296-8.29 2.215 0 4.298.863 5.863 2.428a8.243 8.243 0 0 1 2.427 5.864c0 4.572-3.72 8.29-8.294 8.29zm4.545-6.208c-.249-.125-1.472-.727-1.7-.81-.228-.083-.394-.125-.56.125-.166.249-.643.81-.788.976-.145.166-.29.187-.539.062-.25-.125-1.053-.388-2.006-1.238-.741-.661-1.242-1.477-1.387-1.726-.145-.25-.015-.385.11-.509.112-.112.25-.29.374-.436.125-.145.166-.249.25-.415.083-.166.041-.311-.021-.436-.062-.125-.56-1.349-.768-1.847-.203-.484-.409-.418-.56-.426l-.478-.008c-.166 0-.436.062-.664.311-.228.25-.871.851-.871 2.075 0 1.224.892 2.407 1.016 2.573.125.166 1.756 2.682 4.254 3.76.594.257 1.058.41 1.42.525.597.19 1.14.163 1.57.099.479-.071 1.472-.602 1.68-1.183.208-.581.208-1.08.145-1.183-.062-.104-.228-.166-.477-.29z"
+                ></path>
               </svg>
             </span>
             <div>
-              <p class={`font-semibold ${currentStyle.contactTitle}`}>WhatsApp Oficial:</p>
-              <p class={`text-xs ${currentStyle.contactSub}`}>+56 9 8765 4321</p>
+              <p class={`font-semibold ${currentStyle.contactTitle}`}>
+                WhatsApp Oficial:
+              </p>
+              <p class={`text-xs ${currentStyle.contactSub}`}>
+                +56 9 8765 4321
+              </p>
             </div>
           </div>
 
           <div class="flex items-start gap-2.5">
             <span class="text-rose-400 text-base">✉️</span>
             <div>
-              <p class={`font-semibold ${currentStyle.contactTitle}`}>Correo Electrónico:</p>
-              <p class={`text-xs ${currentStyle.contactSub}`}>contacto@market-pet.cl</p>
+              <p class={`font-semibold ${currentStyle.contactTitle}`}>
+                Correo Electrónico:
+              </p>
+              <p class={`text-xs ${currentStyle.contactSub}`}>
+                contacto@market-pet.cl
+              </p>
             </div>
           </div>
         </div>
@@ -245,8 +307,12 @@ const currentStyle = styles[variant] || styles.default;
     </div>
 
     {/* 2. Barra de Métodos de Pago y Seguridad en Chile */}
-    <div class={`py-8 border-b ${currentStyle.borderCol} flex flex-col md:flex-row items-center justify-between gap-4`}>
-      <div class={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wider ${currentStyle.securityText}`}>
+    <div
+      class={`py-8 border-b ${currentStyle.borderCol} flex flex-col md:flex-row items-center justify-between gap-4`}
+    >
+      <div
+        class={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wider ${currentStyle.securityText}`}
+      >
         <span class="text-emerald-500 font-bold">🔒</span>
         <span>Compra 100% Segura con Cifrado SSL de 256 bits</span>
       </div>
@@ -255,7 +321,9 @@ const currentStyle = styles[variant] || styles.default;
       <div class="flex flex-wrap items-center justify-center gap-2 text-xs">
         {
           paymentMethods.map((method) => (
-            <span class={`px-3 py-1.5 rounded-lg font-semibold border ${currentStyle.paymentBadge}`}>
+            <span
+              class={`px-3 py-1.5 rounded-lg font-semibold border ${currentStyle.paymentBadge}`}
+            >
               {method}
             </span>
           ))
@@ -264,7 +332,9 @@ const currentStyle = styles[variant] || styles.default;
     </div>
 
     {/* 3. Sub-footer: Copyright y Stack */}
-    <div class={`pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${currentStyle.subfooter}`}>
+    <div
+      class={`pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${currentStyle.subfooter}`}
+    >
       <p>
         © {new Date().getFullYear()} Market-Pet Chile SpA. Todos los derechos reservados.
       </p>

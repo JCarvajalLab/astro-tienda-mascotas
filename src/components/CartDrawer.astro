@@ -1,0 +1,958 @@
+---
+// CartDrawer.astro - Carrito reactivo de compras (Drawer lateral / Flyout)
+// Stack estricto: JavaScript nativo puro, Tailwind CSS v4, compatibilidad con modo nocturno Warm Charcoal
+---
+
+<!-- Fondo oscuro difuminado (Backdrop) -->
+<div
+  id="cart-drawer-backdrop"
+  class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
+  aria-hidden="true"
+>
+</div>
+
+<!-- Drawer lateral deslizante desde la derecha -->
+<aside
+  id="cart-drawer"
+  class="fixed inset-y-0 right-0 w-full sm:w-[440px] max-w-full bg-white dark:bg-[#141110] z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out border-l border-stone-200 dark:border-[#2d2521] select-none font-sans"
+  aria-label="Carrito de compras de Market-Pet"
+  aria-hidden="true"
+  role="dialog"
+>
+  <!-- Encabezado del Carrito -->
+  <header
+    class="p-4 sm:p-5 bg-stone-50/80 dark:bg-[#1d1816] border-b border-stone-200/90 dark:border-[#2d2521] flex items-center justify-between shrink-0"
+  >
+    <div class="flex items-center gap-2.5">
+      <span
+        class="w-9 h-9 rounded-xl flex items-center justify-center bg-rose-50 dark:bg-[#4c111a]/40 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-[#4c111a]/60"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path
+            d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+          ></path>
+        </svg>
+      </span>
+      <div>
+        <h2
+          class="text-base font-black text-stone-900 dark:text-white leading-tight flex items-center gap-2"
+        >
+          <span>Tu Carrito</span>
+          <span
+            id="cart-drawer-header-count"
+            class="px-2 py-0.5 rounded-full bg-rose-100 dark:bg-[#4c111a] text-rose-700 dark:text-rose-300 text-xs font-black"
+          >
+            0
+          </span>
+        </h2>
+        <p
+          class="text-[11px] text-stone-500 dark:text-[#b0a297] leading-none mt-0.5"
+        >
+          Despacho a todo Chile y garantía Market-Pet
+        </p>
+      </div>
+    </div>
+
+    <!-- Botón de Cerrar Drawer -->
+    <button
+      type="button"
+      id="cart-drawer-close"
+      aria-label="Cerrar carrito de compras"
+      class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 dark:text-[#b0a297] hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-[#27201c] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+    >
+      <svg
+        class="w-5 h-5 stroke-current stroke-2"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Barra Dinámica de Envío Gratis (Meta Retail: $25.000 CLP) -->
+  <div
+    class="px-4 sm:px-5 py-3 bg-white dark:bg-[#181413] border-b border-stone-200/70 dark:border-[#2d2521] shrink-0"
+  >
+    <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+      <span
+        id="cart-shipping-text"
+        class="text-stone-700 dark:text-[#e4dcd3] flex items-center gap-1.5 truncate"
+      >
+        <svg
+          class="w-4 h-4 text-stone-700 dark:text-stone-300 stroke-current stroke-2 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5"
+          ></path>
+        </svg>
+        <span id="cart-shipping-message">Calculando envío...</span>
+      </span>
+      <span
+        id="cart-shipping-badge"
+        class="text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 shrink-0"
+      >
+        Meta $25.000
+      </span>
+    </div>
+    <!-- Barra de progreso -->
+    <div
+      class="w-full h-2 rounded-full bg-stone-100 dark:bg-[#27201c] overflow-hidden"
+    >
+      <div
+        id="cart-shipping-progress"
+        class="h-full bg-gradient-to-r from-rose-500 to-emerald-500 rounded-full transition-all duration-500"
+        style="width: 0%;"
+      >
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor Principal: Lista de Productos o Estado Vacío -->
+  <div class="flex-1 overflow-y-auto p-4 sm:p-5 relative scrollbar-thin">
+    <!-- Estado Vacío -->
+    <div
+      id="cart-empty-state"
+      class="hidden h-full flex flex-col items-center justify-center text-center p-6 space-y-4 my-auto"
+    >
+      <div
+        class="w-20 h-20 rounded-3xl bg-rose-50 dark:bg-[#1d1816] border border-rose-100 dark:border-[#2d2521] flex items-center justify-center shadow-inner"
+      >
+        <svg
+          class="w-8 h-8 text-rose-600 dark:text-rose-400 stroke-current stroke-2"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+          ></path>
+        </svg>
+      </div>
+      <div class="space-y-1.5 max-w-xs">
+        <h3 class="text-base font-extrabold text-stone-900 dark:text-white">
+          Tu carrito aún está vacío
+        </h3>
+        <p class="text-xs text-stone-500 dark:text-[#b0a297] leading-relaxed">
+          ¡Tu peludo amigo está esperando su premio favorito! Explora nuestro
+          catálogo de nutrición y accesorios.
+        </p>
+      </div>
+      <a
+        href="/catalogo"
+        id="cart-empty-catalog-link"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+      >
+        <span>Explorar Catálogo</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Lista de Items Agregados -->
+    <ul id="cart-items-list" class="space-y-3.5">
+      <!-- Los ítems se inyectan dinámicamente con JavaScript -->
+    </ul>
+  </div>
+
+  <!-- Footer Fijo con Resumen y Botón de Pago -->
+  <footer
+    id="cart-drawer-footer"
+    class="p-4 sm:p-5 bg-stone-50/90 dark:bg-[#1d1816] border-t border-stone-200/90 dark:border-[#2d2521] space-y-3 shrink-0"
+  >
+    <!-- Desglose de Totales -->
+    <div class="space-y-1.5 text-xs text-stone-600 dark:text-[#b0a297]">
+      <div class="flex items-center justify-between">
+        <span>Subtotal</span>
+        <span
+          id="cart-subtotal-val"
+          class="font-bold text-stone-900 dark:text-white">$0</span
+        >
+      </div>
+      <div class="flex items-center justify-between">
+        <span>Despacho estimado</span>
+        <span
+          id="cart-shipping-val"
+          class="font-bold text-stone-900 dark:text-white">$3.990</span
+        >
+      </div>
+      <div
+        class="flex items-center justify-between pt-2 border-t border-stone-200/80 dark:border-[#2d2521] text-base font-black text-stone-900 dark:text-white"
+      >
+        <span>Total a Pagar</span>
+        <span
+          id="cart-total-val"
+          class="text-lg text-rose-600 dark:text-rose-400">$0</span
+        >
+      </div>
+    </div>
+
+    <!-- Doble Botón de Acción: Ver Carrito y Finalizar Compra -->
+    <div class="grid grid-cols-2 gap-2.5 pt-1">
+      <a
+        href="/carrito"
+        id="cart-view-page-btn"
+        class="w-full py-3 px-3 rounded-xl border border-stone-300 dark:border-[#382d27] bg-white dark:bg-[#141110] text-stone-800 dark:text-[#fbf6f0] hover:bg-stone-100 dark:hover:bg-[#27201c] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all active:scale-98 text-center"
+      >
+        <span>Ver Carrito</span>
+      </a>
+      <a
+        href="/checkout"
+        id="cart-checkout-btn"
+        class="w-full py-3 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+      >
+        <span>Finalizar Compra</span>
+        <svg
+          class="w-3.5 h-3.5 stroke-current stroke-2 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Acciones secundarias y sellos chilenos -->
+    <div class="flex items-center justify-between pt-1">
+      <button
+        type="button"
+        id="cart-clear-btn"
+        class="text-[11px] font-semibold text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 underline transition-colors cursor-pointer"
+      >
+        Vaciar carrito
+      </button>
+      <div
+        class="flex items-center gap-1.5 text-[10px] text-stone-400 dark:text-slate-500 font-bold uppercase tracking-wider"
+      >
+        <svg
+          class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 stroke-current stroke-2 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+          ></path>
+        </svg>
+        <span>Compra 100% Segura</span>
+      </div>
+    </div>
+  </footer>
+</aside>
+
+<!-- Modal de Confirmación de Eliminación de Producto -->
+<dialog
+  id="cart-delete-confirm-modal"
+  class="rounded-3xl p-0 bg-transparent backdrop:bg-stone-950/75 backdrop:backdrop-blur-xs select-none max-w-sm w-[90%] mx-auto my-auto z-[60]"
+  aria-labelledby="cart-delete-modal-title"
+  aria-describedby="cart-delete-modal-desc"
+>
+  <div
+    class="bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white rounded-3xl p-5 sm:p-6 shadow-2xl border border-stone-200 dark:border-[#2d2521] text-center space-y-4"
+  >
+    <div
+      class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-[#4c111a]/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center border border-rose-100 dark:border-[#4c111a]/60"
+    >
+      <svg
+        class="w-7 h-7 stroke-current stroke-2"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+        ></path>
+      </svg>
+    </div>
+
+    <div class="space-y-1">
+      <h3
+        id="cart-delete-modal-title"
+        class="text-base font-black leading-tight text-stone-900 dark:text-white"
+      >
+        ¿Eliminar producto del carrito?
+      </h3>
+      <p
+        id="cart-delete-modal-desc"
+        class="text-xs text-stone-500 dark:text-[#b0a297] leading-relaxed"
+      >
+        Vas a quitar este artículo de tu compra actual:
+      </p>
+    </div>
+
+    <!-- Preview del producto a eliminar -->
+    <div
+      class="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] text-left"
+    >
+      <div
+        class="w-12 h-12 rounded-xl bg-white dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center"
+      >
+        <img
+          id="cart-delete-item-img"
+          src="/favicon.svg"
+          alt=""
+          class="w-full h-full object-cover rounded-lg"
+        />
+      </div>
+      <div class="min-w-0 flex-1">
+        <h4
+          id="cart-delete-item-name"
+          class="text-xs font-bold text-stone-900 dark:text-white leading-tight line-clamp-1 truncate"
+        >
+          Nombre de producto
+        </h4>
+        <span
+          id="cart-delete-item-price"
+          class="text-xs font-black text-rose-600 dark:text-rose-400 block mt-0.5"
+        >
+          $0
+        </span>
+      </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="grid grid-cols-2 gap-2.5 pt-1">
+      <button
+        type="button"
+        id="cart-delete-cancel-btn"
+        class="w-full py-2.5 px-3 rounded-xl border border-stone-200 dark:border-[#382d27] bg-stone-100 hover:bg-stone-200/80 dark:bg-[#27201c] dark:hover:bg-[#382d27] text-stone-700 dark:text-[#fbf6f0] font-bold text-xs transition-colors cursor-pointer"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        id="cart-delete-confirm-btn"
+        class="w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer"
+      >
+        Sí, eliminar
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal de Checkout / Notificación Sandbox -->
+<dialog
+  id="checkout-sandbox-modal"
+  class="rounded-3xl p-0 bg-transparent backdrop:bg-stone-950/70 backdrop:backdrop-blur-xs select-none max-w-sm w-full mx-auto my-auto"
+>
+  <div
+    class="bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white rounded-3xl p-6 shadow-2xl border border-stone-200 dark:border-[#2d2521] text-center space-y-4"
+  >
+    <div
+      class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40"
+    >
+      <svg
+        class="w-8 h-8 stroke-current stroke-2"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h17.25"
+        ></path>
+      </svg>
+    </div>
+    <div>
+      <h3 class="text-lg font-black leading-tight">¡Excelente elección!</h3>
+      <p
+        class="text-xs text-stone-500 dark:text-[#b0a297] mt-1.5 leading-relaxed"
+      >
+        El flujo transaccional de pagos (Webpay Plus / Redcompra en modo
+        Sandbox) se activará en la siguiente fase. Tu orden está calculada y
+        lista.
+      </p>
+    </div>
+    <div
+      class="p-3 rounded-xl bg-stone-50 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] text-xs font-bold text-stone-700 dark:text-[#fbf6f0] flex justify-between"
+    >
+      <span>Total de la Orden:</span>
+      <span id="checkout-modal-total" class="text-rose-600 dark:text-rose-400"
+        >$0</span
+      >
+    </div>
+    <button
+      type="button"
+      id="checkout-sandbox-close"
+      class="w-full py-2.5 rounded-xl bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-extrabold text-xs hover:opacity-90 transition-all cursor-pointer"
+    >
+      Entendido, seguir explorando
+    </button>
+  </div>
+</dialog>
+
+<script>
+  // ========================================================
+  // MOTOR REACTIVO DEL CARRITO (JavaScript Nativo Puro)
+  // ========================================================
+  (() => {
+    const STORAGE_KEY = 'market_pet_cart';
+    const FREE_SHIPPING_THRESHOLD = 25000;
+    const STANDARD_SHIPPING_COST = 3990;
+
+    // Elementos del DOM
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('cart-drawer-backdrop');
+    const closeBtn = document.getElementById('cart-drawer-close');
+    const itemsList = document.getElementById('cart-items-list');
+    const emptyState = document.getElementById('cart-empty-state');
+    const footer = document.getElementById('cart-drawer-footer');
+    const subtotalEl = document.getElementById('cart-subtotal-val');
+    const shippingEl = document.getElementById('cart-shipping-val');
+    const totalEl = document.getElementById('cart-total-val');
+    const headerCount = document.getElementById('cart-drawer-header-count');
+    const shippingMsg = document.getElementById('cart-shipping-message');
+    const shippingProgress = document.getElementById('cart-shipping-progress');
+    const shippingBadge = document.getElementById('cart-shipping-badge');
+    const clearBtn = document.getElementById('cart-clear-btn');
+    const checkoutBtn = document.getElementById('cart-checkout-btn');
+    const emptyCatalogLink = document.getElementById('cart-empty-catalog-link');
+
+    // Modal de Checkout
+    const checkoutModal = document.getElementById('checkout-sandbox-modal');
+    const checkoutModalClose = document.getElementById(
+      'checkout-sandbox-close'
+    );
+    const checkoutModalTotal = document.getElementById('checkout-modal-total');
+
+    // Modal de Confirmación de Eliminación
+    const deleteModal = document.getElementById('cart-delete-confirm-modal');
+    const deleteModalImg = document.getElementById('cart-delete-item-img');
+    const deleteModalName = document.getElementById('cart-delete-item-name');
+    const deleteModalPrice = document.getElementById('cart-delete-item-price');
+    let pendingDeleteId = null;
+
+    function promptDeleteItem(productId) {
+      const cart = getCart();
+      const item = cart.find((it) => String(it.id) === String(productId));
+      if (!item) return;
+
+      pendingDeleteId = productId;
+      if (deleteModalImg) deleteModalImg.src = item.image || '/favicon.svg';
+      if (deleteModalName) deleteModalName.textContent = item.name;
+      if (deleteModalPrice)
+        deleteModalPrice.textContent = formatCLP(item.price);
+
+      if (deleteModal && typeof deleteModal.showModal === 'function') {
+        deleteModal.showModal();
+      }
+    }
+
+    // 1. Obtener y Guardar en LocalStorage con saneamiento defensivo
+    function getCart() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(parsed)) return [];
+        return parsed
+          .filter((it) => it && typeof it === 'object')
+          .map((it) => ({
+            id: typeof it.id === 'string' ? it.id.trim() : '',
+            name: typeof it.name === 'string' ? it.name.trim() : '',
+            price: Number(it.price),
+            quantity: Number(it.quantity),
+            image:
+              typeof it.image === 'string' &&
+              it.image.startsWith('/') &&
+              !it.image.startsWith('//')
+                ? it.image
+                : '/favicon.svg',
+          }))
+          .filter(
+            (it) =>
+              it.id.length > 0 &&
+              it.name.length > 0 &&
+              Number.isFinite(it.price) &&
+              it.price >= 0 &&
+              Number.isFinite(it.quantity)
+          )
+          .map((it) => ({
+            ...it,
+            quantity: Math.min(99, Math.max(1, Math.trunc(it.quantity))),
+          }));
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      } catch (_) {}
+      renderCart();
+      updateBadges();
+    }
+
+    // Formateador de moneda en Pesos Chilenos (CLP)
+    function formatCLP(amount) {
+      return '$' + Math.round(amount).toLocaleString('es-CL');
+    }
+
+    // 2. Apertura y Cierre del Drawer
+    function openDrawer() {
+      if (!drawer || !backdrop) return;
+      drawer.classList.remove('translate-x-full');
+      drawer.setAttribute('aria-hidden', 'false');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeDrawer() {
+      if (!drawer || !backdrop) return;
+      drawer.classList.add('translate-x-full');
+      drawer.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // 3. Agregar Productos al Carrito
+    function addToCart(product, quantity = 1) {
+      const cart = getCart();
+      const existing = cart.find(
+        (item) => String(item.id) === String(product.id)
+      );
+
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cart.push({
+          id: String(product.id),
+          name: product.name,
+          price: Number(product.price),
+          image: product.image || '/favicon.svg',
+          quantity: quantity,
+        });
+      }
+
+      saveCart(cart);
+      openDrawer();
+    }
+
+    // 4. Modificar Cantidad
+    function updateQuantity(productId, delta) {
+      const cart = getCart();
+      const item = cart.find((it) => String(it.id) === String(productId));
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        removeFromCart(productId);
+      } else {
+        saveCart(cart);
+      }
+    }
+
+    // 5. Eliminar Producto
+    function removeFromCart(productId) {
+      const cart = getCart().filter(
+        (it) => String(it.id) !== String(productId)
+      );
+      saveCart(cart);
+    }
+
+    // 6. Vaciar Carrito
+    function clearCart() {
+      saveCart([]);
+    }
+
+    // 7. Renderizado Reactivo del Drawer
+    function renderCart() {
+      const cart = getCart();
+      const totalUnits = cart.reduce((sum, it) => sum + it.quantity, 0);
+
+      // Header Count
+      if (headerCount) {
+        headerCount.textContent = String(totalUnits);
+      }
+
+      // Si está vacío
+      if (cart.length === 0) {
+        itemsList?.replaceChildren();
+        if (emptyState) emptyState.classList.remove('hidden');
+        if (footer) footer.classList.add('hidden');
+
+        if (shippingMsg)
+          shippingMsg.textContent = 'Envío gratis en compras sobre $25.000';
+        if (shippingProgress) shippingProgress.style.width = '0%';
+        if (shippingBadge) {
+          shippingBadge.textContent = 'Meta $25.000';
+          shippingBadge.className =
+            'text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 shrink-0';
+        }
+        return;
+      }
+
+      // Si tiene productos
+      if (emptyState) emptyState.classList.add('hidden');
+      if (footer) footer.classList.remove('hidden');
+
+      // Calcular Subtotal
+      const subtotal = cart.reduce(
+        (acc, it) => acc + it.price * it.quantity,
+        0
+      );
+      const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+      const shippingCost = isFreeShipping ? 0 : STANDARD_SHIPPING_COST;
+      const total = subtotal + shippingCost;
+
+      // Actualizar Barra de Envío Gratis
+      if (shippingProgress && shippingMsg && shippingBadge) {
+        const percent = Math.min(
+          100,
+          Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100)
+        );
+        shippingProgress.style.width = `${percent}%`;
+
+        if (isFreeShipping) {
+          shippingMsg.replaceChildren();
+          const strong = document.createElement('strong');
+          strong.className = 'text-emerald-600 dark:text-emerald-400';
+          strong.textContent = '¡Felicidades! Tienes Envío Gratis';
+          shippingMsg.appendChild(strong);
+          shippingBadge.textContent = 'GRATIS';
+          shippingBadge.className =
+            'text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 shrink-0';
+        } else {
+          const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+          shippingMsg.replaceChildren();
+          shippingMsg.appendChild(document.createTextNode('Te faltan '));
+          const strong = document.createElement('strong');
+          strong.className = 'text-rose-600 dark:text-rose-400';
+          strong.textContent = formatCLP(remaining);
+          shippingMsg.appendChild(strong);
+          shippingMsg.appendChild(
+            document.createTextNode(' para ¡Envío Gratis!')
+          );
+          shippingBadge.textContent = `${percent}%`;
+          shippingBadge.className =
+            'text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 shrink-0';
+        }
+      }
+
+      // Actualizar Totales del Footer
+      if (subtotalEl) subtotalEl.textContent = formatCLP(subtotal);
+      if (shippingEl) {
+        shippingEl.textContent = isFreeShipping
+          ? 'GRATIS'
+          : formatCLP(shippingCost);
+        shippingEl.className = isFreeShipping
+          ? 'font-black text-emerald-600 dark:text-emerald-400'
+          : 'font-bold text-stone-900 dark:text-white';
+      }
+      if (totalEl) totalEl.textContent = formatCLP(total);
+
+      // Renderizar Lista de Ítems de forma segura sin innerHTML
+      if (itemsList) {
+        itemsList.replaceChildren();
+        const svgNs = 'http://www.w3.org/2000/svg';
+
+        cart.forEach((item) => {
+          const lineTotal = item.price * item.quantity;
+
+          const li = document.createElement('li');
+          li.className =
+            'flex items-center gap-3 p-3 rounded-2xl bg-stone-50/70 dark:bg-[#1d1816] border border-stone-200/80 dark:border-[#2d2521] transition-all hover:border-stone-300 dark:hover:border-stone-700';
+
+          const imgWrap = document.createElement('div');
+          imgWrap.className =
+            'w-16 h-16 rounded-xl bg-white dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center';
+          const img = document.createElement('img');
+          img.src = item.image || '/favicon.svg';
+          img.alt = item.name || 'Producto';
+          img.className = 'w-full h-full object-cover rounded-lg';
+          img.loading = 'lazy';
+          imgWrap.appendChild(img);
+
+          const content = document.createElement('div');
+          content.className = 'flex-1 min-w-0 space-y-1';
+
+          const topRow = document.createElement('div');
+          topRow.className = 'flex items-start justify-between gap-2';
+
+          const title = document.createElement('h4');
+          title.className =
+            'text-xs font-bold text-stone-900 dark:text-white leading-tight line-clamp-2';
+          title.textContent = item.name;
+
+          const removeBtn = document.createElement('button');
+          removeBtn.type = 'button';
+          removeBtn.setAttribute('data-cart-remove', item.id);
+          removeBtn.setAttribute(
+            'aria-label',
+            `Eliminar ${item.name} del carrito`
+          );
+          removeBtn.className =
+            'text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors p-1 cursor-pointer shrink-0';
+
+          const trashSvg = document.createElementNS(svgNs, 'svg');
+          trashSvg.setAttribute('class', 'w-4 h-4 stroke-current stroke-2');
+          trashSvg.setAttribute('fill', 'none');
+          trashSvg.setAttribute('viewBox', '0 0 24 24');
+          const trashPath = document.createElementNS(svgNs, 'path');
+          trashPath.setAttribute('stroke-linecap', 'round');
+          trashPath.setAttribute('stroke-linejoin', 'round');
+          trashPath.setAttribute(
+            'd',
+            'M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0'
+          );
+          trashSvg.appendChild(trashPath);
+          removeBtn.appendChild(trashSvg);
+
+          topRow.appendChild(title);
+          topRow.appendChild(removeBtn);
+
+          const bottomRow = document.createElement('div');
+          bottomRow.className = 'flex items-center justify-between pt-0.5';
+
+          const qtyBox = document.createElement('div');
+          qtyBox.className =
+            'flex items-center border border-stone-200 dark:border-[#382d27] rounded-lg bg-white dark:bg-[#27201c] overflow-hidden';
+
+          const minusBtn = document.createElement('button');
+          minusBtn.type = 'button';
+          minusBtn.setAttribute('data-cart-qty-minus', item.id);
+          minusBtn.setAttribute('aria-label', 'Disminuir cantidad');
+          minusBtn.className =
+            'px-2 py-0.5 text-stone-600 dark:text-[#fbf6f0] hover:bg-stone-100 dark:hover:bg-[#382d27] font-black text-xs transition-colors cursor-pointer';
+          minusBtn.textContent = '-';
+
+          const qtySpan = document.createElement('span');
+          qtySpan.className =
+            'px-2 py-0.5 text-xs font-black text-stone-900 dark:text-white min-w-[20px] text-center';
+          qtySpan.textContent = String(item.quantity);
+
+          const plusBtn = document.createElement('button');
+          plusBtn.type = 'button';
+          plusBtn.setAttribute('data-cart-qty-plus', item.id);
+          plusBtn.setAttribute('aria-label', 'Aumentar cantidad');
+          plusBtn.className =
+            'px-2 py-0.5 text-stone-600 dark:text-[#fbf6f0] hover:bg-stone-100 dark:hover:bg-[#382d27] font-black text-xs transition-colors cursor-pointer';
+          plusBtn.textContent = '+';
+
+          qtyBox.appendChild(minusBtn);
+          qtyBox.appendChild(qtySpan);
+          qtyBox.appendChild(plusBtn);
+
+          const priceSpan = document.createElement('span');
+          priceSpan.className =
+            'text-xs font-black text-stone-900 dark:text-white';
+          priceSpan.textContent = formatCLP(lineTotal);
+
+          bottomRow.appendChild(qtyBox);
+          bottomRow.appendChild(priceSpan);
+
+          content.appendChild(topRow);
+          content.appendChild(bottomRow);
+
+          li.appendChild(imgWrap);
+          li.appendChild(content);
+          itemsList.appendChild(li);
+        });
+      }
+    }
+
+    // 8. Actualizar Badges en el Header
+    function updateBadges() {
+      const cart = getCart();
+      const totalUnits = cart.reduce((sum, it) => sum + it.quantity, 0);
+
+      const badges = document.querySelectorAll('#cart-count-badge');
+      badges.forEach((badge) => {
+        badge.textContent = String(totalUnits);
+        if (totalUnits > 0) {
+          badge.classList.remove('opacity-0');
+        }
+      });
+    }
+
+    // ========================================================
+    // DELEGACIÓN DE EVENTOS GLOBAL (Soluciona suma doble +1 +1)
+    // ========================================================
+    document.addEventListener('click', (e) => {
+      // A. Click en botón "Agregar al Carrito"
+      const addBtn = e.target.closest('[data-add-to-cart]');
+      if (addBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const id = addBtn.getAttribute('data-product-id');
+        const name = addBtn.getAttribute('data-product-name');
+        const price = parseFloat(
+          addBtn.getAttribute('data-product-price') || '0'
+        );
+        const image = addBtn.getAttribute('data-product-image');
+
+        // Determinar cantidad si está en la ficha de producto
+        const qtyDisplay =
+          document.getElementById('qty-value') ||
+          document.getElementById('qty-display');
+        let quantity = 1;
+        if (qtyDisplay && addBtn.id === 'btn-add-pdp') {
+          quantity = parseInt(qtyDisplay.textContent || '1', 10);
+        }
+
+        // Efecto visual en el botón
+        const textSpan = addBtn.querySelector('.btn-text');
+        const originalText = textSpan
+          ? textSpan.textContent
+          : addBtn.textContent;
+        addBtn.classList.add('!bg-emerald-600', 'scale-95');
+        if (textSpan) textSpan.textContent = '¡Agregado!';
+
+        setTimeout(() => {
+          addBtn.classList.remove('!bg-emerald-600', 'scale-95');
+          if (textSpan) textSpan.textContent = originalText;
+        }, 700);
+
+        // Añadir exactamente 1 producto (o la cantidad seleccionada en la PDP)
+        addToCart({ id, name, price, image }, quantity);
+        return;
+      }
+
+      // B. Aumentar cantidad (+)
+      const plusBtn = e.target.closest('[data-cart-qty-plus]');
+      if (plusBtn) {
+        const id = plusBtn.getAttribute('data-cart-qty-plus');
+        updateQuantity(id, 1);
+        return;
+      }
+
+      // C. Disminuir cantidad (-)
+      const minusBtn = e.target.closest('[data-cart-qty-minus]');
+      if (minusBtn) {
+        const id = minusBtn.getAttribute('data-cart-qty-minus');
+        const cart = getCart();
+        const item = cart.find((it) => String(it.id) === String(id));
+        if (item && item.quantity <= 1) {
+          promptDeleteItem(id);
+        } else {
+          updateQuantity(id, -1);
+        }
+        return;
+      }
+
+      // D. Eliminar producto individual (Papelera)
+      const removeBtn = e.target.closest('[data-cart-remove]');
+      if (removeBtn) {
+        const id = removeBtn.getAttribute('data-cart-remove');
+        promptDeleteItem(id);
+        return;
+      }
+
+      // E. Abrir Carrito desde el Header
+      const headerCartBtn = e.target.closest('#cart-button');
+      if (headerCartBtn) {
+        e.preventDefault();
+        openDrawer();
+        return;
+      }
+
+      // F. Cerrar Carrito
+      if (e.target.closest('#cart-drawer-close') || e.target === backdrop) {
+        closeDrawer();
+        return;
+      }
+
+      // G. Botón "Explorar Catálogo" desde estado vacío
+      if (e.target.closest('#cart-empty-catalog-link')) {
+        closeDrawer();
+        return;
+      }
+
+      // H. Vaciar Carrito
+      if (e.target.closest('#cart-clear-btn')) {
+        if (confirm('¿Deseas vaciar todos los productos del carrito?')) {
+          clearCart();
+        }
+        return;
+      }
+
+      // I. Botones de Acción (Ver Carrito / Finalizar Compra)
+      if (e.target.closest('#cart-view-page-btn')) {
+        closeDrawer();
+        return;
+      }
+
+      if (e.target.closest('#cart-checkout-btn')) {
+        const cart = getCart();
+        if (cart.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        closeDrawer();
+        return;
+      }
+
+      // J. Cerrar modal de checkout
+      if (e.target.closest('#checkout-sandbox-close')) {
+        if (checkoutModal && typeof checkoutModal.close === 'function') {
+          checkoutModal.close();
+        }
+        closeDrawer();
+        return;
+      }
+
+      // K. Confirmar eliminación en el modal
+      if (e.target.closest('#cart-delete-confirm-btn')) {
+        if (pendingDeleteId) {
+          removeFromCart(pendingDeleteId);
+          pendingDeleteId = null;
+        }
+        if (deleteModal && typeof deleteModal.close === 'function') {
+          deleteModal.close();
+        }
+        return;
+      }
+
+      // L. Cancelar eliminación en el modal
+      if (e.target.closest('#cart-delete-cancel-btn')) {
+        pendingDeleteId = null;
+        if (deleteModal && typeof deleteModal.close === 'function') {
+          deleteModal.close();
+        }
+        return;
+      }
+    });
+
+    // Cerrar con tecla Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (deleteModal && deleteModal.open) {
+          deleteModal.close();
+          pendingDeleteId = null;
+          return;
+        }
+        closeDrawer();
+        if (checkoutModal && typeof checkoutModal.close === 'function') {
+          checkoutModal.close();
+        }
+      }
+    });
+
+    // Sincronizar entre pestañas
+    window.addEventListener('storage', (e) => {
+      if (e.key === STORAGE_KEY) {
+        renderCart();
+        updateBadges();
+      }
+    });
+
+    // Inicializar al cargar el DOM
+    renderCart();
+    updateBadges();
+  })();
+</script>

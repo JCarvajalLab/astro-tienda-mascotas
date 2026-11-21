@@ -19,16 +19,10 @@ function formatPrice(amount) {
 }
 ---
 
-<section
-  id={id}
-  class="py-10 sm:py-12 select-none"
-  aria-label={title}
->
+<section id={id} class="py-10 sm:py-12 select-none" aria-label={title}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Encabezado de la fila con flechas de navegación a la derecha -->
-    <div
-      class="flex items-end justify-between mb-5 sm:mb-6 gap-3"
-    >
+    <div class="flex items-end justify-between mb-5 sm:mb-6 gap-3">
       <div class="min-w-0 flex-1">
         {
           badge && (
@@ -40,13 +34,15 @@ function formatPrice(amount) {
           )
         }
         <h2
-          class="text-lg sm:text-2xl lg:text-3xl font-black text-stone-900 tracking-tight"
+          class="text-lg sm:text-2xl lg:text-3xl font-black text-stone-900 dark:text-white tracking-tight"
         >
           {title}
         </h2>
         {
           subtitle && (
-            <p class="text-xs sm:text-sm text-stone-500 mt-0.5 line-clamp-1 sm:line-clamp-none">{subtitle}</p>
+            <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">
+              {subtitle}
+            </p>
           )
         }
       </div>
@@ -57,7 +53,7 @@ function formatPrice(amount) {
           type="button"
           data-slider-prev={id}
           aria-label={`Ver productos anteriores de ${title}`}
-          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
+          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 dark:border-slate-700 hover:border-stone-400 dark:hover:border-slate-500 bg-white dark:bg-slate-800 hover:bg-stone-100 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <svg
             class="w-4 h-4 stroke-current stroke-2"
@@ -75,7 +71,7 @@ function formatPrice(amount) {
           type="button"
           data-slider-next={id}
           aria-label={`Ver más productos de ${title}`}
-          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 hover:border-stone-400 bg-white hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
+          class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-200 dark:border-slate-700 hover:border-stone-400 dark:hover:border-slate-500 bg-white dark:bg-slate-800 hover:bg-stone-100 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-200 flex items-center justify-center transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <svg
             class="w-4 h-4 stroke-current stroke-2"
@@ -99,12 +95,12 @@ function formatPrice(amount) {
       {
         products.map((prod) => (
           <article
-            class="product-slider-card snap-start snap-always shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white rounded-2xl border border-stone-200/90 hover:border-rose-400 hover:shadow-lg transition-all duration-200 group overflow-hidden"
+            class="product-slider-card snap-start snap-always shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] flex flex-col bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-500 hover:shadow-lg transition-all duration-200 group overflow-hidden"
             style="scroll-snap-stop: always;"
           >
             <a
               href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
-              class="relative aspect-square w-full bg-stone-50 overflow-hidden flex items-center justify-center block cursor-pointer"
+              class="relative aspect-square w-full bg-stone-50 dark:bg-slate-800 overflow-hidden flex items-center justify-center block cursor-pointer"
             >
               {prod.badge && (
                 <span
@@ -126,17 +122,17 @@ function formatPrice(amount) {
             </a>
 
             <div class="p-3 sm:p-3.5 flex flex-col flex-1">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 mb-1 truncate">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 mb-1 truncate">
                 {prod.category}
               </span>
 
               <h3
-                class="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-rose-600 transition-colors line-clamp-2 leading-snug mb-2 flex-1"
+                class="text-xs sm:text-sm font-bold text-stone-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-2 leading-snug mb-2 flex-1"
                 title={prod.name}
               >
                 <a
                   href={prod.slug ? `/producto/${prod.slug}` : `#${prod.id}`}
-                  class="hover:text-rose-600 transition-colors"
+                  class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   {prod.name}
                 </a>
@@ -144,26 +140,28 @@ function formatPrice(amount) {
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                 <span>★</span>
-                <span class="font-bold text-stone-700">{prod.rating}</span>
-                <span class="text-stone-400 text-[10px]">
+                <span class="font-bold text-stone-700 dark:text-slate-300">
+                  {prod.rating}
+                </span>
+                <span class="text-stone-400 dark:text-slate-500 text-[10px]">
                   ({prod.reviewsCount})
                 </span>
               </div>
 
-              <div class="pt-2.5 border-t border-stone-100 flex flex-col gap-2 mt-auto">
+              <div class="pt-2.5 border-t border-stone-100 dark:border-slate-800 flex flex-col gap-2 mt-auto">
                 <div class="flex items-baseline justify-between gap-1">
                   <div class="flex flex-col">
-                    <span class="text-xs sm:text-sm font-black text-stone-900 leading-none">
+                    <span class="text-xs sm:text-sm font-black text-stone-900 dark:text-white leading-none">
                       {formatPrice(prod.price)}
                     </span>
                     {prod.originalPrice && (
-                      <span class="text-[10px] text-stone-400 line-through mt-0.5 leading-none">
+                      <span class="text-[10px] text-stone-400 dark:text-slate-500 line-through mt-0.5 leading-none">
                         {formatPrice(prod.originalPrice)}
                       </span>
                     )}
                   </div>
                   {prod.discount && (
-                    <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                    <span class="text-[10px] font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-1.5 py-0.5 rounded">
                       {prod.discount}
                     </span>
                   )}
@@ -175,6 +173,7 @@ function formatPrice(amount) {
                   data-product-id={prod.id}
                   data-product-name={prod.name}
                   data-product-price={prod.price}
+                  data-product-image={prod.image?.src || prod.image}
                   class="add-to-cart-btn w-full py-2 px-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                   aria-label={`Agregar ${prod.name} al carrito`}
                 >
@@ -211,8 +210,8 @@ function formatPrice(amount) {
       const firstCard = cards[0];
       const secondCard = cards[1];
       const cardDistance = secondCard
-        ? (secondCard.offsetLeft - firstCard.offsetLeft)
-        : (firstCard.offsetWidth + 12);
+        ? secondCard.offsetLeft - firstCard.offsetLeft
+        : firstCard.offsetWidth + 12;
 
       // En móviles y vista reducida (< 768px, alineado con el breakpoint md del menú móvil):
       // Avanzar exactamente 1 producto a la vez
@@ -251,28 +250,40 @@ function formatPrice(amount) {
     let touchStartY = 0;
     let touchStartTime = 0;
 
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      touchStartTime = Date.now();
-    }, { passive: true });
+    track.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      },
+      { passive: true }
+    );
 
-    track.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      const duration = Date.now() - touchStartTime;
+    track.addEventListener(
+      'touchend',
+      (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const duration = Date.now() - touchStartTime;
 
-      // Si fue un swipe horizontal claro y rápido
-      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && duration < 500) {
-        if (deltaX < 0) {
-          scrollSlider('next');
-        } else {
-          scrollSlider('prev');
+        // Si fue un swipe horizontal claro y rápido
+        if (
+          Math.abs(deltaX) > 35 &&
+          Math.abs(deltaX) > Math.abs(deltaY) * 1.3 &&
+          duration < 500
+        ) {
+          if (deltaX < 0) {
+            scrollSlider('next');
+          } else {
+            scrollSlider('prev');
+          }
         }
-      }
-    }, { passive: true });
+      },
+      { passive: true }
+    );
 
     // Actualiza la disponibilidad visual de los botones de navegación
     function updateArrowStates() {
@@ -285,32 +296,5 @@ function formatPrice(amount) {
     window.addEventListener('resize', updateArrowStates, { passive: true });
     // Estado inicial de las flechas
     updateArrowStates();
-
-    // Interacción clara al presionar 'Agregar' en las tarjetas de producto
-    document.querySelectorAll(`#${id} .add-to-cart-btn`).forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const button = e.currentTarget;
-        const textSpan = button.querySelector('.btn-text');
-        const originalText = textSpan ? textSpan.textContent : 'Agregar';
-
-        button.classList.add('!bg-emerald-600', 'scale-98');
-        if (textSpan) textSpan.textContent = '¡Agregado!';
-
-        setTimeout(() => {
-          button.classList.remove('!bg-emerald-600', 'scale-98');
-          if (textSpan) textSpan.textContent = originalText;
-        }, 700);
-
-        const badge = document.getElementById('cart-count-badge');
-        if (badge) {
-          const currentCount = parseInt(badge.textContent || '0', 10);
-          badge.textContent = String(currentCount + 1);
-          badge.classList.add('scale-125', '!bg-rose-600', '!text-white', 'transition-transform');
-          setTimeout(() => {
-            badge.classList.remove('scale-125', '!bg-rose-600', '!text-white');
-          }, 400);
-        }
-      });
-    });
   })();
 </script>

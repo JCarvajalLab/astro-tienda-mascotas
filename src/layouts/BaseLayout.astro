@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import RegionModal from '../components/RegionModal.astro';
+import CartDrawer from '../components/CartDrawer.astro';
 
 /**
  * @typedef {Object} Props
@@ -59,18 +60,25 @@ const ogImageURL = new URL(
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Script síncrono anti-FOUC: MODO CLARO por defecto, respeta si el usuario activa modo oscuro -->
+    <!-- Script síncrono anti-FOUC: MODO CLARO por defecto, respeta si el usuario activa modo oscuro y paleta personalizada -->
     <script is:inline>
       (() => {
-        const storedTheme =
-          typeof localStorage !== 'undefined'
-            ? localStorage.getItem('theme')
-            : null;
-        if (storedTheme === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          const storedVariant =
+            localStorage.getItem('dark-theme-variant') || 'warm-charcoal';
+          if (storedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          if (storedVariant) {
+            document.documentElement.setAttribute(
+              'data-dark-theme',
+              storedVariant
+            );
+          }
+        } catch (_) {}
       })();
     </script>
   </head>
@@ -98,5 +106,8 @@ const ogImageURL = new URL(
 
     <!-- Pie de página moderno con redes sociales -->
     {!hideFooter && <Footer variant={footerVariant} />}
+
+    <!-- Carrito reactivo de compras (Drawer lateral / Flyout) -->
+    <CartDrawer />
   </body>
 </html>

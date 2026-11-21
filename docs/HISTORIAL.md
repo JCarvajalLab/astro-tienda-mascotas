@@ -12,15 +12,15 @@ _Máximo ~15 líneas. Se reescribe en cada actualización, no se acumula._
 
 - **Proyecto:** ecommerce (tienda de mascotas) — **Market-Pet**: Tienda de artículos para mascotas en Chile
 - **Repositorio:** https://github.com/JCarvajalLab/astro-tienda-mascotas
-- **Última actualización:** 2026-11-18
-- **Fase activa:** `phase/02-catalog`
-- **Rama de trabajo:** `phase/02-catalog`
-- **Último commit relevante:** fix(carousel): fuerza detencion unitaria con scroll-snap-stop always y soporte touch swipe en movil
-- **Despliegue:** servidor local único y estable activo en http://localhost:4321/
-- **Qué funciona:** Marca **Market-Pet**, Identidad visual unificada al 100% en estilo Cálido Natural / Warm Biscuit, Content Collections de Astro 5+ operativas (`src/content.config.js`) con validación Zod y **22 productos estructurados en JSON**, **botones de compra inclusivos y accesibles ("Agregar al carrito")**, **Mega-Menú definitivo en Header estilo Vitrina Híbrida Split Showcase con micro-SVGs lineales en desktop**, **Navegación móvil responsiva completa (Offcanvas drawer con acordeones táctiles)**, **Carruseles de "Productos en Oferta" y "Novedades de la Semana" adaptados a móviles: navegación suave de a 1 producto exacto por clic (`cardWidth + gap`), alineación con scroll snap y touch swipe natural**, **30 enlaces de subcategorías auditados y validados con HTTP 200**, **Rutas dedicadas `/categoria/suplementos` y `/categoria/dermocosmetica`**, **Barra de búsqueda reactiva y filtros por especie en categorías y catálogo**.
-- **Qué está en progreso:** Cierre de Fase 2 o siguientes requerimientos de la ficha de producto / detalle.
-- **Bloqueos o problemas conocidos:** ninguno; build limpio de 50 páginas estáticas en 4.19s con 80 imágenes WebP optimizadas y ESLint pasando al 100%.
-- **Siguiente paso concreto:** Validar con el usuario la fluidez del carrusel en móviles y proceder con la siguiente tarea del plan.
+- **Última actualización:** 2026-11-20
+- **Fase activa:** `phase/04-server-db` *(Fase 3 cerrada, integrada en `develop`/`main` y respaldada en GitHub)*
+- **Rama de trabajo:** `phase/04-server-db`
+- **Último commit relevante:** fix(security): corrige open redirect/XSS en login, elimina innerHTML, sanea localStorage y normaliza prettier
+- **Despliegue:** repositorio completo respaldado en GitHub (`origin`: `main`, `develop` y `phase/01..03`) + servidor local en http://localhost:4321/
+- **Qué funciona:** Marca **Market-Pet**, Warm Biscuit (60-30-10) + Modo Nocturno Warm Charcoal & Cacao (`#141110`), Content Collections Zod (**22 productos JSON** + WebP `astro:assets`), Mega-Menú + Drawer móvil con micro-SVGs, buscador reactivo y rutas dinámicas, carrito `/carrito` + Drawer sin `innerHTML` y saneamiento de `localStorage`, `/auth/login` protegido contra Open Redirect/XSS, y `/checkout` en 4 pasos con Sesión Demo (`18.765.432-7`), **RUT Módulo 11**, cupón sticky, verificación previa al pago y sellos de Webpay/Bancos/Mercado Pago.
+- **Qué está en progreso:** Apertura de Fase 4: diseño de arquitectura Astro SSR + PostgreSQL (tablas `usuarios`, `direcciones`, `productos`, `ordenes`, `items_orden`) y planificación de actualización de Astro antes de activar SSR.
+- **Bloqueos o problemas conocidos:** ningún bloqueo en Fase 3 estática (`lint`, `format:check` y `build` al 100%). Pendiente evaluar migración a `astro@7.4.13` (alertas `npm audit` en `astro`/`sharp`/`zod`) y endurecer CSP/retirar `preview-megamenu.astro` al activar SSR en Fase 4.
+- **Siguiente paso concreto:** Inicializar la arquitectura SSR + PostgreSQL en `phase/04-server-db`, evaluando actualización segura de `astro` y preparando tabla `ordenes` con soporte de boleta electrónica y seguimiento de despacho.
 
 ## 2. Decisiones importantes
 
@@ -86,10 +86,326 @@ _Una línea por decisión. Evita que la IA proponga de nuevo algo ya descartado.
 | 2026-11-18 | Menú Drawer móvil (Offcanvas) con acordeones táctiles en vez de barra horizontal | Ocultar barra desktop en móviles (evitando desbordamiento) e implementar menú lateral deslizante con acordeones táctiles para smartphones | Mantener scroll horizontal apretado de pestañas con menús flotantes rotos en móviles |
 | 2026-11-18 | Desplazamiento discreto adaptativo en carruseles de producto (1 tarjeta en móvil) | En móviles avanzar 1 producto por clic (ancho de tarjeta + gap) en lugar de saltar el 85% del contenedor o 5 productos de golpe, manteniendo contexto visual y alineación perfecta con snap-start | Desplazamientos arbitrarios por porcentaje o avanzar 5 productos a la vez en pantallas reducidas |
 | 2026-11-18 | scroll-snap-stop always y swipe táctil unitario en carruseles móviles | Forzar detención obligatoria por tarjeta en CSS e interceptar gestos táctiles swipe (touch) con scrollBy controlado para que ni el arrastre táctil ni las flechas puedan saltar 5 productos en móviles | Confiar exclusivamente en eventos de click o permitir que la inercia táctil nativa desplace múltiples tarjetas sin freno |
+| 2026-11-18 | Cierre de Fase 2 e inicio de Fase 3 (Carrito Interactivo & Modo Nocturno) | Consolidación de catálogo completo (Content Collections Zod, 22 productos, rutas dinámicas, búsqueda reactiva, drawer móvil y carruseles adaptados); merge a develop y main; apertura de rama phase/03-cart | Acumular cambios de carrito en la rama de catálogo |
+| 2026-11-18 | Modo nocturno integral con toggle interactivo y calibración visual completa | Alternancia fluida Sol/Luna en desktop y móvil con persistencia en localStorage, anti-FOUC síncrono y soporte de contraste alto en todo el catálogo y fichas de producto | Posponer modo oscuro hasta después del checkout o forzar modo oscuro por CSS del SO |
+| 2026-11-18 | Adopción de Awesome Design MD y laboratorio de paletas nocturnas | Establecer contrato formal de diseño en DESIGN.md y dotar al ecommerce de un widget interactivo con 4 paletas nocturnas (Midnight Slate, Warm Charcoal, Forest Pine, Onyx OLED) para evaluación directa del usuario | Imponer una sola paleta oscura sin opción de comparar o usar código disperso sin tokens |
+| 2026-11-18 | Paleta Warm Charcoal adoptada como modo nocturno oficial y metodología de laboratorio preservada | El usuario validó Warm Charcoal & Cacao (#141110 / #1d1816) en vivo con ThemeLabWidget; se calibra la navbar completa al 100% y se preserva el laboratorio interactivo como metodología estándar para futuros proyectos | Mantener Midnight Slate azulado frío o descartar el widget interactivo de testing |
+| 2026-11-18 | Delegación de eventos global en CartDrawer y eliminación de listeners redundantes | Resolver el bug de suma doble (+1 +1 = 2) al agregar productos al carrito centralizando la captura de clicks [data-add-to-cart] en CartDrawer con estado único en localStorage | Mantener scripts de click dispersos e independientes en cada página o componente |
+| 2026-11-18 | Carrito Drawer interactivo con meta dinámica de Envío Gratis ($25.000 CLP) | Proporcionar experiencia ecommerce moderna de alta conversión (slide-over drawer) sin recargar página, con barra de progreso de despacho gratis estándar en retail chileno | Redirigir a página pesada de /carrito o modal estático |
+| 2026-11-18 | Erradicación total de emojis en menú móvil y modal de confirmación en carrito | Reemplazar emojis en drawer lateral por micro-SVGs lineales profesionales e incorporar modal de confirmación antes de eliminar productos con cantidad 1 o clic en papelera | Permitir que el carrito borre productos sin confirmar o mantener emojis infantiles en móvil |
+| 2026-11-18 | Doble botón de acción en CartDrawer ("Ver Carrito" y "Finalizar Compra") | Dar al usuario la opción de revisar su bolsa completa en página dedicada (/carrito) o saltar directo al checkout (/checkout) | Mantener un único botón rígido en el flyout |
+| 2026-11-18 | Checkout de 4 fases con resumen sticky siempre visible | Flujo estándar de alta conversión en ecommerce (1. Identificación, 2. Dirección, 3. Envío, 4. Pago) manteniendo el desglose de productos y total visible en todo momento | Flujo en acordeones donde el total desaparece al hacer scroll o checkout de 1 sola página saturada |
+| 2026-11-18 | Vista neutra de autenticación /auth/login con tabs y redirección contextual | Permitir inicio de sesión o creación de cuenta con diseño neutro e integrado, redirigiendo automáticamente de vuelta a /checkout si venía del proceso de compra | Dejar el botón de login como ancla muerta /#login o forzar registro obligatorio para comprar |
+| 2026-11-18 | Erradicación total de emojis en formularios y botones de checkout | Directriz estricta del usuario: sustituir todos los emojis en botones de visibilidad de contraseña, badges y opciones por micro-SVGs lineales profesionales | Mantener emojis coloridos en campos de formulario |
+| 2026-11-18 | Confirmación de contraseña, validaciones inline y botón "Crear Cuenta" | Asegurar integridad de credenciales de usuario mediante doble campo de contraseña con verificación de coincidencia y feedback de error inmediato | Formularios sin validación previa al envío o con alert() genéricos |
+| 2026-11-18 | Priorizar inicio de sesión en Checkout con bifurcación a registro e invitado | Guiar al comprador a identificarse con su cuenta existente primero, ofreciendo enlace directo a crear cuenta o compra rápida como invitado para evitar abandono de carrito | Forzar registro obligatorio o mostrar solo campos de invitado |
+| 2026-11-19 | Eliminación de compra como invitado, cupón en checkout y sesión demo | Exigir cuenta activa en checkout para fidelización, colocar formulario de cupón en la barra lateral persistente (disponible en todos los pasos y en el pago) y proveer botón demo de 1 clic con datos chilenos para agilizar pruebas de QA de Dirección, Despacho y Pago | Permitir compra anónima como invitado o exigir llenado manual repetitivo de formularios de prueba |
+| 2026-11-19 | Desglose previo al pago y sellos oficiales de pasarelas | Proporcionar tarjeta de verificación con datos de contacto, dirección y método de envío antes de pagar con opción de editar en 1 clic y mostrar logos auténticos de Webpay Plus, Redcompra, Visa, Mastercard, Bancos y Mercado Pago para máxima confianza | Ocultar datos de entrega en el paso de pago o usar nombres planos sin logotipos |
+| 2026-11-20 | Validación matemática de RUT chileno en local (Módulo 11) | Garantizar validación instantánea (0ms), costo cero, offline y privada sin exponer RUTs de clientes a APIs de terceros, rechazando repetidos triviales (`11.111.111-1`) y formateando `XX.XXX.XXX-Y` en vivo | Consultar APIs externas de RUT o validar solo longitud mínima de texto |
+| 2026-11-20 | Auditoría de seguridad pre-push con subagente independiente y cierre Fase 3 | Detectar y remediar Open Redirect/XSS (`?redirect=`), eliminar todo `innerHTML` residual, sanear `localStorage`, ajustar CSP/Prettier y posponer migración a `astro@7.4.13` para el inicio de Fase 4 SSR tras verificar bajo impacto en build estático | Subir ramas sin revisión cruzada o introducir actualización mayor sin probar SSR |
 
 ## 3. Registro de cambios (más reciente arriba)
 
 _Una entrada por cada push o cierre de tarea._
+
+### 2026-11-20 · `phase/03-cart` · auditoria de seguridad pre-push, cierre de fase 3 y respaldo en GitHub
+- **Qué:** Endurecimiento completo de seguridad, normalización de formato para CI, cierre formal de Fase 3, respaldo integral en GitHub y apertura de Fase 4 (`phase/04-server-db`):
+  1. **Corrección de hallazgo Alto (DOM XSS + Open Redirect en `src/pages/auth/login.astro`):**
+     - Se implementó `getSafeRedirect(raw)` validando ruta relativa interna estricta iniciada con `/` (bloqueando `javascript:`, `//`, `/\` y dominios externos verificados contra `window.location.origin`) y se retiró la referencia muerta `#guest-checkout-wrap`.
+  2. **Eliminación total de `innerHTML` en `src/` (Prevención DOM XSS):**
+     - Reemplazo completo en `src/components/CartDrawer.astro`, `src/components/RegionModal.astro` y `src/pages/carrito.astro` mediante `replaceChildren()`, `createElement()`, `createElementNS()` y `.textContent` (0 ocurrencias en código en todo `src/`).
+  3. **Saneamiento defensivo, validaciones y endurecimiento CSP:**
+     - `getCart()` en `CartDrawer.astro`, `carrito.astro` y `checkout.astro` verifica `Array.isArray()`, valida `id`/`name`, acota `quantity` entre `1` y `99`, exige `price >= 0` finito y rutas de imagen locales seguras.
+     - `src/utils/rut.js` exige primer dígito `1-9` (`/^[1-9]\d{5,7}$/`) rechazando ceros iniciales; `checkout.astro` Paso 4 re-valida RUT y dirección antes de confirmar; `catalogo/index.astro` y `categoria/[categoria].astro` evitan inyección en `querySelector` buscando atributos de botones por comparación directa.
+     - `public/_headers` añade `object-src 'none'`, `base-uri 'self'`, `form-action 'self'` y restringe `img-src 'self' data: blob:`.
+  4. **Normalización Prettier para CI y evaluación `npm audit`:**
+     - Corrección de comentarios JSX `{/* ... */}` dentro de expresiones Astro en `Header.astro`, `catalogo/index.astro` y `categoria/[categoria].astro` y ejecución de `npm run format` (`prettier --check .` pasando al 100%).
+     - Se documenta evaluación pendiente para migrar `astro` hacia `7.4.13` (alertas `npm audit` en `astro`, `sharp`, `zod`, `esbuild`, con riesgo acotado en Fase 3 por `output: "static"`) y retirar `preview-megamenu.astro` al habilitar SSR en Fase 4.
+  5. **Cierre de Fase 3, Push a GitHub y Apertura de Fase 4:**
+     - Merges `--no-ff` en `develop` y `main`, `git push origin` de `phase/01-design`, `phase/02-catalog`, `phase/03-cart`, `develop` y `main`, y creación de `phase/04-server-db`.
+- **Archivos clave:** `src/pages/auth/login.astro`, `src/components/CartDrawer.astro`, `src/components/RegionModal.astro`, `src/pages/carrito.astro`, `src/pages/checkout.astro`, `src/utils/rut.js`, `public/_headers`, `src/components/Header.astro`, `src/pages/catalogo/index.astro`, `src/pages/categoria/[categoria].astro`, `docs/HISTORIAL.md`, `docs/PLAN.md`
+- **Agente(s) / Skills:**
+  - `seguridad` (con subagente independiente `Auditor de Seguridad Pre-Push`): Revisión cruzada completa del repositorio, detección de Open Redirect/DOM XSS en `login.astro`, saneamiento `localStorage`, revisión `npm audit` y verificación de `public/_headers`.
+  - `desarrollo`: Eliminación de `innerHTML` restante, implementación de `getSafeRedirect`, saneamiento de `getCart()`, re-validación en Paso 4, búsqueda segura en filtros y comentarios JSX para Prettier.
+  - `qa`: Ejecución en verde de `npm run format:check`, `npm run lint`, `npm run build` (53 páginas en `3.20s`), pruebas Node de RUT y verificación `0 innerHTML` en `src/`.
+  - `docs-seo`: Cierre documental en `docs/HISTORIAL.md` y checklist en `docs/PLAN.md`.
+- **Notas:** Listo para iniciar Fase 4 (`phase/04-server-db`) con Astro SSR, actualización segura de dependencias y base de datos PostgreSQL.
+
+### 2026-11-20 · `phase/03-cart` · validacion matematica de RUT chileno (Modulo 11) y formateo automatico
+- **Qué:** Implementación de validación matemática local y formateo en tiempo real del RUT chileno en el checkout:
+  1. **Módulo puro `src/utils/rut.js`:**
+     - Funciones `cleanRut`, `formatRut`, `calculateRutDv` y `validateRut` usando el algoritmo oficial **Módulo 11** en JavaScript nativo puro (cero dependencias, cero APIs externas).
+     - Rechaza explícitamente longitudes inválidas, cuerpos menores a `100.000` y patrones repetidos triviales (`11.111.111-1`, `22.222.222-2`, etc.).
+  2. **Integración UX/UI y DOM seguro en `src/pages/checkout.astro`:**
+     - Campo `#step1-logged-rut` con formateo automático (`XX.XXX.XXX-Y`) al escribir (`input`) y validación estricta al salir (`blur`) o enviar (`submit`).
+     - Feedback visual accesible sin emojis mediante micro-SVGs de estado (`#icon-rut-valid`, `#icon-rut-invalid`), bordes verde/rosa, `aria-invalid`, `aria-describedby` y región viva `#rut-live-status` (`aria-live="polite"`).
+     - Actualización del botón `#btn-confirm-payment` mediante `.textContent` y `.classList`, eliminando por completo `innerHTML` en `checkout.astro`.
+     - Precarga compartida (`applyUserProfileToCheckout`) que evita omitir el RUT tras el login rápido en checkout y auto-migra sesiones demo cacheadas del RUT anterior inválido (`18.765.432-1` -> `18.765.432-7`).
+  3. **Sincronización de Sesión Demo (`src/pages/checkout.astro` y `src/pages/auth/login.astro`):**
+     - Actualización del RUT ficticio de prueba a `18.765.432-7` (matemáticamente válido bajo Módulo 11) y del placeholder a `12.345.678-5`.
+- **Archivos clave:** `src/utils/rut.js`, `src/pages/checkout.astro`, `src/pages/auth/login.astro`, `docs/PLAN.md`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `desarrollo`: Creación del módulo puro `src/utils/rut.js`, integración reactiva en `checkout.astro`, helper unificado `applyUserProfileToCheckout`, auto-migración de demo y eliminación de `innerHTML` en `checkout.astro`.
+  - `ux-ui`: Diseño accesible del feedback en vivo en el campo de RUT (micro-SVGs de check/error, etiquetas claras en español y región `aria-live`).
+  - `qa`: Pruebas unitarias en Node sobre casos válidos, inválidos (incluyendo repetidos) y formateo (`ALL RUT TESTS PASSED`), `npm run lint` (0 errores), `npm run build` (53 páginas en 3.33s) y verificación HTTP 200 en `/checkout`.
+  - `docs-seo`: Actualización de estado, decisión y registro en `docs/HISTORIAL.md` y checklist en `docs/PLAN.md`.
+- **Notas:** Pendiente revisión final del usuario antes de auditar cierre pre-push y subir a GitHub (`develop` y `main`).
+
+### 2026-11-19 · `phase/03-cart` · desglose previo al pago y logos oficiales de pasarelas
+- **Qué:** Incorporación de tarjeta de verificación previa al pago y sellos visuales oficiales de las pasarelas de pago:
+  1. **Tarjeta de Desglose y Verificación en Paso 4 (`src/pages/checkout.astro`):**
+     - Se ubicó antes de las opciones de pago una tarjeta destacada de revisión obligatoria: *"Verifica tus datos antes de pagar"*.
+     - Se divide en 2 bloques independientes:
+       - **Destinatario & Contacto:** Muestra en vivo el Nombre completo, RUT / DNI, Email y Teléfono, con botón interactivo rápido *"Editar"* que redirige al Paso 1 con scroll suave.
+       - **Dirección & Despacho:** Muestra en vivo la Calle, Numeración y Depto, Comuna y Región oficial, Método de Envío seleccionado (Estándar, Express o Retiro en Tienda con indicación de gratuidad o tarifa) e Instrucciones/Notas de entrega, con botón interactivo rápido *"Editar"* que redirige al Paso 2.
+     - Función `updateReviewSummary()` sincronizada al activar el Paso 4.
+  2. **Sellos y Logotipos Oficiales de Medios de Pago:**
+     - **Webpay Plus (Transbank):**
+       - Insignia oficial de Webpay en rojo Transbank (`#e31b23`).
+       - Insignia de Redcompra (negro y cyan).
+       - Badge de tarjeta VISA (azul institucional).
+       - Badge de tarjeta Mastercard (círculos entrelazados rojo y naranja).
+       - Badge de "Recomendado" en ámbar.
+     - **Transferencia Bancaria Directa:**
+       - Icono de institución bancaria.
+       - Chips de bancos chilenos soportados: *BancoEstado / CuentaRUT*, *Banco de Chile*, *Santander* y *BCI*.
+       - Badge destacado de *-5% DCTO Extra*.
+     - **Mercado Pago:**
+       - Emblema oficial en cyan `#009ee3`.
+       - Etiqueta explicativa *"Dinero en cuenta · Tarjetas guardadas"*.
+  3. **Preservación de Estilos Flex Responsivos:**
+     - Se sustituyó la asignación rígida de `className` en los radio inputs por `classList.add/remove`, preservando la adaptabilidad móvil (`flex-col sm:flex-row`).
+- **Archivos clave:** `src/pages/checkout.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Diseño de la tarjeta de verificación previa al pago, composición de insignias vectoriales para Webpay, Redcompra, Visa, Mastercard, Bancos chilenos y Mercado Pago, y enlaces de edición rápida.
+  - `desarrollo`: Mapeo de datos dinámicos en `updateReviewSummary()`, sincronización con `orderData` y navegación contextual entre pasos.
+  - `qa`: Validación de compilación (`npm run build`, 53 páginas en 4.31s) y ESLint limpio al 100%.
+  - `docs-seo`: Registro de cambios y decisiones en `docs/HISTORIAL.md`.
+- **Notas:** Se evaluó técnica y arquitecturalmente la viabilidad de validar RUT mediante Módulo 11 sin APIs externas y el autocompletado de direcciones.
+
+### 2026-11-19 · `phase/03-cart` · eliminacion de compra como invitado, cupon en checkout y sesion demo
+- **Qué:** Implementación integral de los requerimientos de refinamiento comercial en el flujo de compra y pruebas:
+  1. **Eliminación Total de Compra como Invitado:**
+     - En `src/pages/checkout.astro`, se eliminó completamente la opción *"Continuar como invitado sin registrarme"* y su formulario desplegable asociado.
+     - En `src/pages/auth/login.astro`, se retiró el bloque secundario de compra anónima.
+     - El checkout ahora canaliza exclusivamente a usuarios identificados (mediante inicio de sesión rápido, registro de cuenta nueva en 1 minuto o cuenta demo de prueba).
+  2. **Cupón de Descuento en Pantalla Actual y Paso de Pago:**
+     - Se integró el formulario de cupón de descuento (`#checkout-coupon-form`) directamente en la columna lateral sticky del resumen de compra (`lg:sticky lg:top-24`).
+     - Al estar ubicado en el panel persistente que acompaña al usuario durante todo el recorrido (Paso 1 Identificación, Paso 2 Dirección, Paso 3 Despacho y Paso 4 Pago), el cliente puede aplicar o modificar su cupón en cualquier momento del proceso sin perder el contexto.
+     - Admite códigos promocionales (`MASCOTA10` y `MARKET10` para 10% de descuento, `SUPERPET15` para 15%).
+     - Recalcula dinámicamente el subtotal con descuento, el desglose de transferencia (-5% sobre el valor con cupón) y el total final en CLP, con feedback inline en verde (éxito) o rojo (error) sin alertas intrusivas.
+  3. **Sesión de Prueba (Demo) con 1 Clic para Validación de Interfaces:**
+     - Se incorporó un banner amigable en el Paso 1 de `/checkout` y un acceso rápido en `/auth/login` para cargar una **sesión de prueba con datos ficticios chilenos realistas**:
+       - Nombre: *Constanza Silva Morales*
+       - Correo: *constanza.demo@marketpet.cl*
+       - RUT: *18.765.432-1*
+       - Teléfono: *+56 9 8765 4321*
+       - Región: *Metropolitana de Santiago*
+       - Comuna: *Providencia*
+       - Dirección: *Av. Providencia 1234, Depto 502*
+       - Notas: *Dejar en conserjería con don Carlos*
+     - Si el carrito está vacío, inyecta automáticamente 2 productos representativos para que el usuario pueda validar de inmediato las interfaces del **Paso 2 (Dirección & Comuna)**, **Paso 3 (Métodos de Despacho & cálculo de envío gratis)** y **Paso 4 (Medios de Pago: Webpay, Mercado Pago, Transferencia)**.
+  4. **Erradicación de Emojis Residuales en Hero Carousel (`Carousel.astro`):**
+     - Se sustituyeron emojis de banderas y animales (`🇩🇪`, `🐱`, `🔥`) por insignias textuales refinadas (*CALIDAD CERTIFICADA · MADE IN GERMANY*, *LANZAMIENTO · CATIT GO NATURAL*, *OFERTAS FLASH DE LA SEMANA*).
+- **Archivos clave:** `src/pages/checkout.astro`, `src/pages/auth/login.astro`, `src/components/Carousel.astro`, `docs/HISTORIAL.md`
+- **Agente(s) / Skills:**
+  - `ux-ui`: Diagramación del formulario de cupón en la columna de resumen sticky, diseño del banner de sesión demo, micro-SVGs y depuración de badges en el Hero Carousel.
+  - `desarrollo`: Lógica en JavaScript nativo de validación de cupones, recálculo matemático de descuentos anidados, precarga reactiva de datos ficticios y avance automático de pasos en `/checkout`.
+  - `qa`: Verificación de consistencia del flujo sin compra de invitado, build estático limpio de 53 páginas en Astro 5+ y linter ESLint pasando al 100%.
+  - `docs-seo`: Actualización de estado y decisiones en `docs/HISTORIAL.md`.
+- **Notas:** Permite testear de punta a punta todo el checkout en menos de 5 segundos con 1 solo clic.
+
+### 2026-11-18 · `phase/03-cart` · sustitucion de emojis por micro-SVGs, validaciones robustas y login prioritario en checkout
+- **Qué:** Ajustes y refinamiento de formularios y flujo de compra según solicitudes del usuario:
+  1. **Sustitución de Emojis por Micro-SVGs en Login (`src/pages/auth/login.astro`):**
+     - Se eliminó el emoji `👁️` en los botones de visibilidad de contraseña.
+     - Se integraron **micro-SVGs lineales limpios** para alternar entre "ojo visible" y "ojo oculto tachado" en todos los campos de contraseña.
+     - Se reemplazaron emojis en los beneficios al pie (`⚡`, `🎁`, `📦`) por micro-SVGs monocromáticos de rayo, club y seguimiento.
+  2. **Depuración del Formulario de Registro:**
+     - Se removió el campo innecesario *"¿Qué mascota tienes en casa?"*.
+     - Se incorporó el campo obligatorio de **Confirmación de Contraseña** (`reg-password-confirm`) con su respectivo botón toggle SVG.
+     - Se renombró el botón de envío a exactamente **"Crear Cuenta"** (eliminando emojis y textos informales).
+  3. **Validaciones Robustas en Cliente con Feedback Inline:**
+     - Validación de correo con regex RFC 5322.
+     - Validación de nombre completo (mínimo 3 caracteres).
+     - Validación de teléfono chileno (mínimo 8 dígitos).
+     - Validación de longitud mínima de contraseña (6 caracteres).
+     - Validación de coincidencia idéntica entre contraseña y confirmación.
+     - Mensajes de error específicos bajo cada campo con borde sutil en color de alerta y accesibilidad.
+  4. **Priorización de Inicio de Sesión en Checkout (`src/pages/checkout.astro`):**
+     - El Paso 1 ahora prioriza el acceso con cuenta existente mediante mini-formulario de inicio de sesión rápido (con toggle SVG de contraseña).
+     - Si el usuario no tiene cuenta, se le presenta un bloque destacado con el botón *"Crear Cuenta"* que redirige a `/auth/login?tab=register&redirect=/checkout`.
+     - Si prefiere no registrarse en ese momento, dispone de la opción *"O continuar como invitado sin registrarme"*, que despliega los campos para comprar de inmediato sin contraseña.
+     - Si el usuario ya está autenticado en `localStorage`, se muestra la tarjeta de bienvenida con su cuenta activa y solo se le solicita el RUT para la boleta.
+  5. **Erradicación de Emojis en `CartDrawer.astro` y `carrito.astro`:**
+     - Sustitución de emojis de camión (`🚚`), bolsa (`🛍️`/`🛒`), candado (`🔒`), caja (`📦`), ticket (`🎟️`) y papelera (`🗑️`) por micro-SVGs lineales acordes al sistema de diseño.
+- **Por qué:** Solicitud detallada del usuario para garantizar consistencia visual profesional (cero emojis no justificados), validar que las contraseñas coincidan, simplificar el registro y priorizar el inicio de sesión en el checkout.
+- **Especialistas activados:**
+  - `ux-ui`: Rediseño de los toggles de contraseña con SVGs lineales, maquetación de la confirmación de contraseña y arquitectura de flujo priorizado en el Paso 1 de checkout.
+  - `desarrollo`: Implementación de lógica de validación inline en JS nativo, cálculo de coincidencia de contraseñas, toggles reactivos y bifurcación entre usuario logueado, login rápido e invitado.
+  - `qa`: Validación de `npm run lint` (0 errores) y `npm run build` (53 páginas estáticas generadas limpiamente en 4.52s).
+  - `docs-seo`: Registro de trazabilidad y decisiones en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/03-cart` · vistas /carrito, /auth/login y checkout de 4 pasos con resumen persistente
+- **Qué:** Implementación del flujo comercial completo solicitado por el usuario para la Fase 3 y preparación para Fase 4/5:
+  1. **Actualización del Plan Maestro (`docs/PLAN.md`):**
+     - Se incorporó formalmente el módulo de **Usuarios y Cuentas** en las fases del proyecto: arquitectura de sesiones seguras y tablas relacionales en servidor (Fase 4 SSR), pasarela de pago transaccional sandbox y panel de Mi Cuenta con historial de pedidos (Fase 5).
+  2. **Acceso Neutro a Cuentas en Header:**
+     - Se actualizó el botón *"Iniciar sesión"* en desktop y el drawer móvil de [src/components/Header.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/Header.astro) para dirigir a la ruta `/auth/login` con diseño neutro, accesible y micro-SVG lineal.
+     - Se incorporó script cliente que detecta la sesión activa en `localStorage` (`market_pet_user`) y actualiza el texto de forma dinámica a *"Hola, [Nombre]"* / *"Mi Cuenta ([Nombre])"*.
+  3. **Doble Botón de Acción en `CartDrawer.astro`:**
+     - Se reorganizó el footer del drawer lateral de carrito con dos botones de acción con jerarquía clara:
+       - **Botón secundario:** *"Ver Carrito"* (`href="/carrito"`), estilizado con borde sutil, fondo claro/oscuro y estado activo.
+       - **Botón primario:** *"Finalizar Compra"* (`href="/checkout"`), destacado con acento Carmín de alta conversión y micro-SVG de flecha.
+  4. **Página Completa de Bolsa de Compras (`/carrito`):**
+     - Creada en [src/pages/carrito.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/carrito.astro) con arquitectura en 2 columnas:
+       - Lista detallada de productos con fotos WebP, selector de cantidad `[-]` `[+]`, modal nativo de confirmación antes de eliminar productos y estado vacío ilustrado.
+       - Barra dinámica de Envío Gratis sobre $25.000 CLP.
+       - Formulario de cupón promocional interactivo (`MASCOTA10` aplica 10% de descuento).
+       - Panel lateral sticky con resumen de compra, desglose de costos, sellos de confianza y CTA hacia el checkout.
+  5. **Página Neutra de Autenticación (`/auth/login`):**
+     - Creada en [src/pages/auth/login.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/auth/login.astro) con interfaz limpia:
+       - Pestañas conmutables para *"Iniciar Sesión"* y *"Crear Cuenta"*.
+       - Campos de formulario: email, contraseña con visibilidad toggle, teléfono, tipo de mascota en el hogar y términos de servicio.
+       - Enlace para *"Continuar compra como invitado"* si proviene del checkout con parámetro `?redirect=/checkout`.
+       - Panel de estado si el usuario ya inició sesión con opción de cerrar sesión.
+  6. **Flujo de Checkout Multi-Paso (`/checkout`):**
+     - Creado en [src/pages/checkout.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/pages/checkout.astro) con stepper secuencial interactivo:
+       - **Paso 1: Identificación y Contacto:** nombre, RUT/DNI, email, teléfono, banner con auto-completado si ya tiene sesión y checkbox para crear cuenta.
+       - **Paso 2: Dirección de Despacho:** región y comuna de Chile, calle y número, depto y notas para el repartidor.
+       - **Paso 3: Método de Entrega:** opciones dinámicas entre Despacho Estándar ($3.990 o Gratis sobre $25.000), Despacho Express Mismo Día ($5.990) y Retiro en Tienda (Gratis).
+       - **Paso 4: Medio de Pago:** Webpay Plus (Redcompra / Tarjetas), Transferencia Bancaria (con 5% de descuento adicional aplicado automáticamente al total) y Mercado Pago.
+       - **Requisito mandatorio cumplido:** **Panel de resumen del pedido SIEMPRE VISIBLE** en columna lateral sticky, detallando miniaturas, cantidades, subtotales, costo de envío y total final en CLP.
+       - Pantalla de confirmación y orden generada (`#MP-2026-XXXX`) con vaciado automático del carrito al finalizar.
+- **Por qué:** Solicitud explícita del usuario para integrar el flujo de autenticación, dotar al carrito de dos botones ("Ver Carrito" y "Finalizar Compra"), y estructurar el checkout en 3-4 fases secuenciales con el detalle de compra visible en todo momento.
+- **Especialistas activados:**
+  - `ux-ui`: Jerarquía visual de los 4 pasos del checkout, diseño del panel lateral sticky persistente, diseño neutro de `/auth/login`, layout de `/carrito` y doble botón en `CartDrawer`.
+  - `desarrollo`: Implementación de rutas `/carrito.astro`, `/auth/login.astro`, `/checkout.astro`, componentes accesibles, eventos nativos de sincronización de `localStorage` y cálculo dinámico de envío/descuentos.
+  - `qa`: Ejecución exitosa de `npm run lint` (0 errores) y `npm run build` (53 páginas estáticas construidas en 3.75s).
+  - `docs-seo`: Actualización de la planificación en `docs/PLAN.md` (Fases 3, 4 y 5) y registro de trazabilidad en `docs/HISTORIAL.md`.
+
+### 2026-11-18 · `phase/03-cart` · integracion de micro-SVGs en drawer movil y modal de confirmacion de eliminacion
+- **Qué:** Refinamiento visual y de experiencia de usuario en la navegación móvil y el carrito de compras:
+  1. **Erradicación de Emojis en el Menú Móvil (Offcanvas Drawer):**
+     - Se reemplazaron todos los emojis (`🐾`, `🐶`, `🐱`, `🎾`, `🩺`, `🔥`) en las cabeceras de acordeones táctiles de categorías de [src/components/Header.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/Header.astro).
+     - Se integraron los mismos **micro-SVGs monocromáticos lineales profesionales** empleados en la vitrina desktop (patita, silueta canina, silueta felina, pelota interactiva, cruz médica y llama de oferta).
+  2. **Modal Reactivo de Confirmación de Eliminación (`CartDrawer.astro`):**
+     - Cuando un producto tiene cantidad 1 y el usuario presiona el botón `-` (menos), o cuando presiona directamente el icono de papelera (`data-cart-remove`), se despliega un **modal de confirmación nativo `<dialog>`** estilizado con la identidad Warm Biscuit / Warm Charcoal.
+     - Muestra la miniatura de la foto, título y precio del producto a eliminar, con advertencia amigable y dos botones:
+       - *"Cancelar"*: mantiene el producto en el carrito sin alteraciones.
+       - *"Sí, eliminar"*: remueve el producto del carrito, recalcula los totales y la barra de envío gratis, y actualiza el badge en el Header.
+     - Soporta cierre con tecla `Escape` y accesibilidad ARIA.
+- **Por qué:** Solicitud del usuario para eliminar emojis en el menú móvil manteniendo el estándar profesional de diseño y evitar eliminaciones accidentales de productos en el carrito.
+- **Especialistas activados:**
+  - `ux-ui`: Diseño del modal de confirmación con miniatura del ítem e integración de los micro-SVGs en el Drawer móvil.
+  - `desarrollo`: Implementación de `<dialog id="cart-delete-confirm-modal">`, interceptor de decremento a 1 unidad y confirmación de eliminación en JS nativo.
+  - `qa`: Comprobación con `npm run lint` (0 errores) y compilación estática limpia de las 50 páginas en 3.82s.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md`.
+- **Commit asociado:** `013991a` (`feat(cart): integra micro-SVGs profesionales en drawer movil y modal de confirmacion para eliminacion de productos`).
+
+### 2026-11-18 · `phase/03-cart` · implementacion de carrito drawer reactivo y correccion de suma doble
+- **Qué:** Implementación del **Carrito de Compras Reactivo (Drawer Lateral / Flyout)** y resolución definitiva del problema de suma doble al presionar "Agregar":
+  1. **Diagnóstico y Corrección del Bug de Suma Doble (+1 +1 = 2):**
+     - Se identificó que existían `addEventListener('click')` duplicados tanto a nivel de componente (`ProductSlider.astro`) como a nivel de página (`index.astro`, `catalogo/index.astro`, `categoria/[categoria].astro`), lo que provocaba que un único clic disparara dos listeners simultáneos incrementando el contador en 2.
+     - Se eliminaron todos los listeners dispersos y se centralizó el control en una única **delegación de eventos global** (`document.addEventListener('click')`) dentro de [src/components/CartDrawer.astro](file:///c:/Users/railg/Desktop/Astro/astro-tienda-mascotas/src/components/CartDrawer.astro), garantizando que cada clic en cualquier botón `[data-add-to-cart]` añada exactamente **1 producto** (o la cantidad elegida en la ficha de producto).
+  2. **Arquitectura del Carrito Drawer (`CartDrawer.astro`):**
+     - Drawer deslizante suave desde la derecha (`translate-x-full` a `translate-x-0`) con backdrop difuminado y cierre con botón `✕`, backdrop o tecla `Escape`.
+     - Barra de progreso dinámica para **Envío Gratis**: meta estándar de \$25.000 CLP con indicador porcentual en tiempo real ("Te faltan \$X para Envío Gratis" o "🎉 ¡Felicidades! Tienes Envío Gratis a todo Chile").
+     - Lista reactiva de productos con miniatura, nombre, precio unitario, botones de cantidad `[-] Qty [+]` y botón de papelera para eliminar.
+     - Estado vacío amigable (*Empty State*) con botón de retorno al catálogo cuando no hay ítems.
+     - Resumen inferior con subtotal, cálculo de despacho (\$3.990 o GRATIS), total en CLP, botón de vaciar carrito y botón de pago "Ir a Pagar" (con modal sandbox informativo).
+  3. **Persistencia e Integración:**
+     - Sincronización automática en `localStorage` (`market_pet_cart`) y escucha de eventos `storage` para coherencia entre pestañas.
+     - Conexión con el botón de carrito del Header (`#cart-button`) y actualización instantánea del badge de cantidad (`#cart-count-badge`).
+     - Retiro del widget `ThemeLabWidget` de `BaseLayout.astro` tras haber cumplido su función de validación de paletas.
+- **Por qué:** Cumplimiento de los requerimientos clave de la Fase 3 del ecommerce y atención inmediata a la observación del usuario sobre el incremento erróneo de 2 productos por clic.
+- **Especialistas activados:**
+  - `ux-ui`: Diseño del flyout drawer, micro-interacciones de cantidad, barra de progreso de envío gratis y estado vacío accesible con modo nocturno Warm Charcoal.
+  - `desarrollo`: Creación de `CartDrawer.astro`, unificación de la delegación de eventos en JS nativo y limpieza de listeners redundantes en 5 archivos.
+  - `qa`: Auditoría con `npm run lint` (0 errores) y compilación estática limpia de las 50 páginas con `npm run build`.
+  - `docs-seo`: Actualización de estado y decisiones en `docs/HISTORIAL.md`.
+- **Commit asociado:** `f68e785` (`feat(cart): implementa drawer interactivo de compras y resuelve bug de suma doble al agregar productos`).
+
+### 2026-11-18 · `phase/03-cart` · adopcion oficial de Warm Charcoal y calibracion integral de navbar
+- **Qué:** Establecimiento de **Warm Charcoal & Cacao** (`#141110` / `#1d1816`) como el Modo Nocturno Oficial definitivo del ecommerce y calibración cromática integral de la Navbar y componentes al 100%:
+  1. **Calibración Completa de la Navbar (Desktop y Móvil):**
+     - Nivel 1 del Header: adaptado a `#141110` con bordes cálidos `#2d2521`, buscador `#1d1816`, textos marfil `#fbf6f0` y subtítulos `#b0a297`.
+     - Nivel 2 (`<nav>` de categorías desktop): reemplazado el anterior azul pizarra `#0f172a` por la superficie cálida cacao `#1d1816` con borde `#2d2521` y hover en `#27201c`, logrando coherencia visual absoluta.
+     - Mega-Menú Split Showcase: contenedores, divisores, micro-SVGs y tarjeta promocional adaptados al esquema Warm Charcoal.
+     - Menú Drawer móvil (Offcanvas): fondo `#141110`, cabecera y selector de despacho `#1d1816`, y acordeones táctiles `#1d1816` / `#27201c`.
+  2. **Tokens Oficiales en `src/styles/global.css` y `DESIGN.md`:**
+     - La raíz nocturna oficial (`html.dark`) adopta por defecto los valores de Warm Charcoal, con variables armonizadas `--color-60-bg: #141110;` y `--color-60-surface: #1d1816;`.
+     - Las 4 paletas alternativas (`midnight-slate`, `forest-pine`, `onyx-oled`) ahora cuentan con cobertura completa de `<header nav>` y dropdowns.
+  3. **Preservación de la Metodología de Laboratorio de Colores:**
+     - Se mantiene activo el widget interactivo `ThemeLabWidget.astro` como buena práctica arquitectónica y metodología estándar documentada para este y futuros proyectos, permitiendo auditar cambios en vivo sobre cualquier categoría o producto.
+- **Por qué:** Validación y elección explícita del usuario por la paleta recomendada Warm Charcoal (en perfecta sintonía con Warm Biscuit), atendiendo el reporte visual de que la barra de navegación requería calibración completa al 100%.
+- **Especialistas activados:**
+  - `ux-ui`: Armonización cromática de la Navbar en 2 niveles, mega-menú y drawer móvil en Warm Charcoal; actualización de `DESIGN.md`.
+  - `desarrollo`: Refactorización de estilos en `Header.astro`, `Footer.astro`, `TrustBar.astro` y reglas en cascada en `global.css`.
+  - `qa`: Comprobación exhaustiva con `npm run lint` (0 errores) y `npm run build` (50 páginas compiladas en 3.96s).
+  - `docs-seo`: Documentación formal en `docs/HISTORIAL.md` de la paleta oficial y de la metodología de evaluación cromática para futuros proyectos.
+- **Commit asociado:** `268308e` (`feat(theme): calibra navbar completa al 100% y establece Warm Charcoal como modo nocturno oficial`).
+
+### 2026-11-18 · `phase/03-cart` · implementacion de DESIGN.md y laboratorio interactivo de paletas nocturnas
+- **Qué:** Integración de la especificación **Awesome Design MD** y creación de un laboratorio interactivo de evaluación de paletas oscuras:
+  1. **Contrato de Sistema de Diseño (`DESIGN.md`):**
+     - Especificación formal en la raíz del proyecto cubriendo tokens semánticos 60-30-10 para modo claro y 4 variantes nocturnas.
+     - Escala tipográfica sistemática, grilla base de espaciado (4px/8px), estándares de componentes y accesibilidad WCAG AA.
+  2. **4 Paletas de Modo Nocturno de Grado Profesional:**
+     - `1. Midnight Slate` (`#090D16` / `#0F172A`): Pizarra azulada tecnológica de alto contraste (actual por defecto).
+     - `2. Warm Charcoal` (`#141110` / `#1D1816`): Carbón cacao orgánico, afinado para la identidad Warm Biscuit.
+     - `3. Forest Pine` (`#09120E` / `#111D16`): Verde botánico profundo inspirado en naturaleza y bienestar animal.
+     - `4. Onyx OLED` (`#000000` / `#111111`): Negro puro absoluto minimalista para pantallas OLED y máximo ahorro energético.
+  3. **Widget Interactivo de Laboratorio (`ThemeLabWidget.astro`):**
+     - Widget flotante tipo píldora (`🎨 Probar Modo Nocturno`) en la esquina inferior derecha de todas las páginas (incluyendo `http://localhost:4321/categoria/cachorros?pet=perros`).
+     - Permite alternar en tiempo real entre las 4 paletas y entre Modo Claro/Oscuro con un solo clic.
+     - Persistencia síncrona en `localStorage` (`dark-theme-variant`) y blindaje anti-FOUC en `<head>` de `BaseLayout.astro`.
+- **Por qué:** Permitir al usuario explorar, comparar y validar interactivamente en vivo sobre cualquier categoría o producto las alternativas de paleta nocturna antes de consolidar la definitiva.
+- **Especialistas activados:**
+  - `ux-ui`: Dirección de arte, formulación de tokens cromáticos 60-30-10 en `DESIGN.md`, contraste WCAG AA en 4 paletas y diseño del widget flotante.
+  - `desarrollo`: Implementación de `ThemeLabWidget.astro`, reglas CSS en `src/styles/global.css` y sincronización anti-FOUC en `BaseLayout.astro`.
+  - `qa`: Verificación de `npm run lint` (0 errores) y `npm run build` (50 páginas compiladas limpias).
+  - `docs-seo`: Registro en `docs/HISTORIAL.md` y formalización de `DESIGN.md`.
+- **Commit asociado:** `250d92e` (`feat(theme): implementa DESIGN.md y widget interactivo de laboratorio de paletas nocturnas`).
+
+### 2026-11-18 · `phase/03-cart` · implementacion de modo nocturno completo y calibracion visual en todo el ecommerce
+- **Qué:** Implementación y calibración visual integral del **Modo Nocturno (Dark Mode)** en todo el ecommerce:
+  1. **Botón Toggle Interactivo Sol / Luna:**
+     - Integrado en el Header desktop al lado de 'Mi cuenta' y 'Carrito de compras' con focus accesible y micro-animación.
+     - Integrado en la cabecera del Menú Drawer móvil junto al botón de cierre para máxima conveniencia en smartphones.
+     - Script JS nativo puro (`initThemeToggles()`) sincronizado con `localStorage.getItem('theme')` y `document.documentElement.classList.toggle('dark')`.
+     - Reglas CSS puras en `src/styles/global.css` para alternancia instantánea de SVGs `.theme-icon-sun` y `.theme-icon-moon` sin FOUC ni demoras.
+  2. **Calibración Visual Completa en Componentes:**
+     - `Header.astro`: Mega-Menú Split Showcase en modo oscuro (`bg-slate-900`, `border-slate-800`, textos nítidos y tarjeta promocional adaptada), y Menú Drawer móvil completo (acordeones táctiles, selector de despacho y enlaces).
+     - `RegionModal.astro`: Fondo oscuro `dark:bg-slate-900`, selects en cascada contrastados `dark:bg-slate-800` y botones accesibles.
+     - `TrustBar.astro`: Superficie `dark:bg-[#0c121e]`, iconos con fondo carmín sutil y tipografía luminosa `dark:text-slate-100`.
+     - `CircularCategories.astro`: Título blanco puro, bordes oscuros en anillos y nombres legibles.
+     - `ProductSlider.astro`: Fondos de tarjeta `dark:bg-slate-900`, bordes oscuros, flechas de navegación y precios en blanco de alto contraste.
+     - `LifeStageBanners.astro` y `CatalogCtaBanner.astro`: Arcos y marcos con bordes `dark:border-slate-800` y descripciones en slate suave.
+     - `Footer.astro`: Variante Warm Biscuit adaptada a superficie nocturna profunda (`dark:bg-[#070b12]`), redes sociales y sellos de pago chilenos.
+  3. **Calibración en Páginas de Catálogo y Detalle:**
+     - `/catalogo`: Barra de búsqueda, píldoras de filtro rápido activas/inactivas, grilla de 22 productos y caja de estado vacío.
+     - `/categoria/[categoria]`: Banner de categoría, buscador contextual, píldoras de especie (Perros / Gatos) y grillas.
+     - `/producto/[slug]`: Ficha técnica, bloque de precios, selector de cantidad `+ / -`, puntos clave y tabla de especificaciones.
+- **Por qué:** Cumplimiento de la opción preferida por el usuario para contar con el modo nocturno completamente calibrado y operativo antes de pasar a la construcción del drawer interactivo del carrito.
+- **Especialistas activados:**
+  - `ux-ui`: Dirección de arte en modo oscuro (paleta Slate profunda `#090d16`/`#0f172a`, acentos de contraste, tipografía WCAG AA y micro-interacciones de Sol/Luna).
+  - `desarrollo`: Componentes Astro, utilidades Tailwind v4 con `@custom-variant dark`, y script vanilla JS de persistencia en localStorage.
+  - `qa`: Validación de `npm run lint` (0 errores) y compilación estática de las 50 páginas en 3.85s con `npm run build`.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md`.
+- **Commit asociado:** `9df6fec` (`feat(theme): implementa modo nocturno completo con toggle interactivo y calibracion visual en todo el ecommerce`).
+
+### 2026-11-18 · `phase/03-cart` · cierre de fase 2 y apertura de fase 3
+- **Qué:** Cierre formal de la **Fase 2: Catálogo & Contenido** y apertura de la **Fase 3: Carrito Interactivo & Modo Nocturno**:
+  1. Verificación completa de suite de calidad (`npm run lint` y `npm run build` con 50 páginas estáticas y 0 errores).
+  2. Integración de la rama `phase/02-catalog` en `develop` y posteriormente en `main` mediante merges no fast-forward (`--no-ff`).
+  3. Creación y checkout de la rama de trabajo `phase/03-cart`.
+- **Por qué:** Cumplimiento estricto del flujo de ramas y control de versiones definido en `docs/PLAN.md` (secciones 5.1 y 5.3), manteniendo la estabilidad de `main` y aislando el desarrollo del carrito interactivo y modo nocturno en su rama de fase propia.
+- **Especialistas activados:**
+  - `qa`: Ejecución de linters, verificación de compilación limpia y ausencia de secretos en el repositorio.
+  - `docs-seo`: Actualización de estado en `docs/HISTORIAL.md` y `docs/PLAN.md`.
+  - `desarrollo`: Gestión de ramas git (`develop`, `main`, `phase/03-cart`).
+- **Commit asociado:** Merges a `develop` y `main`, y commit inicial de Fase 3 en `phase/03-cart`.
 
 ### 2026-11-18 · `phase/02-catalog` · blindaje de detencion unitaria con scroll-snap-stop y swipe tactil en moviles
 - **Qué:** Solución definitiva al comportamiento del carrusel de productos en dispositivos y emuladores móviles:
