@@ -52,21 +52,41 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
     <!-- 1. Breadcrumbs accesibles -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
+    <nav
+      class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap"
+    >
+      <a
+        href="/"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Inicio</a
+      >
       <span>/</span>
-      <a href="/#ofertas" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Catálogo</a>
+      <a
+        href="/#ofertas"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Catálogo</a
+      >
       <span>/</span>
-      <span class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors capitalize">{data.category}</span>
+      <span
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors capitalize"
+        >{data.category}</span
+      >
       <span>/</span>
-      <span class="text-stone-900 dark:text-white font-bold truncate max-w-[200px] sm:max-w-none">{data.name}</span>
+      <span
+        class="text-stone-900 dark:text-white font-bold truncate max-w-[200px] sm:max-w-none"
+        >{data.name}</span
+      >
     </nav>
 
     <!-- 2. Rejilla principal del Producto (2 Columnas en Desktop) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16"
+    >
       <!-- Columna Izquierda: Imagen y Garantías (6 columnas) -->
       <div class="lg:col-span-6 space-y-4">
-        <div class="relative bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-slate-800 shadow-md overflow-hidden flex items-center justify-center aspect-square">
+        <div
+          class="relative bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-stone-200/80 dark:border-slate-800 shadow-md overflow-hidden flex items-center justify-center aspect-square"
+        >
           {
             data.badge && (
               <span
@@ -90,20 +110,44 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
 
         <!-- Barra de Confianza Rápida de Producto -->
         <div class="grid grid-cols-3 gap-3 text-center pt-2">
-          <div class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs">
+          <div
+            class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs"
+          >
             <span class="text-xl">🚀</span>
-            <p class="text-[11px] font-bold text-stone-900 dark:text-white mt-1">Despacho 24-48h</p>
-            <p class="text-[10px] text-stone-500 dark:text-slate-400">En todo Chile</p>
+            <p
+              class="text-[11px] font-bold text-stone-900 dark:text-white mt-1"
+            >
+              Despacho 24-48h
+            </p>
+            <p class="text-[10px] text-stone-500 dark:text-slate-400">
+              En todo Chile
+            </p>
           </div>
-          <div class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs">
+          <div
+            class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs"
+          >
             <span class="text-xl">🛡️</span>
-            <p class="text-[11px] font-bold text-stone-900 dark:text-white mt-1">Compra Protegida</p>
-            <p class="text-[10px] text-stone-500 dark:text-slate-400">Garantía oficial</p>
+            <p
+              class="text-[11px] font-bold text-stone-900 dark:text-white mt-1"
+            >
+              Compra Protegida
+            </p>
+            <p class="text-[10px] text-stone-500 dark:text-slate-400">
+              Garantía oficial
+            </p>
           </div>
-          <div class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs">
+          <div
+            class="bg-white/80 dark:bg-slate-800/80 p-3 rounded-2xl border border-stone-200/60 dark:border-slate-700 shadow-2xs"
+          >
             <span class="text-xl">🔄</span>
-            <p class="text-[11px] font-bold text-stone-900 dark:text-white mt-1">Cambios Fáciles</p>
-            <p class="text-[10px] text-stone-500 dark:text-slate-400">30 días de cambio</p>
+            <p
+              class="text-[11px] font-bold text-stone-900 dark:text-white mt-1"
+            >
+              Cambios Fáciles
+            </p>
+            <p class="text-[10px] text-stone-500 dark:text-slate-400">
+              30 días de cambio
+            </p>
           </div>
         </div>
       </div>
@@ -112,37 +156,59 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
       <div class="lg:col-span-6 space-y-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50">
-              {data.petType === 'perros' ? '🐶 Perros' : data.petType === 'gatos' ? '🐱 Gatos' : '🐾 Mascotas'}
+            <span
+              class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50"
+            >
+              {
+                data.petType === 'perros'
+                  ? '🐶 Perros'
+                  : data.petType === 'gatos'
+                    ? '🐱 Gatos'
+                    : '🐾 Mascotas'
+              }
             </span>
             <span class="text-xs text-stone-400 dark:text-slate-500">•</span>
-            <span class="text-xs font-semibold text-stone-500 dark:text-slate-400 uppercase tracking-wide">
+            <span
+              class="text-xs font-semibold text-stone-500 dark:text-slate-400 uppercase tracking-wide"
+            >
               {data.brand}
             </span>
           </div>
 
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight leading-tight">
+          <h1
+            class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight leading-tight"
+          >
             {data.name}
           </h1>
 
           <div class="flex items-center gap-3 mt-3">
             <div class="flex items-center gap-1 text-amber-500 text-sm">
               <span>★★★★★</span>
-              <span class="font-bold text-stone-800 dark:text-slate-200 ml-1">{data.rating}</span>
+              <span class="font-bold text-stone-800 dark:text-slate-200 ml-1"
+                >{data.rating}</span
+              >
             </div>
             <span class="text-xs text-stone-400 dark:text-slate-500">|</span>
-            <span class="text-xs text-stone-500 dark:text-slate-400 underline cursor-pointer hover:text-stone-700 dark:hover:text-stone-300">
+            <span
+              class="text-xs text-stone-500 dark:text-slate-400 underline cursor-pointer hover:text-stone-700 dark:hover:text-stone-300"
+            >
               {data.reviewsCount} reseñas verificadas
             </span>
             <span class="text-xs text-stone-400 dark:text-slate-500">|</span>
-            <span class="text-xs text-stone-500 dark:text-slate-400">SKU: <code class="font-mono">{data.sku}</code></span>
+            <span class="text-xs text-stone-500 dark:text-slate-400"
+              >SKU: <code class="font-mono">{data.sku}</code></span
+            >
           </div>
         </div>
 
         <!-- Bloque de Precios -->
-        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-stone-200/90 dark:border-slate-800 shadow-2xs space-y-2">
+        <div
+          class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-stone-200/90 dark:border-slate-800 shadow-2xs space-y-2"
+        >
           <div class="flex items-baseline gap-3">
-            <span class="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white">
+            <span
+              class="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white"
+            >
               {formatPrice(data.price)}
             </span>
             {
@@ -158,7 +224,9 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
             savings > 0 && (
               <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-xs font-bold border border-emerald-200 dark:border-emerald-900/50">
                 <span>✓</span>
-                <span>¡Ahorras {formatPrice(savings)} ({data.discount})!</span>
+                <span>
+                  ¡Ahorras {formatPrice(savings)} ({data.discount})!
+                </span>
               </div>
             )
           }
@@ -169,22 +237,33 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
         </div>
 
         <!-- Breve descripción -->
-        <p class="text-sm sm:text-base text-stone-600 dark:text-slate-300 leading-relaxed">
+        <p
+          class="text-sm sm:text-base text-stone-600 dark:text-slate-300 leading-relaxed"
+        >
           {data.description}
         </p>
 
         <!-- Indicador de Stock -->
         <div class="flex items-center gap-2 text-xs font-bold">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+          ></span>
           <span class="text-emerald-700 dark:text-emerald-400">
-            {data.stock > 0 ? `En stock (${data.stock} unidades disponibles)` : 'Agotado temporalmente'}
+            {
+              data.stock > 0
+                ? `En stock (${data.stock} unidades disponibles)`
+                : 'Agotado temporalmente'
+            }
           </span>
         </div>
 
         <!-- Selector de Cantidad y Botón Agregar al Carrito -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+        <div
+          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
+        >
           <!-- Control de Cantidad -->
-          <div class="inline-flex items-center justify-between border border-stone-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 px-3 py-2 w-full sm:w-36 shadow-2xs">
+          <div
+            class="inline-flex items-center justify-between border border-stone-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 px-3 py-2 w-full sm:w-36 shadow-2xs"
+          >
             <button
               type="button"
               id="qty-minus"
@@ -193,7 +272,10 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
             >
               -
             </button>
-            <span id="qty-value" class="font-bold text-stone-900 dark:text-white text-base">1</span>
+            <span
+              id="qty-value"
+              class="font-bold text-stone-900 dark:text-white text-base">1</span
+            >
             <button
               type="button"
               id="qty-plus"
@@ -216,7 +298,9 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
             class="flex-1 inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-xl bg-brand-primary text-white font-extrabold text-base shadow-md hover:bg-rose-700 hover:shadow-lg hover:scale-102 active:scale-98 transition-all cursor-pointer"
           >
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+              <path
+                d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+              ></path>
             </svg>
             <span class="btn-text">Agregar al Carrito</span>
           </button>
@@ -232,7 +316,9 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
               <ul class="space-y-1.5 text-xs sm:text-sm text-stone-700 dark:text-slate-300">
                 {data.features.map((feature) => (
                   <li class="flex items-start gap-2">
-                    <span class="text-rose-600 dark:text-rose-400 font-bold">✓</span>
+                    <span class="text-rose-600 dark:text-rose-400 font-bold">
+                      ✓
+                    </span>
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -250,9 +336,15 @@ const savings = data.originalPrice ? data.originalPrice - data.price : 0;
               </h3>
               <div class="bg-white dark:bg-slate-900 rounded-xl border border-stone-200/80 dark:border-slate-800 overflow-hidden text-xs">
                 {Object.entries(data.specifications).map(([key, val], idx) => (
-                  <div class={`grid grid-cols-2 p-2.5 ${idx % 2 === 0 ? 'bg-stone-50/50 dark:bg-slate-800/50' : 'bg-white dark:bg-slate-900'}`}>
-                    <span class="font-bold text-stone-600 dark:text-slate-400">{key}</span>
-                    <span class="text-stone-900 dark:text-slate-200">{val}</span>
+                  <div
+                    class={`grid grid-cols-2 p-2.5 ${idx % 2 === 0 ? 'bg-stone-50/50 dark:bg-slate-800/50' : 'bg-white dark:bg-slate-900'}`}
+                  >
+                    <span class="font-bold text-stone-600 dark:text-slate-400">
+                      {key}
+                    </span>
+                    <span class="text-stone-900 dark:text-slate-200">
+                      {val}
+                    </span>
                   </div>
                 ))}
               </div>

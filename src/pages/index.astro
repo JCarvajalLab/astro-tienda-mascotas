@@ -42,10 +42,10 @@ const productosNovedades = allProducts
     originalPrice: p.data.originalPrice,
     rating: p.data.rating,
     reviewsCount: p.data.reviewsCount,
-    badge: p.data.isNew ? '✨ NUEVO' : (p.data.badge || ''),
+    badge: p.data.isNew ? '✨ NUEVO' : p.data.badge || '',
     badgeColor: p.data.isNew
       ? 'bg-emerald-600 text-white'
-      : (p.data.badgeColor || 'bg-stone-800 text-white'),
+      : p.data.badgeColor || 'bg-stone-800 text-white',
     image: p.data.image,
     imageAlt: p.data.imageAlt,
   }));

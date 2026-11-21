@@ -8,54 +8,108 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-6 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
+    <nav
+      class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-6 overflow-x-auto whitespace-nowrap"
+    >
+      <a
+        href="/"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Inicio</a
+      >
       <span>/</span>
-      <a href="/catalogo" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Catálogo</a>
+      <a
+        href="/catalogo"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Catálogo</a
+      >
       <span>/</span>
-      <span class="text-stone-900 dark:text-white font-bold">Carrito de Compras</span>
+      <span class="text-stone-900 dark:text-white font-bold"
+        >Carrito de Compras</span
+      >
     </nav>
 
     <!-- Encabezado de Página -->
-    <div class="mb-8 pb-6 border-b border-stone-200/80 dark:border-[#2d2521] flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+    <div
+      class="mb-8 pb-6 border-b border-stone-200/80 dark:border-[#2d2521] flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+    >
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 mb-3">
-          <svg class="w-3.5 h-3.5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 mb-3"
+        >
+          <svg
+            class="w-3.5 h-3.5 stroke-current stroke-2"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            ></path>
           </svg>
           <span>BOLSA DE COMPRAS</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
+        <h1
+          class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight"
+        >
           Tu Carrito de Compras
         </h1>
         <p class="text-xs sm:text-sm text-stone-600 dark:text-[#b0a297] mt-1">
-          Revisa y ajusta los artículos para tus regalones antes de confirmar tu pedido.
+          Revisa y ajusta los artículos para tus regalones antes de confirmar tu
+          pedido.
         </p>
       </div>
 
-      <div class="text-xs font-bold text-stone-600 dark:text-[#b0a297] bg-white dark:bg-[#1d1816] px-4 py-2.5 rounded-xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs self-start sm:self-auto">
-        <span id="page-cart-item-count" class="text-stone-900 dark:text-white font-black">0</span> artículos en el carrito
+      <div
+        class="text-xs font-bold text-stone-600 dark:text-[#b0a297] bg-white dark:bg-[#1d1816] px-4 py-2.5 rounded-xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs self-start sm:self-auto"
+      >
+        <span
+          id="page-cart-item-count"
+          class="text-stone-900 dark:text-white font-black">0</span
+        > artículos en el carrito
       </div>
     </div>
 
     <!-- Barra de Beneficio: Envío Gratis -->
-    <div class="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50/70 dark:bg-[#1d1816] border border-amber-200/70 dark:border-[#2d2521] shadow-2xs">
-      <div class="flex items-center justify-between gap-3 text-xs sm:text-sm mb-2.5">
-        <div class="flex items-center gap-2 font-bold text-stone-900 dark:text-white">
-          <svg class="w-5 h-5 text-amber-500 stroke-current stroke-2 shrink-0" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5" />
+    <div
+      class="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50/70 dark:bg-[#1d1816] border border-amber-200/70 dark:border-[#2d2521] shadow-2xs"
+    >
+      <div
+        class="flex items-center justify-between gap-3 text-xs sm:text-sm mb-2.5"
+      >
+        <div
+          class="flex items-center gap-2 font-bold text-stone-900 dark:text-white"
+        >
+          <svg
+            class="w-5 h-5 text-amber-500 stroke-current stroke-2 shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75a1.125 1.125 0 00-1.125-1.125h-9a1.125 1.125 0 00-1.125 1.125v10.5"
+            ></path>
           </svg>
-          <span id="page-shipping-msg">Calculando beneficio de envío gratis...</span>
+          <span id="page-shipping-msg"
+            >Calculando beneficio de envío gratis...</span
+          >
         </div>
-        <span id="page-shipping-badge" class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white dark:bg-[#27201c] text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-[#382d27]">
+        <span
+          id="page-shipping-badge"
+          class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white dark:bg-[#27201c] text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-[#382d27]"
+        >
           Meta: $25.000
         </span>
       </div>
-      <div class="w-full h-2.5 bg-stone-200/70 dark:bg-[#27201c] rounded-full overflow-hidden p-0.5">
+      <div
+        class="w-full h-2.5 bg-stone-200/70 dark:bg-[#27201c] rounded-full overflow-hidden p-0.5"
+      >
         <div
           id="page-shipping-progress"
           class="h-full bg-gradient-to-r from-amber-500 to-rose-600 rounded-full transition-all duration-300 w-0"
-        ></div>
+        >
+        </div>
       </div>
     </div>
 
@@ -68,16 +122,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           id="page-cart-empty"
           class="hidden text-center py-16 px-4 bg-white dark:bg-[#1d1816] rounded-3xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs"
         >
-          <div class="w-20 h-20 rounded-3xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center mb-4 border border-rose-100 dark:border-rose-900/40">
-            <svg class="w-10 h-10 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          <div
+            class="w-20 h-20 rounded-3xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center mb-4 border border-rose-100 dark:border-rose-900/40"
+          >
+            <svg
+              class="w-10 h-10 stroke-current stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+              ></path>
             </svg>
           </div>
           <h2 class="text-xl font-black text-stone-900 dark:text-white">
             Tu carrito está vacío actualmente
           </h2>
-          <p class="text-xs sm:text-sm text-stone-500 dark:text-[#b0a297] mt-1.5 max-w-md mx-auto leading-relaxed">
-            Explora nuestra tienda de alimentos premium, juguetes interactivos, rascadores y accesorios para consentir a tus mascotas.
+          <p
+            class="text-xs sm:text-sm text-stone-500 dark:text-[#b0a297] mt-1.5 max-w-md mx-auto leading-relaxed"
+          >
+            Explora nuestra tienda de alimentos premium, juguetes interactivos,
+            rascadores y accesorios para consentir a tus mascotas.
           </p>
           <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
             <a
@@ -107,8 +174,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           id="page-cart-content"
           class="bg-white dark:bg-[#1d1816] rounded-3xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs overflow-hidden"
         >
-          <div class="p-4 sm:p-5 border-b border-stone-100 dark:border-[#2d2521] flex items-center justify-between">
-            <h2 class="text-base font-extrabold text-stone-900 dark:text-white flex items-center gap-2">
+          <div
+            class="p-4 sm:p-5 border-b border-stone-100 dark:border-[#2d2521] flex items-center justify-between"
+          >
+            <h2
+              class="text-base font-extrabold text-stone-900 dark:text-white flex items-center gap-2"
+            >
               <span>Productos en tu pedido</span>
             </h2>
             <button
@@ -121,7 +192,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <!-- Encabezado de tabla en desktop -->
-          <div class="hidden sm:grid grid-cols-12 gap-4 px-6 py-3 bg-stone-50/80 dark:bg-[#141110] text-[11px] font-bold uppercase tracking-wider text-stone-400 dark:text-[#b0a297] border-b border-stone-100 dark:border-[#2d2521]">
+          <div
+            class="hidden sm:grid grid-cols-12 gap-4 px-6 py-3 bg-stone-50/80 dark:bg-[#141110] text-[11px] font-bold uppercase tracking-wider text-stone-400 dark:text-[#b0a297] border-b border-stone-100 dark:border-[#2d2521]"
+          >
             <div class="col-span-6">Producto</div>
             <div class="col-span-2 text-center">Precio Unit.</div>
             <div class="col-span-2 text-center">Cantidad</div>
@@ -129,12 +202,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <!-- Items dinámicos -->
-          <ul id="page-cart-items-list" class="divide-y divide-stone-100 dark:divide-[#2d2521]">
+          <ul
+            id="page-cart-items-list"
+            class="divide-y divide-stone-100 dark:divide-[#2d2521]"
+          >
             <!-- Inyectado por JS -->
           </ul>
 
           <!-- Footer de la lista: Seguir comprando -->
-          <div class="p-4 sm:p-5 bg-stone-50/50 dark:bg-[#141110]/50 border-t border-stone-100 dark:border-[#2d2521] flex items-center justify-between">
+          <div
+            class="p-4 sm:p-5 bg-stone-50/50 dark:bg-[#141110]/50 border-t border-stone-100 dark:border-[#2d2521] flex items-center justify-between"
+          >
             <a
               href="/catalogo"
               class="inline-flex items-center gap-2 text-xs font-bold text-stone-600 dark:text-[#b0a297] hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
@@ -142,27 +220,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <span>←</span>
               <span>Continuar explorando el catálogo</span>
             </a>
-            <span class="text-[11px] text-stone-400 dark:text-stone-500 font-medium hidden sm:inline">
+            <span
+              class="text-[11px] text-stone-400 dark:text-stone-500 font-medium hidden sm:inline"
+            >
               Precios válidos con IVA incluido para Chile
             </span>
           </div>
         </div>
 
         <!-- Caja de Cupón de Descuento -->
-        <div class="p-5 bg-white dark:bg-[#1d1816] rounded-2xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div
+          class="p-5 bg-white dark:bg-[#1d1816] rounded-2xl border border-stone-200/80 dark:border-[#2d2521] shadow-2xs"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
             <div class="space-y-0.5">
-              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
-                <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-1.5"
+              >
+                <svg
+                  class="w-4 h-4 stroke-current stroke-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                  ></path>
                 </svg>
                 <span>¿Tienes un cupón de descuento?</span>
               </span>
               <p class="text-xs text-stone-500 dark:text-[#b0a297]">
-                Ingresa tu código promocional (prueba con <strong class="text-stone-700 dark:text-stone-300">MASCOTA10</strong> para un 10% OFF).
+                Ingresa tu código promocional (prueba con <strong
+                  class="text-stone-700 dark:text-stone-300">MASCOTA10</strong
+                > para un 10% OFF).
               </p>
             </div>
-            <form id="coupon-form" class="flex items-center gap-2 w-full sm:w-auto">
+            <form
+              id="coupon-form"
+              class="flex items-center gap-2 w-full sm:w-auto"
+            >
               <input
                 type="text"
                 id="coupon-input"
@@ -183,8 +282,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <!-- Columna Lateral: Resumen de Orden Sticky (lg:col-span-4) -->
       <div class="lg:col-span-4 space-y-5 lg:sticky lg:top-24">
-        <div class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 border border-stone-200/80 dark:border-[#2d2521] shadow-sm space-y-5">
-          <h2 class="text-base font-extrabold text-stone-900 dark:text-white border-b border-stone-100 dark:border-[#2d2521] pb-3">
+        <div
+          class="bg-white dark:bg-[#1d1816] rounded-3xl p-6 border border-stone-200/80 dark:border-[#2d2521] shadow-sm space-y-5"
+        >
+          <h2
+            class="text-base font-extrabold text-stone-900 dark:text-white border-b border-stone-100 dark:border-[#2d2521] pb-3"
+          >
             Resumen de tu Pedido
           </h2>
 
@@ -192,22 +295,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="space-y-3 text-xs text-stone-600 dark:text-[#b0a297]">
             <div class="flex items-center justify-between">
               <span>Subtotal productos</span>
-              <span id="summary-subtotal" class="font-bold text-stone-900 dark:text-white">$0</span>
+              <span
+                id="summary-subtotal"
+                class="font-bold text-stone-900 dark:text-white">$0</span
+              >
             </div>
-            <div id="summary-discount-row" class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold">
+            <div
+              id="summary-discount-row"
+              class="hidden flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold"
+            >
               <span>Descuento cupón (10%)</span>
               <span id="summary-discount">-$0</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="flex items-center gap-1">
                 <span>Despacho a domicilio</span>
-                <span class="text-[10px] text-stone-400 cursor-help" title="Despacho estándar en Chile">ⓘ</span>
+                <span
+                  class="text-[10px] text-stone-400 cursor-help"
+                  title="Despacho estándar en Chile">ⓘ</span
+                >
               </span>
-              <span id="summary-shipping" class="font-bold text-stone-900 dark:text-white">$3.990</span>
+              <span
+                id="summary-shipping"
+                class="font-bold text-stone-900 dark:text-white">$3.990</span
+              >
             </div>
-            <div class="pt-3 border-t border-stone-200/80 dark:border-[#2d2521] flex items-center justify-between text-base font-black text-stone-900 dark:text-white">
+            <div
+              class="pt-3 border-t border-stone-200/80 dark:border-[#2d2521] flex items-center justify-between text-base font-black text-stone-900 dark:text-white"
+            >
               <span>Total Estimado</span>
-              <span id="summary-total" class="text-xl text-rose-600 dark:text-rose-400">$0</span>
+              <span
+                id="summary-total"
+                class="text-xl text-rose-600 dark:text-rose-400">$0</span
+              >
             </div>
           </div>
 
@@ -218,16 +338,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             class="w-full py-4 px-4 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-98 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
           >
             <span>Iniciar Finalización de Compra</span>
-            <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            <svg
+              class="w-4 h-4 stroke-current stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.5 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+              ></path>
             </svg>
-            <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            <svg
+              class="w-4 h-4 stroke-current stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
             </svg>
           </a>
 
           <!-- Garantías y Beneficios -->
-          <div class="pt-4 border-t border-stone-100 dark:border-[#2d2521] space-y-2.5 text-[11px] text-stone-500 dark:text-[#b0a297]">
+          <div
+            class="pt-4 border-t border-stone-100 dark:border-[#2d2521] space-y-2.5 text-[11px] text-stone-500 dark:text-[#b0a297]"
+          >
             <div class="flex items-center gap-2">
               <span class="text-emerald-600 dark:text-emerald-400">✓</span>
               <span>Despacho gratis en compras sobre $25.000</span>
@@ -243,15 +380,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <!-- Medios de Pago Disponibles -->
-          <div class="pt-3 border-t border-stone-100 dark:border-[#2d2521] text-center">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block mb-2">
+          <div
+            class="pt-3 border-t border-stone-100 dark:border-[#2d2521] text-center"
+          >
+            <span
+              class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block mb-2"
+            >
               Medios de Pago Aceptados
             </span>
-            <div class="flex items-center justify-center gap-2 opacity-80 text-xs text-stone-600 dark:text-stone-400 font-semibold">
-              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]">Webpay</span>
-              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]">Redcompra</span>
-              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]">Visa / Master</span>
-              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]">Transferencia</span>
+            <div
+              class="flex items-center justify-center gap-2 opacity-80 text-xs text-stone-600 dark:text-stone-400 font-semibold"
+            >
+              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]"
+                >Webpay</span
+              >
+              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]"
+                >Redcompra</span
+              >
+              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]"
+                >Visa / Master</span
+              >
+              <span class="px-2 py-1 rounded bg-stone-100 dark:bg-[#27201c]"
+                >Transferencia</span
+              >
             </div>
           </div>
         </div>
@@ -265,29 +416,59 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     class="rounded-3xl p-0 bg-transparent backdrop:bg-stone-950/75 backdrop:backdrop-blur-xs select-none max-w-sm w-[90%] mx-auto my-auto z-[60]"
     aria-labelledby="page-cart-delete-title"
   >
-    <div class="bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white rounded-3xl p-6 shadow-2xl border border-stone-200 dark:border-[#2d2521] text-center space-y-4">
-      <div class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center border border-rose-100 dark:border-rose-900/40">
-        <svg class="w-7 h-7 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+    <div
+      class="bg-white dark:bg-[#1d1816] text-stone-900 dark:text-white rounded-3xl p-6 shadow-2xl border border-stone-200 dark:border-[#2d2521] text-center space-y-4"
+    >
+      <div
+        class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center border border-rose-100 dark:border-rose-900/40"
+      >
+        <svg
+          class="w-7 h-7 stroke-current stroke-2"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+          ></path>
         </svg>
       </div>
       <div class="space-y-1">
-        <h3 id="page-cart-delete-title" class="text-base font-black leading-tight text-stone-900 dark:text-white">
+        <h3
+          id="page-cart-delete-title"
+          class="text-base font-black leading-tight text-stone-900 dark:text-white"
+        >
           ¿Eliminar producto del carrito?
         </h3>
         <p class="text-xs text-stone-500 dark:text-[#b0a297] leading-relaxed">
           Vas a quitar este artículo de tu compra actual:
         </p>
       </div>
-      <div class="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] text-left">
-        <div class="w-12 h-12 rounded-xl bg-white dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center">
-          <img id="page-delete-item-img" src="/favicon.svg" alt="" class="w-full h-full object-cover rounded-lg" />
+      <div
+        class="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 dark:bg-[#141110] border border-stone-200/80 dark:border-[#2d2521] text-left"
+      >
+        <div
+          class="w-12 h-12 rounded-xl bg-white dark:bg-[#27201c] p-1 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center"
+        >
+          <img
+            id="page-delete-item-img"
+            src="/favicon.svg"
+            alt=""
+            class="w-full h-full object-cover rounded-lg"
+          />
         </div>
         <div class="min-w-0 flex-1">
-          <h4 id="page-delete-item-name" class="text-xs font-bold text-stone-900 dark:text-white leading-tight truncate">
+          <h4
+            id="page-delete-item-name"
+            class="text-xs font-bold text-stone-900 dark:text-white leading-tight truncate"
+          >
             Nombre de producto
           </h4>
-          <span id="page-delete-item-price" class="text-xs font-black text-rose-600 dark:text-rose-400 block mt-0.5">
+          <span
+            id="page-delete-item-price"
+            class="text-xs font-black text-rose-600 dark:text-rose-400 block mt-0.5"
+          >
             $0
           </span>
         </div>
@@ -332,7 +513,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   function getCart() {
     try {
       const stored = localStorage.getItem(CART_KEY);
-      return stored ? JSON.parse(stored) : [];
+      const parsed = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(parsed)) return [];
+      return parsed
+        .filter((it) => it && typeof it === 'object')
+        .map((it) => ({
+          id: typeof it.id === 'string' ? it.id.trim() : '',
+          name: typeof it.name === 'string' ? it.name.trim() : '',
+          price: Number(it.price),
+          quantity: Number(it.quantity),
+          image:
+            typeof it.image === 'string' &&
+            it.image.startsWith('/') &&
+            !it.image.startsWith('//')
+              ? it.image
+              : '/favicon.svg',
+        }))
+        .filter(
+          (it) =>
+            it.id.length > 0 &&
+            it.name.length > 0 &&
+            Number.isFinite(it.price) &&
+            it.price >= 0 &&
+            Number.isFinite(it.quantity)
+        )
+        .map((it) => ({
+          ...it,
+          quantity: Math.min(99, Math.max(1, Math.trunc(it.quantity))),
+        }));
     } catch {
       return [];
     }
@@ -342,7 +550,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     try {
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
       window.dispatchEvent(new Event('storage'));
-      window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart } }));
+      window.dispatchEvent(
+        new CustomEvent('cart-updated', { detail: { cart } })
+      );
     } catch {
       // Ignorar
     }
@@ -409,27 +619,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     const totalItems = cart.reduce((acc, it) => acc + it.quantity, 0);
     const subtotal = cart.reduce((acc, it) => acc + it.price * it.quantity, 0);
-    const discount = activeDiscountPercent > 0 ? Math.round(subtotal * (activeDiscountPercent / 100)) : 0;
+    const discount =
+      activeDiscountPercent > 0
+        ? Math.round(subtotal * (activeDiscountPercent / 100))
+        : 0;
     const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
     const shippingCost = isFreeShipping ? 0 : STANDARD_SHIPPING_COST;
-    const total = Math.max(0, subtotal - discount + (cart.length > 0 ? shippingCost : 0));
+    const total = Math.max(
+      0,
+      subtotal - discount + (cart.length > 0 ? shippingCost : 0)
+    );
 
     if (countEl) countEl.textContent = String(totalItems);
 
     // Barra de despacho gratis
     if (progressEl && shippingMsg && shippingBadge) {
-      const percentage = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));
+      const percentage = Math.min(
+        100,
+        Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100)
+      );
       progressEl.style.width = `${percentage}%`;
 
       if (subtotal >= FREE_SHIPPING_THRESHOLD) {
-        shippingMsg.textContent = '¡Felicidades! Tienes Despacho GRATIS incluido';
+        shippingMsg.textContent =
+          '¡Felicidades! Tienes Despacho GRATIS incluido';
         shippingBadge.textContent = 'Envío Gratis';
-        shippingBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-500 text-white';
+        shippingBadge.className =
+          'px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-500 text-white';
       } else {
         const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
         shippingMsg.textContent = `Agrega ${formatCLP(remaining)} más para obtener Envío Gratis`;
         shippingBadge.textContent = `Faltan ${formatCLP(remaining)}`;
-        shippingBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white dark:bg-[#27201c] text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-[#382d27]';
+        shippingBadge.className =
+          'px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white dark:bg-[#27201c] text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-[#382d27]';
       }
     }
 
@@ -458,7 +680,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       cart.forEach((item) => {
         const li = document.createElement('li');
-        li.className = 'p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-stone-50/50 dark:hover:bg-[#141110]/50';
+        li.className =
+          'p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-stone-50/50 dark:hover:bg-[#141110]/50';
 
         // Contenedor Info
         const leftBox = document.createElement('div');
@@ -466,7 +689,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         // Imagen
         const imgWrap = document.createElement('div');
-        imgWrap.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-stone-100 dark:bg-[#27201c] p-1.5 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center';
+        imgWrap.className =
+          'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-stone-100 dark:bg-[#27201c] p-1.5 border border-stone-200/60 dark:border-[#382d27] shrink-0 overflow-hidden flex items-center justify-center';
         const img = document.createElement('img');
         img.src = item.image || '/favicon.svg';
         img.alt = item.name;
@@ -478,15 +702,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         textWrap.className = 'min-w-0 flex-1';
 
         const nameHeading = document.createElement('h3');
-        nameHeading.className = 'text-xs sm:text-sm font-bold text-stone-900 dark:text-white leading-snug line-clamp-2';
+        nameHeading.className =
+          'text-xs sm:text-sm font-bold text-stone-900 dark:text-white leading-snug line-clamp-2';
         nameHeading.textContent = item.name;
 
         const subText = document.createElement('p');
-        subText.className = 'text-[11px] text-stone-500 dark:text-[#b0a297] mt-0.5';
+        subText.className =
+          'text-[11px] text-stone-500 dark:text-[#b0a297] mt-0.5';
         subText.textContent = item.variant || 'Presentación oficial';
 
         const unitPriceMobile = document.createElement('span');
-        unitPriceMobile.className = 'sm:hidden text-xs font-bold text-rose-600 dark:text-rose-400 mt-1 block';
+        unitPriceMobile.className =
+          'sm:hidden text-xs font-bold text-rose-600 dark:text-rose-400 mt-1 block';
         unitPriceMobile.textContent = formatCLP(item.price);
 
         textWrap.appendChild(nameHeading);
@@ -498,31 +725,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         // Controles de cantidad y precio (Desktop & Mobile)
         const rightBox = document.createElement('div');
-        rightBox.className = 'flex items-center justify-between sm:justify-end gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-100 dark:border-[#2d2521]';
+        rightBox.className =
+          'flex items-center justify-between sm:justify-end gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-100 dark:border-[#2d2521]';
 
         // Precio unitario desktop
         const unitPriceDesktop = document.createElement('div');
-        unitPriceDesktop.className = 'hidden sm:block text-xs font-bold text-stone-700 dark:text-stone-300 w-20 text-center';
+        unitPriceDesktop.className =
+          'hidden sm:block text-xs font-bold text-stone-700 dark:text-stone-300 w-20 text-center';
         unitPriceDesktop.textContent = formatCLP(item.price);
 
         // Selector [-] [qty] [+]
         const qtyWrap = document.createElement('div');
-        qtyWrap.className = 'flex items-center rounded-xl border border-stone-200 dark:border-[#382d27] bg-stone-50 dark:bg-[#27201c] p-0.5';
+        qtyWrap.className =
+          'flex items-center rounded-xl border border-stone-200 dark:border-[#382d27] bg-stone-50 dark:bg-[#27201c] p-0.5';
 
         const minusBtn = document.createElement('button');
         minusBtn.type = 'button';
-        minusBtn.className = 'w-7 h-7 flex items-center justify-center rounded-lg text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-[#1d1816] transition-colors font-black text-sm cursor-pointer';
+        minusBtn.className =
+          'w-7 h-7 flex items-center justify-center rounded-lg text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-[#1d1816] transition-colors font-black text-sm cursor-pointer';
         minusBtn.textContent = '−';
-        minusBtn.setAttribute('aria-label', `Disminuir cantidad de ${item.name}`);
+        minusBtn.setAttribute(
+          'aria-label',
+          `Disminuir cantidad de ${item.name}`
+        );
         minusBtn.addEventListener('click', () => updateQuantity(item.id, -1));
 
         const qtySpan = document.createElement('span');
-        qtySpan.className = 'w-8 text-center text-xs font-black text-stone-900 dark:text-white select-none';
+        qtySpan.className =
+          'w-8 text-center text-xs font-black text-stone-900 dark:text-white select-none';
         qtySpan.textContent = String(item.quantity);
 
         const plusBtn = document.createElement('button');
         plusBtn.type = 'button';
-        plusBtn.className = 'w-7 h-7 flex items-center justify-center rounded-lg text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-[#1d1816] transition-colors font-black text-sm cursor-pointer';
+        plusBtn.className =
+          'w-7 h-7 flex items-center justify-center rounded-lg text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-[#1d1816] transition-colors font-black text-sm cursor-pointer';
         plusBtn.textContent = '+';
         plusBtn.setAttribute('aria-label', `Aumentar cantidad de ${item.name}`);
         plusBtn.addEventListener('click', () => updateQuantity(item.id, 1));
@@ -533,15 +769,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         // Subtotal de línea
         const lineTotal = document.createElement('div');
-        lineTotal.className = 'text-xs sm:text-sm font-black text-stone-900 dark:text-white w-20 sm:text-right';
+        lineTotal.className =
+          'text-xs sm:text-sm font-black text-stone-900 dark:text-white w-20 sm:text-right';
         lineTotal.textContent = formatCLP(item.price * item.quantity);
 
-        // Botón eliminar papelera
+        // Botón eliminar papelera (SVG seguro sin innerHTML)
         const deleteBtn = document.createElement('button');
         deleteBtn.type = 'button';
-        deleteBtn.className = 'p-1.5 rounded-lg text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer';
-        deleteBtn.setAttribute('aria-label', `Eliminar ${item.name} del carrito`);
-        deleteBtn.innerHTML = '<svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>';
+        deleteBtn.className =
+          'p-1.5 rounded-lg text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer';
+        deleteBtn.setAttribute(
+          'aria-label',
+          `Eliminar ${item.name} del carrito`
+        );
+        const svgNs = 'http://www.w3.org/2000/svg';
+        const trashSvg = document.createElementNS(svgNs, 'svg');
+        trashSvg.setAttribute('class', 'w-4 h-4 stroke-current stroke-2');
+        trashSvg.setAttribute('fill', 'none');
+        trashSvg.setAttribute('viewBox', '0 0 24 24');
+        const trashPath = document.createElementNS(svgNs, 'path');
+        trashPath.setAttribute('stroke-linecap', 'round');
+        trashPath.setAttribute('stroke-linejoin', 'round');
+        trashPath.setAttribute(
+          'd',
+          'M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0'
+        );
+        trashSvg.appendChild(trashPath);
+        deleteBtn.appendChild(trashSvg);
         deleteBtn.addEventListener('click', () => showDeleteConfirmation(item));
 
         rightBox.appendChild(unitPriceDesktop);
@@ -568,9 +822,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     if (shippingEl) {
-      shippingEl.textContent = isFreeShipping ? '¡GRATIS!' : formatCLP(STANDARD_SHIPPING_COST);
+      shippingEl.textContent = isFreeShipping
+        ? '¡GRATIS!'
+        : formatCLP(STANDARD_SHIPPING_COST);
       if (isFreeShipping) {
-        shippingEl.className = 'font-black text-emerald-600 dark:text-emerald-400';
+        shippingEl.className =
+          'font-black text-emerald-600 dark:text-emerald-400';
       } else {
         shippingEl.className = 'font-bold text-stone-900 dark:text-white';
       }
@@ -590,7 +847,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     // Vaciar carrito
     const clearBtn = document.getElementById('page-clear-cart-btn');
     clearBtn?.addEventListener('click', () => {
-      if (confirm('¿Estás seguro de que deseas vaciar todos los productos de tu carrito?')) {
+      if (
+        confirm(
+          '¿Estás seguro de que deseas vaciar todos los productos de tu carrito?'
+        )
+      ) {
         saveCart([]);
       }
     });
@@ -625,16 +886,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       if (code === 'MASCOTA10') {
         activeDiscountPercent = 10;
-        feedback.textContent = '✓ ¡Cupón MASCOTA10 aplicado con éxito! 10% de descuento incluido.';
-        feedback.className = 'text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-2 block';
+        feedback.textContent =
+          '✓ ¡Cupón MASCOTA10 aplicado con éxito! 10% de descuento incluido.';
+        feedback.className =
+          'text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-2 block';
       } else if (code === '') {
         activeDiscountPercent = 0;
         feedback.textContent = 'Por favor ingresa un código de descuento.';
-        feedback.className = 'text-xs font-bold text-amber-600 dark:text-amber-400 mt-2 block';
+        feedback.className =
+          'text-xs font-bold text-amber-600 dark:text-amber-400 mt-2 block';
       } else {
         activeDiscountPercent = 0;
-        feedback.textContent = '✕ El código ingresado no es válido o ha expirado.';
-        feedback.className = 'text-xs font-bold text-rose-600 dark:text-rose-400 mt-2 block';
+        feedback.textContent =
+          '✕ El código ingresado no es válido o ha expirado.';
+        feedback.className =
+          'text-xs font-bold text-rose-600 dark:text-rose-400 mt-2 block';
       }
       renderCartPage();
     });

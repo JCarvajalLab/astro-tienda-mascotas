@@ -21,7 +21,9 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
   <div
     class="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-12 sm:py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
   >
-    {/* Columna Izquierda: Información, Beneficios y Formulario (7 columnas en desktop) */}
+    {
+      /* Columna Izquierda: Información, Beneficios y Formulario (7 columnas en desktop) */
+    }
     <div class="lg:col-span-7 space-y-5 sm:space-y-6">
       <div
         class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider backdrop-blur-md border border-white/25"
@@ -40,11 +42,12 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
         class="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed max-w-2xl"
       >
         Recibe promociones exclusivas,{' '}
-        <span class="text-amber-300 font-bold underline decoration-amber-300/50">
+        <span
+          class="text-amber-300 font-bold underline decoration-amber-300/50"
+        >
           descuentos de hasta $5.000*
         </span>{' '}
-        y consejos prácticos de veterinarios certificados para consentir a tus
-        peluditos.
+        y consejos prácticos de veterinarios certificados para consentir a tus peluditos.
       </p>
 
       {/* 3 Micro-beneficios con checks */}
@@ -57,7 +60,8 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
         >
-          <span class="text-amber-300 font-bold">⚡</span> Promociones y descuentos flash
+          <span class="text-amber-300 font-bold">⚡</span> Promociones y descuentos
+          flash
         </span>
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/25 text-white/95 text-xs sm:text-sm font-semibold backdrop-blur-xs border border-white/10"
@@ -108,19 +112,27 @@ import imgClubBienvenida from '../assets/club-mascotas-bienvenida.jpg';
         </div>
 
         {/* Letra pequeña y disclaimer de privacidad */}
-        <div class="space-y-1 text-white/75 text-[11px] sm:text-xs leading-relaxed">
+        <div
+          class="space-y-1 text-white/75 text-[11px] sm:text-xs leading-relaxed"
+        >
           <p>
-            *Cupón de $5.000 aplicable en tu primera compra online por compras mayores a $40.000.
+            *Cupón de $5.000 aplicable en tu primera compra online por compras
+            mayores a $40.000.
           </p>
           <p class="flex items-center gap-1.5 text-white/65">
             <span>🔒</span>
-            <span>Cero spam. Respetamos tu privacidad y puedes cancelar en cualquier momento con un clic.</span>
+            <span
+              >Cero spam. Respetamos tu privacidad y puedes cancelar en
+              cualquier momento con un clic.</span
+            >
           </p>
         </div>
       </form>
     </div>
 
-    {/* Columna Derecha: Fotografía Limpia de Mascotas (5 columnas en desktop, sin badge encima) */}
+    {
+      /* Columna Derecha: Fotografía Limpia de Mascotas (5 columnas en desktop, sin badge encima) */
+    }
     <div class="lg:col-span-5 flex justify-center lg:justify-end">
       <div
         class="w-full max-w-sm sm:max-w-md lg:max-w-lg rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 transform hover:scale-102 transition-transform duration-300"

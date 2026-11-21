@@ -21,38 +21,72 @@ function formatPrice(amount) {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
+    <nav
+      class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap"
+    >
+      <a
+        href="/"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Inicio</a
+      >
       <span>/</span>
-      <span class="text-stone-900 dark:text-white font-bold">Catálogo Completo</span>
+      <span class="text-stone-900 dark:text-white font-bold"
+        >Catálogo Completo</span
+      >
     </nav>
 
     <!-- Encabezado de Catálogo -->
-    <div class="mb-8 pb-6 border-b border-stone-200/80 dark:border-slate-800 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <div
+      class="mb-8 pb-6 border-b border-stone-200/80 dark:border-slate-800 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+    >
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 mb-3">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 mb-3"
+        >
           🐾 TIENDA ONLINE
         </div>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
+        <h1
+          class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight"
+        >
           Catálogo de Productos para Mascotas
         </h1>
-        <p class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 mt-1 max-w-2xl">
-          Nutrición de alta gama, accesorios de confort, higiene y juguetes seleccionados para cuidar a tus peluditos en todo Chile.
+        <p
+          class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 mt-1 max-w-2xl"
+        >
+          Nutrición de alta gama, accesorios de confort, higiene y juguetes
+          seleccionados para cuidar a tus peluditos en todo Chile.
         </p>
       </div>
 
-      <div class="text-xs font-bold text-stone-500 dark:text-slate-400 bg-white/80 dark:bg-slate-800/80 px-4 py-2 rounded-xl border border-stone-200/80 dark:border-slate-700 self-start md:self-auto shadow-2xs">
-        <span id="product-count" class="text-stone-900 dark:text-white font-black">{allProducts.length}</span> productos encontrados
+      <div
+        class="text-xs font-bold text-stone-500 dark:text-slate-400 bg-white/80 dark:bg-slate-800/80 px-4 py-2 rounded-xl border border-stone-200/80 dark:border-slate-700 self-start md:self-auto shadow-2xs"
+      >
+        <span
+          id="product-count"
+          class="text-stone-900 dark:text-white font-black"
+          >{allProducts.length}</span
+        > productos encontrados
       </div>
     </div>
 
     <!-- Barra de Búsqueda y Filtros Rápidos -->
-    <div class="mb-8 space-y-4 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-stone-200/80 dark:border-slate-800 shadow-2xs">
+    <div
+      class="mb-8 space-y-4 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-stone-200/80 dark:border-slate-800 shadow-2xs"
+    >
       <!-- Input de Búsqueda Principal -->
       <div class="relative w-full">
-        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 dark:text-slate-500">
-          <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <span
+          class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 dark:text-slate-500"
+        >
+          <svg
+            class="w-4 h-4 stroke-current stroke-2"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </span>
         <input
@@ -72,9 +106,14 @@ function formatPrice(amount) {
       </div>
 
       <!-- Filtros Rápidos y Ordenamiento -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100 dark:border-slate-800">
+      <div
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100 dark:border-slate-800"
+      >
         <!-- Píldoras de filtro -->
-        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0" id="filter-pet-buttons">
+        <div
+          class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0"
+          id="filter-pet-buttons"
+        >
           <button
             type="button"
             data-filter="todos"
@@ -128,7 +167,11 @@ function formatPrice(amount) {
 
         <!-- Selector de Ordenamiento -->
         <div class="flex items-center gap-2 text-xs shrink-0">
-          <label for="sort-select" class="font-bold text-stone-600 dark:text-slate-400 whitespace-nowrap">Ordenar por:</label>
+          <label
+            for="sort-select"
+            class="font-bold text-stone-600 dark:text-slate-400 whitespace-nowrap"
+            >Ordenar por:</label
+          >
           <select
             id="sort-select"
             class="px-3 py-1.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-800 dark:text-slate-100 font-semibold focus:bg-white dark:focus:bg-slate-900 focus:border-rose-500 focus:outline-none cursor-pointer"
@@ -153,14 +196,19 @@ function formatPrice(amount) {
             class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-stone-200/90 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-500 hover:shadow-lg transition-all duration-200 group overflow-hidden"
             data-pet={prod.data.petType}
             data-offer={prod.data.isOffer ? 'true' : 'false'}
-            data-is-pack={prod.data.categorySlug === 'packs-promocionales' || prod.data.name.toLowerCase().includes('pack') ? 'true' : 'false'}
+            data-is-pack={
+              prod.data.categorySlug === 'packs-promocionales' ||
+              prod.data.name.toLowerCase().includes('pack')
+                ? 'true'
+                : 'false'
+            }
             data-name={prod.data.name.toLowerCase()}
             data-category={prod.data.category.toLowerCase()}
             data-category-slug={prod.data.categorySlug || ''}
             data-price={prod.data.price}
             data-rating={prod.data.rating}
           >
-            <!-- Imagen con enlace al detalle -->
+            {/* Imagen con enlace al detalle */}
             <a
               href={`/producto/${prod.data.slug}`}
               class="relative aspect-square w-full bg-stone-50 dark:bg-slate-800 overflow-hidden flex items-center justify-center block cursor-pointer"
@@ -184,7 +232,7 @@ function formatPrice(amount) {
               />
             </a>
 
-            <!-- Contenido del Producto -->
+            {/* Contenido del Producto */}
             <div class="p-3.5 sm:p-4 flex flex-col flex-1">
               <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-slate-400 mb-1 truncate">
                 {prod.data.category}
@@ -201,8 +249,12 @@ function formatPrice(amount) {
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                 <span>★</span>
-                <span class="font-bold text-stone-700 dark:text-slate-300">{prod.data.rating}</span>
-                <span class="text-stone-400 dark:text-slate-500 text-[10px]">({prod.data.reviewsCount})</span>
+                <span class="font-bold text-stone-700 dark:text-slate-300">
+                  {prod.data.rating}
+                </span>
+                <span class="text-stone-400 dark:text-slate-500 text-[10px]">
+                  ({prod.data.reviewsCount})
+                </span>
               </div>
 
               <div class="pt-2.5 border-t border-stone-100 dark:border-slate-800 flex flex-col gap-2 mt-auto">
@@ -234,7 +286,10 @@ function formatPrice(amount) {
                   class="add-to-cart-btn w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                   aria-label={`Añadir ${prod.data.name} al carrito`}
                 >
-                  <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                  <svg
+                    class="w-4 h-4 fill-current shrink-0"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                   </svg>
                   <span class="btn-text">Agregar al carrito</span>
@@ -247,10 +302,17 @@ function formatPrice(amount) {
     </div>
 
     <!-- Mensaje cuando no hay resultados tras un filtro -->
-    <div id="no-results" class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-8 shadow-xs">
+    <div
+      id="no-results"
+      class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-8 shadow-xs"
+    >
       <span class="text-4xl">🔍</span>
-      <h3 class="text-lg font-bold text-stone-900 dark:text-white mt-3">No encontramos productos en esta selección</h3>
-      <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-1">Prueba seleccionando otro filtro o revisa todo el catálogo.</p>
+      <h3 class="text-lg font-bold text-stone-900 dark:text-white mt-3">
+        No encontramos productos en esta selección
+      </h3>
+      <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-1">
+        Prueba seleccionando otro filtro o revisa todo el catálogo.
+      </p>
       <button
         type="button"
         id="btn-reset-filters"
@@ -410,9 +472,19 @@ function formatPrice(amount) {
     btn.addEventListener('click', () => {
       filterButtons.forEach((b) => {
         b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
-        b.classList.add('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
+        b.classList.add(
+          'bg-stone-100',
+          'dark:bg-slate-800',
+          'text-stone-700',
+          'dark:text-slate-200'
+        );
       });
-      btn.classList.remove('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
+      btn.classList.remove(
+        'bg-stone-100',
+        'dark:bg-slate-800',
+        'text-stone-700',
+        'dark:text-slate-200'
+      );
       btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
 
       currentFilter = btn.getAttribute('data-filter') || 'todos';
@@ -449,7 +521,9 @@ function formatPrice(amount) {
   }
 
   if (filtroParam) {
-    const targetBtn = document.querySelector(`[data-filter="${filtroParam}"]`);
+    const targetBtn = Array.from(filterButtons).find(
+      (btn) => btn.getAttribute('data-filter') === filtroParam
+    );
     if (targetBtn) {
       targetBtn.click();
     } else {

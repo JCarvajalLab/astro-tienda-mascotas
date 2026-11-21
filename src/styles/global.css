@@ -23,7 +23,7 @@ html:not(.dark) .theme-icon-moon {
 
 :root {
   /* 60% Dominante (Lienzo & Superficie) */
-  --color-60-bg: #FAF7F2; /* Lienzo cálido Warm Biscuit ultra-suave y orgánico */
+  --color-60-bg: #faf7f2; /* Lienzo cálido Warm Biscuit ultra-suave y orgánico */
   --color-60-surface: #ffffff; /* Blanco puro en tarjetas y modales para relieve tridimensional */
 
   /* 30% Estructural (Contraste, Textos & Bordes) */
@@ -73,7 +73,9 @@ html.dark[data-dark-theme='warm-charcoal'] header nav {
 html.dark .nav-dropdown > div,
 html.dark[data-dark-theme='warm-charcoal'] .nav-dropdown > div,
 html.dark aside#mobile-nav-drawer > div:first-child,
-html.dark[data-dark-theme='warm-charcoal'] aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='warm-charcoal']
+  aside#mobile-nav-drawer
+  > div:first-child,
 html.dark .mobile-accordion-item,
 html.dark[data-dark-theme='warm-charcoal'] .mobile-accordion-item {
   background-color: #1d1816 !important;
@@ -164,7 +166,9 @@ html.dark[data-dark-theme='forest-pine'] .bg-canvas {
 }
 html.dark[data-dark-theme='forest-pine'] header nav,
 html.dark[data-dark-theme='forest-pine'] .nav-dropdown > div,
-html.dark[data-dark-theme='forest-pine'] aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='forest-pine']
+  aside#mobile-nav-drawer
+  > div:first-child,
 html.dark[data-dark-theme='forest-pine'] .mobile-accordion-item {
   background-color: #111d16 !important;
   border-color: #1c3024 !important;
@@ -206,7 +210,9 @@ html.dark[data-dark-theme='onyx-oled'] .bg-canvas {
 }
 html.dark[data-dark-theme='onyx-oled'] header nav,
 html.dark[data-dark-theme='onyx-oled'] .nav-dropdown > div,
-html.dark[data-dark-theme='onyx-oled'] aside#mobile-nav-drawer > div:first-child,
+html.dark[data-dark-theme='onyx-oled']
+  aside#mobile-nav-drawer
+  > div:first-child,
 html.dark[data-dark-theme='onyx-oled'] .mobile-accordion-item {
   background-color: #0d0d0d !important;
   border-color: #262626 !important;

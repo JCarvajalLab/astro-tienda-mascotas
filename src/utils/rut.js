@@ -66,7 +66,7 @@ export function validateRut(value) {
   const body = cleaned.slice(0, -1);
   const dv = cleaned.slice(-1);
 
-  if (!/^\d{6,8}$/.test(body) || !/^[0-9K]$/.test(dv)) return false;
+  if (!/^[1-9]\d{5,7}$/.test(body) || !/^[0-9K]$/.test(dv)) return false;
   if (/^(\d)\1+$/.test(body) || Number(body) < 100000) return false;
 
   return calculateRutDv(body) === dv;

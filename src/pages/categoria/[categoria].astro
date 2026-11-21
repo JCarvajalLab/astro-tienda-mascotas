@@ -9,19 +9,22 @@ export async function getStaticPaths() {
   const categoriesMap = {
     perros: {
       title: 'Productos para Perros',
-      subtitle: 'Nutrición, camas ortopédicas, arneses y snacks para el mejor amigo del hogar',
+      subtitle:
+        'Nutrición, camas ortopédicas, arneses y snacks para el mejor amigo del hogar',
       icon: '🐶',
       filter: (p) => p.data.petType === 'perros' || p.data.petType === 'todas',
     },
     gatos: {
       title: 'Productos para Gatos',
-      subtitle: 'Alimento gourmet, rascadores, snacks cremosos y bienestar para tu felino',
+      subtitle:
+        'Alimento gourmet, rascadores, snacks cremosos y bienestar para tu felino',
       icon: '🐱',
       filter: (p) => p.data.petType === 'gatos' || p.data.petType === 'todas',
     },
     'alimentos-perro': {
       title: 'Alimentos para Perro',
-      subtitle: 'Nutrición premium equilibrada con proteínas de alto valor biológico',
+      subtitle:
+        'Nutrición premium equilibrada con proteínas de alto valor biológico',
       icon: '🍖',
       filter: (p) => p.data.categorySlug === 'alimentos-perro',
     },
@@ -33,13 +36,15 @@ export async function getStaticPaths() {
     },
     'camas-confort': {
       title: 'Camas & Confort',
-      subtitle: 'Camas viscoelásticas, mantas y descanso reparador para mascotas',
+      subtitle:
+        'Camas viscoelásticas, mantas y descanso reparador para mascotas',
       icon: '🛏️',
       filter: (p) => p.data.categorySlug === 'camas-confort',
     },
     'rascadores-camas': {
       title: 'Rascadores & Torres',
-      subtitle: 'Postes de sisal natural y torres de juego para proteger tus muebles',
+      subtitle:
+        'Postes de sisal natural y torres de juego para proteger tus muebles',
       icon: '🪵',
       filter: (p) => p.data.categorySlug === 'rascadores-camas',
     },
@@ -51,19 +56,22 @@ export async function getStaticPaths() {
     },
     'paseo-seguridad': {
       title: 'Paseo & Seguridad',
-      subtitle: 'Arneses reflectantes, correas ergonómicas y accesorios de paseo',
+      subtitle:
+        'Arneses reflectantes, correas ergonómicas y accesorios de paseo',
       icon: '🦮',
       filter: (p) => p.data.categorySlug === 'paseo-seguridad',
     },
     'smart-pet': {
       title: 'Smart Pet & Tecnología',
-      subtitle: 'Comederos automáticos WiFi, fuentes inteligentes y dispositivos modernos',
+      subtitle:
+        'Comederos automáticos WiFi, fuentes inteligentes y dispositivos modernos',
       icon: '📱',
       filter: (p) => p.data.categorySlug === 'smart-pet',
     },
     'viajes-paseo': {
       title: 'Viajes & Transporte',
-      subtitle: 'Mochilas panorámicas, transportadoras y seguridad para salir de viaje',
+      subtitle:
+        'Mochilas panorámicas, transportadoras y seguridad para salir de viaje',
       icon: '🎒',
       filter: (p) => p.data.categorySlug === 'viajes-paseo',
     },
@@ -75,19 +83,24 @@ export async function getStaticPaths() {
     },
     'packs-promocionales': {
       title: 'Packs Promocionales & Ahorro',
-      subtitle: 'Combos inteligentes de bienvenida, higiene, paseo y confort para consentir a tu mascota con hasta 32% de ahorro',
+      subtitle:
+        'Combos inteligentes de bienvenida, higiene, paseo y confort para consentir a tu mascota con hasta 32% de ahorro',
       icon: '🎁',
-      filter: (p) => p.data.categorySlug === 'packs-promocionales' || p.data.category.toLowerCase().includes('pack'),
+      filter: (p) =>
+        p.data.categorySlug === 'packs-promocionales' ||
+        p.data.category.toLowerCase().includes('pack'),
     },
     'higiene-cuidados': {
       title: 'Higiene & Cuidados',
-      subtitle: 'Arenas sanitarias de bentonita blanca, shampoos dermoprotectores y bienestar',
+      subtitle:
+        'Arenas sanitarias de bentonita blanca, shampoos dermoprotectores y bienestar',
       icon: '🧼',
       filter: (p) => p.data.categorySlug === 'higiene-cuidados',
     },
     cachorros: {
       title: 'Especial Cachorros & Gatitos',
-      subtitle: 'Nutrición para primeras etapas, juguetes de apego, mantas térmicas y combos de bienvenida para sus primeros pasos',
+      subtitle:
+        'Nutrición para primeras etapas, juguetes de apego, mantas térmicas y combos de bienvenida para sus primeros pasos',
       icon: '🍼',
       filter: (p) => {
         const stage = p.data.lifeStage || '';
@@ -109,7 +122,8 @@ export async function getStaticPaths() {
     },
     adultos: {
       title: 'Especial Compañeros Adultos',
-      subtitle: 'Nutrición balanceada premium, arneses ergonómicos, rascadores y accesorios para su mejor momento',
+      subtitle:
+        'Nutrición balanceada premium, arneses ergonómicos, rascadores y accesorios para su mejor momento',
       icon: '🐕',
       filter: (p) => {
         const stage = p.data.lifeStage || '';
@@ -128,7 +142,8 @@ export async function getStaticPaths() {
     },
     seniors: {
       title: 'Especial Fiel Amigo Senior (7+)',
-      subtitle: 'Suplementos articulares con glucosamina, camas ortopédicas memory foam y nutrición adaptada para su máxima comodidad',
+      subtitle:
+        'Suplementos articulares con glucosamina, camas ortopédicas memory foam y nutrición adaptada para su máxima comodidad',
       icon: '🤍',
       filter: (p) => {
         const stage = p.data.lifeStage || '';
@@ -148,7 +163,8 @@ export async function getStaticPaths() {
     },
     accesorios: {
       title: 'Accesorios para Mascotas',
-      subtitle: 'Arneses ergonómicos, collares de seguridad, camas viscoelásticas, comederos WiFi y transportadoras de viaje',
+      subtitle:
+        'Arneses ergonómicos, collares de seguridad, camas viscoelásticas, comederos WiFi y transportadoras de viaje',
       icon: '🎾',
       filter: (p) => {
         const catSlug = p.data.categorySlug || '';
@@ -174,7 +190,8 @@ export async function getStaticPaths() {
     },
     'farmacia-salud': {
       title: 'Farmacia, Salud & Bienestar',
-      subtitle: 'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
+      subtitle:
+        'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
       icon: '🩺',
       filter: (p) => {
         const catSlug = p.data.categorySlug || '';
@@ -199,7 +216,8 @@ export async function getStaticPaths() {
     },
     farmacia: {
       title: 'Farmacia, Salud & Bienestar',
-      subtitle: 'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
+      subtitle:
+        'Suplementos articulares para seniors, shampoos hipoalergénicos con extracto de avena, cuidado dental e higiene',
       icon: '🩺',
       filter: (p) => {
         const catSlug = p.data.categorySlug || '';
@@ -224,7 +242,8 @@ export async function getStaticPaths() {
     },
     suplementos: {
       title: 'Suplementos & Salud Articular',
-      subtitle: 'Glucosamina pura con MSM, condroprotectores y suplementos articulares para vitalidad y movilidad',
+      subtitle:
+        'Glucosamina pura con MSM, condroprotectores y suplementos articulares para vitalidad y movilidad',
       icon: '💊',
       filter: (p) => {
         const name = (p.data.name || '').toLowerCase();
@@ -240,41 +259,73 @@ export async function getStaticPaths() {
     },
     dermocosmetica: {
       title: 'Dermocosmética & Cuidado de Piel',
-      subtitle: 'Shampoos hipoalergénicos con extracto de avena, alivio de picazón y cuidado del pelaje',
+      subtitle:
+        'Shampoos hipoalergénicos con extracto de avena, alivio de picazón y cuidado del pelaje',
       icon: '🧴',
       filter: (p) => {
         const name = (p.data.name || '').toLowerCase();
         const slug = (p.data.slug || '').toLowerCase();
-        return name.includes('shampoo') || slug.includes('shampoo') || slug.includes('avena');
+        return (
+          name.includes('shampoo') ||
+          slug.includes('shampoo') ||
+          slug.includes('avena')
+        );
       },
     },
     ofertas: {
       title: 'Ofertas Flash & Descuentos',
-      subtitle: 'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
+      subtitle:
+        'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
       icon: '🔥',
       filter: (p) => {
         const hasDiscount = Boolean(p.data.discount);
-        const hasOriginalPrice = Boolean(p.data.originalPrice && p.data.originalPrice > p.data.price);
-        const isPack = (p.data.category || '').toLowerCase().includes('pack') || p.data.categorySlug === 'packs-promocionales';
-        const isOfferBadge = (p.data.badge || '').toLowerCase().includes('off') || (p.data.badge || '').toLowerCase().includes('oferta');
-        return hasDiscount || hasOriginalPrice || isPack || isOfferBadge || p.data.isOffer === true;
+        const hasOriginalPrice = Boolean(
+          p.data.originalPrice && p.data.originalPrice > p.data.price
+        );
+        const isPack =
+          (p.data.category || '').toLowerCase().includes('pack') ||
+          p.data.categorySlug === 'packs-promocionales';
+        const isOfferBadge =
+          (p.data.badge || '').toLowerCase().includes('off') ||
+          (p.data.badge || '').toLowerCase().includes('oferta');
+        return (
+          hasDiscount ||
+          hasOriginalPrice ||
+          isPack ||
+          isOfferBadge ||
+          p.data.isOffer === true
+        );
       },
     },
     'ofertas-flash': {
       title: 'Ofertas Flash & Descuentos',
-      subtitle: 'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
+      subtitle:
+        'Descuentos exclusivos de hasta 32% OFF en alimentos seleccionados, packs de bienvenida, accesorios y combos mensuales',
       icon: '🔥',
       filter: (p) => {
         const hasDiscount = Boolean(p.data.discount);
-        const hasOriginalPrice = Boolean(p.data.originalPrice && p.data.originalPrice > p.data.price);
-        const isPack = (p.data.category || '').toLowerCase().includes('pack') || p.data.categorySlug === 'packs-promocionales';
-        const isOfferBadge = (p.data.badge || '').toLowerCase().includes('off') || (p.data.badge || '').toLowerCase().includes('oferta');
-        return hasDiscount || hasOriginalPrice || isPack || isOfferBadge || p.data.isOffer === true;
+        const hasOriginalPrice = Boolean(
+          p.data.originalPrice && p.data.originalPrice > p.data.price
+        );
+        const isPack =
+          (p.data.category || '').toLowerCase().includes('pack') ||
+          p.data.categorySlug === 'packs-promocionales';
+        const isOfferBadge =
+          (p.data.badge || '').toLowerCase().includes('off') ||
+          (p.data.badge || '').toLowerCase().includes('oferta');
+        return (
+          hasDiscount ||
+          hasOriginalPrice ||
+          isPack ||
+          isOfferBadge ||
+          p.data.isOffer === true
+        );
       },
     },
     mascotas: {
       title: 'Especial Etapas de Vida (Perros & Gatos)',
-      subtitle: 'Nutrición, suplementación y cuidados seleccionados para cachorros, gatitos, adultos y seniors',
+      subtitle:
+        'Nutrición, suplementación y cuidados seleccionados para cachorros, gatitos, adultos y seniors',
       icon: '🐾',
       filter: (p) => {
         const stage = p.data.lifeStage || '';
@@ -326,32 +377,58 @@ function formatPrice(amount) {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Inicio</a>
+    <nav
+      class="flex items-center gap-2 text-xs text-stone-500 dark:text-slate-400 mb-6 overflow-x-auto whitespace-nowrap"
+    >
+      <a
+        href="/"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Inicio</a
+      >
       <span>/</span>
-      <a href="/catalogo" class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Catálogo</a>
+      <a
+        href="/catalogo"
+        class="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+        >Catálogo</a
+      >
       <span>/</span>
       <span class="text-stone-900 dark:text-white font-bold">{meta.title}</span>
     </nav>
 
     <!-- Banner Encabezado de la Categoría -->
-    <div class="mb-8 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div
+      class="mb-8 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+    >
       <div class="space-y-2">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50"
+        >
           <span>{meta.icon}</span>
           <span>CATEGORÍA DESTACADA</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
+        <h1
+          class="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight"
+        >
           {meta.title}
         </h1>
-        <p class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 max-w-xl leading-relaxed">
+        <p
+          class="text-xs sm:text-sm text-stone-600 dark:text-slate-400 max-w-xl leading-relaxed"
+        >
           {meta.subtitle}
         </p>
       </div>
 
-      <div class="bg-[#FAF7F2] dark:bg-slate-800 p-4 rounded-2xl border border-[#E8E2D9] dark:border-slate-700 text-center shrink-0 self-start md:self-auto min-w-[140px]">
-        <span id="category-banner-count" class="block text-3xl font-black text-stone-900 dark:text-white leading-none">{products.length}</span>
-        <span class="text-[11px] font-bold text-stone-500 dark:text-slate-400 uppercase tracking-wider mt-1 block">
+      <div
+        class="bg-[#FAF7F2] dark:bg-slate-800 p-4 rounded-2xl border border-[#E8E2D9] dark:border-slate-700 text-center shrink-0 self-start md:self-auto min-w-[140px]"
+      >
+        <span
+          id="category-banner-count"
+          class="block text-3xl font-black text-stone-900 dark:text-white leading-none"
+          >{products.length}</span
+        >
+        <span
+          class="text-[11px] font-bold text-stone-500 dark:text-slate-400 uppercase tracking-wider mt-1 block"
+        >
           Productos disponibles
         </span>
       </div>
@@ -362,10 +439,22 @@ function formatPrice(amount) {
         <div class="mb-8 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-stone-200/80 dark:border-slate-800 shadow-xs">
           <div class="flex flex-col sm:flex-row items-center gap-3">
             <div class="relative w-full flex-1">
-              <label for="category-search-input" class="sr-only">Buscar en {meta.title}</label>
+              <label for="category-search-input" class="sr-only">
+                Buscar en {meta.title}
+              </label>
               <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 dark:text-slate-500">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
                 </svg>
               </div>
               <input
@@ -384,7 +473,12 @@ function formatPrice(amount) {
             </div>
 
             <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 shrink-0">
-              <label for="category-sort-select" class="text-xs font-semibold text-stone-500 dark:text-slate-400 whitespace-nowrap">Ordenar por:</label>
+              <label
+                for="category-sort-select"
+                class="text-xs font-semibold text-stone-500 dark:text-slate-400 whitespace-nowrap"
+              >
+                Ordenar por:
+              </label>
               <select
                 id="category-sort-select"
                 class="px-3 py-2 bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-xl text-xs font-bold text-stone-700 dark:text-slate-200 focus:outline-none focus:border-rose-400 cursor-pointer"
@@ -397,9 +491,11 @@ function formatPrice(amount) {
             </div>
           </div>
 
-          <!-- Fila 2: Píldoras de Filtro Rápido por Mascota -->
+          {/* Fila 2: Píldoras de Filtro Rápido por Mascota */}
           <div class="mt-3 pt-3 border-t border-stone-100 dark:border-slate-800 flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-            <span class="text-stone-400 dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1">Filtrar:</span>
+            <span class="text-stone-400 dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1">
+              Filtrar:
+            </span>
             <button
               type="button"
               class="category-pet-filter-btn px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer bg-rose-600 text-white shadow-xs"
@@ -423,12 +519,26 @@ function formatPrice(amount) {
             </button>
           </div>
 
-          <!-- Contador reactivo -->
+          {/* Contador reactivo */}
           <div class="mt-3 pt-3 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between text-xs text-stone-500 dark:text-slate-400">
             <span>
-              Mostrando <strong id="category-visible-count" class="text-stone-900 dark:text-white font-bold">{products.length}</strong> de <strong class="text-stone-900 dark:text-white font-bold">{products.length}</strong> productos
+              Mostrando{' '}
+              <strong
+                id="category-visible-count"
+                class="text-stone-900 dark:text-white font-bold"
+              >
+                {products.length}
+              </strong>{' '}
+              de{' '}
+              <strong class="text-stone-900 dark:text-white font-bold">
+                {products.length}
+              </strong>{' '}
+              productos
             </span>
-            <a href="/catalogo" class="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-bold hover:underline">
+            <a
+              href="/catalogo"
+              class="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-bold hover:underline"
+            >
               Ver todo el catálogo →
             </a>
           </div>
@@ -440,7 +550,10 @@ function formatPrice(amount) {
     {
       products.length > 0 ? (
         <>
-          <div id="category-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div
+            id="category-products-grid"
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+          >
             {products.map((prod) => (
               <article
                 class="category-product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-stone-200/90 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-500 hover:shadow-lg transition-all duration-200 group overflow-hidden"
@@ -488,8 +601,12 @@ function formatPrice(amount) {
 
                   <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                     <span>★</span>
-                    <span class="font-bold text-stone-700 dark:text-slate-300">{prod.data.rating}</span>
-                    <span class="text-stone-400 dark:text-slate-500 text-[10px]">({prod.data.reviewsCount})</span>
+                    <span class="font-bold text-stone-700 dark:text-slate-300">
+                      {prod.data.rating}
+                    </span>
+                    <span class="text-stone-400 dark:text-slate-500 text-[10px]">
+                      ({prod.data.reviewsCount})
+                    </span>
                   </div>
 
                   <div class="pt-2.5 border-t border-stone-100 dark:border-slate-800 flex flex-col gap-2 mt-auto">
@@ -517,11 +634,16 @@ function formatPrice(amount) {
                       data-product-id={prod.data.id}
                       data-product-name={prod.data.name}
                       data-product-price={prod.data.price}
-                      data-product-image={prod.data.image?.src || prod.data.image}
+                      data-product-image={
+                        prod.data.image?.src || prod.data.image
+                      }
                       class="add-to-cart-btn w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                       aria-label={`Añadir ${prod.data.name} al carrito`}
                     >
-                      <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                      <svg
+                        class="w-4 h-4 fill-current shrink-0"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H4.35a2.25 2.25 0 012.18-1.75h10.97a3 3 0 002.894-2.21l1.5-5.75a.75.75 0 00-.724-.94H5.614l-.45-1.688A1.875 1.875 0 003.386 2.25H2.25zM6.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                       </svg>
                       <span class="btn-text">Agregar al carrito</span>
@@ -532,7 +654,7 @@ function formatPrice(amount) {
             ))}
           </div>
 
-          <!-- Estado Vacío cuando la búsqueda no arroja resultados en esta categoría -->
+          {/* Estado Vacío cuando la búsqueda no arroja resultados en esta categoría */}
           <div
             id="category-no-results"
             class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-8 shadow-xs"
@@ -544,7 +666,8 @@ function formatPrice(amount) {
               No encontramos productos coincidentes
             </h3>
             <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 max-w-md mx-auto mb-6">
-              No hay productos en esta categoría que coincidan con tu búsqueda. Prueba con otro término o explora el catálogo completo.
+              No hay productos en esta categoría que coincidan con tu búsqueda.
+              Prueba con otro término o explora el catálogo completo.
             </p>
             <div class="flex items-center justify-center gap-3">
               <button
@@ -566,8 +689,12 @@ function formatPrice(amount) {
       ) : (
         <div class="text-center py-16 bg-white rounded-3xl border border-stone-200/80 p-8 shadow-xs">
           <span class="text-4xl">🐾</span>
-          <h3 class="text-lg font-bold text-stone-900 mt-3">Pronto tendremos más productos aquí</h3>
-          <p class="text-xs sm:text-sm text-stone-500 mt-1">Estamos renovando el stock de esta categoría.</p>
+          <h3 class="text-lg font-bold text-stone-900 mt-3">
+            Pronto tendremos más productos aquí
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-1">
+            Estamos renovando el stock de esta categoría.
+          </p>
           <a
             href="/catalogo"
             class="mt-4 inline-block px-6 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition-colors"
@@ -585,7 +712,9 @@ function formatPrice(amount) {
   const searchInput = document.getElementById('category-search-input');
   const clearBtn = document.getElementById('clear-category-search-btn');
   const sortSelect = document.getElementById('category-sort-select');
-  const petFilterButtons = document.querySelectorAll('.category-pet-filter-btn');
+  const petFilterButtons = document.querySelectorAll(
+    '.category-pet-filter-btn'
+  );
   const cards = Array.from(document.querySelectorAll('.category-product-card'));
   const grid = document.getElementById('category-products-grid');
   const noResults = document.getElementById('category-no-results');
@@ -665,9 +794,19 @@ function formatPrice(amount) {
     btn.addEventListener('click', () => {
       petFilterButtons.forEach((b) => {
         b.classList.remove('bg-rose-600', 'text-white', 'shadow-xs');
-        b.classList.add('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
+        b.classList.add(
+          'bg-stone-100',
+          'dark:bg-slate-800',
+          'text-stone-700',
+          'dark:text-slate-200'
+        );
       });
-      btn.classList.remove('bg-stone-100', 'dark:bg-slate-800', 'text-stone-700', 'dark:text-slate-200');
+      btn.classList.remove(
+        'bg-stone-100',
+        'dark:bg-slate-800',
+        'text-stone-700',
+        'dark:text-slate-200'
+      );
       btn.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
 
       currentPetFilter = btn.getAttribute('data-pet-filter') || 'todos';
@@ -718,7 +857,8 @@ function formatPrice(amount) {
 
   // Inicializar filtro de mascota y búsqueda desde parámetros URL si existen (ej. ?pet=perros o ?q=glucosamina)
   const urlParams = new URLSearchParams(window.location.search);
-  const petParam = urlParams.get('pet') || urlParams.get('mascota') || urlParams.get('filtro');
+  const petParam =
+    urlParams.get('pet') || urlParams.get('mascota') || urlParams.get('filtro');
   const queryParam = urlParams.get('q') || urlParams.get('search');
 
   if (queryParam && searchInput) {
@@ -728,7 +868,9 @@ function formatPrice(amount) {
   }
 
   if (petParam) {
-    const targetPetBtn = document.querySelector(`[data-pet-filter="${petParam}"]`);
+    const targetPetBtn = Array.from(petFilterButtons).find(
+      (btn) => btn.getAttribute('data-pet-filter') === petParam
+    );
     if (targetPetBtn) {
       targetPetBtn.click();
     } else {

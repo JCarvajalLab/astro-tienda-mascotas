@@ -65,14 +65,18 @@ const ogImageURL = new URL(
       (() => {
         try {
           const storedTheme = localStorage.getItem('theme');
-          const storedVariant = localStorage.getItem('dark-theme-variant') || 'warm-charcoal';
+          const storedVariant =
+            localStorage.getItem('dark-theme-variant') || 'warm-charcoal';
           if (storedTheme === 'dark') {
             document.documentElement.classList.add('dark');
           } else {
             document.documentElement.classList.remove('dark');
           }
           if (storedVariant) {
-            document.documentElement.setAttribute('data-dark-theme', storedVariant);
+            document.documentElement.setAttribute(
+              'data-dark-theme',
+              storedVariant
+            );
           }
         } catch (_) {}
       })();

@@ -114,7 +114,9 @@ const regionesYComunas = [
       >
         Escoge dónde recibir tus compras
       </h3>
-      <p class="text-sm text-stone-600 dark:text-slate-300 mt-2 leading-relaxed">
+      <p
+        class="text-sm text-stone-600 dark:text-slate-300 mt-2 leading-relaxed"
+      >
         Así puedes ver el mejor precio y tiempo de envío, también promociones y
         novedades de tu tienda más cercana.
       </p>
@@ -139,7 +141,12 @@ const regionesYComunas = [
             <option value="" disabled selected>Selecciona una región</option>
             {
               regionesYComunas.map((item) => (
-                <option value={item.region} class="bg-white dark:bg-slate-900 text-stone-900 dark:text-slate-100">{item.region}</option>
+                <option
+                  value={item.region}
+                  class="bg-white dark:bg-slate-900 text-stone-900 dark:text-slate-100"
+                >
+                  {item.region}
+                </option>
               ))
             }
           </select>
@@ -270,9 +277,14 @@ const regionesYComunas = [
       const selectedRegName = selectRegion.value;
       const found = regionesYComunas.find((r) => r.region === selectedRegName);
 
-      // Limpiar opciones anteriores
-      selectComuna.innerHTML =
-        '<option value="" disabled selected>Selecciona tu comuna</option>';
+      // Limpiar opciones anteriores de forma segura sin innerHTML
+      selectComuna.replaceChildren();
+      const placeholderOpt = document.createElement('option');
+      placeholderOpt.value = '';
+      placeholderOpt.disabled = true;
+      placeholderOpt.selected = true;
+      placeholderOpt.textContent = 'Selecciona tu comuna';
+      selectComuna.appendChild(placeholderOpt);
 
       if (found && found.comunas.length > 0) {
         found.comunas.forEach((com) => {
@@ -316,7 +328,9 @@ const regionesYComunas = [
         if (headerRegionText) {
           headerRegionText.textContent = `${comuna}`;
         }
-        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
+        const mobileDrawerRegionText = document.getElementById(
+          'mobile-drawer-region-text'
+        );
         if (mobileDrawerRegionText) {
           mobileDrawerRegionText.textContent = `${comuna}`;
         }
@@ -336,8 +350,11 @@ const regionesYComunas = [
       const parsed = JSON.parse(saved);
       if (parsed.comuna) {
         if (headerRegionText) headerRegionText.textContent = `${parsed.comuna}`;
-        const mobileDrawerRegionText = document.getElementById('mobile-drawer-region-text');
-        if (mobileDrawerRegionText) mobileDrawerRegionText.textContent = `${parsed.comuna}`;
+        const mobileDrawerRegionText = document.getElementById(
+          'mobile-drawer-region-text'
+        );
+        if (mobileDrawerRegionText)
+          mobileDrawerRegionText.textContent = `${parsed.comuna}`;
       }
     }
   } catch (e) {

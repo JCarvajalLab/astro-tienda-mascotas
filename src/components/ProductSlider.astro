@@ -19,16 +19,10 @@ function formatPrice(amount) {
 }
 ---
 
-<section
-  id={id}
-  class="py-10 sm:py-12 select-none"
-  aria-label={title}
->
+<section id={id} class="py-10 sm:py-12 select-none" aria-label={title}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Encabezado de la fila con flechas de navegación a la derecha -->
-    <div
-      class="flex items-end justify-between mb-5 sm:mb-6 gap-3"
-    >
+    <div class="flex items-end justify-between mb-5 sm:mb-6 gap-3">
       <div class="min-w-0 flex-1">
         {
           badge && (
@@ -46,7 +40,9 @@ function formatPrice(amount) {
         </h2>
         {
           subtitle && (
-            <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">{subtitle}</p>
+            <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">
+              {subtitle}
+            </p>
           )
         }
       </div>
@@ -144,7 +140,9 @@ function formatPrice(amount) {
 
               <div class="flex items-center gap-1 text-[11px] text-amber-500 mb-2">
                 <span>★</span>
-                <span class="font-bold text-stone-700 dark:text-slate-300">{prod.rating}</span>
+                <span class="font-bold text-stone-700 dark:text-slate-300">
+                  {prod.rating}
+                </span>
                 <span class="text-stone-400 dark:text-slate-500 text-[10px]">
                   ({prod.reviewsCount})
                 </span>
@@ -212,8 +210,8 @@ function formatPrice(amount) {
       const firstCard = cards[0];
       const secondCard = cards[1];
       const cardDistance = secondCard
-        ? (secondCard.offsetLeft - firstCard.offsetLeft)
-        : (firstCard.offsetWidth + 12);
+        ? secondCard.offsetLeft - firstCard.offsetLeft
+        : firstCard.offsetWidth + 12;
 
       // En móviles y vista reducida (< 768px, alineado con el breakpoint md del menú móvil):
       // Avanzar exactamente 1 producto a la vez
@@ -252,28 +250,40 @@ function formatPrice(amount) {
     let touchStartY = 0;
     let touchStartTime = 0;
 
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      touchStartTime = Date.now();
-    }, { passive: true });
+    track.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      },
+      { passive: true }
+    );
 
-    track.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      const duration = Date.now() - touchStartTime;
+    track.addEventListener(
+      'touchend',
+      (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const duration = Date.now() - touchStartTime;
 
-      // Si fue un swipe horizontal claro y rápido
-      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && duration < 500) {
-        if (deltaX < 0) {
-          scrollSlider('next');
-        } else {
-          scrollSlider('prev');
+        // Si fue un swipe horizontal claro y rápido
+        if (
+          Math.abs(deltaX) > 35 &&
+          Math.abs(deltaX) > Math.abs(deltaY) * 1.3 &&
+          duration < 500
+        ) {
+          if (deltaX < 0) {
+            scrollSlider('next');
+          } else {
+            scrollSlider('prev');
+          }
         }
-      }
-    }, { passive: true });
+      },
+      { passive: true }
+    );
 
     // Actualiza la disponibilidad visual de los botones de navegación
     function updateArrowStates() {
